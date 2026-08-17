@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+}
+
+.ContainerModal {
+    position: relative;
+    width: 30%;
+    height: 80%;
+    background-color: #1E1D2E;
+}
+
+.MontechLogo {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 25px;
+}
+
+.MontechImg{
+    width: 100px;
+}
+
+.fechar {
+    color: #8F8EA4;
+    font-size: 28px;
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.TituloSecaoDois {
+    width: 75%;
+    margin: 50px auto 3.5% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Titulo {
+    font-family: 'Space Grotesk';
+    line-height: 80px;
+    font-size: 75px;
+}
+
+.CorpoSecaoDois {
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Corpo {
+    font-family: 'Inter';
+    font-size: 32px;
+}

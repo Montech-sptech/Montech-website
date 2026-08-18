@@ -29,7 +29,7 @@
             <div class="MontechLogo">
                 <img src="../imagens/longLigthLogo.svg" class="MontechImg">
             </div>
-            <div class="CadastroTitle">
+            <div class="AutenticarTitle">
                 <h1>Criar Conta</h1>
             </div>
 
@@ -62,10 +62,44 @@
                     </div>
                 </div>
 
-                <button class="BotaoCadastro" onclick="cadastrar()">CRIAR CONTA</button>
+                <button class="BotaoAutenticar" onclick="cadastrar()">CRIAR CONTA</button>
 
                 <p class="LoginTexto">Já tem uma conta?
                     <span onclick="modalLogin()">Entrar</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modalLogin" class="modal">
+        <div class="ContainerModalLogin">
+            <span class="fechar" id="fecharModalLogin">&times;</span>
+            <div class="MontechLogo">
+                <img src="../imagens/longLigthLogo.svg" class="MontechImg">
+            </div>
+            <div class="AutenticarTitle">
+                <h1>Entrar na Conta</h1>
+            </div>
+
+            <div class="inputSection">
+                <div class="InputContainer" id="InputContainerLogin">
+                    <label>E-MAIL</label>
+                    <input type="email" id="email" placeholder="seu@gmail.com">
+                </div>
+
+                <div class="InputContainer">
+                    <label>SENHA</label>
+                    <div class="PasswordContainer">
+                        <input type="password" id="senhaLogin" placeholder="••••••••">
+                        <img src="../imagens/closedEye.png" class="EyeIcon" id="eyeSenhaLogin"
+                            onclick="mostrarSenha('senhaLogin', 'eyeSenhaLogin')">
+                    </div>
+                </div>
+
+                <button class="BotaoAutenticar" onclick="logar()">CRIAR CONTA</button>
+
+                <p class="LoginTexto" id="LoginTextoLogin">Não tem acesso?
+                    <span onclick="modalCadastro()">Criar conta</span>
                 </p>
             </div>
         </div>

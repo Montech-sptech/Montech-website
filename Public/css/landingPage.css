@@ -21,8 +21,9 @@
 .ContainerModal {
     position: relative;
     width: 30%;
-    height: 80%;
+    height: 95%;
     background-color: #1E1D2E;
+    border: 2.5px solid #343245;
 }
 
 .MontechLogo {
@@ -31,10 +32,99 @@
     align-items: center;
     flex-direction: row;
     margin-top: 25px;
+    margin-left: 25px;
 }
 
 .MontechImg{
-    width: 100px;
+    width: 250px;
+}
+
+.inputSection {
+    width: 75%;
+    margin: 35px auto 0 auto;
+}
+
+.InputContainer {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.InputContainer label {
+    display: block;
+    margin-bottom: 8px;
+    color: #8F8EA4;
+    font-family: 'Inter';
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.InputContainer input{
+    width: 100%;
+    height: 57px;
+    padding: 0 18px;
+    background-color: #272638;
+    border: 2px solid #343245;
+    color: white;
+    font-family: 'Inter';
+    font-size: 18px;
+    outline: none;
+}
+
+.PasswordContainer{
+    position: relative;
+    width: 100%;
+}
+
+.PasswordContainer input{
+    padding-right: 55px;
+}
+
+.EyeIcon{
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    width: 21px;
+    height: 21px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.BotaoCadastro{
+    width: 100%;
+    height: 62px;
+    margin-top: -5px;
+    border: none;
+    background-color: #393080;
+    color: white;
+    font-family: 'Barlow Condensed';
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.LoginTexto{
+    text-align: center;
+    color: #8F8EA4;
+    font-family: 'Inter';
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.LoginTexto span{
+    color: #8F8EA4;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.CadastroTitle {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 50px;
+    color: white;
+    margin-top: 25px;
+    font-family: 'Barlow Condensed';
 }
 
 .fechar {

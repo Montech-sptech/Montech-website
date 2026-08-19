@@ -20,8 +20,24 @@
 </head>
 
 <body>
-    <button onclick="modalCadastro()">cadastro</button>
-    <button onclick="modalLogin()">login</button>
+
+    <nav class="NavBar">
+        <div class="NavLogo">
+            <img src="../imagens/longLigthLogo.svg" class="NavLogoImg" alt="MonTech">
+        </div>
+        
+        <ul class="NavLinks">
+            <li><a href="#secaoDois">Sobre</a></li>
+            <li><a href="#containerSecaoQuatro">Funcionalidades</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+        
+        <div class="NavActions">
+            <span class="NavEntrar" onclick="modalLogin()">Entrar</span>
+            <span class="NavDivisor"></span>
+            <button class="BotaoCriarConta" onclick="modalCadastro()">CRIAR CONTA</button>
+        </div>
+    </nav>
 
     <div id="modalCadastro" class="modal">
         <div class="ContainerModal">

@@ -3,6 +3,175 @@
     padding: 0;
     box-sizing: border-box;
 }
+ 
+.navBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 6%;
+    background-color: #1E1D2E;
+    border-bottom: 1px solid #343245;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+ 
+.navLogo {
+    display: flex;
+    align-items: center;
+}
+ 
+.navLogoImg {
+    height: 50px;
+    width: auto;
+}
+ 
+.navLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+}
+ 
+.navLinks a {
+    font-family: 'Inter';
+    font-size: 14px;
+    color: #8F8EA4;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+ 
+.navLinks a:hover {
+    color: #FFFFFF;
+}
+ 
+.navActions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+ 
+.navEntrar {
+    font-family: 'Inter';
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+ 
+.navDivisor {
+    width: 1px;
+    height: 20px;
+    background-color: #343245;
+}
+ 
+.botaoCriarConta {
+    height: 38px;
+    padding: 0 18px;
+    border: none;
+    background-color: #393080;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+}
+ 
+.botaoCriarConta:hover {
+    background-color: #453b96;
+}
+ 
+ 
+.containerSecaoUm {
+    width: 100%;
+    padding: 5% 6%;
+    background-color: #1E1D2E;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+ 
+.conteudoSecaoUm {
+    max-width: 560px;
+}
+ 
+.tituloSecaoUm {
+    font-family: 'Space Grotesk';
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.15;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+ 
+.corpoSecaoUm {
+    font-family: 'Inter';
+    font-size: 15px;
+    line-height: 1.6;
+    color: #8F8EA4;
+    max-width: 400px;
+    margin-bottom: 32px;
+}
+ 
+.botoesSecaoUm {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+ 
+.botaoVerPlataforma {
+    height: 48px;
+    padding: 0 26px;
+    border: none;
+    background-color: #FFFFFF;
+    color: #1E1D2E;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+ 
+.botaoVerPlataforma:hover {
+    background-color: #e9e9ee;
+}
+ 
+.botaoComoFunciona {
+    height: 48px;
+    padding: 0 4px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #343245;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+ 
+.botaoComoFunciona:hover {
+    border-bottom-color: #8F8EA4;
+}
+ 
+.SetaBotaoComoFunciona {
+    font-family: 'Inter';
+}
+
+.visualSecaoUm {
+    flex-shrink: 0;
+    width: 45%;
+    max-width: 460px;
+}
+ 
+.visualSecaoUmImg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 
 .modal {
     display: none;
@@ -332,6 +501,7 @@
 }
 
 @media (max-width: 920px) {
+    
 
     #tituloSecaoQuatro{
         line-height: 40px;
@@ -367,4 +537,8 @@
         margin-bottom: 20px;
     }
 
+}
+
+html {
+  scroll-behavior: smooth; 
 }

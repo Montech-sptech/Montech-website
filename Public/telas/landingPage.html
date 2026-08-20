@@ -40,38 +40,38 @@
     </nav>
 
     <div id="modalCadastro" class="modal">
-        <div class="ContainerModal">
+        <div class="containerModal">
             <span class="fechar" id="fecharModalCadastro">&times;</span>
-            <div class="MontechLogo">
-                <img src="../imagens/longLigthLogo.svg" class="MontechImg">
+            <div class="montechLogo">
+                <img src="../imagens/longLigthLogo.svg" class="montechImg">
             </div>
-            <div class="AutenticarTitle">
+            <div class="autenticarTitle">
                 <h1>Criar Conta</h1>
             </div>
 
-            <div class="inputSection">
-                <div class="InputContainer">
+            <div class="secaoInput">
+                <div class="inputContainer">
                     <label>NOME</label>
                     <input type="text" id="nome" placeholder="Seu nome completo">
                 </div>
 
-                <div class="InputContainer">
+                <div class="inputContainer">
                     <label>E-MAIL</label>
                     <input type="email" id="email" placeholder="seu@gmail.com">
                 </div>
 
-                <div class="InputContainer">
+                <div class="inputContainer">
                     <label>SENHA</label>
-                    <div class="PasswordContainer">
+                    <div class="containerSenha">
                         <input type="password" id="senha" placeholder="••••••••">
                         <img src="../imagens/closedEye.png" class="EyeIcon" id="eyeSenha"
                             onclick="mostrarSenha('senha', 'eyeSenha')">
                     </div>
                 </div>
 
-                <div class="InputContainer">
+                <div class="inputContainer">
                     <label>Confirmar Senha</label>
-                    <div class="PasswordContainer">
+                    <div class="containerSenha">
                         <input type="password" id="confirmarSenha" placeholder="••••••••">
                         <img src="../imagens/closedEye.png" class="EyeIcon" id="eyeConfirmarSenha"
                             onclick="mostrarSenha('confirmarSenha', 'eyeConfirmarSenha')">
@@ -80,7 +80,7 @@
 
                 <button class="BotaoAutenticar" onclick="cadastrar()">CRIAR CONTA</button>
 
-                <p class="LoginTexto">Já tem uma conta?
+                <p class="loginTexto">Já tem uma conta?
                     <span onclick="modalLogin()">Entrar</span>
                 </p>
             </div>
@@ -93,28 +93,28 @@
             <div class="MontechLogo">
                 <img src="../imagens/longLigthLogo.svg" class="MontechImg">
             </div>
-            <div class="AutenticarTitle">
+            <div class="autenticarTitle">
                 <h1>Entrar na Conta</h1>
             </div>
 
             <div class="inputSection">
-                <div class="InputContainer" id="InputContainerLogin">
+                <div class="inputContainer" id="inputContainerLogin">
                     <label>E-MAIL</label>
                     <input type="email" id="email" placeholder="seu@gmail.com">
                 </div>
 
-                <div class="InputContainer">
+                <div class="inputContainer">
                     <label>SENHA</label>
-                    <div class="PasswordContainer">
+                    <div class="containerSenha">
                         <input type="password" id="senhaLogin" placeholder="••••••••">
                         <img src="../imagens/closedEye.png" class="EyeIcon" id="eyeSenhaLogin"
                             onclick="mostrarSenha('senhaLogin', 'eyeSenhaLogin')">
                     </div>
                 </div>
 
-                <button class="BotaoAutenticar" onclick="logar()">CRIAR CONTA</button>
+                <button class="botaoAutenticar" onclick="logar()">CRIAR CONTA</button>
 
-                <p class="LoginTexto" id="LoginTextoLogin">Não tem acesso?
+                <p class="loginTexto" id="loginTextoLogin">Não tem acesso?
                     <span onclick="modalCadastro()">Criar conta</span>
                 </p>
             </div>
@@ -140,12 +140,12 @@
 
 
 
-    <div class="ContainerSecaoDois">
-        <div class="TituloSecaoDois">
-            <h1 class="Titulo">Cada aeronave em voo depende de uma intraestrutura que nunca pode parar.</h1>
+    <div class="containerSecaoDois">
+        <div class="tituloSecaoDois">
+            <h1 class="Titulo">Cada aeronave em voo depende de uma infraestrutura que nunca pode parar.</h1>
         </div>
-        <div class="CorpoSecaoDois">
-            <p class="Corpo">Centro de Controle de Tráfico Aéreo operam 24 horas por dia, processando dados de radares,
+        <div class="corpoSecaoDois">
+            <p class="Corpo">Centro de Controle de Tráfego Aéreo operam 24 horas por dia, processando dados de radares,
                 planos de voo e comunicações para
                 manter a separação segura entre aeronaves. No Brasil, essa operação é conduzida pelo DECEA,
                 através de ACCs, Apps e TWRs interligados.<br><br>

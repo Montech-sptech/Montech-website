@@ -187,7 +187,7 @@
     align-items: center;
 }
 
-.ContainerModal {
+.containerModal {
     position: relative;
     width: 30%;
     height: 95%;
@@ -195,7 +195,7 @@
     border: 2.5px solid #343245;
 }
 
-.ContainerModalLogin {
+.containerModalLogin {
     position: relative;
     width: 30%;
     height: 75%;
@@ -203,7 +203,7 @@
     border: 2.5px solid #343245;
 }
 
-.MontechLogo {
+.montechLogo {
     display: flex;
     justify-content: start;
     align-items: center;
@@ -212,7 +212,7 @@
     margin-left: 25px;
 }
 
-.MontechImg {
+.montechImg {
     width: 250px;
 }
 
@@ -221,12 +221,12 @@
     margin: 35px auto 0 auto;
 }
 
-.InputContainer {
+.inputContainer {
     width: 100%;
     margin-bottom: 20px;
 }
 
-.InputContainer label {
+.inputContainer label {
     display: block;
     margin-bottom: 8px;
     color: #8F8EA4;
@@ -235,7 +235,7 @@
     letter-spacing: 2px;
 }
 
-.InputContainer input {
+.inputContainer input {
     width: 100%;
     height: 57px;
     padding: 0 18px;
@@ -247,12 +247,12 @@
     outline: none;
 }
 
-.PasswordContainer {
+.containerSenha {
     position: relative;
     width: 100%;
 }
 
-.PasswordContainer input {
+.containerSenha input {
     padding-right: 55px;
 }
 
@@ -266,7 +266,7 @@
     cursor: pointer;
 }
 
-.BotaoAutenticar {
+.botaoAutenticar {
     width: 100%;
     height: 62px;
     margin-top: -5px;
@@ -280,7 +280,7 @@
     cursor: pointer;
 }
 
-.LoginTexto {
+.loginTexto {
     text-align: center;
     color: #8F8EA4;
     font-family: 'Inter';
@@ -288,13 +288,13 @@
     margin-top: 5px;
 }
 
-.LoginTexto span {
+.loginTexto span {
     color: #8F8EA4;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.AutenticarTitle {
+.autenticarTitle {
     display: flex;
     justify-content: start;
     align-items: center;
@@ -313,20 +313,20 @@
     cursor: pointer;
 }
 
-#InputContainerLogin {
+#inputContainerLogin {
     margin-top: 25px;
 }
 
-#LoginTextoLogin {
+#loginTextoLogin {
     margin-top: 60px;
 }
 
-.ContainerSecaoDois{
+.containerSecaoDois{
     width: 100%;
     padding: 4% 10%;
 }
 
-.TituloSecaoDois {
+.tituloSecaoDois {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -341,7 +341,7 @@
     font-size: clamp(30px, 4vw, 60px);
 }
 
-.CorpoSecaoDois {
+.corpoSecaoDois {
     width: 100%;
     display: flex;
     justify-content: center;

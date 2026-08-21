@@ -101,9 +101,10 @@
 .tituloSecaoUm {
     font-family: 'Space Grotesk';
     font-size: clamp(30px, 4vw, 46px);
-    line-height: 1.15;
+    line-height: 1;
     color: #FFFFFF;
     margin-bottom: 20px;
+    text-align: start;
 }
  
 .corpoSecaoUm {
@@ -553,7 +554,7 @@
 
 
 .blocoDeteccao {
-    left: 6%;
+    left: 4%;
     top: 45%;
     transform: translateY(-50%);
     font-family: 'Inter';
@@ -565,8 +566,8 @@
 }
 
 .blocoAcao {
-    right: 4%;
-    top: 80%;
+    right: 2%;
+    top: 75%;
     transform: translateY(-50%);
     text-align: left;
     font-family: 'Inter';
@@ -578,8 +579,8 @@
 }
 
 .blocoAlerta {
-    left: 40%;
-    top: 80%;
+    left: 38%;
+    top: 75%;
     transform: translate(-50%, -50%);
     text-align: left;
     font-family: 'Inter';
@@ -591,8 +592,8 @@
 }
 
 .blocoJira {
-    left: 65%;
-    top: 45%;
+    left: 67%;
+    top: 39%;
     transform: translate(-50%, -50%);
     text-align: left;
     font-family: 'Inter';
@@ -640,6 +641,33 @@
     font-size: 13px;
     line-height: 1.5;
     color: #8F8EA4;
+}
+
+.primeiraSeta {
+    position: absolute;
+    max-width: 150px;
+    width: 100%;
+    top: 280px;
+    left: 350px;
+    transform: rotate(-35deg);
+}
+
+.segundaSeta {
+    position: absolute;
+    max-width: 150px;
+    width: 100%;
+    top: 250px;
+    left: 920px;
+    transform: rotate(20deg);
+}
+
+.terceiraSeta {
+    position: absolute;
+    max-width: 150px;
+    width: 100%;
+    top: 250px;
+    right: 410px;
+    transform: rotate(-30deg);
 }
 
 html {

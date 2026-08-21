@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
- 
+
 .navBar {
     width: 100%;
     display: flex;
@@ -16,17 +16,17 @@
     top: 0;
     z-index: 10;
 }
- 
+
 .navLogo {
     display: flex;
     align-items: center;
 }
- 
+
 .navLogoImg {
     height: 50px;
     width: auto;
 }
- 
+
 .navLinks {
     display: flex;
     justify-content: center;
@@ -34,7 +34,7 @@
     gap: 40px;
     list-style: none;
 }
- 
+
 .navLinks a {
     font-family: 'Inter';
     font-size: 14px;
@@ -42,30 +42,30 @@
     text-decoration: none;
     transition: color .2s ease;
 }
- 
+
 .navLinks a:hover {
     color: #FFFFFF;
 }
- 
+
 .navActions {
     display: flex;
     align-items: center;
     gap: 20px;
 }
- 
+
 .navEntrar {
     font-family: 'Inter';
     font-size: 14px;
     color: #FFFFFF;
     cursor: pointer;
 }
- 
+
 .navDivisor {
     width: 1px;
     height: 20px;
     background-color: #343245;
 }
- 
+
 .botaoCriarConta {
     height: 38px;
     padding: 0 18px;
@@ -78,12 +78,12 @@
     letter-spacing: 1.5px;
     cursor: pointer;
 }
- 
+
 .botaoCriarConta:hover {
     background-color: #453b96;
 }
- 
- 
+
+
 .containerSecaoUm {
     width: 100%;
     padding: 5% 6%;
@@ -93,11 +93,11 @@
     align-items: center;
     gap: 40px;
 }
- 
+
 .conteudoSecaoUm {
     max-width: 560px;
 }
- 
+
 .tituloSecaoUm {
     font-family: 'Space Grotesk';
     font-size: clamp(30px, 4vw, 46px);
@@ -106,7 +106,7 @@
     margin-bottom: 20px;
     text-align: start;
 }
- 
+
 .corpoSecaoUm {
     font-family: 'Inter';
     font-size: 15px;
@@ -115,13 +115,13 @@
     max-width: 400px;
     margin-bottom: 32px;
 }
- 
+
 .botoesSecaoUm {
     display: flex;
     align-items: center;
     gap: 22px;
 }
- 
+
 .botaoVerPlataforma {
     height: 48px;
     padding: 0 26px;
@@ -133,11 +133,11 @@
     font-weight: 600;
     cursor: pointer;
 }
- 
+
 .botaoVerPlataforma:hover {
     background-color: #e9e9ee;
 }
- 
+
 .botaoComoFunciona {
     height: 48px;
     padding: 0 4px;
@@ -153,11 +153,11 @@
     gap: 8px;
     cursor: pointer;
 }
- 
+
 .botaoComoFunciona:hover {
     border-bottom-color: #8F8EA4;
 }
- 
+
 .SetaBotaoComoFunciona {
     font-family: 'Inter';
 }
@@ -167,7 +167,7 @@
     width: 45%;
     max-width: 460px;
 }
- 
+
 .visualSecaoUmImg {
     display: block;
     width: 100%;
@@ -322,7 +322,7 @@
     margin-top: 60px;
 }
 
-.containerSecaoDois{
+#containerSecaoDois {
     width: 100%;
     padding: 4% 10%;
 }
@@ -360,32 +360,33 @@
 
 #containerSecaoQuatro {
     width: 100%;
-    height: 100vh;  
+    height: 100vh;
     background-color: #FFFFFF;
 }
 
-#tituloSecaoQuatro{
+#tituloSecaoQuatro {
     font-family: 'Space Grotesk';
     font-size: clamp(30px, 4vw, 55px);
     line-height: 80px;
     color: rgb(0, 0, 0);
     text-align: left;
-    padding: 4% 10%;  
+    padding: 4% 10%;
     font-weight: bold;
 }
 
-#containerJanelas{
+#containerJanelas {
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
     width: 100%;
     height: 55%;
-    background-color: #8E8E8E;
+    background: linear-gradient(to bottom, #c9c8c6, #e0e0e0);
     padding: 10%;
 }
 
-#linhaUmJanelas, #linhaDoisJanelas {
+#linhaUmJanelas,
+#linhaDoisJanelas {
     width: 40dvw;
     height: 50dvh;
     /* min-width: 700px;
@@ -396,7 +397,7 @@
     flex-direction: row;
 }
 
-.janela{
+.janela {
     width: clamp(300px, 30%, 350px);
     height: clamp(350px, 30%, 900px);
     background-image: url(../imagens/janelaAviao.png);
@@ -413,15 +414,22 @@
     font-family: 'Roboto Mono';
     font-size: 30px;
     color: rgb(48, 47, 47);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     width: 100%;
     text-align: center;
     margin-top: -10px;
+}
+
+.tituloSecundarioJanela{
+    color: rgb(85, 80, 80);
+    font-size: 20px;
 }
 
 .textoJanela {
     font-family: 'Roboto Mono';
     font-size: clamp(15px, 2vw, 20px);
     color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9    );
     text-align: center;
     margin-top: 30px;
     margin-bottom: 20px;
@@ -431,7 +439,7 @@
     align-items: center;
 }
 
-.fonteJanela{
+.fonteJanela {
     font-family: 'Inter';
     font-size: 15px;
     color: rgb(0, 0, 0);
@@ -440,7 +448,7 @@
     bottom: 25px;
 }
 
-#containerCardsLinhaSecaoQuatro{
+#containerCardsLinhaSecaoQuatro {
     background-color: #FFFFFF;
     width: 100%;
     height: 200px;
@@ -451,10 +459,10 @@
     align-items: center;
 }
 
-.cardLinhaSecaoQuatro{
+.cardLinhaSecaoQuatro {
     background-color: #f0f0f0;
     border: 2.5px solid #2a25256e;
-    display: flex; 
+    display: flex;
     width: 45%;
     height: 150px;
     padding: 20px;
@@ -463,81 +471,19 @@
     flex-direction: column;
 }
 
-.tituloCardLinhaSecaoQuatro{
+.tituloCardLinhaSecaoQuatro {
     font-family: 'Inter';
     font-size: clamp(15px, 2vw, 20px);
     color: rgb(0, 0, 0);
     width: 100%;
 }
 
-.textoCardLinhaSecaoQuatro{
+.textoCardLinhaSecaoQuatro {
     font-family: 'Roboto Mono';
     font-size: clamp(15px, 2vw, 20px);
     color: rgb(116, 110, 110);
     width: 100%;
     margin-top: 10px;
-}
-
-@media (max-width: 1450px) {
-
-    #tituloSecaoQuatro{
-        line-height: 50px;
-    }
-
-    #containerJanelas {
-        flex-direction: column;
-        height: auto;
-    }
-
-    #linhaUmJanelas, #linhaDoisJanelas {
-        width: 100%;
-        min-height: 520px;
-    }
-
-    .janela {
-        width: 350px;
-        height: 450px;
-    }
-
-}
-
-@media (max-width: 920px) {
-    
-
-    #tituloSecaoQuatro{
-        line-height: 40px;
-    }
-
-    #containerJanelas {
-        flex-direction: column;
-        height: auto;
-    }
-
-    #linhaUmJanelas, #linhaDoisJanelas {
-        width: 100%;
-        min-height: 520px;
-        height: auto;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    .janela {
-        width: 350px;
-        height: 450px;
-    }
-
-    #containerCardsLinhaSecaoQuatro{
-        flex-direction: column;
-        height: auto;
-    }
-
-    .cardLinhaSecaoQuatro{
-        width: 80%;
-        height: auto;
-        margin-bottom: 20px;
-    }
-
 }
 
 .containerSecaoSeis {
@@ -606,19 +552,22 @@
 
 
 
-.labelVermelho { 
+.labelVermelho {
     color: #FF5C5C;
     font-size: 25px;
- }
-.labelAzul { 
-    color: #4E7CFF; 
+}
+
+.labelAzul {
+    color: #4E7CFF;
     font-size: 25px;
 }
-.labelLaranja { 
+
+.labelLaranja {
     color: #FF7A45;
     font-size: 25px;
 }
-.labelVerde { 
+
+.labelVerde {
     color: #3FBF7F;
     font-size: 25px;
 }
@@ -671,5 +620,70 @@
 }
 
 html {
-  scroll-behavior: smooth; 
+    scroll-behavior: smooth;
+}
+
+
+@media (max-width: 1450px) {
+
+    #tituloSecaoQuatro {
+        line-height: 50px;
+    }
+
+    #containerJanelas {
+        flex-direction: column;
+        height: auto;
+    }
+
+    #linhaUmJanelas,
+    #linhaDoisJanelas {
+        width: 100%;
+        min-height: 520px;
+    }
+
+    .janela {
+        width: 350px;
+        height: 450px;
+    }
+
+}
+
+@media (max-width: 920px) {
+
+
+    #tituloSecaoQuatro {
+        line-height: 40px;
+    }
+
+    #containerJanelas {
+        flex-direction: column;
+        height: auto;
+    }
+
+    #linhaUmJanelas,
+    #linhaDoisJanelas {
+        width: 100%;
+        min-height: 520px;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .janela {
+        width: 350px;
+        height: 450px;
+    }
+
+    #containerCardsLinhaSecaoQuatro {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .cardLinhaSecaoQuatro {
+        width: 80%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
 }

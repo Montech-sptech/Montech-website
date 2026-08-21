@@ -539,6 +539,109 @@
 
 }
 
+.containerSecaoSeis {
+    width: 100%;
+    height: 480px;
+    background-color: #1E1D2E;
+    padding: 1% 6% 6% 6%;
+    position: relative;
+}
+
+.conteudoSecaoSeis {
+    margin-bottom: 60px;
+}
+
+
+.blocoDeteccao {
+    left: 6%;
+    top: 45%;
+    transform: translateY(-50%);
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    position: absolute;
+    max-width: 260px;
+}
+
+.blocoAcao {
+    right: 4%;
+    top: 80%;
+    transform: translateY(-50%);
+    text-align: left;
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    position: absolute;
+    max-width: 260px;
+}
+
+.blocoAlerta {
+    left: 40%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    position: absolute;
+    max-width: 260px;
+}
+
+.blocoJira {
+    left: 65%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    position: absolute;
+    max-width: 260px;
+}
+
+
+
+.labelVermelho { 
+    color: #FF5C5C;
+    font-size: 25px;
+ }
+.labelAzul { 
+    color: #4E7CFF; 
+    font-size: 25px;
+}
+.labelLaranja { 
+    color: #FF7A45;
+    font-size: 25px;
+}
+.labelVerde { 
+    color: #3FBF7F;
+    font-size: 25px;
+}
+
+.blocoDeteccao h3,
+.blocoJira h3,
+.blocoAlerta h3,
+.blocoAcao h3 {
+    font-family: 'Inter';
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 10px 0 8px 0;
+}
+
+.blocoDeteccao p,
+.blocoJira p,
+.blocoAlerta p,
+.blocoAcao p {
+    font-family: 'Inter';
+    font-size: 13px;
+    line-height: 1.5;
+    color: #8F8EA4;
+}
+
 html {
   scroll-behavior: smooth; 
 }

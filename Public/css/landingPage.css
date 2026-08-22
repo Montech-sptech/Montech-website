@@ -180,71 +180,78 @@
     z-index: 1;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(8px);
     justify-content: center;
     align-items: center;
+    margin-top: 6vh;
 }
 
 .containerModal {
     position: relative;
-    width: 30%;
-    height: 95%;
+    width: 30vw;
+    min-height: 85vh;
+    height: auto;
     background-color: #1E1D2E;
-    border: 2.5px solid #343245;
+    border: 0.15vw solid #343245;
+    margin-top: 0;
+    padding: 2vh 0 3vh 0;
 }
 
 .containerModalLogin {
     position: relative;
-    width: 30%;
-    height: 75%;
+    width: 30vw;
+    height: 72vh;
     background-color: #1E1D2E;
-    border: 2.5px solid #343245;
+    border: 0.15vw solid #343245;
+    margin-top: 0;
+    padding: 2vh 0 3vh 0;
 }
 
 .montechLogo {
     display: flex;
     justify-content: start;
     align-items: center;
-    flex-direction: row;
-    margin-top: 25px;
-    margin-left: 25px;
+    margin-top: 0;
+    margin-left: 4vw;
 }
 
 .montechImg {
-    width: 250px;
+    width: 9vw;
+    max-width: 160px;
 }
 
-.inputSection {
-    width: 75%;
-    margin: 35px auto 0 auto;
+.inputSection,
+.secaoInput {
+    width: 80%;
+    margin: 3vh auto 0 auto;
 }
 
 .inputContainer {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
 }
 
 .inputContainer label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 0.7vh;
     color: #8F8EA4;
     font-family: 'Inter';
-    font-size: 13px;
-    letter-spacing: 2px;
+    font-size: clamp(10px, 0.7vw, 13px);
+    letter-spacing: 0.1vw;
 }
 
 .inputContainer input {
     width: 100%;
-    height: 57px;
-    padding: 0 18px;
+    height: 6.2vh;
+    padding: 0 1vw;
     background-color: #272638;
-    border: 2px solid #343245;
+    border: 0.15vw solid #343245;
     color: white;
     font-family: 'Inter';
-    font-size: 18px;
+    font-size: clamp(13px, 1vw, 18px);
     outline: none;
 }
 
@@ -254,23 +261,36 @@
 }
 
 .containerSenha input {
-    padding-right: 55px;
+    padding-right: 3vw;
 }
 
 .EyeIcon {
     position: absolute;
-    right: 13px;
+    right: 0.8vw;
     top: 50%;
-    width: 21px;
-    height: 21px;
+    width: clamp(15px, 1.1vw, 21px);
+    height: clamp(15px, 1.1vw, 21px);
     transform: translateY(-50%);
     cursor: pointer;
 }
 
 .botaoAutenticar {
     width: 100%;
+    height: 7vh;
+    border: none;
+    background-color: #393080;
+    color: white;
+    font-family: 'Barlow Condensed';
+    font-size: clamp(14px, 1.2vw, 18px);
+    font-weight: 700;
+    letter-spacing: 0.12vw;
+    cursor: pointer;
+    margin-top: 1vh;
+}
+
+.botaoAutenticarLogin {
+    width: 100%;
     height: 62px;
-    margin-top: -5px;
     border: none;
     background-color: #393080;
     color: white;
@@ -279,14 +299,15 @@
     font-weight: 700;
     letter-spacing: 2px;
     cursor: pointer;
+    margin-top: 2.5vh;
 }
 
 .loginTexto {
     text-align: center;
     color: #8F8EA4;
     font-family: 'Inter';
-    font-size: 16px;
-    margin-top: 5px;
+    font-size: clamp(11px, 0.9vw, 16px);
+    margin-top: 3vh;
 }
 
 .loginTexto span {
@@ -299,27 +320,32 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    margin-left: 50px;
+    margin-left: 4vw;
     color: white;
-    margin-top: 25px;
+    margin-top: 5vh;
     font-family: 'Barlow Condensed';
+}
+
+.autenticarTitle h1 {
+    font-size: clamp(24px, 2vw, 36px);
 }
 
 .fechar {
     color: #8F8EA4;
-    font-size: 28px;
+    font-size: clamp(22px, 2vw, 28px);
     font-weight: bold;
-    float: right;
-    margin-right: 10px;
+    position: absolute;
+    right: 1.5vw;
+    top: 1.5vh;
     cursor: pointer;
 }
 
 #inputContainerLogin {
-    margin-top: 25px;
+    margin-top: 2vh;
 }
 
 #loginTextoLogin {
-    margin-top: 60px;
+    margin-top: 3vh;
 }
 
 #containerSecaoDois {

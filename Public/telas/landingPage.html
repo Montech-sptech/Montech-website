@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-                <button class="BotaoAutenticar" onclick="cadastrar()">CRIAR CONTA</button>
+                <button class="botaoAutenticar" onclick="cadastrar()">CRIAR CONTA</button>
 
                 <p class="loginTexto">Já tem uma conta?
                     <span onclick="modalLogin()">Entrar</span>
@@ -88,10 +88,10 @@
     </div>
 
     <div id="modalLogin" class="modal">
-        <div class="ContainerModalLogin">
+        <div class="containerModalLogin">
             <span class="fechar" id="fecharModalLogin">&times;</span>
-            <div class="MontechLogo">
-                <img src="../imagens/longLigthLogo.svg" class="MontechImg">
+            <div class="montechLogo">
+                <img src="../imagens/longLigthLogo.svg" class="montechImg">
             </div>
             <div class="autenticarTitle">
                 <h1>Entrar na Conta</h1>
@@ -100,7 +100,7 @@
             <div class="inputSection">
                 <div class="inputContainer" id="inputContainerLogin">
                     <label>E-MAIL</label>
-                    <input type="email" id="email" placeholder="seu@gmail.com">
+                    <input type="email" id="emailLogin" placeholder="seu@gmail.com">
                 </div>
 
                 <div class="inputContainer">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                <button class="botaoAutenticar" onclick="logar()">CRIAR CONTA</button>
+                <button class="botaoAutenticarLogin" onclick="logar()">ENTRAR</button>
 
                 <p class="loginTexto" id="loginTextoLogin">Não tem acesso?
                     <span onclick="modalCadastro()">Criar conta</span>

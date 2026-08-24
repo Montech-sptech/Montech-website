@@ -386,7 +386,7 @@
 
 #containerSecaoQuatro {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #FFFFFF;
 }
 
@@ -712,4 +712,58 @@ html {
         margin-bottom: 20px;
     }
 
+}
+
+    #containerSecaoSeis {
+    background-color: white;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .callToAction {
+    width: 80%;
+    height: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background-color: #09080e;
+    color: white;
+}
+
+    .callToAction h1 {
+    max-width: 500px;
+}
+
+    .botoesCallToAction {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding-right: 50px;
+}
+
+    .CtaEntrar,
+    .CtaContato {
+    height: 60px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    color: #1E1D2E;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .CtaEntrar:hover,
+    .CtaContato:hover {
+    background-color: #e9e9ee;
 }

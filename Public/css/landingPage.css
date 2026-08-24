@@ -754,7 +754,7 @@ html {
     align-items: center;
     justify-content: center;
     background-color: #FFFFFF;
-    color: #1E1D2E;
+    color: #09080e;
     font-family: 'Inter';
     font-size: 14px;
     font-weight: 600;
@@ -766,4 +766,87 @@ html {
     .CtaEntrar:hover,
     .CtaContato:hover {
     background-color: #e9e9ee;
+}
+
+    .footerSite {
+    width: 100%;
+    background-color: #09080e;
+    padding: 5% 6% 3% 6%;
+}
+
+    .footerTopo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+    .footerLogo {
+    max-width: 320px;
+}
+
+    .footerLogoImg {
+    height: 60px;
+    width: auto;
+    margin-bottom: 16px;
+}
+
+    .footerDescricao {
+    font-family: 'Inter';
+    font-size: 14px;
+    line-height: 1.6;
+    color: #8F8EA4;
+}
+
+    .footerColuna h4 {
+    font-family: 'Inter';
+    font-size: 14px;
+    color: #8F8EA4;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+    .footerColuna ul {
+    list-style: none;
+}
+
+    .footerColuna li {
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+    margin-right: 12px;
+}
+
+    .footerColuna a {
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+    .footerColuna a:hover {
+    color: #8F8EA4;
+}
+
+    .footerLinha {
+    width: 100%;
+    height: 1px;
+    background-color: #343245;
+    margin: 40px 0 20px 0;
+}
+
+    .footerBase {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+    .footerBase p {
+    font-family: 'Inter';
+    font-size: 12px;
+    color: #8F8EA4;
 }

@@ -512,7 +512,7 @@
     margin-top: 10px;
 }
 
-.containerSecaoSeis {
+.containerSecaoCinco {
     width: 100%;
     height: 480px;
     background-color: #1E1D2E;
@@ -520,7 +520,7 @@
     position: relative;
 }
 
-.conteudoSecaoSeis {
+.conteudoSecaoCinco {
     margin-bottom: 60px;
 }
 

@@ -867,7 +867,6 @@ html {
     font-family: 'Space Grotesk';
     font-size: clamp(28px, 3.6vw, 48px);
     line-height: 1.25;
-    font-weight: 400;
 }
 
 .tituloMutedTres {
@@ -896,7 +895,7 @@ html {
 }
 
 .cardSecaoTres {
-    flex: 1;
+    width: 42%;
     max-width: 480px;
     background-color: #272638;
     border: 1px solid #343245;
@@ -905,7 +904,7 @@ html {
 
 .cabecalhoCardSecaoTres {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 18px;
@@ -928,7 +927,7 @@ html {
 .textoCardSecaoTres {
     font-family: 'Inter';
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.6;
     color: #8F8EA4;
 }
 
@@ -937,20 +936,11 @@ html {
     font-weight: 600;
 }
 
-.divisorPontosSecaoTres {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+.divisorSecaoTres {
+    width: 1px;
+    height: 140px;
+    background-color: #343245;
     flex-shrink: 0;
-}
-
-.pontoDivisorTres {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: #3FE0C5;
 }
 
 @media (max-width: 920px) {
@@ -959,13 +949,13 @@ html {
         flex-direction: column;
     }
 
-    .divisorPontosSecaoTres {
-        flex-direction: row;
-        margin: 8px 0;
+    .divisorSecaoTres {
+        width: 60px;
+        height: 1px;
     }
 
     .cardSecaoTres {
-        max-width: 100%;
+        width: 100%;
     }
 
 }

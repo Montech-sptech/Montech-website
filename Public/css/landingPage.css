@@ -158,7 +158,7 @@
     border-bottom-color: #8F8EA4;
 }
 
-.SetaBotaoComoFunciona {
+.setaBotaoComoFunciona {
     font-family: 'Inter';
 }
 
@@ -264,7 +264,7 @@
     padding-right: 3vw;
 }
 
-.EyeIcon {
+.eyeIcon {
     position: absolute;
     right: 0.8vw;
     top: 50%;
@@ -361,7 +361,7 @@
     flex-direction: column;
 }
 
-.Titulo {
+.titulo {
     font-family: 'Space Grotesk';
     text-align: left;
     line-height: clamp(50px, 5vw, 95px);
@@ -379,7 +379,7 @@
 
 }
 
-.Corpo {
+.corpo {
     font-family: 'Inter';
     font-size: clamp(30px, 2vw, 40px);
 }
@@ -746,8 +746,8 @@ html {
     padding-right: 50px;
 }
 
-    .CtaEntrar,
-    .CtaContato {
+    .ctaEntrar,
+    .ctaContato {
     height: 60px;
     padding: 0 24px;
     display: flex;
@@ -763,8 +763,8 @@ html {
     cursor: pointer;
 }
 
-    .CtaEntrar:hover,
-    .CtaContato:hover {
+    .ctaEntrar:hover,
+    .ctaContato:hover {
     background-color: #e9e9ee;
 }
 

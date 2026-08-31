@@ -4,6 +4,9 @@ var fecharCadastro = document.getElementById("fecharModalCadastro");
 var modalL = document.getElementById("modalLogin");
 var fecharLogin = document.getElementById("fecharModalLogin");
 
+var botaoLogin = document.getElementById("botaoEntrar");
+var botaoCriar = document.getElementById("botaoCriar");
+
 function modalLogin() {
     modal.style.display = "none";
     modalL.style.display = "flex";
@@ -139,6 +142,14 @@ function listar() {
         });
 }
 
+function validar() {
+    if (sessionStorage.getItem("ID")) {
+        botaoCriar.style.display = 'none';
+        botaoLogin.style.display = 'none';
+        modalL.style.display = 'none';
+    }
+}
+
 function logar() {
     var emailVar = emailLogin.value;
     var senhaVar = senhaLogin.value;
@@ -161,9 +172,12 @@ function logar() {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
-                    console.log("Usuário logado:", dados);
-                    alert("Login realizado com sucesso!");
-                    modalL.style.display = 'none';
+                    sessionStorage.setItem("ID", dados.id);
+                    sessionStorage.setItem("EMAIL", dados.email);
+                    sessionStorage.setItem("NOME", dados.nome);
+                    sessionStorage.setItem("CARGO", dados.cargo)
+
+                    validar();
                 });
             } else {
                 resposta.text().then(function (mensagem) {

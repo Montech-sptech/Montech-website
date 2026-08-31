@@ -19,7 +19,7 @@
     <title>MonTech</title>
 </head>
 
-<body>
+<body onload="validar()">
 
     <nav class="navBar">
     <a href="landingPage.html" class="navLogo">
@@ -33,9 +33,9 @@
         </ul>
 
         <div class="navActions">
-            <span class="navEntrar" onclick="modalLogin()">Entrar</span>
+            <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar">Entrar</span>
             <span class="navDivisor"></span>
-            <button class="botaoCriarConta" onclick="modalCadastro()">CRIAR CONTA</button>
+            <button class="botaoCriarConta" onclick="modalCadastro()" id="botaoCriar">CRIAR CONTA</button>
         </div>
     </nav>
 
@@ -359,8 +359,6 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#containerSecaoDois">Sobre Nós</a></li>
-                <li><a onclick="modalLogin()">Entrar</a></li>
-                <li><a onclick="modalCadastro()">Criar Conta</a></li>
             </ul>
         </div>
 

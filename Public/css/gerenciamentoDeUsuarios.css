@@ -1,155 +1,16 @@
-body {
-    background-color: #1E1D2E;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-header {
-    background-color: #272A43;
-    width: 10%;
-    min-width: 220px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 15px;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    position: fixed;
-}
-
-#logoHeader {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-#logoHeader img {
-  max-width: 100%;
-    height: auto;
-}
-
-header hr {
-    border: none;
-    border-top: 1px solid #4a4d65;
-    margin: 10px 0 20px 0;
-    width: 100%;
-}
-
-#containerOpcoes {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    display: flex;
-    height: 80%;
-}
-
-.opcao {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    color: #E2E2E2;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.opcao:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-#opcaoAtiva {
-    background-color: #E6F2FF;
-    color: #1A3C6D;
-}
-
-#opcaoAtiva svg {
-    fill: #1A3C6D;
-}
-
-#footerHeader {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-top: 1px solid #4a4d65;
-    padding-top: 20px;
-}
-
-#containerUsuario {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #FFFFFF;
-}
-
-#usuarioFoto img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    object-fit: cover;
-}
-
-#user_info {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-#user_info span {
-    font-size: 11px;
-    font-weight: 400;
-    color: #9295AA;
-    margin-top: 2px;
-}
-
-#containerSair {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background-color: #33364D;
-    color: #E74C3C;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-#containerSair:hover {
-    filter: brightness(1.2);
-}
-
-#containerSair svg {
-    fill: #E74C3C;
-}
-
-/*Estilo padrao para todos os headers após login*/
-
 .containerGerenciamentoUsuarios {
     display: flex;
     flex-direction: column;
-    width: 100dvw;
-    margin-left: 10dvw;
-    padding: 20px 0;
+    width: 90dvw;
+    padding-top: 3dvh;
+    margin-left: 10vw;
     height: 100vh;
     overflow-y: auto;
 }
 
 #containerGerenciamentoUsuariosTitulo {
     color: #FFFFFF;
-    padding: 0 10dvh 0 10dvh;
+    padding: 0 10dvh 3dvh 10dvh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -282,4 +143,96 @@ header hr {
 
 .btnEditar:hover {
     background: rgba(140, 123, 255, 0.12);
+}
+
+@media (max-width: 1000px) {
+    body {
+        background-color: red;
+    }
+
+    .containerTabela {
+        background-color: #044B14;
+        width: 70%;
+    }
+
+    #containerGerenciamentoUsuariosTitulo {
+        width: 70%;
+        font-size: clamp(10px, 1.5dvw, 25px);
+        padding-bottom: 10px;
+        display: flex;
+        margin-left: 5%;
+        flex-direction: column;
+    }
+
+    #botaoCadastroUsuario {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3%;
+        width: 50%;
+    }
+
+    .containerGerenciamentoUsuarios {
+        background-color: purple;
+        margin-left: 10%;
+        display: flex;
+        align-items: center;
+    }
+
+    .tabelaDados {
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr 1fr;
+        background-color: blue;
+    }
+
+    .linhaCabecalho,
+    .linhaUsuario {
+        display: grid;
+        grid-template-columns: subgrid;
+    }
+
+}
+
+@media(max-width: 650px) {
+    #logoHeader {
+        background-image: url(../imagens/shortLigthLogo.svg);
+    }
+
+    header {
+        width: clamp(80px, 60px + 8dvw, 150px);
+        min-width: clamp(80px, 60px + 8dvw, 150px);
+    }
+
+    .opcao {
+        justify-content: center;
+        padding: 12px 0;
+    }
+
+    .opcao span {
+        display: none;
+    }
+
+    #containerUsuario{
+        align-self: center;
+    }
+
+    #usuarioFoto{
+        display: none;
+    }
+
+
+    .tabelaDados {
+        display: flex;
+        flex-direction: column;
+        background-color: blue;
+    }
+
+    .linhaCabecalho,
+    .linhaUsuario {
+        display: flex;
+        
+    }
+
+ 
+
 }

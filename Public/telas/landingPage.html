@@ -19,23 +19,23 @@
     <title>MonTech</title>
 </head>
 
-<body>
+<body onload="validar()">
 
     <nav class="navBar">
-        <div class="navLogo">
-            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
-        </div>
+    <a href="landingPage.html" class="navLogo">
+        <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
+    </a>
 
         <ul class="navLinks">
             <li><a href="#containerSecaoDois">Sobre</a></li>
             <li><a href="#containerSecaoQuatro">Funcionalidades</a></li>
-            <li><a href="">Contato</a></li>
+            <li><a href="#containerSecaoSeis">Contato</a></li>
         </ul>
 
         <div class="navActions">
-            <span class="navEntrar" onclick="modalLogin()">Entrar</span>
+            <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar">Entrar</span>
             <span class="navDivisor"></span>
-            <button class="botaoCriarConta" onclick="modalCadastro()">CRIAR CONTA</button>
+            <button class="botaoCriarConta" onclick="modalCadastro()" id="botaoCriar">CRIAR CONTA</button>
         </div>
     </nav>
 
@@ -50,6 +50,11 @@
             </div>
 
             <div class="secaoInput">
+                <div class="inputContainer">
+                    <label>Tokan Empresarial</label>
+                    <input type="text" id="token" placeholder="Token da sua empresa">
+                </div>
+
                 <div class="inputContainer">
                     <label>NOME</label>
                     <input type="text" id="nome" placeholder="Seu nome completo">
@@ -124,7 +129,8 @@
     <div class="containerSecaoUm">
         <div class="conteudoSecaoUm">
             <h1 class="tituloSecaoUm">Infraestrutura que mantém<br>o céu seguro.</h1>
-            <p class="corpoSecaoUm">Monitoramento contínuo dos servidores SAGITARIO (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).
+            <p class="corpoSecaoUm">Monitoramento contínuo dos servidores SAGITARIO 
+                (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).
                 </p>
 
             <div class="botoesSecaoUm">
@@ -145,16 +151,56 @@
             <h1 class="titulo">Cada aeronave em voo depende de uma infraestrutura que nunca pode parar.</h1>
         </div>
         <div class="corpoSecaoDois">
-            <p class="corpo">Centro de Controle de Tráfego Aéreo operam 24 horas por dia, processando dados de radares,
-                planos de voo e comunicações para
-                manter a separação segura entre aeronaves. No Brasil, essa operação é conduzida pelo DECEA,
-                através de ACCs, Apps e TWRs interligados.<br><br>
-                Essa coordenação depende de servidores de alta disponibilidade e alto consumo de CPU. Em caso de memória
-                insuficiente ou falhas de disco,
-                qualquer um deles pode comprometer o fluxo de informações entre os setores de controle.
+            <p class="corpo">Os Centros de Controle de Tráfego Aéreo operam 24 horas por dia,
+                 utilizando o SAGITARIO para processar e apresentar informações de vigilância,
+                  planos de voo e demais dados necessários ao gerenciamento do tráfego aéreo.<br><br>
+                Essa operação depende de infraestrutura de alta disponibilidade.
+                 Falhas de memória, armazenamento ou processamento podem comprometer o desempenho do SAGITARIO
+                  e a continuidade das informações utilizadas pelos controladores.
             </p>
         </div>
     </div>
+
+    <section id="containerSecaoTres">
+        <div class="conteudoSecaoTres">
+            <h1 class="tituloSecaoTres">
+                <span class="tituloMutedTres">Monitoramento</span>
+                <span class="tituloDestaqueTres">24/7</span>
+                <span class="tituloMutedTres">dos</span>
+                <span class="tituloDestaqueTres">Servidores SAGITARIO.</span>
+            </h1>
+            <p class="corpoSecaoTres">O módulo de Gerenciamento de Informações de Tráfego Aéreo processa a posição
+                das aeronaves em tempo real, enquanto o módulo de Relatórios de Interesse Operacional transforma
+                esses dados em indicadores para a equipe de controle. Juntos, formam o núcleo de informações que
+                chegam ao controlador</p>
+        </div>
+
+        <div class="containerCardsSecaoTres">
+            <div class="cardSecaoTres">
+                <div class="cabecalhoCardSecaoTres">
+                    <span class="siglaCardSecaoTres">GITA</span>
+                    <span class="descricaoSiglaCardSecaoTres">Gerenciamento de Informações de Tráfego Aéreo</span>
+                </div>
+                <p class="textoCardSecaoTres">Módulo do SAGITARIO que
+                    <span class="destaqueCardTres">consolida a posição das aeronaves e dados de radares em tempo
+                        real</span>, oferecendo uma leitura contínua do tráfego aéreo monitorado.
+                </p>
+            </div>
+
+            <div class="divisorSecaoTres"></div>
+
+            <div class="cardSecaoTres">
+                <div class="cabecalhoCardSecaoTres">
+                    <span class="siglaCardSecaoTres">RIO</span>
+                    <span class="descricaoSiglaCardSecaoTres">Relatórios de Interesse Operacional</span>
+                </div>
+                <p class="textoCardSecaoTres">Módulo do SAGITARIO que
+                    <span class="destaqueCardTres">transforma os dados coletados em relatórios operacionais</span>,
+                    gerando indicadores de desempenho e ocorrências para a equipe de controle.
+                </p>
+            </div>
+        </div>
+    </section>
 
     <section id="containerSecaoQuatro">
         <div id="tituloSecaoQuatro">Um incidente na infraestrutura vira números em poucas horas.</div>
@@ -249,6 +295,10 @@
                 <h3>Servidor em estado crítico</h3>
                 <p>CPU, memória ou disco atingiu o threshold configurado no MonTech. O sistema identifica a anomalia
                     automaticamente.</p>
+                <!-- to pensando na troca desse trecho para:
+                    CPU, memória ou disco atingiu o limite configurado pelo MonTech ou pelo cliente. O sistema identifica automaticamente a anomalia
+                    Não definimos que o cliente também pode definir o Limite que o sistema alerta?
+                        -->
             </div>
 
             <div class="blocoJira">
@@ -283,7 +333,7 @@
     <section id="containerSecaoSeis">
 
         <div class="callToAction">
-            <h1>Leve monitoramento preditivo para a infraestrutura que não pode parar!</h1>
+            <h1>Antecipe problemas e mantenha sua infraestrutura sempre disponível.</h1>
 
             <div class="botoesCallToAction">
                 <button class="ctaEntrar" onclick="modalLogin()">Entrar</button>
@@ -297,8 +347,11 @@
     <footer class="footerSite">
     <div class="footerTopo">
         <div class="footerLogo">
+            <a href="landingPage.html" class="navLogo">
             <img src="../imagens/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
-            <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).</p>
+            </a>
+            <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO 
+                (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).</p>
         </div>
 
         <div class="footerColuna">
@@ -306,8 +359,6 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#containerSecaoDois">Sobre Nós</a></li>
-                <li><a href="#" onclick="modalLogin()">Entrar</a></li>
-                <li><a href="#" onclick="modalCadastro()">Criar Conta</a></li>
             </ul>
         </div>
 
@@ -327,7 +378,9 @@
     <div class="footerLinha"></div>
 
     <div class="footerBase">
-        <p>Faculdade São Paulo Tech School - Ciência da Computação - 2026</p>
+       <a href="https://sptech.school/">
+        <p>Faculdade São Paulo Tech School
+            </a> - <a href="https://sptech.school/ciencia-da-computacao/">Ciência da Computação</a> - 2026</p>
         <p>MONTECH &copy; 2026</p>
     </div>
     </footer>

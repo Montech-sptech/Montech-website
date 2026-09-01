@@ -192,8 +192,9 @@
 .containerModal {
     position: relative;
     width: 30vw;
-    min-height: 85vh;
-    height: auto;
+    min-height: 80vh;
+    margin-bottom: 2.5vh;
+    height: 90vh;
     background-color: #1E1D2E;
     border: 0.15vw solid #343245;
     margin-top: 0;
@@ -736,7 +737,7 @@ html {
 }
 
     .callToAction h1 {
-    max-width: 500px;
+    max-width: 550px;
 }
 
     .botoesCallToAction {
@@ -844,9 +845,121 @@ html {
     justify-content: space-between;
     flex-wrap: wrap;
 }
+    .footerBase a{
+        color: inherit;
+        text-decoration: none;
+    }
 
     .footerBase p {
     font-family: 'Inter';
     font-size: 12px;
     color: #8F8EA4;
+}
+
+#containerSecaoTres {
+    width: 100%;
+    background-color: #1E1D2E;
+    padding: 6% 10% 7% 10%;
+}
+
+.conteudoSecaoTres {
+    max-width: 720px;
+    margin-bottom: 60px;
+}
+
+.tituloSecaoTres {
+    font-family: 'Space Grotesk';
+    font-size: clamp(28px, 3.6vw, 48px);
+    line-height: 1.25;
+}
+
+.tituloMutedTres {
+    color: #8F8EA4;
+}
+
+.tituloDestaqueTres {
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.corpoSecaoTres {
+    font-family: 'Inter';
+    font-size: 15px;
+    line-height: 1.6;
+    color: #8F8EA4;
+    max-width: 560px;
+    margin-top: 24px;
+}
+
+.containerCardsSecaoTres {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+}
+
+.cardSecaoTres {
+    width: 42%;
+    max-width: 480px;
+    background-color: #272638;
+    border: 1px solid #343245;
+    padding: 32px;
+}
+
+.cabecalhoCardSecaoTres {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.siglaCardSecaoTres {
+    font-family: 'Space Grotesk';
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.descricaoSiglaCardSecaoTres {
+    font-family: 'Inter';
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #8F8EA4;
+}
+
+.textoCardSecaoTres {
+    font-family: 'Inter';
+    font-size: 14px;
+    line-height: 1.6;
+    color: #8F8EA4;
+}
+
+.destaqueCardTres {
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.divisorSecaoTres {
+    width: 1px;
+    height: 140px;
+    background-color: #343245;
+    flex-shrink: 0;
+}
+
+@media (max-width: 920px) {
+
+    .containerCardsSecaoTres {
+        flex-direction: column;
+    }
+
+    .divisorSecaoTres {
+        width: 60px;
+        height: 1px;
+    }
+
+    .cardSecaoTres {
+        width: 100%;
+    }
+
 }

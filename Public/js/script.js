@@ -146,7 +146,10 @@ function validar() {
     if (sessionStorage.getItem("ID")) {
         botaoCriar.style.display = 'none';
         botaoLogin.style.display = 'none';
+        botaoAcesso.style.display = 'block';
         modalL.style.display = 'none';
+    } else {
+        botaoAcesso.style.display = 'none';
     }
 }
 

@@ -22,9 +22,9 @@
 <body onload="validar()">
 
     <nav class="navBar">
-    <a href="landingPage.html" class="navLogo">
-        <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
-    </a>
+        <a href="landingPage.html" class="navLogo">
+            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
+        </a>
 
         <ul class="navLinks">
             <li><a href="#containerSecaoDois">Sobre</a></li>
@@ -36,6 +36,9 @@
             <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar">Entrar</span>
             <span class="navDivisor"></span>
             <button class="botaoCriarConta" onclick="modalCadastro()" id="botaoCriar">CRIAR CONTA</button>
+            <a href="/telas/gerenciamentoDeUsuarios.html">
+                <button class="botaoCriarConta" id="botaoAcesso">ACESSO GERAL</button>
+            </a>
         </div>
     </nav>
 
@@ -129,9 +132,9 @@
     <div class="containerSecaoUm">
         <div class="conteudoSecaoUm">
             <h1 class="tituloSecaoUm">Infraestrutura que mantém<br>o céu seguro.</h1>
-            <p class="corpoSecaoUm">Monitoramento contínuo dos servidores SAGITARIO 
+            <p class="corpoSecaoUm">Monitoramento contínuo dos servidores SAGITARIO
                 (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).
-                </p>
+            </p>
 
             <div class="botoesSecaoUm">
                 <button class="botaoVerPlataforma">Ver a plataforma</button>
@@ -152,11 +155,11 @@
         </div>
         <div class="corpoSecaoDois">
             <p class="corpo">Os Centros de Controle de Tráfego Aéreo operam 24 horas por dia,
-                 utilizando o SAGITARIO para processar e apresentar informações de vigilância,
-                  planos de voo e demais dados necessários ao gerenciamento do tráfego aéreo.<br><br>
+                utilizando o SAGITARIO para processar e apresentar informações de vigilância,
+                planos de voo e demais dados necessários ao gerenciamento do tráfego aéreo.<br><br>
                 Essa operação depende de infraestrutura de alta disponibilidade.
-                 Falhas de memória, armazenamento ou processamento podem comprometer o desempenho do SAGITARIO
-                  e a continuidade das informações utilizadas pelos controladores.
+                Falhas de memória, armazenamento ou processamento podem comprometer o desempenho do SAGITARIO
+                e a continuidade das informações utilizadas pelos controladores.
             </p>
         </div>
     </div>
@@ -338,53 +341,54 @@
             <div class="botoesCallToAction">
                 <button class="ctaEntrar" onclick="modalLogin()">Entrar</button>
                 <a href="equipe.html" class="ctaContato">contate nossa equipe</a>
-            
+
             </div>
         </div>
 
     </section>
-    
+
     <footer class="footerSite">
-    <div class="footerTopo">
-        <div class="footerLogo">
-            <a href="landingPage.html" class="navLogo">
-            <img src="../imagens/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
-            </a>
-            <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO 
-                (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).</p>
+        <div class="footerTopo">
+            <div class="footerLogo">
+                <a href="landingPage.html" class="navLogo">
+                    <img src="../imagens/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
+                </a>
+                <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO
+                    (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).
+                </p>
+            </div>
+
+            <div class="footerColuna">
+                <h4>MONTECH</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#containerSecaoDois">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div class="footerColuna">
+                <h4>EQUIPE</h4>
+                <ul>
+                    <li>Fernanda Rodrigues Leal</li>
+                    <li>Gabriel Galhiardo Farina</li>
+                    <li>Marcos Paulo de Carvalho Ribeiro</li>
+                    <li>Matheus Jacob Duarte</li>
+                    <li>Mateus Lorenço de Almeida</li>
+                    <li>Thays Ramos da Silva Delfino</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="footerColuna">
-            <h4>MONTECH</h4>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#containerSecaoDois">Sobre Nós</a></li>
-            </ul>
-        </div>
+        <div class="footerLinha"></div>
 
-        <div class="footerColuna">
-            <h4>EQUIPE</h4>
-            <ul>
-                <li>Fernanda Rodrigues Leal</li>
-                <li>Gabriel Galhiardo Farina</li>
-                <li>Marcos Paulo de Carvalho Ribeiro</li>
-                <li>Matheus Jacob Duarte</li>
-                <li>Mateus Lorenço de Almeida</li>
-                <li>Thays Ramos da Silva Delfino</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footerLinha"></div>
-
-    <div class="footerBase">
-       <a href="https://sptech.school/">
-        <p>Faculdade São Paulo Tech School
+        <div class="footerBase">
+            <a href="https://sptech.school/">
+                <p>Faculdade São Paulo Tech School
             </a> - <a href="https://sptech.school/ciencia-da-computacao/">Ciência da Computação</a> - 2026</p>
-        <p>MONTECH &copy; 2026</p>
-    </div>
+            <p>MONTECH &copy; 2026</p>
+        </div>
     </footer>
-    
+
 
 </body>
 

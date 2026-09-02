@@ -39,6 +39,22 @@
     margin-left: 5%;
     overflow: hidden;
     border: 1px solid #2a2938;
+    overflow-y: scroll;
+}
+
+.containerTabela::-webkit-scrollbar {
+    width: 8px;
+}
+
+.containerTabela::-webkit-scrollbar-track {
+    background: #1c1b28;
+    border-radius: 10px;
+}
+
+.containerTabela::-webkit-scrollbar-thumb {
+    background-color: #4a4762;
+    border-radius: 10px;
+    border: 2px solid #1c1b28;
 }
 
 .tabelaDados {
@@ -97,13 +113,13 @@
 }
 
 .status.ativo {
-    color: #3CFF00;
-    background: #044B14;
+    color: #3aea05;
+    background: #06270e;
 }
 
 .status.inativo {
     color: #FF0000;
-    background: #4B0404;
+    background: #410a0a;
 }
 
 .servidores {
@@ -138,7 +154,6 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: background .15s ease;
 }
 
 .btnEditar:hover {
@@ -146,93 +161,82 @@
 }
 
 @media (max-width: 1000px) {
-    body {
-        background-color: red;
+
+    .containerGerenciamentoUsuarios {
+        margin-left: max(150px, 10%);
     }
 
     .containerTabela {
-        background-color: #044B14;
-        width: 70%;
+        width: 95%;
+        margin-left: 0;
+        max-width: 100%;
     }
 
     #containerGerenciamentoUsuariosTitulo {
-        width: 70%;
-        font-size: clamp(10px, 1.5dvw, 25px);
-        padding-bottom: 10px;
-        display: flex;
-        margin-left: 5%;
+        width: 100%;
+        margin-left: 0;
+        font-size: clamp(1rem, 3vw, 1.5rem);
         flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-bottom: 10px;
     }
 
     #botaoCadastroUsuario {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 3%;
-        width: 50%;
-    }
-
-    .containerGerenciamentoUsuarios {
-        background-color: purple;
-        margin-left: 10%;
-        display: flex;
-        align-items: center;
+        width: 60%;
     }
 
     .tabelaDados {
-        display: grid;
         grid-template-columns: 2fr 1fr 2fr 1fr;
-        background-color: blue;
     }
-
-    .linhaCabecalho,
-    .linhaUsuario {
-        display: grid;
-        grid-template-columns: subgrid;
-    }
-
 }
 
-@media(max-width: 650px) {
-    #logoHeader {
-        background-image: url(../imagens/shortLigthLogo.svg);
+@media (max-width: 650px) {
+
+    .containerGerenciamentoUsuarios {
+        margin-left: clamp(80px, 60px + 8dvw, 150px);
+        padding-top: 2dvh;
+        padding-left: 3vw;
+        padding-right: 3vw;
     }
 
-    header {
-        width: clamp(80px, 60px + 8dvw, 150px);
-        min-width: clamp(80px, 60px + 8dvw, 150px);
+    #botaoCadastroUsuario {
+        width: 100%;
+        margin-top: 12px;
     }
 
-    .opcao {
-        justify-content: center;
-        padding: 12px 0;
+    .containerTabela {
+        margin-left: 0;
+        width: 100%;
     }
 
-    .opcao span {
+    .linhaCabecalho {
         display: none;
     }
-
-    #containerUsuario{
-        align-self: center;
-    }
-
-    #usuarioFoto{
-        display: none;
-    }
-
 
     .tabelaDados {
         display: flex;
         flex-direction: column;
-        background-color: blue;
+        gap: 12px;
+        padding: 12px;
+        background: transparent;
     }
 
-    .linhaCabecalho,
     .linhaUsuario {
         display: flex;
-        
+        flex-direction: column;
+        gap: 10px;
+        background: #1a1926;
+        padding: 16px;
     }
 
- 
+    .col {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding-right: 0;
+    }
 
 }

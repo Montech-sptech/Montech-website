@@ -1,0 +1,184 @@
+
+/* ============================= */
+/* INÍCIO  */
+/* ============================= */
+
+.containerInicio {
+    display: flex;
+    flex-direction: column;
+    width: 90dvw;
+    min-height: 100vh;
+    margin-left: 10vw;
+    padding: 3dvh 4dvw 5dvh 4dvw;
+    box-sizing: border-box;
+    background: #1c1b28;
+    color: #eceaf5;
+
+}
+
+/* CABEÇALHO */
+.inicioCabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.inicioCabecalho h1 {
+    margin: 0;
+    color: #eceaf5;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 700;
+}
+
+.inicioCabecalho p {
+    margin: 5px 0 0;
+    color: #8c7bff;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 600;
+}
+
+/* CARDS DE RESUMO */
+
+.resumoInicio {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Card padrão */
+
+.cardResumo {
+    min-height: 170px;
+    padding: 22px;
+    background: #0f0e16;
+    border: 1px solid #2a2938;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hover */
+
+.cardResumo:hover {
+    transform: translateY(-3px);
+    border-color: #393080;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Título */
+
+.cardResumoTitulo {
+    color: #eceaf5;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* Descrição */
+
+.cardResumo p {
+    color: #a9a6ba;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: center;
+    margin: 0 auto 15px;
+    max-width: 320px;
+}
+
+/* Botão */
+
+.cardResumo button {
+    align-self: flex-start;
+    background: #393080;
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cardResumo button:hover {
+    background: #7664f5;
+}
+
+/* CARD DA FRASE */
+
+.cardFrase {
+    min-height: 170px;
+    padding: 22px;
+    background: #393080;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardFrase:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid #393080;
+}
+
+.cardFrase h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    line-height: 1.25;
+}
+
+.cardFrase span {
+    color: #ffffff;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+
+@media (max-width: 1000px) {
+
+    .containerInicio {
+        margin-left: max(150px, 10%);
+        width: calc(100% - max(150px, 10%));
+        padding-left: 3vw;
+        padding-right: 3vw;
+    }
+
+    .resumoInicio {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cardFrase {
+        grid-column: span 2;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .containerInicio {
+        margin-left: clamp(80px, 60px + 8dvw, 150px);
+        width: calc(100% - clamp(80px, 60px + 8dvw, 150px));
+        padding: 2dvh 3vw 4dvh;
+    }
+
+    .resumoInicio {
+        grid-template-columns: 1fr;
+    }
+
+    .cardFrase {
+        grid-column: auto;
+    }
+
+    .cardResumo {
+        min-height: 160px;
+    }
+
+    .cardOpcao {
+        padding: 18px;
+    }
+}

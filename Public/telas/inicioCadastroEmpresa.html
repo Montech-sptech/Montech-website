@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Public/css/cadastroDeEmpresas.css">
+    <link rel="shortcut icon" href="../imagens/shortLigthLogo.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/headerPosLogin.css">
+
+    <script src="../js/acessoGeral.js" defer></script>
+    <title>MonTech - cadastrar empresa</title>
+</head>
+
+<body onload="carregarInformacoes()">
+    <header>
+        <div id="logoHeader"></div>
+        <hr>
+        <div id="containerOpcoes">
+            <div id="containerOpcoes">
+                <div class="opcao" id="opcaoAtiva">
+                    <a href="inicioCadastroEmpresa.html" style="text-decoration: none; color: inherit;">
+                        <span>Inicio</span>
+                    </a>
+                </div>
+
+                <div class="opcao">
+                    <a href="contatoEmpresas.html" style="text-decoration: none; color: inherit;">
+                        <span>Contatos</span>
+                    </a>
+                </div>
+
+                <div class="opcao">
+                    <a href="cadastroDeEmpresas.html" style="text-decoration: none; color: inherit;">
+                        <span>Cadastrar Empresas</span>
+                    </a>
+                </div>
+
+                <div class="opcao">
+                    <a href="empresasCadastradas.html" style="text-decoration: none; color: inherit;">
+                        <span>Empresas Cadastradas</span>
+                    </a>
+                </div>
+
+                <div class="opcao">
+                    <a href="usuariosDeClientes.html" style="text-decoration: none; color: inherit;">
+                        <span>Usuários de Clientes</span>
+                    </a>
+                </div>
+            </div>
+
+            <div id="footerHeader">
+                <div id="containerUsuario">
+                    <div id="usuarioFoto">
+                        <img src="../imagens/fotoUsuario.png" alt="Foto do usuário">
+                    </div>
+                    <div id="user_info">
+                        <a id="nomeUsuario">Gabriel Galhiardo</a>
+                        <span id="cargoUsuario">Administrador</span>
+                    </div>
+                </div>
+
+                <div id="containerSair">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                        <path fill-rule="evenodd"
+                            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                    </svg>
+                    <a href="landingPage.html" style="text-decoration: none; color: inherit;">
+                        <span>Sair</span>
+                    </a>
+                </div>
+            </div>
+    </header>
+
+
+    <div class="containerInicio">
+
+        <div class="inicioCabecalho">
+            <h1>Início</h1>
+            <p>Olá! Aqui está a parte central do seu controle.</p>
+        </div>
+
+        <div class="resumoInicio">
+
+            <div class="cardResumo">
+                <div class="cardResumoTitulo">Leads gerados</div>
+                <h1 id="qtd_contatos">-</h1>
+
+                <p>Esse é o número de usuários que enviaram suas informações de contato</p>
+                <button>Ver Mais</button>
+            </div>
+
+
+            <div class="cardResumo">
+                <div class="cardResumoTitulo">
+                    Empresas Cadastradas
+                </div>
+
+                <h1 id="qtd_empresas">-</h1>
+                <p>Quantidade de empresas no nosso sistema, clique abaixo para cadastrar uma nova</p>
+
+                <button>Cadastrar</button>
+            </div>
+
+            <div class="cardFrase">
+                <h2>
+                    "Decole a estabilidade e monitore seu sucesso!"</h2>
+                <span>-MonTech</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

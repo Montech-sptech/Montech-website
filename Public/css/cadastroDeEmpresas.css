@@ -1,3 +1,149 @@
+.containerCadastroEmpresa {
+    display: flex;
+    flex-direction: column;
+    width: 90dvw;
+    padding-top: 3dvh;
+    margin-left: 10vw;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+#containerCadastroEmpresaTitulo {
+    color: #FFFFFF;
+    padding: 0 10dvh 3dvh 10dvh;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+.containerFormEmpresa {
+    max-width: 90%;
+    background: #1c1b28;
+    border-radius: 10px;
+    margin-left: 5%;
+    border: 1px solid #2a2938;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.linhaCampo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.linhaCampoDupla {
+    display: flex;
+    gap: 24px;
+}
+
+.linhaCampoDupla .linhaCampo {
+    flex: 1;
+}
+
+.linhaCampo label {
+    color: #6f6d82;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.linhaCampo input {
+    background: #14131e;
+    border: 1px solid #2a2938;
+    border-radius: 6px;
+    color: #eceaf5;
+    font-size: 15px;
+    padding: 12px 14px;
+    outline: none;
+}
+
+.linhaCampo input:focus {
+    border-color: #8c7bff;
+}
+
+.linhaCampo input::placeholder {
+    color: #4a4762;
+}
+
+.codigoGerado {
+    background: #14131e;
+    border: 1px solid #2a2938;
+    border-radius: 6px;
+    color: #62dd3c;
+    font-size: 15px;
+    padding: 12px 14px;
+}
+
+.mensagemErro {
+    color: #FF0000;
+    font-size: 14px;
+}
+
+.mensagemSucesso {
+    color: #3aea05;
+    font-size: 14px;
+}
+
+#botaoCadastrarEmpresa {
+    align-self: flex-start;
+    background-color: #0a1c578c;
+    border: #7c7f86 1px solid;
+    border-radius: 5px;
+    color: #FFFFFF;
+    height: 40px;
+    padding: 0 24px;
+    cursor: pointer;
+}
+
+#botaoCadastrarEmpresa:hover {
+    background-color: #0a1c57;
+}
+
+@media (max-width: 1000px) {
+
+    .containerCadastroEmpresa {
+        margin-left: max(150px, 10%);
+    }
+
+    .containerFormEmpresa {
+        width: 95%;
+        margin-left: 0;
+        max-width: 100%;
+    }
+
+    #containerCadastroEmpresaTitulo {
+        width: 100%;
+        margin-left: 0;
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        padding-bottom: 10px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .containerCadastroEmpresa {
+        margin-left: clamp(80px, 60px + 8dvw, 150px);
+        padding-top: 2dvh;
+        padding-left: 3vw;
+        padding-right: 3vw;
+    }
+
+    .containerFormEmpresa {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .linhaCampoDupla {
+        flex-direction: column;
+        gap: 22px;
+    }
+
+    #botaoCadastrarEmpresa {
+        width: 100%;
+    }
+}
+
 
 /* ============================= */
 /* INÍCIO  */

@@ -12,10 +12,10 @@ CREATE TABLE Usuario (
     nomeUsuario VARCHAR(45) NOT NULL,
     email VARCHAR(220) NOT NULL,
     senha VARCHAR(45) NOT NULL,
-    cargo VARCHAR(20) default 'ti',
+    cargo VARCHAR(20) default 'TI',
     fkEmpresa INT NOT NULL,
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
-    CONSTRAINT chk_cargo CHECK (cargo IN ('adm', 'analista'))
+    CONSTRAINT chk_cargo CHECK (cargo IN ('Administrador', 'Analista'))
 );
 
 CREATE TABLE Servidor (

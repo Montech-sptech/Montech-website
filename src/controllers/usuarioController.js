@@ -81,7 +81,7 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa a vincular está undefined!");
-    } else if (cargo == undefined){
+    } else if (cargo == undefined) {
         res.status(400).send("Cargo inválido");
     } else {
         usuarioModel.cadastrar(nome, email, senha, fkEmpresa, cargo)
@@ -106,26 +106,46 @@ async function pegarUsuariosPeloAdministrador(req, res) {
     var usuarioId = req.params.id;
 
     var usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
+
     if (!usuario[0]) {
         return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
     }
 
-    console.log(usuario);
-    
     var empresaId = usuario[0].fkEmpresa;
+    var jsonBruto = await usuarioModel.pegarUsuariosPelaEmpresa(empresaId);
 
-    usuarioModel.pegarUsuariosPelaEmpresa(empresaId)
-        .then(function (resultado) {
-            res.json(resultado);
-        })
-        .catch(function (erro) {
-            console.log(erro);
-            console.log(
-                "\nHouve um erro ao buscar os usuários! Erro: ",
-                erro.sqlMessage
-            );
-            res.status(500).json(erro.sqlMessage);
-        });
+    var Usuarios = {};
+
+    for (var i = 0; i < jsonBruto.length; i++) {
+        var linha = jsonBruto[i];
+        var idAtual = linha.idUsuario;
+
+        if (!Usuarios[idAtual]) {
+            Usuarios[idAtual] = {
+                idUsuario: linha.idUsuario,
+                nomeUsuario: linha.nomeUsuario,
+                email: linha.email,
+                cargo: linha.cargo,
+                status: linha.status,
+                servidores: []
+            };
+        }
+
+        if (linha.idServidor) {
+            Usuarios[idAtual].servidores.push({
+                idServidor: linha.idServidor,
+                nomeServidor: linha.nomeServidor,
+                hostName: linha.hostName
+            });
+        }
+    }
+    
+    var usuariosAgrupados = [];
+    for (id in Usuarios) {
+        usuariosAgrupados.push(Usuarios[id]);
+    }
+
+    return res.json(usuariosAgrupados);
 }
 
 module.exports = {

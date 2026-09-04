@@ -17,7 +17,7 @@ function pegarUsuariosPeloAdministrador() {
             for (let i = 0; i < data.length; i++) {
                 const usuario = data[i];
 
-                textoStatus = usuario.status ? "Ativo" : "Inativo";
+                let textoStatus = ""
                 if (usuario.status == false) {
                     textoStatus = `    
                     <div class="col">
@@ -30,6 +30,14 @@ function pegarUsuariosPeloAdministrador() {
                      </div>`
                 }
 
+                let textoServidoresDisponivel = data[i].servidores.length == 0 
+                ?  `<span class="servidor inativo">Não possui nenhum servidor disponivel</span>` 
+                : ``
+
+                for (let j = 0; j < data[i].servidores.length; j++) {
+                    textoServidoresDisponivel += `<span class="servidor ativo">${data[i].servidores[j].nomeServidor}</span>`
+                }
+                
 
                 textoDadosTabelaUsuarios += `
                  <div class="linhaUsuario">
@@ -40,9 +48,7 @@ function pegarUsuariosPeloAdministrador() {
                             ${textoStatus}
                             <div class="col">
                                 <div class="servidores">
-                                    <span class="servidor ativo">Captura</span>
-                                    <span class="servidor ativo">Processamento</span>
-                                    <span class="servidor ativo">Exibição</span>
+                                    ${textoServidoresDisponivel}
                                 </div>
                             </div>
                              <div class="col">

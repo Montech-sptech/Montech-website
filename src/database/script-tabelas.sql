@@ -15,7 +15,7 @@ CREATE TABLE Usuario (
     cargo VARCHAR(20) default 'TI',
     fkEmpresa INT NOT NULL,
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
-    CONSTRAINT chk_cargo CHECK (cargo IN ('Administrador', 'Analista'))
+    CONSTRAINT chk_cargo CHECK (cargo IN ('Administrador', 'Analista', 'TI'))
 );
 
 CREATE TABLE Servidor (
@@ -52,3 +52,14 @@ insert into Empresa (nomeEmpresa, token) values
 ('Safra', 'SACBD01'),
 ('Itau', 'ITKLD02'),
 ('Bradesco', 'BRJDK03');
+
+
+function pegarUsuariosPeloAdministrador(id) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarUsuariosPeloAdministrador():", id);
+    var instrucaoSql = `
+        SELECT 
+            idUsuario AS id, nomeUsuario AS nome, email, senha, fkEmpresa AS empresaId, cargo FROM Usuario WHERE idUsuario = ${id};
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}

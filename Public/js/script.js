@@ -74,7 +74,7 @@ function cadastrar() {
                 idEmpresaVincular = listaEmpresasCadastradas[i].idEmpresa;
 
                 break;
-            }
+            }   
         }
 
         if (idEmpresaVincular == undefined) {

@@ -99,7 +99,34 @@ function cadastrar(req, res) {
     }
 }
 
+async function pegarUsuariosPeloAdministrador(req, res) {
+    var usuarioId = req.params.id;
+
+    var usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
+    if (!usuario[0]) {
+        return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
+    }
+
+    console.log(usuario);
+    
+    var empresaId = usuario[0].empresaId;
+
+    usuarioModel.pegarUsuariosPelaEmpresa(empresaId)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao buscar os usuários! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    pegarUsuariosPeloAdministrador
 }

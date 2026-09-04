@@ -10,4 +10,10 @@ router.get("/listar", function (req, res) {
 
 });
 
+router.get("/verificarCadastrados", function (req, res) {
+
+    empresaController.verificarCadastrados(req, res);
+
+});
+
 module.exports = router;

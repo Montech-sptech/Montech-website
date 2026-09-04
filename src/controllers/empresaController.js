@@ -16,6 +16,22 @@ function listar(req, res) {
         });
 }
 
+function verificarCadastrados(req, res) {
+    empresaModel.verificarCadastrados()
+        .then(function (resultado) {
+
+            res.json(resultado);
+
+        })
+        .catch(function (erro) {
+
+            console.log(erro);
+
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
-    listar
+    listar,
+    verificarCadastrados
 };

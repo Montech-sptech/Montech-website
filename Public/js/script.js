@@ -7,6 +7,8 @@ var fecharLogin = document.getElementById("fecharModalLogin");
 var botaoLogin = document.getElementById("botaoEntrar");
 var botaoCriar = document.getElementById("botaoCriar");
 
+let usuarioEmEmpresa = false;
+
 function modalLogin() {
     modal.style.display = "none";
     modalL.style.display = "flex";
@@ -48,12 +50,21 @@ function cadastrar() {
     var confirmacaoSenhaVar = confirmarSenha.value;
     var codigoVar = token.value;
 
+    verificarCadastrados();
+
+    if (usuarioEmEmpresa) {
+        var cargoVar = "TI";
+    } else {
+        var cargoVar = "Administrador";
+    }
+
     if (
         nomeVar == "" ||
         emailVar == "" ||
         senhaVar == "" ||
         confirmacaoSenhaVar == "" ||
-        codigoVar == ""
+        codigoVar == "" ||
+        cargoVar == ""
     ) {
         alert("Preencha todos os campos");
         return false;
@@ -74,7 +85,7 @@ function cadastrar() {
                 idEmpresaVincular = listaEmpresasCadastradas[i].idEmpresa;
 
                 break;
-            }   
+            }
         }
 
         if (idEmpresaVincular == undefined) {
@@ -92,7 +103,8 @@ function cadastrar() {
                 nomeServer: nomeVar,
                 emailServer: emailVar,
                 senhaServer: senhaVar,
-                idEmpresaVincularServer: idEmpresaVincular
+                idEmpresaVincularServer: idEmpresaVincular,
+                cargoServer: cargoVar
             }),
         })
             .then(function (resposta) {
@@ -141,6 +153,29 @@ function listar() {
             console.log(`#ERRO: ${resposta}`);
         });
 }
+
+function verificarCadastrados() {
+    fetch("/empresas/verificarCadastrados", {
+        method: "GET",
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((usuarios) => {
+                    if (usuarios.length > 0) {
+                        usuarioEmEmpresa = true;
+                    } else {
+                        console.log("não existe usuários cadastrados nessa empresa");
+                    }
+                });
+            } else {
+                console.log("erro");
+            }
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
+        });
+}
+
 
 function validar() {
     if (sessionStorage.getItem("ID")) {

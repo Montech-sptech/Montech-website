@@ -4,7 +4,7 @@ function listar() {
 
     var instrucaoSql = `
         SELECT 
-            idEmpresa, nomeEmpresa, token FROM Empresa;
+            idEmpresa, razaoSocial, token FROM Empresa;
     `;
 
     console.log("Executando instrução SQL:\n" + instrucaoSql);
@@ -12,6 +12,16 @@ function listar() {
     return database.executar(instrucaoSql);
 }
 
+function verificarCadastrados(){
+    var instrucaoSql = `
+        select u.idUsuario from Empresa e
+            join Usuario u on u.fkEmpresa = e.idEmpresa; 
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-    listar
+    listar,
+    verificarCadastrados
 };

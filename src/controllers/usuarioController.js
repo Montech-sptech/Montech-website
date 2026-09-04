@@ -71,6 +71,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var fkEmpresa = req.body.idEmpresaVincularServer;
+    var cargo = req.body.cargoServer;
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -80,8 +81,10 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa a vincular está undefined!");
+    } else if (cargo == undefined){
+        res.status(400).send("Cargo inválido");
     } else {
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, senha, fkEmpresa, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);

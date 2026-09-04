@@ -117,6 +117,152 @@
             </div>
         </div>
     </header>
+
+    <main class="containerCadastroServidor">
+ 
+        <div id="containerCadastroServidorTitulo">
+            <h1>Cadastrar Servidor</h1>
+            <p>Registre um novo servidor para monitoramento</p>
+        </div>
+ 
+        <form id="formCadastroServidor">
+ 
+            <div class="linhaSecoes">
+ 
+                <section class="cardSecao" id="cardIdentificacao">
+                    <h2>Identificação</h2>
+ 
+                    <div class="linhaCampos">
+                        <div class="campo">
+                            <label for="nomeServidor">Nome do servidor</label>
+                            <input type="text" id="nomeServidor" name="nomeServidor"
+                                placeholder="SPA - ACC Brasília">
+                        </div>
+                        <div class="campo">
+                            <label for="hostnameServidor">Hostname</label>
+                            <input type="text" id="hostnameServidor" name="hostnameServidor"
+                                placeholder="spa-bsb.sim.local">
+                        </div>
+                    </div>
+ 
+                    <div class="linhaCampos">
+                        <div class="campo">
+                            <label for="tipoServidor">Servidor</label>
+                            <select id="tipoServidor" name="tipoServidor">
+                                <option value="SPA">SPA</option>
+                                <option value="SDV">SDV</option>
+                                <option value="AIS">AIS</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="componenteFuncional">Componente funcional</label>
+                            <select id="componenteFuncional" name="componenteFuncional">
+                                <option value="flightManagement">Flight Management</option>
+                                <option value="trackManagement">Track Management</option>
+                                <option value="flightPlanTrackCorrelation">Flight Plan / Track Correlation</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+ 
+                <section class="cardSecao" id="cardConexao">
+                    <div class="campoAcaoTitulo">
+                        <h2>Conexão de coleta</h2>
+                    </div>
+ 
+                    <div class="linhaCampos">
+                        <div class="campo">
+                            <label for="metodoColeta">Método de coleta</label>
+                            <select id="metodoColeta" name="metodoColeta">
+                                <option value="scriptPython">Script Python (agendado)</option>
+                                <option value="ssh">SSH</option>
+                                <option value="snmp">SNMP</option>
+                            </select>
+                        </div>
+                        <div class="campo campoPequeno">
+                            <label for="portaConexao">Porta</label>
+                            <input type="text" id="portaConexao" name="portaConexao" placeholder="22">
+                        </div>
+                    </div>
+ 
+                    <div class="campo">
+                        <label for="intervaloColeta">Intervalo de coleta</label>
+                        <select id="intervaloColeta" name="intervaloColeta">
+                            <option value="30">30s</option>
+                            <option value="60">1 min</option>
+                            <option value="300">5 min</option>
+                        </select>
+                    </div>
+                </section>
+ 
+            </div>
+ 
+            <section class="cardSecao" id="cardComponentes">
+                <h2>Componentes a monitorar</h2>
+ 
+                <div class="gridComponentes">
+                    <label class="checkboxComponente" data-componente="cpu">
+                        <input type="checkbox" name="componentes" value="cpu" checked>
+                        <img class="iconeComponente" src="../imagens/cpu.png" alt="">
+                        <span class="nomeComponente">CPU</span>
+                    </label>
+ 
+                    <label class="checkboxComponente" data-componente="ram">
+                        <input type="checkbox" name="componentes" value="ram" checked>
+                        <img class="iconeComponente" src="../imagens/ram.png" alt="">
+                        <span class="nomeComponente">Mem. RAM</span>
+                    </label>
+ 
+                    <label class="checkboxComponente" data-componente="disco">
+                        <input type="checkbox" name="componentes" value="disco">
+                        <img class="iconeComponente" src="../imagens/disco.png" alt="">
+                        <span class="nomeComponente">Disco</span>
+                    </label>
+ 
+                </div>
+            </section>
+ 
+            <section class="cardSecao" id="cardLimites">
+                <h2>Limites de alerta</h2>
+                <p class="descricaoSecao">Definidos por componente selecionado acima</p>
+                <div class="listaLimites" id="listaLimites">
+                </div>
+            </section>
+ 
+            <section class="cardSecao" id="cardIntegracoes">
+                <h2>Integrações de notificação</h2>
+ 
+                <div class="linhaCampos">
+                    <div class="campo">
+                        <label for="projetoJira">Projeto Jira</label>
+                        <input type="text" id="projetoJira" name="projetoJira"
+                            placeholder="MONTECH-SAGITARIO">
+                    </div>
+                    <div class="campo">
+                        <label for="canalSlack">Canal Slack</label>
+                        <input type="text" id="canalSlack" name="canalSlack"
+                            placeholder="#alertas-sagitario">
+                    </div>
+                    <div class="campo">
+                        <label for="severidadeMinima">Severidade mínima p/ incidente</label>
+                        <select id="severidadeMinima" name="severidadeMinima">
+                            <option value="critico">Crítico</option>
+                            <option value="atencao">Atenção</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+ 
+            <div class="containerAcoes">
+                <button type="reset" id="botaoCancelar">Cancelar</button>
+                <button type="submit" id="botaoSalvarServidor">Salvar servidor</button>
+            </div>
+ 
+        </form>
+ 
+    </main>
+
+    
 </body>
 
 </html>

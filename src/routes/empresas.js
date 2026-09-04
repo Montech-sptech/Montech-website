@@ -16,4 +16,8 @@ router.get("/verificarCadastrados", function (req, res) {
 
 });
 
+router.get("/empresasCadastradas", function (req, res) {
+    empresaController.carregarEmpresas(req, res);
+});
+
 module.exports = router;

@@ -284,6 +284,103 @@
     font-weight: 600;
 }
 
+/* ============================= */
+/* EMPRESAS CADASTRADAS  */
+/* ============================= */
+
+/* CAIXA PRINCIPAL */
+.caixaConteudoContatos {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #1c1b28;
+    border: 1px solid #2a2938;
+    border-radius: 10px;
+    padding: 32px;
+}
+
+/* TÍTULO */
+.conteudoTitulo {
+    margin: 0;
+    color: #eceaf5;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.conteudoTitulo span {
+    color: #eceaf5;
+}
+
+/* SUBTÍTULO */
+
+.caixaConteudoContatos {
+    margin-top: 10px;
+    margin-bottom: 28px;
+    border: 1px solid #797979;
+}
+
+.caixaConteudoContatos h4 {
+    margin: 0;
+    margin-bottom: 20px;
+    color: #6f6d82;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* CABEÇALHO DA TABELA */
+.cabecalhoTabela {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 18px;
+    background: #14131e;
+    border: 1px solid #797979;
+    border-radius: 6px;
+    color: #d0c9fd;
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+
+/* ÁREA DOS DADOS */
+#empresasCadastradas {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.empresaLinha {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    align-items: center;
+    min-height: 55px;
+    padding: 0 18px;
+    background: #1c1b28;
+    border-bottom: 1px solid #2a2938;
+    color: #eceaf5;
+    font-size: 14px;
+}
+
+.empresaLinha:hover {
+    background: #211f30;
+    border-color: #8c7bff;
+}
+
+
+/* TEXTO DA EMPRESA */
+.empresaLinha div {
+    color: #eceaf5;
+}
+
+/* CNPJ */
+.empresaCnpj {
+    color: #a9a6ba ;
+}
+
 
 @media (max-width: 1000px) {
 

@@ -31,7 +31,25 @@ function verificarCadastrados(req, res) {
         });
 }
 
+function carregarEmpresas(req, res) {
+
+    empresaModel.carregarEmpresas()
+        .then(function (resultado) {
+
+            res.status(200).json(resultado);
+
+        })
+        .catch(function (erro) {
+
+            console.log(erro);
+            console.log("Erro ao buscar empresas cadastradas");
+
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     listar,
-    verificarCadastrados
+    verificarCadastrados,
+    carregarEmpresas
 };

@@ -21,7 +21,20 @@ function verificarCadastrados(){
     return database.executar(instrucaoSql);
 }
 
+function carregarEmpresas() {
+
+    var instrucao = `
+    SELECT
+        razaoSocial,cnpj,token FROM Empresa;
+    `;
+
+    console.log("executando a instrução sql: \n" + instrucao);
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
-    verificarCadastrados
+    verificarCadastrados,
+    carregarEmpresas
 };

@@ -109,7 +109,7 @@ async function pegarUsuariosPeloAdministrador(req, res) {
 
     console.log(usuario);
     
-    var empresaId = usuario[0].empresaId;
+    var empresaId = usuario[0].fkEmpresa;
 
     usuarioModel.pegarUsuariosPelaEmpresa(empresaId)
         .then(function (resultado) {

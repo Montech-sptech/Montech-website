@@ -3,7 +3,10 @@ USE Montech;
 
 CREATE TABLE Empresa (
     idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
-    nomeEmpresa VARCHAR(45) NOT NULL,
+    razaoSocial VARCHAR(120) NOT NULL,
+	cnpj CHAR(14) UNIQUE,
+    cep CHAR(8),
+    numero VARCHAR(10),
     token VARCHAR(45) NOT NULL
 );
 

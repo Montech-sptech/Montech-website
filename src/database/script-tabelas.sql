@@ -27,6 +27,17 @@ CREATE TABLE Servidor (
     hostName VARCHAR(50) NULL
 );
 
+CREATE TAble Relatorio (
+	idRelatorio INT auto_increment PRIMARY KEY,
+    tituloRelatorio varchar(45) NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
+    descricao VARCHAR(3000) NOT NULL,
+    dataRelatorio datetime NOT NULL,
+    statusAnalise varchar(10) NOT NULL,
+    CONSTRAINT chk_tipo CHECK (tipo in ('Desempenho', 'Segurança', 'Falha Física', 'Falha Virtual')),
+    CONSTRAINT chk_status CHECK (statusAnalise in ('Em Análise', 'Concluído'))
+);
+
 CREATE TABLE Usuario_Servidor (
     idUsuario INT NOT NULL,
     fkEmpresa INT NOT NULL,
@@ -51,18 +62,7 @@ CREATE TABLE Componentes_Servidor (
     FOREIGN KEY (idServidor) REFERENCES Servidor(idServidor)
 );
 
-insert into Empresa (nomeEmpresa, token) values
+insert into Empresa (razaoSocial, token) values
 ('Safra', 'SACBD01'),
 ('Itau', 'ITKLD02'),
 ('Bradesco', 'BRJDK03');
-
-
-function pegarUsuariosPeloAdministrador(id) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarUsuariosPeloAdministrador():", id);
-    var instrucaoSql = `
-        SELECT 
-            idUsuario AS id, nomeUsuario AS nome, email, senha, fkEmpresa AS empresaId, cargo FROM Usuario WHERE idUsuario = ${id};
-        `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}

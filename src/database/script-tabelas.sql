@@ -16,6 +16,7 @@ CREATE TABLE Usuario (
     email VARCHAR(220) NOT NULL,
     senha VARCHAR(45) NOT NULL,
     cargo VARCHAR(20) default 'TI',
+    status boolean default true,
     fkEmpresa INT NOT NULL,
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
     CONSTRAINT chk_cargo CHECK (cargo IN ('Administrador', 'Analista', 'TI'))
@@ -66,3 +67,22 @@ insert into Empresa (razaoSocial, token) values
 ('Safra', 'SACBD01'),
 ('Itau', 'ITKLD02'),
 ('Bradesco', 'BRJDK03');
+
+INSERT INTO Usuario (nomeUsuario, email, senha, cargo, fkEmpresa) VALUES
+('Carlos', 'carlos@gmail.com', '123456', 'Administrador', 2),
+('Gabriel', 'gabriel@gmail.com', '123456', 'Analista', 2),
+('Thays', 'thays@gmail.com', '123456', 'TI', 2);
+
+INSERT INTO Servidor (nomeServidor, hostName) VALUES
+('Servidor A', 'srv-web-01'),
+('Servidor B', 'srv-db-01'),
+('Servidor C', 'srv-api-01');
+
+INSERT INTO Usuario_Servidor (idUsuario, fkEmpresa, idServidor) VALUES
+(1, 2, 1),
+(1, 2, 2),
+(1, 2, 3),
+
+(3, 2, 2),
+(3, 2, 3);
+

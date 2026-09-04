@@ -51,56 +51,6 @@ function pegarUsuariosPelaEmpresa(idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
-async function pegarUsuariosPeloAdministrador(req, res) {
-    var usuarioId = req.params.id;
-
-    try {
-        var usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
-        
-        if (!usuario[0]) {
-            return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
-        }
-
-        var empresaId = usuario[0].fkEmpresa;
-        var resultadoQuery = await usuarioModel.pegarUsuariosPelaEmpresa(empresaId);
-
-        // Agrupa os servidores dentro do objeto de cada usuário
-        var usuariosAgrupados = resultadoQuery.reduce((acc, row) => {
-            let usuarioExistente = acc.find(u => u.idUsuario === row.idUsuario);
-
-            if (!usuarioExistente) {
-                usuarioExistente = {
-                    idUsuario: row.idUsuario,
-                    nomeUsuario: row.nomeUsuario,
-                    email: row.email,
-                    cargo: row.cargo,
-                    status: row.status,
-                    servidores: []
-                };
-                acc.push(usuarioExistente);
-            }
-
-            // Adiciona o servidor caso ele exista no JOIN (evita adicionar nulls de LEFT JOIN)
-            if (row.idServidor) {
-                usuarioExistente.servidores.push({
-                    idServidor: row.idServidor,
-                    nomeServidor: row.nomeServidor,
-                    hostName: row.hostName
-                });
-            }
-
-            return acc;
-        }, []);
-
-        return res.json(usuariosAgrupados);
-
-    } catch (erro) {
-        console.log(erro);
-        console.log("\nHouve um erro ao buscar os usuários! Erro: ", erro.sqlMessage);
-        return res.status(500).json(erro.sqlMessage);
-    }
-}
-
 module.exports = {
     autenticar,
     cadastrar,

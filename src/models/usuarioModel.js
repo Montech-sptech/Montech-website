@@ -20,7 +20,33 @@ function cadastrar(nome, email, senha, fkEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+
+
+
+function encontrarUsuarioPorId(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function encontrarPorId():", idUsuario);
+
+    var instrucaoSql = `
+        SELECT 
+            idUsuario AS id, nomeUsuario AS nome, email, senha, fkEmpresa AS empresaId, cargo FROM Usuario WHERE idUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function pegarUsuariosPelaEmpresa(idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarUsuariosPelaEmpresa():", idEmpresa);
+    var instrucaoSql = `
+        SELECT 
+            idUsuario AS id, nomeUsuario AS nome, email, senha, fkEmpresa AS empresaId, cargo FROM Usuario WHERE fkEmpresa = ${idEmpresa};
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    encontrarUsuarioPorId,
+    pegarUsuariosPelaEmpresa,
 };

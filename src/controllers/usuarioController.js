@@ -148,8 +148,71 @@ async function pegarUsuariosPeloAdministrador(req, res) {
     return res.json(usuariosAgrupados);
 }
 
+async function adicionarServidoresUsuario(req, res) {
+    var usuarioId = req.body.idUsuario;
+
+    usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
+
+    if (!usuario[0]) {
+        return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
+    }
+
+    fkEmpresa = usuario[0].fkEmpresa;
+
+    var idServidor = req.body.idServidor;
+
+    usuarioModel.adicionarServidoresUsuario(usuarioId, fkEmpresa, idServidor)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao atualizar os servidores do usuário! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+async function removerServidorUsuario(req, res) {
+    var usuarioId = req.body.idUsuario;
+    var idServidor = req.body.idServidor;
+
+    var usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
+
+    if (!usuario[0]) {
+        return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
+    }
+
+    var fkEmpresa = usuario[0].fkEmpresa;
+
+    usuarioModel.removerServidorUsuario(usuarioId, fkEmpresa, idServidor)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao remover o servidor do usuário! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function inativarUsuario(req, res) {
+    var usuarioId = req.body.idUsuario;
+
+    usuarioModel.inativarUsuario(usuarioId)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao inativar o usuário! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    pegarUsuariosPeloAdministrador
+    pegarUsuariosPeloAdministrador,
+    adicionarServidoresUsuario,
+    removerServidorUsuario
 }

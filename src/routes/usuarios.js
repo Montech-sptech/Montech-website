@@ -18,5 +18,22 @@ router.get("/pegarUsuariosPeloAdministrador/:id", function (req, res) {
     });
 });
 
+router.post("/adicionarServidoresUsuario/:id", function (req, res) {
+    autorizacaoCargo.verificarAdministrador(req, res, () => {
+        usuarioController.adicionarServidoresUsuario(req, res);
+    });
+});
+
+router.delete("/removerServidorUsuario/:id", function (req, res) {
+    autorizacaoCargo.verificarAdministrador(req, res, () => {
+        usuarioController.removerServidorUsuario(req, res);
+    });
+});
+
+router.put("/inativarUsuario/:id", function (req, res) {
+    autorizacaoCargo.verificarAdministrador(req, res, () => {
+        usuarioController.inativarUsuario(req, res);
+    });
+});
 
 module.exports = router;

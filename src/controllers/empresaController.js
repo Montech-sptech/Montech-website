@@ -117,9 +117,23 @@ async function cadastrar(req, res) {
     }
 }
 
+function mensagensContatos(req, res) {
+
+    empresaModel.mensagensContatos()
+        .then(function (resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Erro ao buscar mensagens de contato");
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     listar,
     verificarCadastrados,
     carregarEmpresas,
-    cadastrar
+    cadastrar,
+    mensagensContatos
 };

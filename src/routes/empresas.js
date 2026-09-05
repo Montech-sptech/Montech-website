@@ -24,4 +24,8 @@ router.post("/cadastrar", function (req, res) {
     empresaController.cadastrar(req, res);
 });
 
+router.get("/mensagensContatos", function (req, res) {
+    empresaController.mensagensContatos(req, res);
+});
+
 module.exports = router;

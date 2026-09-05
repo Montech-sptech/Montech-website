@@ -183,7 +183,6 @@
 }
 
 /* CARDS DE RESUMO */
-
 .resumoInicio {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -192,7 +191,6 @@
 }
 
 /* Card padrão */
-
 .cardResumo {
     min-height: 170px;
     padding: 22px;
@@ -205,7 +203,6 @@
 }
 
 /* Hover */
-
 .cardResumo:hover {
     transform: translateY(-3px);
     border-color: #393080;
@@ -213,7 +210,6 @@
 }
 
 /* Título */
-
 .cardResumoTitulo {
     color: #eceaf5;
     font-size: 16px;
@@ -223,7 +219,6 @@
 }
 
 /* Descrição */
-
 .cardResumo p {
     color: #a9a6ba;
     font-size: 13px;
@@ -234,7 +229,6 @@
 }
 
 /* Botão */
-
 .cardResumo button {
     align-self: flex-start;
     background: #393080;
@@ -252,7 +246,6 @@
 }
 
 /* CARD DA FRASE */
-
 .cardFrase {
     min-height: 170px;
     padding: 22px;
@@ -285,7 +278,7 @@
 }
 
 /* ============================= */
-/* EMPRESAS CADASTRADAS  */
+/* EMPRESAS CADASTRADAS / CONTATOS*/
 /* ============================= */
 
 /* CAIXA PRINCIPAL */
@@ -297,6 +290,9 @@
     border: 1px solid #2a2938;
     border-radius: 10px;
     padding: 32px;
+    margin-top: 10px;
+    margin-bottom: 28px;
+    border: 1px solid #797979;
 }
 
 /* TÍTULO */
@@ -312,13 +308,6 @@
 }
 
 /* SUBTÍTULO */
-
-.caixaConteudoContatos {
-    margin-top: 10px;
-    margin-bottom: 28px;
-    border: 1px solid #797979;
-}
-
 .caixaConteudoContatos h4 {
     margin: 0;
     margin-bottom: 20px;
@@ -327,8 +316,6 @@
     font-weight: 600;
 }
 
-
-/* CABEÇALHO DA TABELA */
 .cabecalhoTabela {
     display: grid;
     grid-template-columns: 2fr 1.5fr 1.5fr;
@@ -344,14 +331,18 @@
     box-sizing: border-box;
 }
 
+.cabecalhoTabela.colunas4 {
+    grid-template-columns: 2fr 2fr 1.3fr 1.3fr;
+}
+
 
 /* ÁREA DOS DADOS */
-#empresasCadastradas {
+#linhasEmpresas,
+#mensagensMostradas {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-
 
 .empresaLinha {
     display: grid;
@@ -370,15 +361,29 @@
     border-color: #8c7bff;
 }
 
-
-/* TEXTO DA EMPRESA */
 .empresaLinha div {
     color: #eceaf5;
 }
 
-/* CNPJ */
 .empresaCnpj {
-    color: #a9a6ba ;
+    color: #a9a6ba;
+}
+
+.contatoLinha {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.3fr 1.3fr;
+    align-items: center;
+    min-height: 55px;
+    padding: 0 18px;
+    background: #1c1b28;
+    border-bottom: 1px solid #2a2938;
+    color: #eceaf5;
+    font-size: 14px;
+}
+
+.contatoLinha:hover {
+    background: #211f30;
+    border-color: #8c7bff;
 }
 
 
@@ -423,5 +428,21 @@
 
     .cardOpcao {
         padding: 18px;
+    }
+
+    .cabecalhoTabela {
+        display: none;
+    }
+
+    .empresaLinha,
+    .contatoLinha {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px;
+        background: #1a1926;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        border-bottom: none;
     }
 }

@@ -61,11 +61,25 @@ function verificarCodigoCadastro(codigo) {
     return database.executar(instrucaoSql);
 }
 
+
+function mensagensContatos() {
+    console.log("Acessei o contatoModel/empresaModel - mensagensContatos");
+
+    var instrucaoSql = `
+        SELECT nomeEmpresa, email, telefone, DATE_FORMAT(dataMensagem, '%d/%m/%Y %H:%i:%s') AS dataMensagem FROM Contato
+        ORDER BY dataMensagem DESC;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listar,
     verificarCadastrados,
     carregarEmpresas,
     cadastrar,
     verificarCnpj,
-    verificarCodigoCadastro
+    verificarCodigoCadastro,
+    mensagensContatos
 };

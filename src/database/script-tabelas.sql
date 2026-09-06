@@ -32,9 +32,12 @@ CREATE TABLE relatorio (
     idRelatorio INT AUTO_INCREMENT PRIMARY KEY,
     tituloRelatorio VARCHAR(45) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
+    resumo VARCHAR(100) not null,
     descricao VARCHAR(3000) NOT NULL,
     dataRelatorio DATETIME NOT NULL,
     statusAnalise VARCHAR(10) NOT NULL,
+    fkEmpresa INT NOT NULL,
+    foreign key (fkEmpresa) REFERENCES empresa(idEmpresa),
     CONSTRAINT chkTipo CHECK (tipo IN ('Desempenho', 'Segurança', 'Falha Física', 'Falha Virtual')),
     CONSTRAINT chkStatus CHECK (statusAnalise IN ('Em Análise', 'Concluído'))
 );

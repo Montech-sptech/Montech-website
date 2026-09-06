@@ -18,6 +18,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../css/headerPosLogin.css">
     <script src="../js/acessoGeral.js" defer></script>
+    <script src="../js/relatorio.js" defer></script>
     <title>MonTech - gerenciamento de usuários</title>
 </head>
 
@@ -133,30 +134,6 @@
 
     <div class="secaoRelatorios">
         <div class="secaoElementos">
-            <div class="cardRelatorio">
-                <h2>Análise de Desempenho</h2>
-
-                <div class="tipoRelatorio">
-                    <span>Desempenho</span>
-                    <span class="tagRelatorio">SAGITARIO-01</span>
-                </div>
-
-                <div class="descricaoRelatorio">
-                    Análise dos picos de uso<br>
-                    de CPU registrados
-                </div>
-
-                <div class="rodapeRelatorio">
-                    <div class="usuarioRelatorio">
-                        <img class="iconeUsuario" src="../imagens/user.png" alt="Usuário">
-                        <span>Matheus Jacob</span>
-                    </div>
-
-                    <span class="dataRelatorio">02/09/2026</span>
-
-                    <span class="statusRelatorio">Concluído</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -179,17 +156,27 @@
 
                 <div class="campoRelatorio">
                     <label for="tipoRelatorioInput">Tipo de Relatório</label>
-                    <input type="text" id="tipoRelatorioInput" placeholder="Ex: Desempenho">
+                    <select id="tipoRelatorioInput">
+                        <option value="">Selecione o tipo</option>
+                        <option value="Desempenho">Desempenho</option>
+                        <option value="Segurança">Segurança</option>
+                        <option value="Falha Física">Falha Física</option>
+                        <option value="Falha Virtual">Falha Virtual</option>
+                    </select>
                 </div>
 
                 <div class="campoRelatorio">
-                    <label for="servidorRelatorioInput">Servidor</label>
-                    <input type="text" id="servidorRelatorioInput" placeholder="Ex: SAGITARIO-01">
+                    <label for="dataRelatorioInput">Data do Relatório</label>
+                    <input type="date" id="dataRelatorioInput">
                 </div>
 
                 <div class="campoRelatorio">
-                    <label for="periodoRelatorioInput">Período do Relatório</label>
-                    <input type="text" id="periodoRelatorioInput" placeholder="Ex: 01/09/2026 - 02/09/2026">
+                    <label for="statusRelatorioInput">Status da Análise</label>
+                    <select id="statusRelatorioInput">
+                        <option value="">Selecione o status</option>
+                        <option value="Em Análise">Em Análise</option>
+                        <option value="Concluído">Concluído</option>
+                    </select>
                 </div>
 
                 <div class="campoRelatorio campoCompleto">

@@ -10,3 +10,15 @@ function sair(){
     sessionStorage.clear();
     window.location.href = "./landingPage.html";
 }
+
+function abrirModalRelatorio() {
+    document.getElementById("modalRelatorio").style.display = "flex";
+}
+
+function fecharModalRelatorio() {
+    document.getElementById("modalRelatorio").style.display = "none";
+}
+
+function salvarRelatorio() {
+    fecharModalRelatorio();
+}

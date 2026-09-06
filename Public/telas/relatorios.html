@@ -124,7 +124,7 @@
         </div>
         <div class="botaoRelatorioDiv">
             <div class="botaoRelatorioElementos">
-                <button class="botaoRelatorio">
+                <button class="botaoRelatorio" onclick="abrirModalRelatorio()">
                     Cadastrar Relatório
                 </button>
             </div>
@@ -133,7 +133,82 @@
 
     <div class="secaoRelatorios">
         <div class="secaoElementos">
+            <div class="cardRelatorio">
+                <h2>Análise de Desempenho</h2>
 
+                <div class="tipoRelatorio">
+                    <span>Desempenho</span>
+                    <span class="tagRelatorio">SAGITARIO-01</span>
+                </div>
+
+                <div class="descricaoRelatorio">
+                    Análise dos picos de uso<br>
+                    de CPU registrados
+                </div>
+
+                <div class="rodapeRelatorio">
+                    <div class="usuarioRelatorio">
+                        <img class="iconeUsuario" src="../imagens/user.png" alt="Usuário">
+                        <span>Matheus Jacob</span>
+                    </div>
+
+                    <span class="dataRelatorio">02/09/2026</span>
+
+                    <span class="statusRelatorio">Concluído</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalRelatorio" class="modalRelatorio">
+        <div class="modalConteudo">
+            <div class="modalCabecalho">
+                <div>
+                    <h2>Novo Relatório</h2>
+                    <span>Preencha as informações para cadastrar um novo relatório.</span>
+                </div>
+
+                <button class="fecharModal" onclick="fecharModalRelatorio()">×</button>
+            </div>
+
+            <div class="formularioRelatorio">
+                <div class="campoRelatorio">
+                    <label for="tituloRelatorioInput">Título do Relatório</label>
+                    <input type="text" id="tituloRelatorioInput" placeholder="Ex: Análise de Desempenho">
+                </div>
+
+                <div class="campoRelatorio">
+                    <label for="tipoRelatorioInput">Tipo de Relatório</label>
+                    <input type="text" id="tipoRelatorioInput" placeholder="Ex: Desempenho">
+                </div>
+
+                <div class="campoRelatorio">
+                    <label for="servidorRelatorioInput">Servidor</label>
+                    <input type="text" id="servidorRelatorioInput" placeholder="Ex: SAGITARIO-01">
+                </div>
+
+                <div class="campoRelatorio">
+                    <label for="periodoRelatorioInput">Período do Relatório</label>
+                    <input type="text" id="periodoRelatorioInput" placeholder="Ex: 01/09/2026 - 02/09/2026">
+                </div>
+
+                <div class="campoRelatorio campoCompleto">
+                    <label for="resumoRelatorioInput">Resumo</label>
+                    <input type="text" id="resumoRelatorioInput" placeholder="Digite um resumo sobre o relatório...">
+                </div>
+
+                <div class="campoRelatorio campoCompleto">
+                    <label for="observacoesRelatorioInput">Descrição / Observações</label>
+                    <input type="text" id="observacoesRelatorioInput"
+                        placeholder="Adicione informações complementares...">
+                </div>
+            </div>
+
+            <div class="acoesModal">
+                <button class="botaoCancelar" onclick="fecharModalRelatorio()">Cancelar</button>
+
+                <button class="botaoSalvar" onclick="salvarRelatorio()">Salvar Relatório</button>
+            </div>
         </div>
     </div>
 

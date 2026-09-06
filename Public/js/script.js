@@ -217,6 +217,14 @@ function logar() {
                     sessionStorage.setItem("EMPRESA_ID", dados.empresaId);
 
                     validar();
+
+                    if (dados.cargo === "TI") {
+                        window.location.href = "/telas/inicioCadastroEmpresa.html";
+                    } else if (dados.cargo === "Administrador") {
+                        window.location.href = "/telas/gerenciamentoDeUsuarios.html";
+                    } else {
+                        window.location.href = "/telas/gerenciamentoDeUsuarios.html";
+                    }
                 });
             } else {
                 resposta.text().then(function (mensagem) {

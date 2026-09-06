@@ -18,7 +18,7 @@
     <title>MonTech - cadastrar empresa</title>
 </head>
 
-<body onload="carregarInformacoes()">
+<body onload="carregarInformacoes(); preencherContatos(); preencherEmpresas();">
     <header>
         <div id="logoHeader"></div>
         <hr>
@@ -87,10 +87,10 @@
 
             <div class="cardResumo">
                 <div class="cardResumoTitulo">Leads gerados</div>
-                <h1 id="qtd_contatos">-</h1>
+                <h1 id="qtdContatos">-</h1>
 
                 <p>Esse é o número de usuários que enviaram suas informações de contato</p>
-                <button>Ver Mais</button>
+                <button onclick="window.location.href='contatoEmpresas.html'">Ver Mais</button>
             </div>
 
 
@@ -99,10 +99,10 @@
                     Empresas Cadastradas
                 </div>
 
-                <h1 id="qtd_empresas">-</h1>
+                <h1 id="qtdEmpresas">-</h1>
                 <p>Quantidade de empresas no nosso sistema, clique abaixo para cadastrar uma nova</p>
 
-                <button>Cadastrar</button>
+                <button onclick="window.location.href='cadastroDeEmpresas.html'">Cadastrar</button>
             </div>
 
             <div class="cardFrase">
@@ -116,5 +116,41 @@
     </div>
 
 </body>
+
+<script>
+    function preencherContatos() {
+    fetch('/empresas/mensagensContatos')
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    document.getElementById('qtdContatos').innerText = resposta.length;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
+
+function preencherEmpresas() {
+    fetch('/empresas/empresasCadastradas')
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    document.getElementById('qtdEmpresas').innerText = resposta.length;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
+</script>
 
 </html>

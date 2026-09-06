@@ -148,8 +148,38 @@ async function pegarUsuariosPeloAdministrador(req, res) {
     return res.json(usuariosAgrupados);
 }
 
+function inativarUsuario(req, res) {
+    var usuarioId = req.body.idUsuario;
+
+    usuarioModel.inativarUsuario(usuarioId)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao inativar o usuário! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function ativarUsuario(req, res) {
+    var usuarioId = req.body.idUsuario;
+
+    usuarioModel.ativarUsuario(usuarioId)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao ativar o usuário! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    pegarUsuariosPeloAdministrador
+    pegarUsuariosPeloAdministrador,
+    inativarUsuario,
+    ativarUsuario
 }

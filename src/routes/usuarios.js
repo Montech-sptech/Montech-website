@@ -18,5 +18,16 @@ router.get("/pegarUsuariosPeloAdministrador/:id", function (req, res) {
     });
 });
 
+router.put("/inativarUsuario/:id", function (req, res) {
+    autorizacaoCargo.verificarAdministrador(req, res, () => {
+        usuarioController.inativarUsuario(req, res);
+    });
+});
+
+router.put("/ativarUsuario/:id", function (req, res) {
+    autorizacaoCargo.verificarAdministrador(req, res, () => {
+        usuarioController.ativarUsuario(req, res);
+    });
+});
 
 module.exports = router;

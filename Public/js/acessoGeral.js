@@ -5,3 +5,8 @@ function carregarInformacoes(){
     nome.textContent = sessionStorage.getItem("NOME");
     cargo.textContent = sessionStorage.getItem("CARGO");
 }
+
+function sair(){
+    sessionStorage.clear();
+    window.location.href = "./landingPage.html";
+}

@@ -57,28 +57,19 @@ function pegarUsuariosPelaEmpresa(idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
-function adicionarServidoresUsuario(idUsuario, idServidor) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarServidoresUsuario():", idUsuario, idServidor);
-    var instrucaoSql = `
-        INSERT INTO usuarioServidor (fkUsuario, fkServidor) VALUES (${idUsuario}, ${idServidor});
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function removerServidorUsuario(idUsuario, idServidor) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function removerServidorUsuario():", idUsuario, idServidor);
-    var instrucaoSql = `
-        DELETE FROM usuarioServidor WHERE fkUsuario = ${idUsuario} AND fkServidor = ${idServidor};
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
 function inativarUsuario(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function inativarUsuario():", idUsuario);
     var instrucaoSql = `
         UPDATE usuario SET status = false WHERE idUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function ativarUsuario(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ativarUsuario():", idUsuario);
+    var instrucaoSql = `
+        UPDATE usuario SET status = true WHERE idUsuario = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -89,7 +80,6 @@ module.exports = {
     cadastrar,
     encontrarUsuarioPorId,
     pegarUsuariosPelaEmpresa,
-    adicionarServidoresUsuario,
-    removerServidorUsuario,
+    ativarUsuario,
     inativarUsuario
 };

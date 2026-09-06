@@ -21,7 +21,7 @@
     <title>MonTech - gerenciamento de usuários</title>
 </head>
 
-<body onload="carregarInformacoes(), pegarUsuariosPeloAdministrador()">
+<body onload="carregarInformacoes(), pegarUsuariosPeloAdministrador(), carregarServidoresDaEmpresa()">
     <header>
         <div id="logoHeader"></div>
         <hr>
@@ -122,7 +122,6 @@
     <div class=" containerGerenciamentoUsuarios">
         <div id="containerGerenciamentoUsuariosTitulo">
             <h1>Gerenciamento de usuários</h1>
-            <button id="botaoCadastroUsuario">Adicionar Usuário</button>
         </div>
 
 
@@ -134,8 +133,6 @@
                     <div class="col">Servidores</div>
                     <div class="col">Ações</div>
                 </div>
-
-               
 
                 <div class="linhaUsuario">
                     <div class="col">
@@ -180,6 +177,74 @@
         </div>
 
     </div>
+
+    <div id="modalEdicao" class="escondido">
+        <div id="modalEditarUsuario">
+
+            <svg id="iconeFecharModal" onclick="fecharModalEdicao()" xmlns="http://www.w3.org/2000/svg" width="24"
+                height="24" fill="#6f6d82" viewBox="0 0 16 16">
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+
+            <h2>Editar usuario</h2>
+
+            <div class="formModal">
+
+                <div class="campoModal">
+                    <label for="inputNomeModal">NOME</label>
+                    <input type="text" id="inputNomeModal" value="Gabriel Galhiardo">
+                </div>
+
+                <div class="campoModal">
+                    <label for="inputEmailModal">E-MAIL</label>
+                    <input type="email" id="inputEmailModal" value="gabriel@gmail.com">
+                </div>
+
+                <div class="campoModal">
+                    <label for="selectStatusModal">Status</label>
+                    <select id="selectStatusModal">
+                        <option value="inativo" selected>Inativo</option>
+                        <option value="ativo">Ativo</option>
+                    </select>
+                </div>
+
+                <div class="campoModal">
+                    <label>Acesso ao servidores</label>
+
+                    <div class="gridServidoresModal">
+
+                        <label class="checkboxServidor">
+                            <input type="checkbox" value="1" class="inputServidorCheckbox"
+                                onchange="alternarVisualCheckbox(this)">
+                            <span class="nomeServidorModal">Servidor A</span>
+                        </label>
+
+                        <label class="checkboxServidor">
+                            <input type="checkbox" value="2" class="inputServidorCheckbox"
+                                onchange="alternarVisualCheckbox(this)">
+                            <span class="nomeServidorModal">Servidor B</span>
+                        </label>
+
+                        <label class="checkboxServidor">
+                            <input type="checkbox" value="3" class="inputServidorCheckbox"
+                                onchange="alternarVisualCheckbox(this)">
+                            <span class="nomeServidorModal">Servidor C</span>
+                        </label>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="containerAcoesModal">
+                <button id="botaoSalvarModal" onclick="salvarEdicaoUsuario()">SALVAR MUDANÇAS</button>
+                <button id="botaoCancelarModal" onclick="fecharModalEdicao()">CANCELAR</button>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 
 </html>

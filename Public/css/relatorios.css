@@ -1,0 +1,65 @@
+body {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.relatoriosCabecalho {
+    width: calc(100% - 10vw);
+    margin-left: 10vw;
+    padding: 14px 10px 12px 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.relatoriosElementos {
+    display: flex;
+    flex-direction: column;
+}
+
+.tituloRelatorio {
+    font-family: 'Inter', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    margin: 0 0 5px 0;
+}
+
+.descricao {
+    font-family: 'Inter', sans-serif;
+    color: #B8B4CC;
+    font-size: 13px;
+}
+
+.botaoRelatorioDiv {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.botaoRelatorio {
+    background-color: #393080;
+    color: white;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.secaoRelatorios {
+    width: calc(100% - 10vw - 35px);
+    margin-left: calc(10vw + 20px);
+    margin-right: 10px;
+    min-height: 330px;
+    box-sizing: border-box;
+    border: 2px dashed red;
+}

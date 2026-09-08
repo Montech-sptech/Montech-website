@@ -21,4 +21,8 @@ router.get("/pegarServidoresPorEmpresa/:id", function (req, res) {
     });
 });
 
+router.post("/cadastrar", function (req, res) {
+    servidorController.cadastrar(req, res);
+});
+
 module.exports = router;

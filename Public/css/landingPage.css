@@ -197,7 +197,7 @@
     height: 90vh;
     background-color: #1E1D2E;
     border: 0.15vw solid #343245;
-    margin-top: 0;
+    margin-top: 25px;
     padding: 2vh 0 3vh 0;
 }
 
@@ -207,7 +207,7 @@
     height: 72vh;
     background-color: #1E1D2E;
     border: 0.15vw solid #343245;
-    margin-top: 0;
+    margin-top: 5px;
     padding: 2vh 0 3vh 0;
 }
 
@@ -962,4 +962,278 @@ html {
         width: 100%;
     }
 
+}
+
+@media (max-width: 768px) {
+
+    .modal {
+        margin-top: 0;
+        padding: 12px;
+        align-items: center;
+        overflow-y: auto;
+    }
+
+    .containerModal,
+    .containerModalLogin {
+        width: min(92vw, 480px);
+        height: auto;
+        min-height: 0;
+        max-height: calc(100vh - 24px);
+        margin: 90px 0 0 0 ;
+        padding: 24px 0 28px 0;
+        border-width: 1px;
+        overflow-y: auto;
+    }
+
+    .montechLogo {
+        margin-left: 24px;
+    }
+
+    .montechImg {
+        width: min(140px, 32vw);
+        max-width: 140px;
+    }
+
+    .autenticarTitle {
+        margin-left: 24px;
+        margin-top: 28px;
+    }
+
+    .autenticarTitle h1 {
+        font-size: clamp(26px, 7vw, 32px);
+        line-height: 1.1;
+    }
+
+    .inputSection,
+    .secaoInput {
+        width: calc(100% - 48px);
+        margin-top: 28px;
+    }
+
+    .inputContainer {
+        margin-bottom: 16px;
+    }
+
+    .inputContainer label {
+        margin-bottom: 6px;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+
+    .inputContainer input {
+        height: 52px;
+        padding: 0 14px;
+        border-width: 1px;
+        font-size: 15px;
+    }
+
+    .containerSenha input {
+        padding-right: 44px;
+    }
+
+    .eyeIcon {
+        right: 14px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .botaoAutenticar,
+    .botaoAutenticarLogin {
+        height: 52px;
+        margin-top: 8px;
+        font-size: 16px;
+        letter-spacing: 1.5px;
+    }
+
+    .loginTexto {
+        margin-top: 20px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    #inputContainerLogin {
+        margin-top: 0;
+    }
+
+    #loginTextoLogin {
+        margin-top: 20px;
+    }
+
+    .fechar {
+        top: 12px;
+        right: 16px;
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .modal {
+        padding: 10px;
+    }
+
+    .containerModal,
+    .containerModalLogin {
+        width: 100%;
+        max-height: calc(100vh - 20px);
+        padding: 22px 0 24px 0;
+    }
+
+    .montechLogo {
+        margin-left: 20px;
+    }
+
+    .montechImg {
+        width: 125px;
+        max-width: 42vw;
+    }
+
+    .autenticarTitle {
+        margin-left: 20px;
+        margin-top: 24px;
+        margin-right: 20px;
+    }
+
+    .autenticarTitle h1 {
+        font-size: clamp(24px, 8vw, 29px);
+    }
+
+    .inputSection,
+    .secaoInput {
+        width: calc(100% - 40px);
+        margin-top: 24px;
+    }
+
+    .inputContainer {
+        margin-bottom: 14px;
+    }
+
+    .inputContainer input {
+        height: 50px;
+        font-size: 14px;
+    }
+
+    .botaoAutenticar,
+    .botaoAutenticarLogin {
+        height: 50px;
+        font-size: 15px;
+    }
+
+    .loginTexto {
+        font-size: 12px;
+    }
+
+    .fechar {
+        top: 10px;
+        right: 13px;
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .modal {
+        padding: 8px;
+    }
+
+    .containerModal,
+    .containerModalLogin {
+        max-height: calc(100vh - 16px);
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .montechLogo {
+        margin-left: 16px;
+    }
+
+    .montechImg {
+        width: 112px;
+    }
+
+    .autenticarTitle {
+        margin-left: 16px;
+        margin-top: 22px;
+    }
+
+    .inputSection,
+    .secaoInput {
+        width: calc(100% - 32px);
+        margin-top: 22px;
+    }
+
+    .inputContainer {
+        margin-bottom: 12px;
+    }
+
+    .inputContainer label {
+        font-size: 11px;
+    }
+
+    .inputContainer input {
+        height: 48px;
+        padding: 0 12px;
+        font-size: 14px;
+    }
+
+    .containerSenha input {
+        padding-right: 40px;
+    }
+
+    .eyeIcon {
+        right: 12px;
+        width: 17px;
+        height: 17px;
+    }
+
+    .botaoAutenticar,
+    .botaoAutenticarLogin {
+        height: 48px;
+        font-size: 14px;
+    }
+
+    .loginTexto {
+        margin-top: 16px;
+        font-size: 11px;
+    }
+
+    .fechar {
+        top: 8px;
+        right: 10px;
+        font-size: 23px;
+    }
+}
+
+@media (max-height: 700px) and (max-width: 768px) {
+    .containerModal,
+    .containerModalLogin {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+
+    .autenticarTitle {
+        margin-top: 18px;
+    }
+
+    .inputSection,
+    .secaoInput {
+        margin-top: 18px;
+    }
+
+    .inputContainer {
+        margin-bottom: 10px;
+    }
+
+    .inputContainer input {
+        height: 46px;
+    }
+
+    .botaoAutenticar,
+    .botaoAutenticarLogin {
+        height: 46px;
+    }
+
+    .loginTexto {
+        margin-top: 12px;
+    }
 }

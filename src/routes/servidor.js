@@ -1,3 +1,3 @@
-router.post("/cadastrar", function (req, res) {
-    servidorController.cadastrar(req, res);
-});
+// router.post("/cadastrar", function (req, res) {
+//     servidorController.cadastrar(req, res);
+// });

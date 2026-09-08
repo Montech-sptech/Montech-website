@@ -414,3 +414,298 @@ body {
     overflow-wrap: break-word;
     word-break: break-word;
 }
+
+@media (max-width: 1200px) {
+
+    .relatoriosCabecalho {
+        width: calc(100% - 140px);
+        margin-left: 115px;
+        margin-right: 25px;
+        padding-right: 0;
+    }
+
+    .secaoRelatorios {
+        width: calc(100% - 155px);
+        margin-left: 125px;
+        margin-right: 30px;
+    }
+
+    .secaoElementos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .tituloRelatorio {
+        font-size: 30px;
+    }
+
+    .descricao {
+        font-size: 12px;
+    }
+
+    .botaoRelatorio {
+        width: 185px;
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .cardRelatorio {
+        height: 135px;
+    }
+
+    .cardRelatorio h2 {
+        font-size: 13px;
+        padding: 11px 9px 9px 9px;
+    }
+
+    .tipoRelatorio {
+        height: 32px;
+        padding: 0 9px;
+        font-size: 10px;
+    }
+
+    .descricaoRelatorio {
+        height: 43px;
+        padding: 8px 9px;
+        font-size: 8px;
+        line-height: 10px;
+    }
+
+    .rodapeRelatorio {
+        height: 28px;
+        padding: 0 9px;
+        gap: 7px;
+    }
+
+    .iconeUsuario {
+        width: 22px;
+        height: 22px;
+    }
+
+    .usuarioRelatorio span,
+    .dataRelatorio {
+        font-size: 10px;
+    }
+
+    .statusRelatorio {
+        font-size: 8px;
+        padding: 3px 5px;
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .relatoriosCabecalho {
+        width: calc(100% - 130px);
+        margin-left: 110px;
+        margin-right: 20px;
+        padding: 12px 0;
+    }
+
+    .secaoRelatorios {
+        width: calc(100% - 140px);
+        margin-left: 120px;
+        margin-right: 20px;
+    }
+
+    .secaoElementos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .tituloRelatorio {
+        font-size: 27px;
+    }
+
+    .descricao {
+        font-size: 11px;
+    }
+
+    .botaoRelatorio {
+        width: 175px;
+        height: 36px;
+        font-size: 12px;
+    }
+
+    .cardRelatorio {
+        height: 130px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .relatoriosCabecalho {
+        width: calc(100% - 110px);
+        margin-left: 100px;
+        margin-right: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .relatoriosElementos {
+        width: 100%;
+    }
+
+    .tituloRelatorio {
+        font-size: 24px;
+    }
+
+    .descricao {
+        font-size: 10px;
+        line-height: 13px;
+    }
+
+    .botaoRelatorioDiv {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .botaoRelatorio {
+        width: 100%;
+        max-width: 190px;
+        height: 35px;
+        font-size: 11px;
+    }
+
+    .secaoRelatorios {
+        width: calc(100% - 110px);
+        margin-left: 100px;
+        margin-right: 10px;
+    }
+
+    .secaoElementos {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .cardRelatorio {
+        height: 128px;
+    }
+
+    .cardRelatorio h2 {
+        font-size: 12px;
+        padding: 10px 9px 8px 9px;
+    }
+
+    .tipoRelatorio {
+        height: 30px;
+        font-size: 10px;
+        padding: 0 9px;
+    }
+
+    .tagRelatorio {
+        font-size: 8px;
+        padding: 2px 4px;
+    }
+
+    .descricaoRelatorio {
+        height: 42px;
+        font-size: 8px;
+        padding: 8px 9px;
+        line-height: 10px;
+    }
+
+    .rodapeRelatorio {
+        height: 26px;
+        padding: 0 9px;
+        gap: 6px;
+    }
+
+    .iconeUsuario {
+        width: 21px;
+        height: 21px;
+    }
+
+    .usuarioRelatorio span,
+    .dataRelatorio {
+        font-size: 10px;
+    }
+
+    .statusRelatorio {
+        font-size: 8px;
+        padding: 3px 5px;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .relatoriosCabecalho {
+        width: calc(100% - 100px);
+        margin-left: 90px;
+        margin-right: 10px;
+    }
+
+    .tituloRelatorio {
+        font-size: 21px;
+    }
+
+    .descricao {
+        font-size: 9px;
+    }
+
+    .botaoRelatorio {
+        max-width: 170px;
+        height: 33px;
+        font-size: 10px;
+    }
+
+    .secaoRelatorios {
+        width: calc(100% - 100px);
+        margin-left: 90px;
+        margin-right: 10px;
+    }
+
+    .cardRelatorio {
+        height: 120px;
+    }
+
+    .cardRelatorio h2 {
+        font-size: 11px;
+        padding: 9px 8px 7px 8px;
+    }
+
+    .tipoRelatorio {
+        height: 28px;
+        padding: 0 8px;
+        font-size: 9px;
+    }
+
+    .tagRelatorio {
+        font-size: 7px;
+        padding: 2px 3px;
+    }
+
+    .descricaoRelatorio {
+        height: 39px;
+        padding: 7px 8px;
+        font-size: 7px;
+        line-height: 9px;
+    }
+
+    .rodapeRelatorio {
+        height: 25px;
+        padding: 0 8px;
+        gap: 5px;
+    }
+
+    .iconeUsuario {
+        width: 19px;
+        height: 19px;
+    }
+
+    .usuarioRelatorio span,
+    .dataRelatorio {
+        font-size: 8px;
+    }
+
+    .statusRelatorio {
+        font-size: 7px;
+        padding: 2px 4px;
+    }
+
+}

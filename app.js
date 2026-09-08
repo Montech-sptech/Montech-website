@@ -31,6 +31,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/empresas", empresaRouter);
+app.use("/relatorios", relatorioRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`                        

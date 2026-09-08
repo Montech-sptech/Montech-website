@@ -68,7 +68,21 @@ function pegarRelatoriosPelaEmpresa(req, res) {
         });
 }
 
+function alternarStatus(req, res) {
+    var idRelatorio = req.params.id;
+    relatorioModel.alternarStatus(idRelatorio)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     cadastrar,
-    pegarRelatoriosPelaEmpresa
+    pegarRelatoriosPelaEmpresa,
+    alternarStatus
 };

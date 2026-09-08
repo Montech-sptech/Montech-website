@@ -337,3 +337,71 @@ body {
     background: #5147b8;
     transform: translateY(-1px);
 }
+
+.cardRelatorio {
+    cursor: pointer;
+}
+
+.statusRelatorio {
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.modalLeituraConteudo {
+    width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #1d1d36;
+    border: 1px solid #3c3c5d;
+    border-radius: 8px;
+    padding: 24px;
+    box-sizing: border-box;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.informacoesLeitura {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.informacoesLeitura > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.informacoesLeitura label {
+    color: #aaa8bd;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+}
+
+.informacoesLeitura span,
+.informacoesLeitura p {
+    margin: 0;
+    color: #eeeeF5;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.leituraCompleta {
+    grid-column: 1 / -1;
+}
+
+.leituraCompleta p {
+    background: #151526;
+    border: 1px solid #4a4964;
+    border-radius: 5px;
+    padding: 12px;
+    min-height: 60px;
+    max-height: 180px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}

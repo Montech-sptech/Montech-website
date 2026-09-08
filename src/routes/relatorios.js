@@ -10,4 +10,8 @@ router.get("/listar/:id", function (req, res) {
     relatorioController.pegarRelatoriosPelaEmpresa(req, res);
 });
 
+router.put("/alternarStatus/:id", function (req, res) {
+    relatorioController.alternarStatus(req, res);
+});
+
 module.exports = router;

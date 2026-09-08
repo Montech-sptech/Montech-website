@@ -57,7 +57,7 @@ function carregarRelatorios() {
             container.innerHTML = "";
 
             for (var i = 0; i < relatorios.length; i++) {
-                var relatorio = relatorios[i];
+                let relatorio = relatorios[i];
                 var data = new Date(relatorio.dataRelatorio);
 
                 var dataFormatada =
@@ -90,13 +90,24 @@ function carregarRelatorios() {
 
                         <span class="dataRelatorio">${dataFormatada}</span>
 
-                        <span class="statusRelatorio">
+                        <button class="statusRelatorio" data-id="${relatorio.idRelatorio}">
                             ${relatorio.statusAnalise}
-                        </span>
+                        </button>
 
                     </div>
                 `;
+
+                card.onclick = function (event) {
+                    if (event.target.classList.contains("statusRelatorio")) return;
+                    abrirModalRelatorioLeitura(relatorio);
+                };
+
+
                 container.appendChild(card);
+
+                card.querySelector(".statusRelatorio").onclick = function () {
+                    alternarStatus(relatorio.idRelatorio);
+                };
             }
         })
         .catch(function (erro) {
@@ -104,6 +115,35 @@ function carregarRelatorios() {
             console.log(erro);
 
         });
+}
+
+function alternarStatus(idRelatorio, event) {
+    fetch("/relatorios/alternarStatus/" + idRelatorio, {
+        method: "PUT"
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                carregarRelatorios();
+            }
+        })
+
+        .catch(function (erro) {
+            console.log(erro);
+        });
+}
+
+function abrirModalRelatorioLeitura(relatorio) {
+    document.getElementById("tituloLeitura").textContent = relatorio.tituloRelatorio;
+    document.getElementById("tipoLeitura").textContent = relatorio.tipo;
+    document.getElementById("dataLeitura").textContent = new Date(relatorio.dataRelatorio).toLocaleDateString("pt-BR");
+    document.getElementById("statusLeitura").textContent = relatorio.statusAnalise;
+    document.getElementById("resumoLeitura").textContent = relatorio.resumo;
+    document.getElementById("descricaoLeitura").textContent = relatorio.descricao;
+    document.getElementById("modalLeituraRelatorio").style.display = "flex";
+}
+
+function fecharModalLeitura() {
+    document.getElementById("modalLeituraRelatorio").style.display = "none";
 }
 
 setInterval(carregarRelatorios, 5000)

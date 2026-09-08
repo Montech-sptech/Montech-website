@@ -199,6 +199,46 @@
         </div>
     </div>
 
+    <div id="modalLeituraRelatorio" class="modalRelatorio">
+        <div class="modalLeituraConteudo">
+            <div class="modalCabecalho">
+                <div>
+                    <h2 id="tituloLeitura"></h2>
+                    <span>Informações completas do relatório</span>
+                </div>
+                <button class="fecharModal" onclick="fecharModalLeitura()">×</button>
+            </div>
+
+            <div class="informacoesLeitura">
+                <div>
+                    <label>Tipo</label>
+                    <span id="tipoLeitura"></span>
+                </div>
+                <div>
+                    <label>Data</label>
+                    <span id="dataLeitura"></span>
+                </div>
+                <div>
+                    <label>Status</label>
+                    <span id="statusLeitura"></span>
+                </div>
+                <div class="leituraCompleta">
+                    <label>Resumo</label>
+                    <p id="resumoLeitura"></p>
+                </div>
+                <div class="leituraCompleta">
+                    <label>Descrição / Observações</label>
+                    <p id="descricaoLeitura"></p>
+                </div>
+            </div>
+            <div class="acoesModal">
+                <button class="botaoCancelar" onclick="fecharModalLeitura()">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

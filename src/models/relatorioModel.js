@@ -26,7 +26,7 @@ function pegarRelatoriosPelaEmpresa(idEmpresa) {
             statusAnalise
         FROM relatorio
         WHERE fkEmpresa = ${idEmpresa}
-        ORDER BY dataRelatorio DESC;
+        ORDER BY dataRelatorio ASC;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -34,7 +34,22 @@ function pegarRelatoriosPelaEmpresa(idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function alternarStatus(idRelatorio) {
+    var instrucaoSql = `
+        UPDATE relatorio
+        SET statusAnalise =
+            CASE
+                WHEN statusAnalise = 'Em Análise' THEN 'Concluído'
+                ELSE 'Em Análise'
+            END
+        WHERE idRelatorio = ${idRelatorio};
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrar,
-    pegarRelatoriosPelaEmpresa
+    pegarRelatoriosPelaEmpresa,
+    alternarStatus
 };

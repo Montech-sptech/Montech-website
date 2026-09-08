@@ -28,4 +28,8 @@ router.get("/mensagensContatos", function (req, res) {
     empresaController.mensagensContatos(req, res);
 });
 
+router.post("/cadastroInicial", function (req, res) {
+    empresaController.cadastroInicial(req, res);
+})
+
 module.exports = router;

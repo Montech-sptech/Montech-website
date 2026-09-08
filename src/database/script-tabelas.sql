@@ -73,6 +73,14 @@ CREATE TABLE contato (
     dataMensagem  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE empresaInteressada(
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    razaoSocial VARCHAR(100),
+    cnpj CHAR(14) UNIQUE,
+    CEP CHAR(8),
+    numero varchar(10)
+)
+
 
 -- Inserção de dados para teste
 

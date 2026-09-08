@@ -130,10 +130,29 @@ function mensagensContatos(req, res) {
         });
 }
 
+function cadastroInicial(req, res) {
+
+    var razaoSocial = req.body.razaoSocialServer;
+    var cnpj = req.body.cnpjServer;
+    var cep = req.body.cepServer;
+    var numero = req.body.numeroServer;
+
+    empresaModel.cadastroInicial(razaoSocial, cnpj, cep, numero)
+        .then(function (resultado) {
+            res.status(200).json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Erro ao cadastrar empresa interessada");
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     listar,
     verificarCadastrados,
     carregarEmpresas,
     cadastrar,
-    mensagensContatos
+    mensagensContatos,
+    cadastroInicial
 };

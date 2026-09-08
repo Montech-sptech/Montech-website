@@ -71,6 +71,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var fkEmpresa = req.body.idEmpresaVincularServer;
+    var cargo = req.body.cargoServer;
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -80,8 +81,10 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa a vincular está undefined!");
+    } else if (cargo == undefined) {
+        res.status(400).send("Cargo inválido");
     } else {
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, senha, fkEmpresa, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -99,7 +102,84 @@ function cadastrar(req, res) {
     }
 }
 
+async function pegarUsuariosPeloAdministrador(req, res) {
+    var usuarioId = req.params.id;
+
+    var usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
+
+    if (!usuario[0]) {
+        return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
+    }
+
+    var empresaId = usuario[0].fkEmpresa;
+    var jsonBruto = await usuarioModel.pegarUsuariosPelaEmpresa(empresaId);
+
+    var Usuarios = {};
+
+    for (var i = 0; i < jsonBruto.length; i++) {
+        var linha = jsonBruto[i];
+        var idAtual = linha.idUsuario;
+
+        if (!Usuarios[idAtual]) {
+            Usuarios[idAtual] = {
+                idUsuario: linha.idUsuario,
+                nomeUsuario: linha.nomeUsuario,
+                email: linha.email,
+                cargo: linha.cargo,
+                status: linha.status,
+                servidores: []
+            };
+        }
+
+        if (linha.idServidor) {
+            Usuarios[idAtual].servidores.push({
+                idServidor: linha.idServidor,
+                nomeServidor: linha.nomeServidor,
+                hostName: linha.hostName
+            });
+        }
+    }
+    
+    var usuariosAgrupados = [];
+    for (id in Usuarios) {
+        usuariosAgrupados.push(Usuarios[id]);
+    }
+
+    return res.json(usuariosAgrupados);
+}
+
+function inativarUsuario(req, res) {
+    var usuarioId = req.body.idUsuario;
+
+    usuarioModel.inativarUsuario(usuarioId)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao inativar o usuário! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function ativarUsuario(req, res) {
+    var usuarioId = req.body.idUsuario;
+
+    usuarioModel.ativarUsuario(usuarioId)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao ativar o usuário! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    pegarUsuariosPeloAdministrador,
+    inativarUsuario,
+    ativarUsuario
 }

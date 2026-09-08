@@ -17,6 +17,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../css/headerPosLogin.css">
     <script src="../js/acessoGeral.js" defer></script>
+    <script src="../js/cadastroServidor.js" defer></script>
     <title>MonTech - gerenciamento de usuários</title>
 </head>
 
@@ -154,15 +155,6 @@
                                 <option value="AIS">AIS</option>
                             </select>
                         </div>
-                        <div class="campo">
-                            <label for="componenteFuncional">Componente funcional</label>
-                            <select id="componenteFuncional" name="componenteFuncional">
-                                <option value="flightManagement">Flight Management</option>
-                                <option value="trackManagement">Track Management</option>
-                                <option value="flightPlanTrackCorrelation">Flight Plan / Track Correlation</option>
-                            </select>
-                        </div>
-                    </div>
                 </section>
  
                 <section class="cardSecao" id="cardConexao">
@@ -174,9 +166,7 @@
                         <div class="campo">
                             <label for="metodoColeta">Método de coleta</label>
                             <select id="metodoColeta" name="metodoColeta">
-                                <option value="scriptPython">Script Python (agendado)</option>
-                                <option value="ssh">SSH</option>
-                                <option value="snmp">SNMP</option>
+                                <option value="scriptPython">Script Python</option>
                             </select>
                         </div>
                         <div class="campo campoPequeno">
@@ -202,13 +192,13 @@
  
                 <div class="gridComponentes">
                     <label class="checkboxComponente" data-componente="cpu">
-                        <input type="checkbox" name="componentes" value="cpu" checked>
+                        <input type="checkbox" name="componentes" value="cpu">
                         <img class="iconeComponente" src="../imagens/cpu.png" alt="">
                         <span class="nomeComponente">CPU</span>
                     </label>
  
                     <label class="checkboxComponente" data-componente="ram">
-                        <input type="checkbox" name="componentes" value="ram" checked>
+                        <input type="checkbox" name="componentes" value="ram">
                         <img class="iconeComponente" src="../imagens/ram.png" alt="">
                         <span class="nomeComponente">Mem. RAM</span>
                     </label>
@@ -229,40 +219,14 @@
                 </div>
             </section>
  
-            <section class="cardSecao" id="cardIntegracoes">
-                <h2>Integrações de notificação</h2>
- 
-                <div class="linhaCampos">
-                    <div class="campo">
-                        <label for="projetoJira">Projeto Jira</label>
-                        <input type="text" id="projetoJira" name="projetoJira"
-                            placeholder="MONTECH-SAGITARIO">
-                    </div>
-                    <div class="campo">
-                        <label for="canalSlack">Canal Slack</label>
-                        <input type="text" id="canalSlack" name="canalSlack"
-                            placeholder="#alertas-sagitario">
-                    </div>
-                    <div class="campo">
-                        <label for="severidadeMinima">Severidade mínima p/ incidente</label>
-                        <select id="severidadeMinima" name="severidadeMinima">
-                            <option value="critico">Crítico</option>
-                            <option value="atencao">Atenção</option>
-                        </select>
-                    </div>
-                </div>
-            </section>
- 
             <div class="containerAcoes">
                 <button type="reset" id="botaoCancelar">Cancelar</button>
                 <button type="submit" id="botaoSalvarServidor">Salvar servidor</button>
             </div>
- 
         </form>
- 
     </main>
-
-    
 </body>
+<script>
 
+</script>
 </html>

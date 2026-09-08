@@ -267,7 +267,6 @@ function salvarEdicaoUsuario() {
     if (requisicoesPendentes.length > 0) {
         Promise.all(requisicoesPendentes)
             .then(respostas => {
-                alert("Alterações salvas com sucesso!");
                 fecharModalEdicao();
                 pegarUsuariosPeloAdministrador();
             })

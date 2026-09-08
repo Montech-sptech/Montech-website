@@ -11,6 +11,10 @@ function sair(){
     window.location.href = "./landingPage.html";
 }
 
+function trocarPagina(pagina) {
+    window.location.href = pagina;
+}
+
 function abrirModalRelatorio() {
     document.getElementById("modalRelatorio").style.display = "flex";
 }

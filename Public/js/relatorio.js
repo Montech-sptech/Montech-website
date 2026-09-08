@@ -88,9 +88,9 @@ function carregarRelatorios() {
                             <span>${sessionStorage.getItem("NOME")}</span>
                         </div>
 
-                        <span class="dataRelatorio">${dataFormatada}</span>
+                        <span class="dataRelatorio">| ${dataFormatada}</span>
 
-                        <button class="statusRelatorio" data-id="${relatorio.idRelatorio}">
+                        <button class="statusRelatorio" id="${relatorio.idRelatorio}">
                             ${relatorio.statusAnalise}
                         </button>
 
@@ -108,6 +108,16 @@ function carregarRelatorios() {
                 card.querySelector(".statusRelatorio").onclick = function () {
                     alternarStatus(relatorio.idRelatorio);
                 };
+
+                botaoRelatorio = document.getElementById(`${relatorio.idRelatorio}`);
+
+                if (relatorio.statusAnalise == "Em Análise") {
+                    botaoRelatorio.style.backgroundColor = "#C59913";
+                    botaoRelatorio.style.color = "#DBC992";
+                } else {
+                    botaoRelatorio.style.backgroundColor = "#006b1b";
+                    botaoRelatorio.style.color = "#4cd66b";
+                }
             }
         })
         .catch(function (erro) {

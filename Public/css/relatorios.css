@@ -135,14 +135,20 @@ body {
     white-space: nowrap;
 }
 
+.usuarioRelatorio span {
+    font-size: 12px;
+}
+
 .iconeUsuario {
-    width: 10px;
-    height: 10px;
+    width: 25px;
+    height: 25px;
     object-fit: contain;
+    margin-bottom: 5px;
 }
 
 .dataRelatorio {
     white-space: nowrap;
+    font-size: 12px;
 }
 
 .statusRelatorio {
@@ -151,8 +157,11 @@ body {
     color: #4cd66b;
     padding: 3px 6px;
     border-radius: 3px;
-    font-size: 6px;
+    font-size: 9px;
     white-space: nowrap;
+    width: 20%;
+    height: 60%;
+    margin-bottom: 5px;
 }
 
 .modalRelatorio {
@@ -350,7 +359,7 @@ body {
 
 .modalLeituraConteudo {
     width: 600px;
-    max-height: 80vh;
+    max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     background: #1d1d36;

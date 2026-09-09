@@ -1,5 +1,3 @@
-const CHAVE_FOTO_PERFIL = "fotoPerfilUsuario";
-
 const opcoesFotoPerfil = [
     "../imagens/fotoUsuario.png",
     "../imagens/sino.png",
@@ -14,8 +12,7 @@ function abrirModalFotoPerfil() {
     const grid = document.getElementById("gridFotosPerfil");
     grid.innerHTML = "";
 
-    const fotoAtual = localStorage.getItem(CHAVE_FOTO_PERFIL)
-        || document.querySelector(".fotoPerfilAtual").src;
+    const fotoAtual = document.querySelector(".fotoPerfilAtual").src;
     fotoSelecionadaTemp = fotoAtual;
 
     opcoesFotoPerfil.forEach((caminho) => {

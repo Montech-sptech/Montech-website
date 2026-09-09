@@ -74,11 +74,11 @@ function mensagensContatos() {
     return database.executar(instrucaoSql);
 }
 
-function contato(razaoSocial, cnpj, cep, numero){
+function contato(nome, email, telefone){
     console.log("Acessei o empresaModel - cadastrar");
 
-    var instrucaoSql = `INSERT INTO EmpresaInteressada (razaoSocial, cnpj, cep, numero)
-        VALUES ('${razaoSocial}', '${cnpj}', '${cep}', '${numero}');`;
+    var instrucaoSql = `INSERT INTO contato (nomeEmpresa, email, telefone)
+        VALUES ('${nome}', '${email}', '${telefone}');`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

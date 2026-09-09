@@ -132,19 +132,28 @@ function mensagensContatos(req, res) {
 
 function contato(req, res) {
 
-    var nome = req.body.razaoSocialServer;
-    var email = req.body.cnpjServer;
-    var telefone = req.body.cepServer;
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
+    var telefone = req.body.telefoneServer;
 
-    empresaModel.contato(razaoSocial, cnpj, cep, numero)
+    if (!nome) {
+       return res.status(400).send("O nome está vazio ou undefined!");
+    } else if (!email) {
+       return res.status(400).send("O Email está vazio ou undefined!");
+    } else if (!telefone) {
+       return res.status(400).send("O telefone está vazio ou undefined!");
+    } else {
+
+    empresaModel.contato(nome, email, tefelone)
         .then(function (resultado) {
             res.status(200).json(resultado);
         })
         .catch(function (erro) {
             console.log(erro);
-            console.log("Erro ao cadastrar empresa interessada");
+            console.log("Erro ao cadastrar o contato da empresa");
             res.status(500).json(erro.sqlMessage);
         });
+}
 }
 
 module.exports = {

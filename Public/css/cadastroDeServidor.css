@@ -448,15 +448,12 @@
 }
 
 .inputLimite {
-    width: 70px;
-    background: #1c1b28;
-    border: 1px solid #2a2938;
-    color: #eceaf5;
-    border-radius: 5px;
-    height: 30px;
-    padding: 0 10px;
-    font-size: 13px;
-    font-family: inherit;
+    width: 34px;
+    background: transparent;
+    border: none;
+    color: #9997ad;
+    text-align: right;
+    -moz-appearance: textfield;
 }
 
 .inputLimite:focus {

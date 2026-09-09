@@ -45,17 +45,23 @@ function adicionarLinhaLimite(componente) {
     linha.innerHTML = `
         <div class="infoComponenteLimite">
             <img class="iconeComponente" src="${iconesComponentes[componente]}" alt="">
-            <span>${nomesComponentes[componente]}</span>
+            <span class="nomeLimite">${nomesComponentes[componente]}</span>
         </div>
-        <div class="campoLimite">
-            <label>Atenção</label>
-            <input type="number" class="inputLimiteAtencao" data-componente="${componente}"
-                value="${limitesPadrao.atencao}" min="0" max="100">
+        <div class="campoLimiteItem">
+            <label class="labelLimite">Atenção</label>
+            <div class="grupoInputLimite">
+                <input type="number" class="inputLimite inputLimiteAtencao" data-componente="${componente}"
+                    value="${limitesPadrao.atencao}" min="0" max="100">
+                <span class="sufixoLimite">%</span>
+            </div>
         </div>
-        <div class="campoLimite">
-            <label>Crítico</label>
-            <input type="number" class="inputLimiteCritico" data-componente="${componente}"
-                value="${limitesPadrao.critico}" min="0" max="100">
+        <div class="campoLimiteItem">
+            <label class="labelLimite">Crítico</label>
+            <div class="grupoInputLimite">
+                <input type="number" class="inputLimite inputLimiteCritico" data-componente="${componente}"
+                    value="${limitesPadrao.critico}" min="0" max="100">
+                <span class="sufixoLimite">%</span>
+            </div>
         </div>
     `;
 

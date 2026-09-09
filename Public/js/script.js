@@ -213,8 +213,9 @@ function logar() {
                     sessionStorage.setItem("ID", dados.id);
                     sessionStorage.setItem("EMAIL", dados.email);
                     sessionStorage.setItem("NOME", dados.nome);
-                    sessionStorage.setItem("CARGO", dados.cargo)
+                    sessionStorage.setItem("CARGO", dados.cargo);
                     sessionStorage.setItem("EMPRESA_ID", dados.empresaId);
+                    sessionStorage.setItem("FOTO_PERFIL", dados.fotoPerfil);
 
                     validar();
 

@@ -43,13 +43,14 @@ function selecionarFotoPerfil(caminho, elemento) {
 function salvarFotoPerfil() {
     if (!fotoSelecionadaTemp) return;
 
-    fetch(`/usuarios/atualizarFotoPerfil/${sessionStorage.ID}`, {
+    fetch(`/usuarios/atualizarFotoPerfil/${sessionStorage.getItem("ID")}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fotoPerfil: fotoSelecionadaTemp })
     })
         .then(response => response.json())
         .then(() => {
+            sessionStorage.setItem("FOTO_PERFIL", fotoSelecionadaTemp);
             document.querySelectorAll(".fotoPerfilAtual").forEach((img) => {
                 img.src = fotoSelecionadaTemp;
             });
@@ -63,5 +64,3 @@ function salvarFotoPerfil() {
 function fecharModalFotoPerfil() {
     document.getElementById("modalFotoPerfil").classList.add("escondido");
 }
-
-document.addEventListener("DOMContentLoaded", carregarFotoPerfilSalva);

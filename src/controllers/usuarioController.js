@@ -34,7 +34,8 @@ function autenticar(req, res) {
                         nome: resultadoAutenticar[0].nome,
                         senha: resultadoAutenticar[0].senha,
                         empresaId: resultadoAutenticar[0].empresaId,
-                        cargo: resultadoAutenticar[0].cargo
+                        cargo: resultadoAutenticar[0].cargo,
+                        fotoPerfil: resultadoAutenticar[0].fotoPerfil
                     });
 
                 } else if (resultadoAutenticar.length == 0) {

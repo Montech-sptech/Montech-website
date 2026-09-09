@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../imagens/shortLigthLogo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/landingPage.css">
+    <link rel="stylesheet" href="../css/contato.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <script src="../js/script.js" defer></script>
+    <title>MonTech</title>
+</head>
+<body onload="validar()">
+    
+
+<nav class="navBar">
+        <a href="landingPage.html" class="navLogo">
+            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
+        </a>
+
+        <ul class="navLinks">
+            <li><a href="landingPage.html">Sobre</a></li>
+            <li><a href="#containerSecaoQuatro">Funcionalidades</a></li>
+            <li><a href="#containerSecaoSeis">Contato</a></li>
+        </ul>
+
+        <div class="navActions">
+            <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar">Entrar</span>
+            <span class="navDivisor"></span>
+            <button class="botaoCriarConta" onclick="modalCadastro()" id="botaoCriar">CRIAR CONTA</button>
+            <a href="/telas/gerenciamentoDeUsuarios.html">
+                <button class="botaoCriarConta" id="botaoAcesso">ACESSO GERAL</button>
+            </a>
+        </div>
+    </nav>  
+
+    <div id="modalCadastro" class="modal">
+        <div class="containerModal">
+            <span class="fechar" id="fecharModalCadastro">&times;</span>
+            <div class="montechLogo">
+                <img src="../imagens/longLigthLogo.svg" class="montechImg">
+            </div>
+            <div class="autenticarTitle">
+                <h1>Criar Conta</h1>
+            </div>
+
+            <div class="secaoInput">
+                <div class="inputContainer">
+                    <label>Token Empresarial</label>
+                    <input type="text" id="token" placeholder="Token da sua empresa">
+                </div>
+
+                <div class="inputContainer">
+                    <label>NOME</label>
+                    <input type="text" id="nome" placeholder="Seu nome completo">
+                </div>
+
+                <div class="inputContainer">
+                    <label>E-MAIL</label>
+                    <input type="email" id="email" placeholder="seu@gmail.com">
+                </div>
+
+                <div class="inputContainer">
+                    <label>SENHA</label>
+                    <div class="containerSenha">
+                        <input type="password" id="senha" placeholder="••••••••">
+                        <img src="../imagens/closedEye.png" class="eyeIcon" id="eyeSenha"
+                            onclick="mostrarSenha('senha', 'eyeSenha')">
+                    </div>
+                </div>
+
+                <div class="inputContainer">
+                    <label>Confirmar Senha</label>
+                    <div class="containerSenha">
+                        <input type="password" id="confirmarSenha" placeholder="••••••••">
+                        <img src="../imagens/closedEye.png" class="eyeIcon" id="eyeConfirmarSenha"
+                            onclick="mostrarSenha('confirmarSenha', 'eyeConfirmarSenha')">
+                    </div>
+                </div>
+
+                <button class="botaoAutenticar" onclick="cadastrar()">CRIAR CONTA</button>
+
+                <p class="loginTexto">Já tem uma conta?
+                    <span onclick="modalLogin()">Entrar</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalLogin" class="modal">
+        <div class="containerModalLogin">
+            <span class="fechar" id="fecharModalLogin">&times;</span>
+            <div class="montechLogo">
+                <img src="../imagens/longLigthLogo.svg" class="montechImg">
+            </div>
+            <div class="autenticarTitle">
+                <h1>Entrar na Conta</h1>
+            </div>
+
+            <div class="inputSection">
+                <div class="inputContainer" id="inputContainerLogin">
+                    <label>E-MAIL</label>
+                    <input type="email" id="emailLogin" placeholder="seu@gmail.com">
+                </div>
+
+                <div class="inputContainer">
+                    <label>SENHA</label>
+                    <div class="containerSenha">
+                        <input type="password" id="senhaLogin" placeholder="••••••••">
+                        <img src="../imagens/closedEye.png" class="eyeIcon" id="eyeSenhaLogin"
+                            onclick="mostrarSenha('senhaLogin', 'eyeSenhaLogin')">
+                    </div>
+                </div>
+
+                <button class="botaoAutenticarLogin" onclick="logar()">ENTRAR</button>
+
+                <p class="loginTexto" id="loginTextoLogin">Não tem acesso?
+                    <span onclick="modalcadastroIncial()">Criar conta</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <section class="sobre">
+        <div class="quemSomos">
+        <h1 id="compania"> Somos a Montech</h1>
+        <p>A empresa que presta suporte e inovação ao monitorar o consumo de recursos de companhias aéreas que utilizam o sistema SAGITARIO.</p>
+        </div>
+
+        <div class="equipe">
+            <h1>Nossa equipe</h1>
+            
+            <div class="integrantes">
+                <p>Fernanda Leal</p>
+                <img src="../imagens/Equipe/Fernanda.jpg" alt="Fernanda">
+                <span></span>
+            </div>
+            <div class="integrantes">
+                <p>Gabriel Galhiardo</p>
+                <img src="../imagens/Equipe/Gabriel.png" alt="Gabriel">
+                <span></span>
+            </div>
+            <div class="integrantes">
+                <p>Marcos Paulo</p>
+                <img src="../imagens/Equipe/Marcos.jpg" alt="Marcos">
+                <span></span>
+            </div>
+            <div class="integrantes">
+                <p>Mateus Lourenço</p>
+                <img src="../imagens/Equipe/Mateus.jpg" alt="Mateus">
+                <span></span>
+            </div>
+            <div class="integrantes">
+                <p>Matheus Jacob</p>
+                <img src="../imagens/Equipe/Jacob.png" alt="Jacob">
+                <span></span>
+            </div>
+            <div class="integrantes">
+                <p>Thays Ramos</p>
+                <img src="../imagens/Equipe/Thays.jpg" alt="Thays">
+                <span></span>
+            </div>
+        </div>
+    </section>
+    <section class="contato">
+        <div class="cadastroTexto">
+    <h1>Interessado em nossos serviços?</h1>
+    <p>
+        Informe os dados da sua empresa para que possamos
+        continuar o processo de cadastro.
+    </p>
+</div>
+<form class="formCadastro">
+
+    <div class="campo nome">
+        <label for="ipt_nomeEmpresa">Razão Social</label>
+        <input type="text" id="nomeEmpresa" placeholder="Nome da Empresa">
+    </div>
+
+    <div class="campo email">
+        <label for="ipt_email">E-mail</label>
+        <input type="text" id="ipt_email" placeholder="XX.XXX.XXX/XXXX-XX">
+    </div>
+
+    <div class="campo">
+        <label for="ipt_telefone">Telefone</label>
+        <input type="text" id="ipt_tefelone" placeholder="XXXXX-XXX">
+    </div>
+
+    <button onclick="return contato()" type="submit">CONTINUAR CADASTRO</button>
+
+</form>
+    </section>
+
+    <section class="sobre">
+        <div class="Nos">
+            <H1>MONTECH</H1>
+            <img src="../imagens/Equipe/MONTECH.jpg" alt="MONTECH">
+        </div>
+    </section>
+
+
+
+
+    <footer class="footerSite">
+        <div class="footerTopo">
+            <div class="footerLogo">
+                <a href="landingPage.html" class="navLogo">
+                    <img src="../imagens/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
+                </a>
+                <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO
+                    (Sistema de Gerenciamento de Informações de Tráfego Aéreo e Relatórios de Interesse Operacional).
+                </p>
+            </div>
+
+            <div class="footerColuna">
+                <h4>MONTECH</h4>
+                <ul>
+                    <li><a href="landingPage.html">Home</a></li>
+                    <li><a href="contato.html">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div class="footerColuna">
+                <h4>EQUIPE</h4>
+                <ul>
+                    <li>Fernanda Rodrigues Leal</li>
+                    <li>Gabriel Galhiardo Farina</li>
+                    <li>Marcos Paulo de Carvalho Ribeiro</li>
+                    <li>Matheus Jacob Duarte</li>
+                    <li>Mateus Lorenço de Almeida</li>
+                    <li>Thays Ramos da Silva Delfino</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footerLinha"></div>
+
+        <div class="footerBase">
+            <a href="https://sptech.school/">
+                <p>Faculdade São Paulo Tech School
+            </a> - <a href="https://sptech.school/ciencia-da-computacao/">Ciência da Computação</a> - 2026</p>
+            <p>MONTECH &copy; 2026</p>
+        </div>
+    </footer>
+
+    </body>
+</html>
+
+    <script>
+        function contato() {
+        
+        var nome = ipt_nome.value;
+        var email = ipt_email.value;
+        var telefone = ipt_telefone.value;
+
+        // Verificando se há algum campo em branco
+        if (
+        nome == "" ||
+        email == "" ||
+        telefone == ""
+        ) {
+        alert("Preencha todos os campos!");
+        return false;
+        }
+        
+        // Enviando o valor da nova input
+        fetch("/empresas/contato", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                telefoneServer: telefone,
+        }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+            } else {
+            alert("Houve um erro ao tentar realizar o cadastro!");
+            }
+        })
+        .catch(function (erro) {
+            console.error("ERRO:", erro);
+            alert("Não foi possível realizar o cadastro.");
+        });
+        return false;
+    }
+
+    </script>

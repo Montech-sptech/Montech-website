@@ -1,9 +1,11 @@
 const opcoesFotoPerfil = [
-    "../imagens/fotoUsuario.png",
-    "../imagens/sino.png",
-    "../imagens/user.png",
-    "../imagens/ram.png",
-    "../imagens/disco.png"
+    "../imagens/homemBranco.png",
+    "../imagens/homemNegro.png",
+    "../imagens/mulherBranca.png",
+    "../imagens/mulherNegra.png",
+    "../imagens/gato.png",
+    "../imagens/cachorro.png",
+    "../imagens/passaro.png"
 ];
 
 let fotoSelecionadaTemp = null;

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -156,6 +155,7 @@
                                 <option value="AIS">AIS</option>
                             </select>
                         </div>
+                    </div>
                 </section>
  
                 <section class="cardSecao" id="cardConexao">
@@ -167,7 +167,7 @@
                         <div class="campo">
                             <label for="metodoColeta">Método de coleta</label>
                             <select id="metodoColeta" name="metodoColeta">
-                                <option value="scriptPython">Script Python</option>
+                                <option value="scriptPython" selected>Script Python</option>
                             </select>
                         </div>
                         <div class="campo campoPequeno">
@@ -221,13 +221,10 @@
             </section>
  
             <div class="containerAcoes">
-                <button type="reset" id="botaoCancelar">Cancelar</button>
-                <button type="submit" id="botaoSalvarServidor">Salvar servidor</button>
+                <button type="button" id="botaoCancelar" onclick="cancelarCadastroServidor()">Cancelar</button>
+                <button type="button" id="botaoSalvarServidor" onclick="salvarServidor()">Salvar servidor</button>
             </div>
         </form>
     </main>
 </body>
-<script>
-
-</script>
 </html>

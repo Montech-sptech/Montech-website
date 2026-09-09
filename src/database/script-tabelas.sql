@@ -1,7 +1,6 @@
 CREATE DATABASE montech;
 USE montech;
 
-
 CREATE TABLE empresa (
     idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
     razaoSocial VARCHAR(120) NOT NULL,
@@ -26,7 +25,11 @@ CREATE TABLE usuario (
 CREATE TABLE servidor (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
     nomeServidor VARCHAR(45) NOT NULL,
-    hostName VARCHAR(50) NULL
+    hostName VARCHAR(50) NULL,
+    tipoServidor CHAR(3),
+    metodoDeColeta VARCHAR(50),
+    porta INT NOT NULL,
+    intervaloDeColeta INT
 );
 
 CREATE TABLE relatorio (

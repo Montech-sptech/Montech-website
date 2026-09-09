@@ -18,7 +18,7 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var empresaRouter = require("./src/routes/empresas");
-var servidorRouter = require("./src/routes/servidor")
+var servidoresRouter = require("./src/routes/servidores")
 var relatorioRouter = require("./src/routes/relatorios");
 
 
@@ -32,6 +32,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/empresas", empresaRouter);
 app.use("/relatorios", relatorioRouter);
+app.use("/servidores", servidoresRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`                        

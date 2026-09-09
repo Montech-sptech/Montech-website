@@ -21,26 +21,29 @@
 
 <body onload="validar()">
 
-    <nav class="navBar">
-        <a href="landingPage.html" class="navLogo">
-            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
-        </a>
+    <nav class="navBar"> 
+        <a href="landingPage.html" class="navLogo"> 
+            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech"> 
+        </a> 
+        
+        <button class="menuToggle" onclick="toggleMenu()" aria-label="Abrir menu" aria-expanded="false"> ☰ </button>
+        <div class="navMobileContent">
 
-        <ul class="navLinks">
-            <li><a href="#containerSecaoDois">Sobre</a></li>
-            <li><a href="#containerSecaoQuatro">Funcionalidades</a></li>
-            <li><a href="#containerSecaoSeis">Contato</a></li>
-        </ul>
+            <ul class="navLinks">
+                <li><a href="#containerSecaoDois">Sobre</a></li>
+                <li><a href="#containerSecaoQuatro">Funcionalidades</a></li>
+                <li><a href="#containerSecaoSeis">Contato</a></li>
+            </ul>
 
-        <div class="navActions">
-            <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar">Entrar</span>
-            <span class="navDivisor"></span>
-            <button class="botaoCriarConta" onclick="modalCadastro()" id="botaoCriar">CRIAR CONTA</button>
-            <a href="/telas/gerenciamentoDeUsuarios.html">
-                <button class="botaoCriarConta" id="botaoAcesso">ACESSO GERAL</button>
-            </a>
+            <div class="navActions"> 
+                <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar"> Entrar </span>
+                <span class="navDivisor"></span> <button class="botaoCriarConta" onclick="modalCadastro()"
+                    id="botaoCriar"> CRIAR CONTA </button> <a href="/telas/gerenciamentoDeUsuarios.html"
+                    class="botaoAcesso" id="botaoAcesso"> ACESSO GERAL </a>
+            </div>
         </div>
     </nav>
+
 
     <div id="modalCadastro" class="modal">
         <div class="containerModal">
@@ -391,5 +394,20 @@
 
 
 </body>
+
+<script>
+        function toggleMenu() {
+        const menu = document.querySelector('.navMobileContent');
+        const botao = document.querySelector('.menuToggle');
+
+        menu.classList.toggle('active');
+
+        const menuAberto = menu.classList.contains('active');
+
+        botao.setAttribute('aria-expanded', menuAberto);
+    }
+    
+</script>
+
 
 </html>

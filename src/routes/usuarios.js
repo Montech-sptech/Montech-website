@@ -30,4 +30,8 @@ router.put("/ativarUsuario/:id", function (req, res) {
     });
 });
 
+router.put("/atualizarFotoPerfil/:id", function (req, res) {
+    usuarioController.atualizarFotoPerfil(req, res);
+});
+
 module.exports = router;

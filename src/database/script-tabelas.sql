@@ -15,6 +15,7 @@ CREATE TABLE usuario (
     nomeUsuario VARCHAR(45) NOT NULL,
     email VARCHAR(220) NOT NULL,
     senha VARCHAR(45) NOT NULL,
+    fotoPerfil VARCHAR(100),
     cargo VARCHAR(20) DEFAULT 'Analista',
     status BOOLEAN DEFAULT TRUE,
     fkEmpresa INT NOT NULL,
@@ -86,10 +87,10 @@ INSERT INTO empresa (razaoSocial, cnpj, cep, numero, token) VALUES
 ('Tecnologia e Controle Aéreo Sul Ltda', '45678901000104', '80040000', '470', 'MNTHS2TQ'),
 ('Infraestrutura Aeronáutica Curitiba Ltda', '56789012000105', '80050000', '210', 'MNTLFshy');
 
-INSERT INTO usuario (nomeUsuario, email, senha, cargo, fkEmpresa) VALUES
-('Carlos', 'carlos@gmail.com', '123456', 'Administrador', 2),
-('Gabriel', 'gabriel@gmail.com', '123456', 'Analista', 2),
-('Thays', 'thays@gmail.com', '123456', 'TI', 2);
+INSERT INTO usuario (nomeUsuario, email, senha, fotoPerfil, cargo, fkEmpresa) VALUES
+('Carlos', 'carlos@gmail.com', '123456', '../imagens\fotoUsuario.png', 'Administrador', 2),
+('Gabriel', 'gabriel@gmail.com', '123456', '../imagens\fotoUsuario.png','Analista', 2),
+('Thays', 'thays@gmail.com', '123456', '../imagens\fotoUsuario.png', 'TI', 2);
 
 INSERT INTO servidor (nomeServidor, hostName) VALUES
 ('Servidor A', 'srv-web-01'),

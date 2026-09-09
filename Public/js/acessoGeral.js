@@ -4,6 +4,13 @@ let cargo = document.getElementById('cargoUsuario');
 function carregarInformacoes(){
     nome.textContent = sessionStorage.getItem("NOME");
     cargo.textContent = sessionStorage.getItem("CARGO");
+
+    var foto = sessionStorage.getItem("FOTO_PERFIL");
+    if (foto) {
+        document.querySelectorAll(".fotoPerfilAtual").forEach((img) => {
+            img.src = foto;
+        });
+    }
 }
 
 function sair(){

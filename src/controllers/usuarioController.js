@@ -34,7 +34,8 @@ function autenticar(req, res) {
                         nome: resultadoAutenticar[0].nome,
                         senha: resultadoAutenticar[0].senha,
                         empresaId: resultadoAutenticar[0].empresaId,
-                        cargo: resultadoAutenticar[0].cargo
+                        cargo: resultadoAutenticar[0].cargo,
+                        fotoPerfil: resultadoAutenticar[0].fotoPerfil
                     });
 
                 } else if (resultadoAutenticar.length == 0) {
@@ -176,10 +177,30 @@ function ativarUsuario(req, res) {
         });
 }
 
+function atualizarFotoPerfil(req, res) {
+    var usuarioId = req.params.id;
+    var fotoPerfil = req.body.fotoPerfil;
+
+    if (fotoPerfil == undefined) {
+        res.status(400).send("Sua foto de perfil está undefined!");
+    } else {
+        usuarioModel.atualizarFotoPerfil(usuarioId, fotoPerfil)
+            .then(function (resultado) {
+                res.json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao atualizar a foto de perfil! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     pegarUsuariosPeloAdministrador,
     inativarUsuario,
-    ativarUsuario
+    ativarUsuario,
+    atualizarFotoPerfil
 }

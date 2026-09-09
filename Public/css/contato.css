@@ -1,0 +1,151 @@
+* {
+    font-family: 'space Grotesk';
+}
+
+.sobre{
+    display: flex;
+    flex-direction: column; 
+    background-color: #343245;
+    color: white;
+    border-bottom: solid 5px black;
+}
+
+
+#compania{
+    margin-left: 50px;
+    font-family: 'space Grosteks';
+}
+
+.quemSomos {
+    margin: 10px 0;
+    /*border-bottom: solid 3px black;*/
+    font-family: 'inter';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.equipe{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 5px 20px;
+     
+}
+
+@media (min-width: 768px){
+    .equipe{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.integrantes{
+    /*border: solid 1px red;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+
+.integrantes img{
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.equipe h1 {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+p{
+        font-size: 20px;
+        font-weight: 600;
+}
+
+.contato{
+    background-color:  #1c1b28;
+    color: white;
+    padding: 20px 0;
+}
+
+.cadastroTexto p{
+    font-family: 'inter';
+}
+.formCadastro {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: #1E1D2E;
+    border: 1px solid #343245;
+}
+/* caso não queira que seja um formulário no meio
+.formCadastro {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}*/
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.campo label {
+    font-family: 'Inter';
+    font-size: 14px;
+    color: #8F8EA4;
+}
+
+.campo input {
+    height: 45px;
+    padding: 0 15px;
+    border: 1px solid #343245;
+    background-color: #14131e;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    outline: none;
+}
+
+.campo input:focus {
+    border-color: #453b96;
+}
+
+.campoRazao {
+    grid-column: 1 / -1;
+}
+
+.campoCnpj  {
+    grid-column: 1 / -1;
+}
+
+.formCadastro button {
+    grid-column: 1 / -1;
+    height: 44px;
+    border: none;
+    background-color: #393080;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+}
+
+.Nos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;     
+    width: 100%;       
+    padding: 30px 0;      
+}

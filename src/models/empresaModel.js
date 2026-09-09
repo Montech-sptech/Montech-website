@@ -74,6 +74,16 @@ function mensagensContatos() {
     return database.executar(instrucaoSql);
 }
 
+function contato(nome, email, telefone){
+    console.log("Acessei o empresaModel - cadastrar");
+
+    var instrucaoSql = `INSERT INTO contato (nomeEmpresa, email, telefone)
+        VALUES ('${nome}', '${email}', '${telefone}');`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listar,
     verificarCadastrados,
@@ -81,5 +91,6 @@ module.exports = {
     cadastrar,
     verificarCnpj,
     verificarCodigoCadastro,
-    mensagensContatos
+    mensagensContatos,
+    contato
 };

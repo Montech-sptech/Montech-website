@@ -18,21 +18,36 @@ function removerServidorUsuario(idUsuario, idServidor) {
 
 function pegarServidoresPorEmpresa(idEmpresa) {
     var instrucaoSql = `
-        SELECT idServidor, nomeServidor, hostName FROM servidor;
+        SELECT 
+    s.idServidor,
+    s.nomeServidor,
+    s.hostName,
+    s.tipoServidor,
+    s.metodoDeColeta,
+    s.intervaloDeColeta,
+    c.nomeComponente,
+    cs.limiteAtencao,
+    cs.limiteCritico
+FROM servidor s
+INNER JOIN componenteServidor cs 
+    ON s.idServidor = cs.fkServidor
+INNER JOIN componente c 
+    ON cs.fkComponente = c.idComponente
+ORDER BY s.idServidor, c.idComponente;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function cadastrarServidor(nomeServidor, hostName, tipoServidor, metodoDeColeta, porta, intervaloDeColeta) {
+function cadastrarServidor(nomeServidor, hostName, tipoServidor, metodoDeColeta, intervaloDeColeta) {
     var hostNameSql = hostName ? `'${hostName}'` : "NULL";
     var tipoServidorSql = tipoServidor ? `'${tipoServidor}'` : "NULL";
     var metodoDeColetaSql = metodoDeColeta ? `'${metodoDeColeta}'` : "NULL";
     var intervaloDeColetaSql = intervaloDeColeta ? intervaloDeColeta : "NULL";
 
     var instrucaoSql = `
-        INSERT INTO servidor (nomeServidor, hostName, tipoServidor, metodoDeColeta, porta, intervaloDeColeta)
-        VALUES ('${nomeServidor}', ${hostNameSql}, ${tipoServidorSql}, ${metodoDeColetaSql}, ${porta}, ${intervaloDeColetaSql});
+        INSERT INTO servidor (nomeServidor, hostName, tipoServidor, metodoDeColeta, intervaloDeColeta)
+        VALUES ('${nomeServidor}', ${hostNameSql}, ${tipoServidorSql}, ${metodoDeColetaSql}, ${intervaloDeColetaSql});
     `;
     return database.executar(instrucaoSql);
 }

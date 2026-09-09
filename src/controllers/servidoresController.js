@@ -58,17 +58,13 @@ async function cadastrarServidor(req, res) {
     var hostName = req.body.hostNameServer;
     var tipoServidor = req.body.tipoServidorServer;
     var metodoDeColeta = req.body.metodoDeColetaServer;
-    var porta = req.body.portaServer;
     var intervaloDeColeta = req.body.intervaloDeColetaServer;
     var componentes = req.body.componentesServer;
 
     if (!nomeServidor) {
         res.status(400).send("O nome do servidor está vazio ou undefined!");
-    } else if (!porta) {
-        res.status(400).send("A porta está vazia ou undefined!");
-    } else if (isNaN(porta)) {
-        res.status(400).send("A porta precisa ser um número!");
-    } else if (!Array.isArray(componentes) || componentes.length === 0) {
+    } 
+    else if (!Array.isArray(componentes) || componentes.length === 0) {
         res.status(400).send("Selecione ao menos um componente para monitorar!");
     } else {
 
@@ -78,7 +74,6 @@ async function cadastrarServidor(req, res) {
                 hostName,
                 tipoServidor,
                 metodoDeColeta,
-                porta,
                 intervaloDeColeta
             );
 

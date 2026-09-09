@@ -76,7 +76,6 @@ function salvarServidor() {
     var hostName = document.getElementById("hostnameServidor").value;
     var tipoServidor = document.getElementById("tipoServidor").value;
     var metodoDeColeta = document.getElementById("metodoColeta").value;
-    var porta = document.getElementById("portaConexao").value;
     var intervaloDeColeta = document.getElementById("intervaloColeta").value;
 
     var componentesSelecionados = document.querySelectorAll("input[name='componentes']:checked");
@@ -98,6 +97,8 @@ function salvarServidor() {
         return;
     }
 
+    console.log(componentes)
+
     fetch("/servidores/cadastrar/servidor", {
         method: "POST",
         headers: {
@@ -108,7 +109,6 @@ function salvarServidor() {
             hostNameServer: hostName,
             tipoServidorServer: tipoServidor,
             metodoDeColetaServer: metodoDeColeta,
-            portaServer: porta,
             intervaloDeColetaServer: intervaloDeColeta,
             componentesServer: componentes
         })

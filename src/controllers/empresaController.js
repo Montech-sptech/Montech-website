@@ -130,14 +130,13 @@ function mensagensContatos(req, res) {
         });
 }
 
-function cadastroInicial(req, res) {
+function contato(req, res) {
 
-    var razaoSocial = req.body.razaoSocialServer;
-    var cnpj = req.body.cnpjServer;
-    var cep = req.body.cepServer;
-    var numero = req.body.numeroServer;
+    var nome = req.body.razaoSocialServer;
+    var email = req.body.cnpjServer;
+    var telefone = req.body.cepServer;
 
-    empresaModel.cadastroInicial(razaoSocial, cnpj, cep, numero)
+    empresaModel.contato(razaoSocial, cnpj, cep, numero)
         .then(function (resultado) {
             res.status(200).json(resultado);
         })
@@ -154,5 +153,5 @@ module.exports = {
     carregarEmpresas,
     cadastrar,
     mensagensContatos,
-    cadastroInicial
+    contato
 };

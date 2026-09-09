@@ -7,7 +7,7 @@
     flex-direction: column; 
     background-color: #343245;
     color: white;
-     border-top: solid 5px black;
+    /* border-top: solid 5px black;*/
     
 }
 
@@ -20,20 +20,32 @@
 .quemSomos {
     margin-top: 10px;
     margin-bottom: 10px;
-    border-bottom: solid 3px black;
+    /*border-bottom: solid 3px black;*/
     font-family: 'inter';
 }
 
 .equipe{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
-    flex-direction: row;
+    padding: 5px 20px;
      
 }
-.integrantes{
-    border: solid 1px red;
+
+@media (min-width: 768px){
+    .equipe{
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
+
+.integrantes{
+    /*border: solid 1px red;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
 .integrantes img{
     max-width: 150px;
     max-height: 150px;
@@ -55,15 +67,19 @@ p{
 .contato{
     background-color:  #1c1b28;
     color: white;
+    padding: 20px 0;
 }
 
 .cadastroTexto p{
     font-family: 'inter';
 }
 .formCadastro {
-    max-width: 1500px;
+    max-width: 1000px;
     margin: 40px auto;
     padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
     background-color: #1E1D2E;
     border: 1px solid #343245;
@@ -79,7 +95,7 @@ p{
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 2px;
 }
 
 .campo label {
@@ -112,7 +128,7 @@ p{
 
 .formCadastro button {
     grid-column: 1 / -1;
-    height: 45px;
+    height: 44px;
     border: none;
     background-color: #393080;
     color: #FFFFFF;

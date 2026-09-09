@@ -145,7 +145,7 @@
             <div class="integrantes">
                 <p>Fernanda Leal</p>
                 <img src="../imagens/Equipe/Fernanda.jpg" alt="Fernanda">
-                <span></span>
+                <span>CEO</span>
             </div>
             <div class="integrantes">
                 <p>Gabriel Galhiardo</p>
@@ -153,7 +153,7 @@
             </div>
             <div class="integrantes">
                 <p>Marcos Paulo</p>
-                <img src="../imagens/Equipe/" alt="Marcos">
+                <img src="../imagens/Equipe/Marcos.jpg" alt="Marcos">
             </div>
             <div class="integrantes">
                 <p>Mateus Lourenço</p>
@@ -179,27 +179,22 @@
 </div>
 <form class="formCadastro">
 
-    <div class="campo campoRazao">
-        <label for="razaoSocial">Razão Social</label>
-        <input type="text" id="ipt_razaoSocial" placeholder="Nome oficial da Empresa">
+    <div class="campo nome">
+        <label for="ipt_nomeEmpresa">Razão Social</label>
+        <input type="text" id="nomeEmpresa" placeholder="Nome da Empresa">
     </div>
 
-    <div class="campo campoCnpj">
-        <label for="cnpj">CNPJ</label>
-        <input type="text" id="ipt_cnpj" placeholder="XX.XXX.XXX/XXXX-XX">
-    </div>
-
-    <div class="campo">
-        <label for="cep">CEP</label>
-        <input type="text" id="ipt_cep" placeholder="XXXXX-XXX">
+    <div class="campo email">
+        <label for="ipt_email">E-mail</label>
+        <input type="text" id="ipt_email" placeholder="XX.XXX.XXX/XXXX-XX">
     </div>
 
     <div class="campo">
-        <label for="numero">Número</label>
-        <input type="text" id="ipt_numero" placeholder="67">
+        <label for="ipt_telefone">Telefone</label>
+        <input type="text" id="ipt_tefelone" placeholder="XXXXX-XXX">
     </div>
 
-    <button onclick="return cadastroInicial()" type="submit">CONTINUAR CADASTRO</button>
+    <button onclick="return contato()" type="submit">CONTINUAR CADASTRO</button>
 
 </form>
     </section>
@@ -253,35 +248,32 @@
 </html>
 
     <script>
-        function cadastroInicial() {
+        function contato() {
         
-        var razaoSocial = ipt_razaoSocial.value;
-        var cnpj = ipt_cnpj.value;
-        var CEP = ipt_cep.value;
-        var numero = ipt_numero.value;
+        var nome = ipt_nome.value;
+        var email = ipt_email.value;
+        var telefone = ipt_telefone.value;
 
         // Verificando se há algum campo em branco
         if (
-        razaoSocial == "" ||
-        cnpj == "" ||
-        CEP == "" ||
-        numero == ""
+        nome == "" ||
+        email == "" ||
+        telefone == ""
         ) {
         alert("Preencha todos os campos!");
         return false;
         }
         
         // Enviando o valor da nova input
-        fetch("/empresas/cadastroInicial", {
+        fetch("/empresas/contato", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-                razaoSocialServer: razaoSocial,
-                cnpjServer: cnpj,
-                cepServer: cep,
-                numeroServer: numero
+                nomeServer: nome,
+                emailServer: email,
+                telefoneServer: telefone,
         }),
         })
         .then(function (resposta) {

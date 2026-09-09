@@ -74,7 +74,7 @@ function mensagensContatos() {
     return database.executar(instrucaoSql);
 }
 
-function cadastroInicial(razaoSocial, cnpj, cep, numero){
+function contato(razaoSocial, cnpj, cep, numero){
     console.log("Acessei o empresaModel - cadastrar");
 
     var instrucaoSql = `INSERT INTO EmpresaInteressada (razaoSocial, cnpj, cep, numero)
@@ -92,5 +92,5 @@ module.exports = {
     verificarCnpj,
     verificarCodigoCadastro,
     mensagensContatos,
-    cadastroInicial
+    contato
 };

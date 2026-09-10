@@ -641,11 +641,15 @@
     margin-top: 10px;
 }
 
+/* ============================= */
+/* SEÇÃO 5 - FLUXO DE APLICAÇÃO */
+/* ============================= */
+
 .containerSecaoCinco {
     width: 100%;
-    height: 480px;
+    min-height: 480px;
     background-color: #1E1D2E;
-    padding: 1% 6% 6% 6%;
+    padding: 50px 6%;
     position: relative;
 }
 
@@ -653,59 +657,45 @@
     margin-bottom: 60px;
 }
 
+.fluxoSecaoCinco {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
 
-.blocoDeteccao {
-    left: 4%;
-    top: 45%;
-    transform: translateY(-50%);
+.blocoFluxo {
+    flex: 1;
+    max-width: 260px;
     font-family: 'Inter';
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 1.5px;
-    position: absolute;
-    max-width: 260px;
 }
 
-.blocoAcao {
-    right: 2%;
-    top: 75%;
-    transform: translateY(-50%);
-    text-align: left;
+.blocoFluxo h3 {
     font-family: 'Inter';
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    position: absolute;
-    max-width: 260px;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 10px 0 8px 0;
 }
 
-.blocoAlerta {
-    left: 38%;
-    top: 75%;
-    transform: translate(-50%, -50%);
-    text-align: left;
+.blocoFluxo p {
     font-family: 'Inter';
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    position: absolute;
-    max-width: 260px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #8F8EA4;
 }
 
-.blocoJira {
-    left: 67%;
-    top: 39%;
-    transform: translate(-50%, -50%);
-    text-align: left;
+.setaFluxo {
+    flex-shrink: 0;
     font-family: 'Inter';
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    position: absolute;
-    max-width: 260px;
+    font-size: 32px;
+    font-weight: 300;
+    color: #8F8EA4;
+    margin-top: 5px;
 }
-
-
 
 .labelVermelho {
     color: #FF5C5C;
@@ -727,55 +717,39 @@
     font-size: 25px;
 }
 
-.blocoDeteccao h3,
-.blocoJira h3,
-.blocoAlerta h3,
-.blocoAcao h3 {
-    font-family: 'Inter';
-    font-size: 16px;
-    color: #FFFFFF;
-    margin: 10px 0 8px 0;
-}
-
-.blocoDeteccao p,
-.blocoJira p,
-.blocoAlerta p,
-.blocoAcao p {
-    font-family: 'Inter';
-    font-size: 13px;
-    line-height: 1.5;
-    color: #8F8EA4;
-}
-
-.primeiraSeta {
-    position: absolute;
-    max-width: 150px;
-    width: 100%;
-    top: 280px;
-    left: 350px;
-    transform: rotate(-35deg);
-}
-
-.segundaSeta {
-    position: absolute;
-    max-width: 150px;
-    width: 100%;
-    top: 250px;
-    left: 920px;
-    transform: rotate(20deg);
-}
-
-.terceiraSeta {
-    position: absolute;
-    max-width: 150px;
-    width: 100%;
-    top: 250px;
-    right: 410px;
-    transform: rotate(-30deg);
-}
-
 html {
     scroll-behavior: smooth;
+}
+
+@media (max-width: 920px) {
+
+    .containerSecaoCinco {
+        min-height: auto;
+        padding: 50px 8%;
+    }
+
+    .conteudoSecaoCinco {
+        margin-bottom: 45px;
+    }
+
+    .fluxoSecaoCinco {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .blocoFluxo {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .setaFluxo {
+        align-self: center;
+        font-size: 28px;
+        margin: 20px 0;
+        transform: rotate(90deg);
+    }
 }
 
 

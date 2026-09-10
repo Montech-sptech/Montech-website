@@ -297,41 +297,47 @@
                 <h1 class="tituloSecaoUm">Fluxo de Aplicação</h1>
             </div>
 
-            <div class="blocoDeteccao">
-                <span class="labelVermelho">DETECÇÃO</span>
-                <h3>Servidor em estado crítico</h3>
-                <p>CPU, memória ou disco atingiu o threshold configurado no MonTech. O sistema identifica a anomalia
-                    automaticamente.</p>
-                <!-- to pensando na troca desse trecho para:
-                    CPU, memória ou disco atingiu o limite configurado pelo MonTech ou pelo cliente. O sistema identifica automaticamente a anomalia
-                    Não definimos que o cliente também pode definir o Limite que o sistema alerta?
-                        -->
+            <div class="fluxoSecaoCinco">
+
+                <div class="blocoFluxo blocoDeteccao">
+                    <span class="labelVermelho">DETECÇÃO</span>
+                    <h3>Servidor em estado crítico</h3>
+                    <p>
+                        CPU, memória ou disco atingiu o limite configurado pelo MonTech ou pelo cliente. O sistema identifica automaticamente a anomalia.
+                    </p>
+                </div>
+
+                <span class="setaFluxo">→</span>
+
+                <div class="blocoFluxo blocoAlerta">
+                    <span class="labelLaranja">ALERTA</span>
+                    <h3>Alerta disparado</h3>
+                    <p>
+                        A equipe de operações recebe a notificação em tempo real pelo painel. Nenhuma falha passa despercebida.
+                    </p>
+                </div>
+
+                <span class="setaFluxo">→</span>
+
+                <div class="blocoFluxo blocoJira">
+                    <span class="labelAzul">JIRA</span>
+                    <h3>Chamado aberto no Jira</h3>
+                    <p>
+                        Incidente registrado com prioridade P1-P3, sistema afetado, timestamp e responsável sugerido.
+                    </p>
+                </div>
+
+                <span class="setaFluxo">→</span>
+
+                <div class="blocoFluxo blocoAcao">
+                    <span class="labelVerde">AÇÃO</span>
+                    <h3>Técnico designado</h3>
+                    <p>
+                        O gestor aloca o responsável pelo chamado. O técnico recebe o contexto completo e vai investigar.
+                    </p>
+                </div>
+
             </div>
-
-            <div class="blocoJira">
-                <span class="labelAzul">JIRA</span>
-                <h3>Chamado aberto no Jira</h3>
-                <p>Incidente registrado com prioridade P1-P3, sistema afetado, timestamp e responsável sugerido.</p>
-            </div>
-
-            <div class="blocoAlerta">
-                <span class="labelLaranja">ALERTA</span>
-                <h3>Alerta disparado</h3>
-                <p>A equipe de operações recebe a notificação em tempo real pelo painel. Nenhuma falha passa
-                    despercebida.</p>
-            </div>
-
-            <div class="blocoAcao">
-                <span class="labelVerde">AÇÃO</span>
-                <h3>Técnico designado</h3>
-                <p>O gestor aloca o responsável pelo chamado. O técnico recebe o contexto completo e vai investigar.</p>
-            </div>
-
-            <img src="../imagens/seta1.png" class="primeiraSeta">
-
-            <img src="../imagens/seta2.png" class="segundaSeta">
-
-            <img src="../imagens/seta3.png" class="terceiraSeta">
 
         </div>
 

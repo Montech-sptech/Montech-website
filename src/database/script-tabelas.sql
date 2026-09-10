@@ -1,6 +1,7 @@
 CREATE DATABASE montech;
 USE montech;
 
+
 CREATE TABLE empresa (
     idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
     razaoSocial VARCHAR(120) NOT NULL,
@@ -88,54 +89,10 @@ INSERT INTO empresa (razaoSocial, cnpj, cep, numero, token) VALUES
 ('Infraestrutura Aeronáutica Curitiba Ltda', '56789012000105', '80050000', '210', 'MNTLFshy');
 
 INSERT INTO usuario (nomeUsuario, email, senha, fotoPerfil, cargo, fkEmpresa) VALUES
-('Carlos', 'carlos@gmail.com', '123456', '../imagens\fotoUsuario.png', 'Administrador', 2),
-('Gabriel', 'gabriel@gmail.com', '123456', '../imagens\fotoUsuario.png','Analista', 2),
-('Thays', 'thays@gmail.com', '123456', '../imagens\fotoUsuario.png', 'TI', 2);
+('Carlos', 'carlos@gmail.com', '123456', '../imagens/fotoUsuario.png', 'Administrador', 2),
+('Gabriel', 'gabriel@gmail.com', '123456', '../imagens/fotoUsuario.png','Analista', 2),
+('Thays', 'thays@gmail.com', '123456', '../imagens/fotoUsuario.png', 'TI', 2);
 
--- Nota: intervaloDeColeta armazenado em segundos (30s = 30, 1min = 60, 5min = 300)
-INSERT INTO servidor (nomeServidor, hostName, tipoServidor, metodoDeColeta, intervaloDeColeta) VALUES
-('SPA - ACC Brasília', 'spa-bsb.sim.local', 'SPA', 'script python', 30),
-('SDV - TWR Curitiba', 'sdv-cwb.sim.local', 'SDV', 'script python', 60),
-('AIS - APP São Paulo', 'ais-cgh.sim.local', 'AIS', 'script python', 300),
-('SPA - ACC Recife', 'spa-rec.sim.local', 'SPA', 'script python', 30),
-('SDV - APP Rio de Janeiro', 'sdv-rio.sim.local', 'SDV', 'script python', 60);
-
--- Servidor 1 (idServidor = 4, assumindo auto-increment pós inserção)
-INSERT INTO componenteServidor (fkComponente, fkServidor, limiteAtencao, limiteCritico) VALUES
-(1, 4, 75, 90), -- CPU
-(2, 4, 80, 95), -- Mem. RAM
-(3, 4, 85, 95); -- Disco
-
--- Servidor 2
-INSERT INTO componenteServidor (fkComponente, fkServidor, limiteAtencao, limiteCritico) VALUES
-(1, 5, 70, 85),
-(2, 5, 75, 90),
-(3, 5, 80, 90);
-
--- Servidor 3
-INSERT INTO componenteServidor (fkComponente, fkServidor, limiteAtencao, limiteCritico) VALUES
-(1, 6, 80, 92),
-(2, 6, 85, 95),
-(3, 6, 90, 98);
-
--- Servidor 4
-INSERT INTO componenteServidor (fkComponente, fkServidor, limiteAtencao, limiteCritico) VALUES
-(1, 7, 70, 88),
-(2, 7, 80, 92),
-(3, 7, 85, 95);
-
--- Servidor 5
-INSERT INTO componenteServidor (fkComponente, fkServidor, limiteAtencao, limiteCritico) VALUES
-(1, 8, 75, 90),
-(2, 8, 80, 95),
-(3, 8, 85, 95);
-
-INSERT INTO usuarioServidor (fkUsuario, fkServidor) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(3, 2),
-(3, 3);
 
 INSERT INTO contato (nomeEmpresa, email, telefone) VALUES
 ('AeroTech Solutions', 'contato@aerotech.com.br', '11987654321'),
@@ -151,23 +108,3 @@ insert into componente (nomeComponente) values
 ("CPU"),
 ("Mem. RAM"),
 ("Disco"); 
-
--- Selects
-
---Visualização do Servidor:
-SELECT 
-    s.idServidor,
-    s.nomeServidor,
-    s.hostName,
-    s.tipoServidor,
-    s.metodoDeColeta,
-    s.intervaloDeColeta,
-    c.nomeComponente,
-    cs.limiteAtencao,
-    cs.limiteCritico
-FROM servidor s
-INNER JOIN componenteServidor cs 
-    ON s.idServidor = cs.fkServidor
-INNER JOIN componente c 
-    ON cs.fkComponente = c.idComponente
-ORDER BY s.idServidor, c.idComponente;

@@ -23,7 +23,7 @@
 <body onload="validar()">
 
     <nav class="navBar">
-        <a href="landingPage.html" class="navLogo">
+        <a href="/" class="navLogo">
             <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
         </a>
 
@@ -32,7 +32,7 @@
 
             <ul class="navLinks">
                 <li><a href="#containerSecaoDois">Sobre</a></li>
-                <li><a href="#containerSecaoQuatro">Funcionalidades</a></li>
+                <li><a href="#containerSecaoQuatro">Valores</a></li>
                 <li><a href="#containerSecaoSeis">Contato</a></li>
             </ul>
 
@@ -142,8 +142,8 @@
             </p>
 
             <div class="botoesSecaoUm">
-                <button class="botaoVerPlataforma">Ver a plataforma</button>
-                <button class="botaoComoFunciona">Como funciona <span class="setaBotaoComoFunciona">→</span></button>
+                <button class="botaoVerPlataforma" onclick="modalLogin()">Entrar</button>
+                <button class="botaoComoFunciona"><a href="#containerSecaoQuatro" style="color: inherit; text-decoration: none;">Valores <span class="setaBotaoComoFunciona">→</span></a></button>
             </div>
         </div>
 
@@ -378,7 +378,7 @@
         <div class="footerTopo">
             <div class="footerLogo">
                 <a onclick="trocarPagina('../telas/landingPage.html')" class="navLogo">
-                    <img src="../imagens/longLigthLogo.svg"  class="footerLogoImg" alt="MonTech">
+                    <img src="../imagens/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
                 </a>
                 <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO
                     (Sistema Avançado de Gerenciamento de Informações de Tráfego Aéreo e Relatório de Interesse
@@ -389,20 +389,33 @@
             <div class="footerColuna">
                 <h4>MONTECH</h4>
                 <ul>
-                    <li><a href="landingPage.html">Home</a></li>
-                    <li><a href="contato.html">Sobre Nós</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#containerSecaoDois">Sobre</a></li>
+                    <li><a href="#containerSecaoQuatro">Valores</a></li>
+                    <li><a href="/telas/contato.html">Contatos</a></li>
                 </ul>
             </div>
 
             <div class="footerColuna">
                 <h4>EQUIPE</h4>
                 <ul>
-                    <li>Fernanda Rodrigues Leal</li>
-                    <li>Gabriel Galhiardo Farina</li>
-                    <li>Marcos Paulo de Carvalho Ribeiro</li>
-                    <li>Matheus Jacob Duarte</li>
-                    <li>Mateus Lourenço de Almeida</li>
-                    <li>Thays Ramos da Silva Delfino</li>
+                    <li><a href="https://github.com/fer-loyal" target="_blank" style="text-decoration: none;">Fernanda
+                            Rodrigues
+                            Leal</a></li>
+                    <li><a href="https://github.com/gabrielGalhiardoFarina" target="_blank"
+                            style="text-decoration: none;">Gabriel Galhiardo Farina</a></li>
+                    <li><a href="https://github.com/MarcosPaulo-Ribeiro" style="text-decoration: none;">Marcos Paulo de
+                            Carvalho Ribeiro</a></li>
+                    <li><a href="https://github.com/MatheusJacobD" target="_blank"
+                            style="text-decoration: none;">Matheus Jacob
+                            Duarte</a></li>
+                    <li><a href="https://github.com/MateusLouAlmeida" target="_blank"
+                            style="text-decoration: none;">Mateus Lourenço de
+                            Almeida</a></li>
+                    <li><a href="https://github.com/thays-delfino" target="_blank" style="text-decoration: none;">Thays
+                            Ramos da Silva
+                            Delfino</a></li>
+
                 </ul>
             </div>
         </div>

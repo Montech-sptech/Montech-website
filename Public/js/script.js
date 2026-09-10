@@ -44,16 +44,16 @@ let listaEmpresasCadastradas = [];
 
 function cadastrar() {
 
-    var nomeVar = nome.value;
-    var emailVar = email.value;
-    var senhaVar = senha.value;
-    var confirmacaoSenhaVar = confirmarSenha.value;
-    var codigoVar = token.value;
+    var nomeVar = document.getElementById("nome").value;
+    var emailVar = document.getElementById("email").value;
+    var senhaVar = document.getElementById("senha").value;
+    var confirmacaoSenhaVar = document.getElementById("confirmarSenha").value;
+    var codigoVar = document.getElementById("token").value;
 
     verificarCadastrados();
 
     if (usuarioEmEmpresa) {
-        var cargoVar = "TI";
+        var cargoVar = "Analista";
     } else {
         var cargoVar = "Administrador";
     }
@@ -71,7 +71,7 @@ function cadastrar() {
     }
 
     if (senhaVar != confirmacaoSenhaVar) {
-        alert("As senhas não coincidem");
+        alert("As senhas não coincidem" + senhaVar + confirmacaoSenhaVar);
         return false;
     }
 

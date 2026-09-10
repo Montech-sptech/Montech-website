@@ -250,6 +250,7 @@
     padding: 0 26px;
     border: none;
     background-color: #FFFFFF;
+    border-radius: 10px;
     color: #1E1D2E;
     font-family: 'Inter';
     font-size: 14px;
@@ -327,7 +328,23 @@
     border: 0.15vw solid #343245;
     margin-top: 25px;
     padding: 2vh 0 3vh 0;
+    overflow: auto;
 }
+
+.containerModal::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.containerModal::-webkit-scrollbar-track {
+  background: #1E1D2E;
+}
+
+.containerModal::-webkit-scrollbar-thumb {
+  background-color: #343245;
+  border-radius: 4px;
+  border: 2px solid #1E1D2E; 
+}
+
 
 .containerModalLogin {
     position: relative;
@@ -862,6 +879,7 @@ html {
     border: none;
     text-decoration: none;
     cursor: pointer;
+    border-radius: 15px;
 }
 
 .ctaEntrar:hover,
@@ -1005,7 +1023,8 @@ html {
     background-color: #272638;
     border: 1px solid #343245;
     padding: 32px;
-    height: 60dvh;
+    height: max-content;
+    min-height: 300px;
 }
 
 .cabecalhoCardSecaoTres {

@@ -24,16 +24,9 @@ function pegarServidoresPorEmpresa(idEmpresa) {
     s.hostName,
     s.tipoServidor,
     s.metodoDeColeta,
-    s.intervaloDeColeta,
-    c.nomeComponente,
-    cs.limiteAtencao,
-    cs.limiteCritico
+    s.intervaloDeColeta
 FROM servidor s
-INNER JOIN componenteServidor cs 
-    ON s.idServidor = cs.fkServidor
-INNER JOIN componente c 
-    ON cs.fkComponente = c.idComponente
-ORDER BY s.idServidor, c.idComponente;
+ORDER BY s.idServidor;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

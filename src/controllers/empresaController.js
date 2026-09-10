@@ -144,7 +144,7 @@ function contato(req, res) {
        return res.status(400).send("O telefone está vazio ou undefined!");
     } else {
 
-    empresaModel.contato(nome, email, tefelone)
+    empresaModel.contato(nome, email, telefone)
         .then(function (resultado) {
             res.status(200).json(resultado);
         })

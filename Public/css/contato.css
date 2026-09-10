@@ -17,7 +17,8 @@
 }
 
 .quemSomos {
-    margin: 10px 0;
+    padding: 18px 0;
+    margin: 15px 0;
     /*border-bottom: solid 3px black;*/
     font-family: 'inter';
     display: flex;
@@ -66,10 +67,16 @@ p{
         font-weight: 600;
 }
 
+
+
 .contato{
     background-color:  #1c1b28;
     color: white;
     padding: 33px 30px;
+}
+
+.contato h1{
+    padding: 15px 30px;
 }
 
 .cadastroTexto p{
@@ -77,11 +84,11 @@ p{
 }
 .formCadastro {
     max-width: 1000px;
-    margin: 45px auto;
+    margin: 80px auto;
     padding: 33px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 45px;
 
     background-color: #1E1D2E;
     border: 1px solid #343245;
@@ -97,7 +104,7 @@ p{
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 5px;
 }
 
 .campo label {

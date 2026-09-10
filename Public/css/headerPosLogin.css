@@ -83,12 +83,12 @@ header hr {
     font-family: 'Inter', sans-serif;
 }
 
-#opcaoAtiva {
+.opcaoAtiva {
     background-color: #E6F2FF;
     color: #1A3C6D;
 }
 
-#opcaoAtiva svg {
+.opcaoAtiva svg {
     fill: #0f0f0f;
 }
 

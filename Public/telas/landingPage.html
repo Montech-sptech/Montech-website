@@ -22,11 +22,11 @@
 
 <body onload="validar()">
 
-    <nav class="navBar"> 
-        <a href="landingPage.html" class="navLogo"> 
-            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech"> 
-        </a> 
-        
+    <nav class="navBar">
+        <a href="landingPage.html" class="navLogo">
+            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
+        </a>
+
         <button class="menuToggle" onclick="toggleMenu()" aria-label="Abrir menu" aria-expanded="false"> ☰ </button>
         <div class="navMobileContent">
 
@@ -36,7 +36,7 @@
                 <li><a href="#containerSecaoSeis">Contato</a></li>
             </ul>
 
-            <div class="navActions"> 
+            <div class="navActions">
                 <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar"> Entrar </span>
                 <span class="navDivisor"></span> <button class="botaoCriarConta" onclick="modalCadastro()"
                     id="botaoCriar"> CRIAR CONTA </button> <a href="/telas/gerenciamentoDeUsuarios.html"
@@ -210,9 +210,9 @@
     </section>
 
     <section id="containerSecaoQuatro">
-        <div id="tituloSecaoQuatro">Um incidente na infraestrutura vira números em poucas horas.</div>
 
         <div id="containerJanelas">
+            <div id="tituloSecaoQuatro">Um incidente na infraestrutura vira números em poucas horas.</div>
 
             <div id="linhaUmJanelas">
 
@@ -269,27 +269,25 @@
                 </div>
 
             </div>
+            <div id="containerCardsLinhaSecaoQuatro">
 
-        </div>
-
-        <div id="containerCardsLinhaSecaoQuatro">
-
-            <div class="cardLinhaSecaoQuatro">
-                <div class="containerFundoJanela">
-                    <div class="tituloCardLinhaSecaoQuatro">A partir de 2 horas</div>
-                    <div class="textoCardLinhaSecaoQuatro">
-                        A compania é obrigada a fornecer alimentação a todos os passageiros no aeroporto.
+                <div class="cardLinhaSecaoQuatro">
+                    <div class="containerFundoJanela">
+                        <div class="tituloCardLinhaSecaoQuatro">A partir de 2 horas</div>
+                        <div class="textoCardLinhaSecaoQuatro">
+                            A compania é obrigada a fornecer alimentação a todos os passageiros no aeroporto.
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="cardLinhaSecaoQuatro">
-                <div class="tituloCardLinhaSecaoQuatro">A partir de 4 horas ou cancelamento</div>
-                <div class="textoCardLinhaSecaoQuatro">
-                    Hospedagem e transporte de ia e volta para passageiros de fora da cidade.
+                <div class="cardLinhaSecaoQuatro">
+                    <div class="tituloCardLinhaSecaoQuatro">A partir de 4 horas ou cancelamento</div>
+                    <div class="textoCardLinhaSecaoQuatro">
+                        Hospedagem e transporte de ia e volta para passageiros de fora da cidade.
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
 
         <div class="containerSecaoCinco">
@@ -303,7 +301,8 @@
                     <span class="labelVermelho">DETECÇÃO</span>
                     <h3>Servidor em estado crítico</h3>
                     <p>
-                        CPU, memória ou disco atingiu o limite configurado pelo MonTech ou pelo cliente. O sistema identifica automaticamente a anomalia.
+                        CPU, memória ou disco atingiu o limite configurado pelo MonTech ou pelo cliente. O sistema
+                        identifica automaticamente a anomalia.
                     </p>
                 </div>
 
@@ -313,7 +312,8 @@
                     <span class="labelLaranja">ALERTA</span>
                     <h3>Alerta disparado</h3>
                     <p>
-                        A equipe de operações recebe a notificação em tempo real pelo painel. Nenhuma falha passa despercebida.
+                        A equipe de operações recebe a notificação em tempo real pelo painel. Nenhuma falha passa
+                        despercebida.
                     </p>
                 </div>
 
@@ -333,7 +333,8 @@
                     <span class="labelVerde">AÇÃO</span>
                     <h3>Técnico designado</h3>
                     <p>
-                        O gestor aloca o responsável pelo chamado. O técnico recebe o contexto completo e vai investigar.
+                        O gestor aloca o responsável pelo chamado. O técnico recebe o contexto completo e vai
+                        investigar.
                     </p>
                 </div>
 
@@ -398,25 +399,10 @@
             <p>MONTECH &copy; 2026</p>
         </div>
     </footer>
-    <div id="modalFotoPerfil" class="escondido">
-        <div id="modalEscolherFoto">
-            <svg id="iconeFecharModalFoto" onclick="fecharModalFotoPerfil()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#6f6d82" viewBox="0 0 16 16">
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-            <h2>Escolher foto de perfil</h2>
-            <div id="gridFotosPerfil"></div>
-            <div class="containerAcoesModal">
-                <button id="botaoSalvarFotoPerfil" onclick="salvarFotoPerfil()">SALVAR</button>
-                <button id="botaoCancelarFotoPerfil" onclick="fecharModalFotoPerfil()">CANCELAR</button>
-            </div>
-        </div>
-    </div>
-
-
 </body>
 
 <script>
-        function toggleMenu() {
+    function toggleMenu() {
         const menu = document.querySelector('.navMobileContent');
         const botao = document.querySelector('.menuToggle');
 
@@ -426,7 +412,7 @@
 
         botao.setAttribute('aria-expanded', menuAberto);
     }
-    
+
 </script>
 
 

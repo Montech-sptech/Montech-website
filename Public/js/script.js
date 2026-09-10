@@ -223,6 +223,8 @@ function logar() {
                         window.location.href = "/telas/inicioCadastroEmpresa.html";
                     } else if (dados.cargo === "Administrador") {
                         window.location.href = "/telas/gerenciamentoDeUsuarios.html";
+                    } else if (dados.cargo === "Analista") {
+                        window.location.href = "/telas/relatorios.html";
                     } else {
                         window.location.href = "/telas/gerenciamentoDeUsuarios.html";
                     }

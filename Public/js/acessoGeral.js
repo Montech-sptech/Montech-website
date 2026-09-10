@@ -11,6 +11,8 @@ function carregarInformacoes(){
             img.src = foto;
         });
     }
+
+    validarPermissoesHeader();
 }
 
 function sair(){
@@ -32,4 +34,36 @@ function fecharModalRelatorio() {
 
 function salvarRelatorio() {
     fecharModalRelatorio();
+}
+
+function validarPermissoesHeader() {
+    var cargoAtual = sessionStorage.getItem("CARGO");
+    var permissoes = {
+        TI: [
+            "opcaoInicioEmpresa",
+            "opcaoContatosEmpresa",
+            "opcaoCadastroEmpresas",
+            "opcaoEmpresasCadastradas"
+        ],
+        Administrador: [
+            "opcaoGerenciamentoUsuarios",
+            "opcaoCadastroServidores",
+            "opcaoAlertas"
+        ],
+        Analista: [
+            "opcaoDashboard",
+            "opcaoRelatorios"
+        ]
+    };
+
+    document.querySelectorAll("#containerOpcoes .opcao").forEach((opcao) => {
+        opcao.style.display = "none";
+    });
+
+    (permissoes[cargoAtual] || []).forEach((id) => {
+        var opcao = document.getElementById(id);
+        if (opcao) {
+            opcao.style.display = "flex";
+        }
+    });
 }

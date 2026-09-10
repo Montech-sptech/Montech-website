@@ -69,7 +69,7 @@ p{
 .contato{
     background-color:  #1c1b28;
     color: white;
-    padding: 20px 0;
+    padding: 33px 30px;
 }
 
 .cadastroTexto p{
@@ -77,11 +77,11 @@ p{
 }
 .formCadastro {
     max-width: 1000px;
-    margin: 40px auto;
-    padding: 30px;
+    margin: 45px auto;
+    padding: 33px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
 
     background-color: #1E1D2E;
     border: 1px solid #343245;

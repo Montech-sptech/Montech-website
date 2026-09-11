@@ -46,13 +46,15 @@ function validarPermissoesHeader() {
             "opcaoEmpresasCadastradas"
         ],
         Administrador: [
+            "opcaoDashboard",
             "opcaoGerenciamentoUsuarios",
             "opcaoCadastroServidores",
             "opcaoAlertas"
         ],
         Analista: [
             "opcaoDashboard",
-            "opcaoRelatorios"
+            "opcaoRelatorios",
+            "opcaoAlertas"
         ]
     };
 

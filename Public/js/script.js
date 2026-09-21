@@ -12,6 +12,8 @@ let usuarioEmEmpresa = false;
 function modalLogin() {
     modal.style.display = "none";
     modalL.style.display = "flex";
+    let menu = document.querySelector('.navMobileContent');
+    menu.classList.toggle('active');
 }
 
 fecharLogin.onclick = function () {
@@ -21,6 +23,8 @@ fecharLogin.onclick = function () {
 function modalCadastro() {
     modalL.style.display = "none";
     modal.style.display = "flex";
+    let menu = document.querySelector('.navMobileContent');
+    menu.classList.toggle('active');
 }
 
 fecharCadastro.onclick = function () {

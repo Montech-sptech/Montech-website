@@ -37,6 +37,7 @@ function cadastrarServidor(
   nomeServidor,
   hostName,
   sistemaOperacional,
+  tipoServidor,
   metodoColeta,
   intervaloColeta,
   statusAtividade,
@@ -45,6 +46,7 @@ function cadastrarServidor(
   var sistemaOperacionalSql = sistemaOperacional
     ? `'${sistemaOperacional}'`
     : "NULL";
+  var tipoServidorSql = tipoServidor ? `'${tipoServidor}'` : "NULL";
   var metodoDeColetaSql = metodoColeta ? `'${metodoColeta}'` : "NULL";
   var intervaloDeColetaSql = intervaloColeta ? intervaloColeta : "NULL";
   var statusAtividadeSql =
@@ -53,8 +55,8 @@ function cadastrarServidor(
       : "NULL";
 
   var instrucaoSql = `
-        INSERT INTO servidor (nomeServidor, hostName, sistemaOperacional, metodoColeta, intervaloColeta, statusAtividade)
-        VALUES ('${nomeServidor}', ${hostNameSql}, ${sistemaOperacionalSql}, ${metodoDeColetaSql}, ${intervaloDeColetaSql}, ${statusAtividadeSql});
+        INSERT INTO servidor (nomeServidor, hostName, sistemaOperacional, tipoServidor, metodoColeta, intervaloColeta, statusAtividade)
+        VALUES ('${nomeServidor}', ${hostNameSql}, ${sistemaOperacionalSql}, ${tipoServidorSql}, ${metodoDeColetaSql}, ${intervaloDeColetaSql}, ${statusAtividadeSql});
     `;
   return database.executar(instrucaoSql);
 }
@@ -70,7 +72,6 @@ function adicionarComponenteServidor(
   limiteAtencao,
   limiteCritico,
   fkTipoMetrica,
-  componentePrincipal,
 ) {
   var limiteAtencaoSql =
     limiteAtencao !== undefined &&
@@ -86,8 +87,8 @@ function adicionarComponenteServidor(
       : "NULL";
 
   var instrucaoComponenteServidor = `
-        INSERT INTO componenteServidor (fkComponente, fkServidor, fkTipoMetrica, componentePrincipal, limiteAtencao, limiteCritico)
-        VALUES (${fkComponente}, ${fkServidor}, ${fkTipoMetrica}, ${componentePrincipal}, ${limiteAtencaoSql}, ${limiteCriticoSql});
+        INSERT INTO componenteServidor (fkComponente, fkServidor, fkTipoMetrica, limiteAtencao, limiteCritico)
+        VALUES (${fkComponente}, ${fkServidor}, ${fkTipoMetrica}, ${limiteAtencaoSql}, ${limiteCriticoSql});
   `;
   return database.executar(instrucaoComponenteServidor);
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../imagens/shortLigthLogo.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/shortLigthLogo.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/landingPage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,23 +24,24 @@
 
     <nav class="navBar">
         <a href="/" class="navLogo">
-            <img src="../imagens/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
+            <img src="../img/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
         </a>
 
         <button class="menuToggle" onclick="toggleMenu()" aria-label="Abrir menu" aria-expanded="false"> ☰ </button>
         <div class="navMobileContent">
-
             <ul class="navLinks">
                 <li><a href="#containerSecaoDois">Sobre</a></li>
                 <li><a href="#containerSecaoQuatro">Valores</a></li>
                 <li><a href="#containerSecaoSeis">Contato</a></li>
+                <li class="navLinksMobile" onclick="modalLogin()" id="botaoEntrar"><a>Entrar</a></li>
+                <li class="navLinksMobile" onclick="modalCadastro()" id="botaoCriar"><a>Criar conta</a></li>
             </ul>
 
             <div class="navActions">
-                <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar"> Entrar </span>
-                <span class="navDivisor"></span> <button class="botaoCriarConta" onclick="modalCadastro()"
-                    id="botaoCriar"> CRIAR CONTA </button> <a href="/telas/gerenciamentoDeUsuarios.html"
-                    class="botaoAcesso" id="botaoAcesso"> ACESSO GERAL </a>
+                <span class="navEntrar" onclick="modalLogin()" id="botaoEntrar">ENTRAR</span>
+                <span class="navDivisor"></span>
+                <button class="botaoCriarConta" onclick="modalCadastro()" id="botaoCriar"> CRIAR CONTA </button>
+                <a href="/pages/gerenciamentoDeUsuarios.html" class="botaoAcesso" id="botaoAcesso"> ACESSO GERAL </a>
             </div>
         </div>
     </nav>
@@ -50,7 +51,7 @@
         <div class="containerModal">
             <span class="fechar" id="fecharModalCadastro">&times;</span>
             <div class="montechLogo">
-                <img src="../imagens/longLigthLogo.svg" class="montechImg">
+                <img src="../img/longLigthLogo.svg" class="montechImg">
             </div>
             <div class="autenticarTitle">
                 <h1>Criar Conta</h1>
@@ -76,7 +77,7 @@
                     <label>SENHA</label>
                     <div class="containerSenha">
                         <input type="password" id="senha" placeholder="••••••••">
-                        <img src="../imagens/closedEye.png" class="eyeIcon" id="eyeSenha"
+                        <img src="../img/closedEye.png" class="eyeIcon" id="eyeSenha"
                             onclick="mostrarSenha('senha', 'eyeSenha')">
                     </div>
                 </div>
@@ -85,7 +86,7 @@
                     <label>Confirmar Senha</label>
                     <div class="containerSenha">
                         <input type="password" id="confirmarSenha" placeholder="••••••••">
-                        <img src="../imagens/closedEye.png" class="eyeIcon" id="eyeConfirmarSenha"
+                        <img src="../img/closedEye.png" class="eyeIcon" id="eyeConfirmarSenha"
                             onclick="mostrarSenha('confirmarSenha', 'eyeConfirmarSenha')">
                     </div>
                 </div>
@@ -103,7 +104,7 @@
         <div class="containerModalLogin">
             <span class="fechar" id="fecharModalLogin">&times;</span>
             <div class="montechLogo">
-                <img src="../imagens/longLigthLogo.svg" class="montechImg">
+                <img src="../img/longLigthLogo.svg" class="montechImg">
             </div>
             <div class="autenticarTitle">
                 <h1>Entrar na Conta</h1>
@@ -119,7 +120,7 @@
                     <label>SENHA</label>
                     <div class="containerSenha">
                         <input type="password" id="senhaLogin" placeholder="••••••••">
-                        <img src="../imagens/closedEye.png" class="eyeIcon" id="eyeSenhaLogin"
+                        <img src="../img/closedEye.png" class="eyeIcon" id="eyeSenhaLogin"
                             onclick="mostrarSenha('senhaLogin', 'eyeSenhaLogin')">
                     </div>
                 </div>
@@ -148,7 +149,7 @@
         </div>
 
         <div class="visualSecaoUm">
-            <img src="../imagens/pc-monitorando.svg" class="visualSecaoUmImg">
+            <img src="../img/pc-monitorando.svg" class="visualSecaoUmImg">
         </div>
     </div>
 
@@ -367,7 +368,7 @@
 
             <div class="botoesCallToAction">
                 <button class="ctaEntrar" onclick="modalLogin()">Entrar</button>
-                <a onclick="trocarPagina('../telas/contato.html')" class="ctaContato">contate nossa equipe</a>
+                <a onclick="trocarPagina('../pages/contato.html')" class="ctaContato">contate nossa equipe</a>
 
             </div>
         </div>
@@ -377,8 +378,8 @@
     <footer class="footerSite">
         <div class="footerTopo">
             <div class="footerLogo">
-                <a onclick="trocarPagina('../telas/landingPage.html')" class="navLogo">
-                    <img src="../imagens/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
+                <a onclick="trocarPagina('../pages/landingPage.html')" class="navLogo">
+                    <img src="../img/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
                 </a>
                 <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO
                     (Sistema Avançado de Gerenciamento de Informações de Tráfego Aéreo e Relatório de Interesse
@@ -392,29 +393,18 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="#containerSecaoDois">Sobre</a></li>
                     <li><a href="#containerSecaoQuatro">Valores</a></li>
-                    <li><a href="/telas/contato.html">Contatos</a></li>
+                    <li><a href="/pages/contato.html">Contatos</a></li>
                 </ul>
             </div>
 
             <div class="footerColuna">
                 <h4>EQUIPE</h4>
                 <ul>
-                    <li><a href="https://github.com/fer-loyal" target="_blank" style="text-decoration: none;">Fernanda
-                            Rodrigues
-                            Leal</a></li>
-                    <li><a href="https://github.com/gabrielGalhiardoFarina" target="_blank"
-                            style="text-decoration: none;">Gabriel Galhiardo Farina</a></li>
-                    <li><a href="https://github.com/MarcosPaulo-Ribeiro" style="text-decoration: none;">Marcos Paulo de
-                            Carvalho Ribeiro</a></li>
-                    <li><a href="https://github.com/MatheusJacobD" target="_blank"
-                            style="text-decoration: none;">Matheus Jacob
-                            Duarte</a></li>
-                    <li><a href="https://github.com/MateusLouAlmeida" target="_blank"
-                            style="text-decoration: none;">Mateus Lourenço de
-                            Almeida</a></li>
-                    <li><a href="https://github.com/thays-delfino" target="_blank" style="text-decoration: none;">Thays
-                            Ramos da Silva
-                            Delfino</a></li>
+                    <li><a href="https://github.com/fer-loyal" target="_blank" style="text-decoration: none;">Lucas Santos Gama</a></li>
+                    <li><a href="https://github.com/gabrielGalhiardoFarina" target="_blank" style="text-decoration: none;">Nicole Rodriguez do Nascimento</a></li>
+                    <li><a href="https://github.com/MarcosPaulo-Ribeiro" style="text-decoration: none;">Vinicius Borges do Nascimento</a></li>
+                    <li><a href="https://github.com/MatheusJacobD" target="_blank" style="text-decoration: none;">Guilherme Gonçalves Britto</a></li>
+                    <li><a href="https://github.com/MateusLouAlmeida" target="_blank" style="text-decoration: none;">Thiago Alexandre Emidio de Souza</a></li>
 
                 </ul>
             </div>

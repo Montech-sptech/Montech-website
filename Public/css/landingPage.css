@@ -49,6 +49,10 @@
     color: #FFFFFF;
 }
 
+.navLinksMobile {
+    display: none;
+}
+
 .navMobileContent {
     display: flex;
     align-items: center;
@@ -65,6 +69,7 @@
 .navEntrar {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
+    text-align: center;
     color: #FFFFFF;
     cursor: pointer;
 }
@@ -76,7 +81,8 @@
 }
 
 .botaoCriarConta,
-.botaoAcesso {
+.botaoAcesso,
+.navEntrar {
     height: 38px;
     padding: 0 18px;
     display: flex;
@@ -160,6 +166,10 @@
         align-items: center;
     }
 
+    .navLinksMobile {
+        display: flex;
+    }
+
     .navLinks li {
     display: flex;
     align-items: center; /* Garante que os itens da lista fiquem centralizados */
@@ -168,6 +178,7 @@
         flex-direction: column;
         gap: 15px;
         align-items: stretch;
+        display: none;
     }
 
     .navDivisor {

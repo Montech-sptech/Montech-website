@@ -24,8 +24,10 @@ function pegarServidoresPorEmpresa(idEmpresa) {
             s.hostName,
             s.tipoServidor,
             s.metodoDeColeta,
-            s.intervaloDeColeta
+            s.intervaloDeColeta,
+            t.nomeTipoServidor as tipoServidor
         FROM servidor s
+        JOIN tipoServidor t ON s.fkTipoServidor = t.idTipoServidor
         WHERE s.fkEmpresa = ${idEmpresa}
         ORDER BY s.idServidor;
     `;
@@ -41,6 +43,8 @@ function cadastrarServidor(
   metodoColeta,
   intervaloColeta,
   statusAtividade,
+  fkEmpresa,
+  fkTipoServidor,
 ) {
   var hostNameSql = hostName ? `'${hostName}'` : "NULL";
   var sistemaOperacionalSql = sistemaOperacional
@@ -53,10 +57,12 @@ function cadastrarServidor(
     statusAtividade !== undefined && statusAtividade !== null
       ? statusAtividade
       : "NULL";
+  var fkTipoServidorSql = fkTipoServidor ? fkTipoServidor : "NULL";
+  var fkEmpresaSql = fkEmpresa ? fkEmpresa : "NULL";
 
   var instrucaoSql = `
-        INSERT INTO servidor (nomeServidor, hostName, sistemaOperacional, tipoServidor, metodoColeta, intervaloColeta, statusAtividade)
-        VALUES ('${nomeServidor}', ${hostNameSql}, ${sistemaOperacionalSql}, ${tipoServidorSql}, ${metodoDeColetaSql}, ${intervaloDeColetaSql}, ${statusAtividadeSql});
+        INSERT INTO servidor (nomeServidor, hostName, sistemaOperacional, tipoServidor, metodoColeta, intervaloColeta, statusAtividade, fkEmpresa, fkTipoServidor)
+        VALUES ('${nomeServidor}', ${hostNameSql}, ${sistemaOperacionalSql}, ${tipoServidorSql}, ${metodoDeColetaSql}, ${intervaloDeColetaSql}, ${statusAtividadeSql}, ${fkEmpresaSql}, ${fkTipoServidorSql});
     `;
   return database.executar(instrucaoSql);
 }

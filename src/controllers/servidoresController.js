@@ -66,10 +66,11 @@ async function cadastrarServidor(req, res) {
   var nomeServidor = req.body.nomeServidorServer;
   var hostName = req.body.hostNameServer;
   var sistemaOperacional = req.body.sistemaOperacionalServer;
-  var tipoServidor = req.body.tipoServidorServer;
+  var fkTipoServidor = req.body.fkTipoServidorServer;
   var metodoDeColeta = req.body.metodoDeColetaServer;
   var intervaloDeColeta = req.body.intervaloDeColetaServer;
   var componentes = req.body.componentesServer;
+  var fkEmpresa = req.body.fkEmpresaServer;
 
   if (!nomeServidor) {
     res.status(400).send("O nome do servidor está vazio ou undefined!");
@@ -81,9 +82,10 @@ async function cadastrarServidor(req, res) {
         nomeServidor,
         hostName,
         sistemaOperacional,
-        tipoServidor,
         metodoDeColeta,
         intervaloDeColeta,
+        fkEmpresa,
+        fktipoServidor,
       );
 
       let idServidor = resultadoServidor.insertId;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/shortLigthLogo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <script src="../js/script.js" defer></script>
+    <script src="../js/acessoGeral.js"></script>
+    <title>MonTech</title>
+</head>
+<body>
+    <nav class="navBar">
+        <a href="/" class="navLogo">
+            <img src="../img/longLigthLogo.svg" class="navLogoImg" alt="MonTech">
+        </a>
+
+        <button class="menuToggle" onclick="toggleMenu()" aria-label="Abrir menu" aria-expanded="false"> ☰ </button>
+        <div class="navMobileContent">
+            <ul class="navLinks">
+                <li><a href="#containerSecaoDois">Sobre</a></li>
+                <li><a href="#containerSecaoQuatro">Valores</a></li>
+                <li><a href="#containerSecaoSeis">Contato</a></li>
+                <li class="navLinksMobile" id="botaoEntrar"><a>Entrar</a></li>
+            </ul>
+
+            <div class="navActions">
+                <span class="navEntrar" id="botaoEntrar">ENTRAR</span>
+                <span class="navDivisor"></span>
+            </div>
+        </div>
+    </nav>
+</body>
+    <script>
+    function toggleMenu() {
+        const menu = document.querySelector('.navMobileContent');
+        const botao = document.querySelector('.menuToggle');
+
+        menu.classList.toggle('active');
+
+        const menuAberto = menu.classList.contains('active');
+
+        botao.setAttribute('aria-expanded', menuAberto);
+    }
+    </script>
+</html>

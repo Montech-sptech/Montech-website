@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.get("/", function (req, res) {
     res.sendFile(
-        path.resolve(__dirname, "../../Public/telas/landingPage.html")
+        path.resolve(__dirname, "../../Public/pages/index.html")
     );
 });
 

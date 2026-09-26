@@ -1,7 +1,11 @@
+@import url('https://googleapis.com');
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 /*
@@ -12,14 +16,14 @@
 
 .banner {
     width: 100%;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     background-color: #031330;
-    background-image: url('#'); 
+    background-image: url('../img/index/IndexBackgroundBanner.svg'); 
     background-position: right bottom;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     position: relative;
     padding: 40px 20px;
     color: #ffffff;
@@ -163,7 +167,7 @@
 .segundaSecao {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 48px 32px;
+    padding: 68px 32px;
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     color: #1a1a1a;
     background-color: #ffffff;
@@ -264,18 +268,16 @@
     background-color: #0a1128;
     color: #ffffff;
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-    padding: 48px 32px;
+    padding: 98px 32px;
     position: relative;
-    
 }
 
-/* Título */
 .titulo_terceiraSecao {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 1200px;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
 }
 
 .titulo_terceiraSecao h1 {
@@ -295,7 +297,6 @@
     margin: 0;
 }
 
-/* Layout dos cards */
 .TerceiraLayout_cards {
     display: flex;
     align-items: center;
@@ -342,8 +343,6 @@
     line-height: 1.6;
     color: #c3cbe3;
     margin: 0;
-    /* margin-top: auto; */
-
 }
 
 .BolaAzul {
@@ -354,7 +353,6 @@
     flex: 0 0 auto;
 }
 
-/* Responsivo */
 @media (max-width: 900px) {
     .titulo_terceiraSecao h1 {
         font-size: 1.5rem;
@@ -405,55 +403,533 @@
     }   
 }
 
+/*
+    ==============
+    QUARTA SEÇÃO
+    ==============
+*/
+
+  .quartaSecao {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 98px 32px;
+    position: relative;
+    
+  }
+ 
+  .titulo_quartaSecao {
+    max-width: 1200px;
+    margin-bottom: 56px;
+  }
+ 
+  .titulo_quartaSecao h1 {
+    font-size: 2.7rem;
+    font-weight: 800;
+    max-width: 1300px;
+    line-height: 1.25;
+  }
+ 
+  .titulo_quartaSecao p {
+    margin-top: 16px;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #444;
+  }
+ 
+  .dados_quartaSecao {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 44px;
+  }
+ 
+  .dados_quartaSecao_box {
+    flex: 1 1 180px;
+    max-width: 250px;
+    min-height: 300px;
+    max-height: 450px;
+  }
+ 
+  .janela {
+    padding: 4px;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/index/IndeJanela.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+ 
+  .janela h1 {
+    font-size: 2vw;
+    font-weight: 800;
+    color: #4fa3ff;
+    margin-bottom: 10px;
+    padding: 0 18px;
+  }
+ 
+  .janela p {
+    font-size: 1.2vw;
+    width: 80%;
+    line-height: 1.5;
+    color: #e6ecfb;
+    padding: 0 10px 4px;
+  }
+ 
+  .fim_quartaSecao {
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+ 
+  .fim_quartaSecao_box {
+    flex: 1 1 320px;
+    max-width: 700px;
+    border: 1px solid #dfe3ea;
+    border-radius: 14px;
+    padding: 22px 26px;
+    background: #fff;
+  }
+ 
+  .fim_quartaSecao_box h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+ 
+  .fim_quartaSecao_box p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #6b7280;
+  }
+ 
+  @media (max-width: 900px) {
+    .dados_quartaSecao {
+      gap: 24px;
+    }
+ 
+    .dados_quartaSecao_box {
+      flex: 1 1 40%;
+    }
+      .janela h1 {
+        font-size: 3vw;
+    }
+    
+    .janela p {
+        font-size: 1.7vw;
+
+    }
+  }
+    @media (max-width: 750px) {
+    .janela h1 {
+        font-size: 1.7rem;
+    }
+    
+    .janela p {
+        font-size: 1rem;
+    }
+    }
+ 
+  @media (max-width: 560px) {
+      .titulo_quartaSecao h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        max-width: 1100px;
+        line-height: 1.25;
+    }
+    
+    .titulo_quartaSecao p {
+        margin-top: 16px;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #444;
+    }
+    .quartaSecao {
+      padding: 40px 20px 60px;
+    }
+ 
+    .dados_quartaSecao_box {
+      flex: 1 1 45%;
+        min-height: 200px;
+        max-height: 0;
+    }
+ 
+    .fim_quartaSecao_box {
+      max-width: 100%;
+    }
+
+    .janela h1 {
+        font-size: 4vw;
+    }
+      .titulo_quartaSecao {
+        max-width: 1200px;
+    }
+    
+    .janela p {
+        font-size: 2.2vw;
+    }
+
+    .fim_quartaSecao_box h1 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    
+    .fim_quartaSecao_box p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        color: #6b7280;
+    }
+  }
+
+/*
+    ==============
+    QUINTA SEÇÃO
+    ==============
+*/
+
+.quintaSecao {
+    background-color: #050b1f;
+    color: #ffffff;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    padding: 98px 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+    justify-content: space-around;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../img/index/IndexFluxo.svg);
+}
+
+.quintaSecaoTitulo {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin-bottom: 56px;
+}
+
+.quintaSecaoTitulo h1 {
+    font-size: 2.7rem;
+    line-height: 1.25;
+    font-weight: 700;
+    max-width: 1100px;
+    padding-left: 30px;
+    color: #3b82f6;
+}
+
+.quintaSecaoLayout {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.quintaSecaoLayout > div:not(.quintaSecaoBox) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    align-self: stretch;
+}
+
+.quintaSecaoLayout > div:not(.quintaSecaoBox) img {
+    width: 4vw;
+    height: auto;
+}
+
+.quintaSecaoBox {
+    background-color: rgba(15, 23, 55, 0.85);
+    border: 3px solid #293B8F;
+    border-radius: 10px;
+    padding: 24px;
+    flex: 1 1 220px;
+    width: 20vw;
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.quintaSecaoBoxTitulo {
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+}
+
+.quintaSecaoBoxTitulo h1 {
+    font-size: 2.2vw;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    letter-spacing: 0.5px;
+}
+
+.quintaSecaoBoxTitulo p {
+    font-size: 1.2vw;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.quintaSecaoBox > p {
+    font-size: 1.2vw;
+    line-height: 1.6;
+    color: #c3cbe3;
+    margin: 0;
+}
+
+/* Responsivo */
+@media (max-width: 1000px) {
+    .quintaSecao {
+        display: block;
+        flex-direction: none;
+        min-height: none;
+        min-height: none;
+        justify-content: none;
+    }
+
+    .quintaSecaoLayout {
+        flex-wrap: wrap;
+    }
+
+    .quintaSecaoBox {
+        flex: 1 1 45%;
+        min-width: 45%;
+        min-height: 0;
+    }
+
+    .quintaSecaoBoxTitulo h1 {
+        font-size: 1.5rem;
+    }
+
+    .quintaSecaoBoxTitulo p {
+        font-size: 1.4rem;
+    }
+
+    .quintaSecaoBox > p {
+        font-size: 1.2rem;
+    }
 
 
+    .quintaSecaoLayout > div:not(.quintaSecaoBox) {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .quintaSecao {
+        padding: 32px 20px;
+    }
+
+    .quintaSecaoTitulo h1 {
+        font-size: 1.8rem;
+    }
+
+    .quintaSecaoLayout {
+        flex-direction: column;
+    }
+
+    .quintaSecaoBox {
+        min-width: 100%;
+        gap: 0;
+    }
 
 
+    .quintaSecaoBoxTitulo {
+        flex-direction: row;
+        gap: 10px;
+        min-height: 50px;
+    }
 
+    .quintaSecaoBoxTitulo h1 {
+        font-size: 1.2rem;
+    }
 
+    .quintaSecaoBoxTitulo p {
+        font-size: 1.1rem;
+        padding-left: 10px;
+        height: 20px;
+        border-left: 3px solid rgba(107, 91, 91, 0.63);
+    }
 
+    .quintaSecaoBox > p {
+        font-size: 0.8rem;
+    }
+}
 
+/*
+    ==============
+    SEXTA SEÇÃO
+    ==============
+*/
+.sextaSecao {
+    width: 100%;
+    padding: 50px 50px;
+}
 
+.sextaSecao .background {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    /* border-radius: 12px; */
+    overflow: hidden;
+    background-image: url('../img/index/BackgroundSecaoSeis.svg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    box-sizing: border-box;
+}
 
+/* overlay escuro para dar contraste ao texto sobre a imagem */
+.sextaSecao .background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(10, 15, 35, 0.85) 0%, rgba(10, 15, 35, 0.55) 45%, rgba(10, 15, 35, 0.15) 100%);
+    z-index: 1;
+}
 
+.sextaSecaoTextos,
+.sextaSecaoBotoes {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
 
+.sextaSecaoTextos h1 {
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 16px 0;
+}
 
+.sextaSecaoTextos p {
+    color: #d9dde5;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+}
 
+.sextaSecaoBotoes {
+    display: flex;
+    gap: 16px;
+    margin-top: 132px;
+    flex-wrap: wrap;
+}
 
+.sextaSecaoBotoes a {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
 
+/* botão "Entrar" - azul escuro sólido */
+.sextaSecaoBotoes a:first-child {
+    background-color: #2b3690;
+    color: #ffffff;
+    border: 1px solid #2b3690;
+}
 
+.sextaSecaoBotoes a:first-child:hover {
+    background-color: #232c75;
+}
 
+/* botão "contate nossa equipe" - azul claro */
+.sextaSecaoBotoes a:last-child {
+    background-color: #4fc3f7;
+    color: #0a0f23;
+    border: 1px solid #4fc3f7;
+}
 
+.sextaSecaoBotoes a:last-child:hover {
+    background-color: #3bb4ec;
+}
 
+/* ===== Responsividade ===== */
 
+@media (max-width: 992px) {
+    .sextaSecao .background {
+        padding: 50px 40px;
+        min-height: 380px;
+    }
 
+    .sextaSecaoTextos h1 {
+        font-size: 1.75rem;
+    }
+}
 
+@media (max-width: 768px) {
+    .sextaSecao {
+        padding: 15px;
+    }
 
+    .sextaSecao .background {
+        padding: 40px 30px;
+        min-height: 350px;
+        justify-content: flex-end;
+        background-image: url('../img/index/BackgroundRepartidaSecaoSeis.svg');
+    }
 
+    .sextaSecao .background::before {
+        background: linear-gradient(180deg, rgba(10, 15, 35, 0.4) 0%, rgba(10, 15, 35, 0.9) 100%);
+    }
 
+    .sextaSecaoTextos h1 {
+        font-size: 1.5rem;
+    }
 
+    .sextaSecaoTextos p {
+        font-size: 0.9rem;
+    }
 
+    .sextaSecaoTextos,
+    .sextaSecaoBotoes {
+        max-width: 100%;
+    }
+}
 
+@media (max-width: 480px) {
+    .sextaSecao .background {
+        padding: 30px 20px;
+        border-radius: 8px;
+        min-height: 420px;
+    }
 
+    .sextaSecaoTextos h1 {
+        font-size: 1.3rem;
+    }
 
+    .sextaSecaoBotoes {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 24px;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    .sextaSecaoBotoes a {
+        width: 100%;
+        padding: 14px 20px;
+    }
+}

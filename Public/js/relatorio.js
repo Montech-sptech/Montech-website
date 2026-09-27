@@ -84,7 +84,7 @@ function carregarRelatorios() {
                     <div class="rodapeRelatorio">
 
                         <div class="usuarioRelatorio">
-                            <img class="iconeUsuario" src="../imagens/user.png" alt="Usuário">
+                            <img class="iconeUsuario" src="../img/user.png" alt="Usuário">
                             <span>${sessionStorage.getItem("NOME")}</span>
                         </div>
 

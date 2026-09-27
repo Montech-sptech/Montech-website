@@ -12,14 +12,14 @@ body {
 }
 
 header {
-    background-color: #272A43;
+    background-color: #0B1020;
     width: 10%;
     min-width: 150px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 20px 15px;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 3px solid #293B8F;
     position: fixed;
 }
 

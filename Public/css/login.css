@@ -1,0 +1,263 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+ 
+body {
+    width: 100%;
+    min-height: 100vh;
+}
+ 
+.paginaLogin {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+ 
+/* ===== LADO ESQUERDO ===== */
+.esquerda {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px 24px;
+    background: linear-gradient(135deg, #0a0e2a 0%, #1a2470 55%, #2b3aa8 100%);
+    text-align: center;
+}
+ 
+.LogoImagem img {
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+}
+ 
+.Textos h1 {
+    color: #ffffff;
+    font-size: 3vw;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    gap: 8px;
+}
+ 
+.Textos h1 span {
+    color: #7b8ce8;
+    font-size: 5vw;
+}
+
+.Textos h1 span span{
+    color: #ffffff;
+}
+
+.Textos p {
+    margin-top: 8px;
+    color: #ffffff;
+    font-size: clamp(13px, 1.5vw, 16px);
+    font-weight: 500;
+}
+ 
+/* ===== LADO DIREITO ===== */
+.direita {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: #d9d9d9;
+    padding: 40px 24px;
+    position: relative;
+}
+
+.direita_seta {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 4vw;
+    height: auto;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.direita_seta:hover {
+    opacity: 1;
+    transform: translateX(-3px);
+}
+ 
+.direita > h1 {
+    width: 100%;
+    max-width: 860px;
+    text-align: center;
+    color: #1a2470;
+    font-size: 3.5vw;
+    letter-spacing: 1px;
+    margin-bottom: 60px;
+}
+ 
+.campo {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+ 
+.campo p {
+    color: #1a2470;
+    font-weight: 600;
+    font-size: 1.5vw;
+    padding-left: 2vw;
+}
+ 
+.inputbox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d9;
+    border: 2px solid #1a2470;
+    border-radius: 30px;
+    padding: 0 20px;
+    height: 50px;
+}
+ 
+.inputbox input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    color: #1a2470;
+}
+ 
+.inputbox input::placeholder {
+    color: #7b7f9e;
+}
+ 
+.inputSenha img {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+ 
+button {
+    width: 100%;
+    max-width: 260px;
+    height: 50px;
+    margin-top: 20px;
+    background-color: #1a2470;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+ 
+button:hover {
+    background-color: #131c5c;
+}
+ 
+button:active {
+    transform: scale(0.98);
+}
+ 
+/* ===== RESPONSIVO ===== */
+ 
+/* Tablets */
+@media (max-width: 900px) {
+    .esquerda,
+    .direita {
+        padding: 32px 20px;
+    }
+ 
+    .direita > h1 {
+        text-align: center;
+        align-self: center;
+    }
+    .campo p {
+        font-size: 3vw;
+    }
+}
+ 
+@media (max-width: 700px) {
+    .paginaLogin {
+        flex-direction: column;
+    }
+
+    .Textos h1 {
+        font-size: 5vw;
+    }
+    
+    .Textos h1 span {
+        color: #7b8ce8;
+        font-size: 7vw;
+    }
+
+    .Textos h1 span span{
+        color: #ffffff;
+    }
+ 
+    .esquerda {
+        padding: 32px 20px;
+        gap: 16px;
+    }
+ 
+    .LogoImagem img {
+        width: 70px;
+    }
+ 
+    .direita {
+        padding: 32px 20px 48px;
+    }
+ 
+    .direita > h1 {
+        text-align: left;
+        align-self: flex-start;
+        text-align: center;
+        font-size: 7vw;
+        margin-bottom: 0;
+    }
+ 
+    .campo,
+    button {
+        max-width: 100%;
+    }
+
+    .direita_seta {
+        top: 20px;
+        left: 20px;
+        width: 9vw;
+        height: 3vw;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .Textos h1 {
+        font-size: 7vw;
+    }
+    
+    .Textos h1 span {
+        color: #7b8ce8;
+        font-size: 9vw;
+    }
+
+}
+ 
+/* Telas bem pequenas */
+@media (max-width: 380px) {
+    .inputbox {
+        padding: 0 14px;
+    }
+ 
+    button {
+        height: 46px;
+        font-size: 15px;
+    }
+}

@@ -5,9 +5,9 @@ function mostrarSenha(inputId, eyeId) {
 
     if (input.type == "password") {
         input.type = "text";
-        eye.src = "../img/openEye.png";
+        eye.src = "../img/login/openEye.png";
     } else {
         input.type = "password";
-        eye.src = "../img/closedEye.png";
+        eye.src = "../img/login/closedEye.png";
     }
 }

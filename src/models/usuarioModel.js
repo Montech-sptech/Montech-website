@@ -1,95 +1,109 @@
-var database = require("../database/config")
+var database = require("../database/config");
 
 function autenticar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha);
-    var instrucaoSql = `
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+    email,
+    senha,
+  );
+  var instrucaoSql = `
         SELECT 
-            idUsuario AS id, nomeUsuario AS nome, email, senha, fkEmpresa AS empresaId, cargo, fotoPerfil
+            idUsuario AS id, nome, email, senha, fkEmpresa AS empresaId, fkCargo
         FROM usuario 
         WHERE email = '${email}' AND senha = '${senha}';
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome, email, senha, fkEmpresa, cargo) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
+function cadastrar(nome, email, senha, fkEmpresa, fkCargo) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
+    nome,
+    email,
+    senha,
+    fkEmpresa,
+    fkCargo,
+  );
 
-    var instrucaoSql = `
-        INSERT INTO usuario (nomeUsuario, email, senha, fkEmpresa, cargo) 
-        VALUES ('${nome}', '${email}', '${senha}', '${fkEmpresa}', '${cargo}');
+  var instrucaoSql = `
+        INSERT INTO usuario (nome, email, senha, fkEmpresa, fkCargo) 
+        VALUES ('${nome}', '${email}', '${senha}', '${fkEmpresa}', '${fkCargo}');
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 function encontrarUsuarioPorId(idUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function encontrarPorId():", idUsuario);
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function encontrarPorId():",
+    idUsuario,
+  );
 
-    var instrucaoSql = `
+  var instrucaoSql = `
         SELECT 
             * 
         FROM usuario 
         WHERE idUsuario = ${idUsuario};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 function pegarUsuariosPelaEmpresa(idEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarUsuariosPelaEmpresa():", idEmpresa);
-    var instrucaoSql = `
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarUsuariosPelaEmpresa():",
+    idEmpresa,
+  );
+  var instrucaoSql = `
         SELECT 
             u.idUsuario,
-            u.nomeUsuario,
+            u.nome AS nomeUsuario,
             u.email,
-            u.cargo,
-            u.status,
+            u.statusAtividade,
+            c.nome AS nomeCargo,
             s.idServidor,
             s.nomeServidor,
-            s.hostName
+            s.hostname
         FROM usuario u
         LEFT JOIN usuarioServidor us ON us.fkUsuario = u.idUsuario
         LEFT JOIN servidor s ON s.idServidor = us.fkServidor
+        LEFT JOIN cargo c ON c.idCargo = u.fkCargo
         WHERE u.fkEmpresa = ${idEmpresa};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 function inativarUsuario(idUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function inativarUsuario():", idUsuario);
-    var instrucaoSql = `
-        UPDATE usuario SET status = false WHERE idUsuario = ${idUsuario};
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function inativarUsuario():",
+    idUsuario,
+  );
+  var instrucaoSql = `
+        UPDATE usuario SET statusAtividade = false WHERE idUsuario = ${idUsuario};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 function ativarUsuario(idUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ativarUsuario():", idUsuario);
-    var instrucaoSql = `
-        UPDATE usuario SET status = true WHERE idUsuario = ${idUsuario};
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ativarUsuario():",
+    idUsuario,
+  );
+  var instrucaoSql = `
+        UPDATE usuario SET statusAtividade = true WHERE idUsuario = ${idUsuario};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function atualizarFotoPerfil(idUsuario, fotoPerfil) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizarFotoPerfil():", idUsuario, fotoPerfil);
-    var instrucaoSql = `
-        UPDATE usuario SET fotoPerfil = '${fotoPerfil}' WHERE idUsuario = ${idUsuario};
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    autenticar,
-    cadastrar,
-    encontrarUsuarioPorId,
-    pegarUsuariosPelaEmpresa,
-    ativarUsuario,
-    inativarUsuario,
-    atualizarFotoPerfil
+  autenticar,
+  cadastrar,
+  encontrarUsuarioPorId,
+  pegarUsuariosPelaEmpresa,
+  ativarUsuario,
+  inativarUsuario,
 };

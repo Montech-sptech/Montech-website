@@ -12,6 +12,8 @@ let usuarioEmEmpresa = false;
 function modalLogin() {
     modal.style.display = "none";
     modalL.style.display = "flex";
+    let menu = document.querySelector('.navMobileContent');
+    menu.classList.toggle('active');
 }
 
 fecharLogin.onclick = function () {
@@ -21,6 +23,8 @@ fecharLogin.onclick = function () {
 function modalCadastro() {
     modalL.style.display = "none";
     modal.style.display = "flex";
+    let menu = document.querySelector('.navMobileContent');
+    menu.classList.toggle('active');
 }
 
 fecharCadastro.onclick = function () {
@@ -33,10 +37,10 @@ function mostrarSenha(inputId, eyeId) {
 
     if (input.type == "password") {
         input.type = "text";
-        eye.src = "../imagens/openEye.png";
+        eye.src = "../img/openEye.png";
     } else {
         input.type = "password";
-        eye.src = "../imagens/closedEye.png";
+        eye.src = "../img/closedEye.png";
     }
 }
 

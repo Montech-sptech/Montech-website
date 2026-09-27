@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/shortLigthLogo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <script src="../js/login/senha.js" defer></script>
+    <title>MonTech - página institucional</title>
+</head>
+<body>
+    <main class="paginaLogin">
+        <section class="esquerda">
+            <div class="LogoImagem">
+                <img src="../img//login/LogoLogin.svg" alt="">
+            </div>
+            <div class="Textos">
+                <h1>BEM-VINDO A <br><span>MON<span>TECH</span></span></h1>
+                <p>Entre para acessar seu projeto</p>
+            </div>
+        </section>
+        <section class="direita">
+            <a href="./index.html"><img class="direita_seta" src="../img/login/seta.svg" alt=""></a>
+            <h1>LOGIN</h1>
+            <div class="campo">
+                <p>Email</p>
+                <div class="inputEmail inputbox">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="campo">
+                <p>Senha</p>
+                <div class="inputSenha inputbox">
+                    <input id="senhaInput" type="password">
+                    <img id="eyeImg" src="../img/login/openEye.png" alt="" onclick="mostrarSenha('senhaInput', 'eyeImg')">
+                </div>
+            </div>
+            <button>Entrar</button>
+        </section>
+    </main>
+</body>
+</html>

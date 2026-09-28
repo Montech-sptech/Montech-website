@@ -8,7 +8,7 @@ function autenticar(email, senha) {
   );
   var instrucaoSql = `
         SELECT 
-            idUsuario AS id, nome, email, senha, fkEmpresa AS empresaId, fkCargo
+            idUsuario AS id, nomeUsuario, email, senha, fkEmpresa AS empresaId, cargo
         FROM usuario 
         WHERE email = '${email}' AND senha = '${senha}';
     `;

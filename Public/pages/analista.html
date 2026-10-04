@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MonTech - Dashboard do analista</title>
+
+    <link rel="stylesheet" href="analista.css">
+</head>
+
+<body>
+    <div class="app">
+
+        <!-- Menu lateral de navegação. -->
+        <aside class="side">
+            <div class="logo">
+                <svg viewBox="0 0 40 40" aria-hidden="true">
+                    <circle cx="20" cy="20" r="17" fill="none" stroke="#4fa3ff" stroke-width="2"></circle>
+
+                    <circle cx="20" cy="20" r="12" fill="none" stroke="#262f5c"></circle>
+
+                    <path d="M7 21h8l4-8 5 16 4-9h6" fill="none" stroke="#4fa3ff" stroke-width="2"></path>
+                </svg>
+
+                <span>MONTECH</span>
+            </div>
+
+            <nav class="nav" aria-label="Navegação das dashboards">
+                <a href="analista.html" class="active">
+                    Painel do analista
+                </a>
+
+                <a href="gerente.html">
+                    Painel da gerente
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo principal da dashboard. -->
+        <main class="main">
+            <div class="container">
+
+                <header class="head">
+                    <h1>Operação · Congonhas</h1>
+
+                    <div class="context">
+                        <b>Seu aeroporto: Congonhas</b>
+                        <br>
+                        Última atualização simulada: 14:35
+                    </div>
+                </header>
+
+                <!-- KPIs estáticos. -->
+                <section class="kpis" aria-label="Indicadores operacionais">
+                    <div class="kpi">
+                        <p class="kpi-label">Servidores críticos</p>
+                        <strong class="kpi-number red">1</strong>
+                        <small>1 de 3 exige investigação</small>
+                    </div>
+
+                    <div class="kpi">
+                        <p class="kpi-label">Servidores em atenção</p>
+                        <strong class="kpi-number orange">1</strong>
+                        <small>Recurso acima do limite</small>
+                    </div>
+
+                    <div class="kpi">
+                        <p class="kpi-label">Coleta interrompida</p>
+                        <strong class="kpi-number green">0</strong>
+                        <small>3 servidores com leitura recente</small>
+                    </div>
+
+                    <div class="kpi">
+                        <p class="kpi-label">Alertas ativos</p>
+                        <strong class="kpi-number orange">3</strong>
+                        <small>1 crítico · 2 de atenção</small>
+                    </div>
+
+                    <div class="kpi">
+                        <p class="kpi-label">Incidentes abertos</p>
+                        <strong class="kpi-number red">1</strong>
+                        <small>INC-1024 · em andamento</small>
+                    </div>
+                </section>
+
+                <div class="section-title">
+                    <h2>Servidores do seu aeroporto</h2>
+                </div>
+
+                <!-- Cada cartão mostra os recursos de um servidor. -->
+                <section class="servers" aria-label="Servidores monitorados">
+
+                    <div class="server">
+                        <div class="server-top">
+                            <strong class="blue">SPA</strong>
+                            <span class="tag tag-ok">Ativo</span>
+                        </div>
+
+                        <p class="server-name">Tratamento de Planos de Voo</p>
+
+                        <div class="metrics">
+                            <div>
+                                <span>CPU</span>
+                                <b>58%</b>
+                                <div class="track">
+                                    <div style="width: 58%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>RAM</span>
+                                <b>56%</b>
+                                <div class="track">
+                                    <div style="width: 56%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>Disco</span>
+                                <b>62%</b>
+                                <div class="track">
+                                    <div style="width: 62%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="updated">
+                            Última leitura: há 5 s · sem alertas
+                        </p>
+                    </div>
+
+                    <div class="server">
+                        <div class="server-top">
+                            <strong class="blue">SDV</strong>
+                            <span class="tag tag-warning">Atenção</span>
+                        </div>
+
+                        <p class="server-name">Tratamento de Dados de Vigilância</p>
+
+                        <div class="metrics">
+                            <div>
+                                <span>CPU</span>
+                                <b>60%</b>
+                                <div class="track">
+                                    <div style="width: 60%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>RAM</span>
+                                <b>56%</b>
+                                <div class="track">
+                                    <div style="width: 56%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>Disco</span>
+                                <b>82%</b>
+                                <div class="track">
+                                    <div class="warm" style="width: 82%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="updated">
+                            Última leitura: há 5 s · disco em atenção
+                        </p>
+                    </div>
+
+                    <div class="server">
+                        <div class="server-top">
+                            <strong class="blue">AIS</strong>
+                            <span class="tag tag-critical">Crítico</span>
+                        </div>
+
+                        <p class="server-name">Informações Aeronáuticas</p>
+
+                        <div class="metrics">
+                            <div>
+                                <span>CPU</span>
+                                <b>92%</b>
+                                <div class="track">
+                                    <div class="hot" style="width: 92%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>RAM</span>
+                                <b>81%</b>
+                                <div class="track">
+                                    <div class="warm" style="width: 81%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>Disco</span>
+                                <b>71%</b>
+                                <div class="track">
+                                    <div style="width: 71%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="updated">
+                            Última leitura: há 5 s · CPU crítica
+                        </p>
+                    </div>
+                </section>
+
+                <div class="section-title">
+                    <h2>Investigar e acompanhar</h2>
+                    <small>Alertas e incidentes vinculados</small>
+                </div>
+
+                <section class="card">
+                    <div class="card-head">
+                        <h3>Fila de ocorrências</h3>
+                        <small>Ordenada por severidade e duração</small>
+                    </div>
+
+                    <!-- A tabela apresenta os alertas ativos. -->
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Servidor</th>
+                                    <th>Evento / limite</th>
+                                    <th>Início</th>
+                                    <th>Estado</th>
+                                    <th>Gráfico</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>AIS</td>
+                                    <td>CPU 92% / crítico 90%</td>
+                                    <td>há 26 min</td>
+                                    <td>
+                                        <span class="tag tag-critical">Crítico</span>
+                                    </td>
+                                    <td>
+                                        <!-- O clique envia o recurso e o botão à função. -->
+                                        <button class="eye" type="button" onclick="showAlertChart('cpu', this)"
+                                            aria-label="Ver gráfico de CPU do AIS" aria-expanded="false"
+                                            aria-controls="alert-chart">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>AIS</td>
+                                    <td>RAM 81% / atenção 80%</td>
+                                    <td>há 17 min</td>
+                                    <td>
+                                        <span class="tag tag-warning">Atenção</span>
+                                    </td>
+                                    <td>
+                                        <button class="eye" type="button" onclick="showAlertChart('ram', this)"
+                                            aria-label="Ver gráfico de RAM do AIS" aria-expanded="false"
+                                            aria-controls="alert-chart">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>SDV</td>
+                                    <td>Disco 82% / atenção 80%</td>
+                                    <td>há 11 min</td>
+                                    <td>
+                                        <span class="tag tag-warning">Atenção</span>
+                                    </td>
+                                    <td>
+                                        <button class="eye" type="button" onclick="showAlertChart('disk', this)"
+                                            aria-label="Ver gráfico de disco do SDV" aria-expanded="false"
+                                            aria-controls="alert-chart">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- O atributo hidden mantém o gráfico escondido inicialmente. -->
+                    <div class="alert-chart" id="alert-chart" hidden>
+                        <div class="card-head">
+                            <h3 id="alert-chart-title">Gráfico da ocorrência</h3>
+
+                            <button class="close-chart" type="button" onclick="closeAlertChart()">
+                                Fechar ✕
+                            </button>
+                        </div>
+
+                        <!-- O Chart.js desenha o gráfico dentro do canvas. -->
+                        <div class="chart-container">
+                            <canvas id="alert-canvas" role="img" aria-label="Uso do recurso e limite de alerta">
+                                Histórico do recurso e limite de alerta.
+                            </canvas>
+                        </div>
+                    </div>
+
+                    <div class="incident-note">
+                        INC-1024 · AIS · em andamento · responsável: equipe local.
+                        O incidente reúne os alertas de CPU e RAM do mesmo servidor.
+                    </div>
+                </section>
+
+                <div class="section-title">
+                    <h2>Diagnóstico técnico do servidor</h2>
+                </div>
+
+                <!-- Os botões alteram o servidor apresentado no diagnóstico. -->
+                <div class="detail-tabs" aria-label="Servidor em análise">
+                    <button class="selected" type="button" onclick="selectServer('AIS', this)">
+                        AIS · crítico
+                    </button>
+
+                    <button type="button" onclick="selectServer('SDV', this)">
+                        SDV · atenção
+                    </button>
+
+                    <button type="button" onclick="selectServer('SPA', this)">
+                        SPA · normal
+                    </button>
+                </div>
+
+                <section class="deep-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <h3 id="diagnostic-title">AIS · recursos e limites</h3>
+                            <small>Última coleta há 5 s</small>
+                        </div>
+
+                        <!-- O JavaScript preenche estes elementos. -->
+                        <div class="technical-grid" id="technical-metrics"></div>
+                        <div class="derived" id="derived-metrics"></div>
+
+                        <div class="chart-container">
+                            <canvas id="technical-canvas" role="img"
+                                aria-label="Histórico de CPU, RAM e disco do servidor">
+                                Histórico de CPU, RAM e disco.
+                            </canvas>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <h3>Janelas e eventos derivados</h3>
+                            <small>Coleta recente</small>
+                        </div>
+
+                        <div class="timeline" id="diagnostic-timeline"></div>
+                        <p class="note" id="diagnostic-action"></p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <!-- Carrega a biblioteca que desenha os gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+    <!-- Carrega os dados e os gráficos do analista -->
+    <script src="analista.js"></script>
+</body>
+
+</html>

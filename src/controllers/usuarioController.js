@@ -49,7 +49,7 @@ function cadastrar(req, res) {
   var nome = req.body.nomeServer;
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
-  var fkEmpresa = req.body.idEmpresaVincularServer;
+  var fkAeroporto = req.body.idAeroportoVincularServer;
   var fkCargo = req.body.fkCargoServer;
 
   if (nome == undefined) {
@@ -58,13 +58,13 @@ function cadastrar(req, res) {
     res.status(400).send("Seu email está undefined!");
   } else if (senha == undefined) {
     res.status(400).send("Sua senha está undefined!");
-  } else if (fkEmpresa == undefined) {
-    res.status(400).send("Sua empresa a vincular está undefined!");
+  } else if (fkAeroporto == undefined) {
+    res.status(400).send("Seu aeroporto a vincular está undefined!");
   } else if (fkCargo == undefined) {
     res.status(400).send("Cargo inválido");
   } else {
     usuarioModel
-      .cadastrar(nome, email, senha, fkEmpresa, fkCargo)
+      .cadastrar(nome, email, senha, fkAeroporto, fkCargo)
       .then(function (resultado) {
         res.json(resultado);
       })
@@ -88,8 +88,8 @@ async function pegarUsuariosPeloAdministrador(req, res) {
     return res.status(404).json({ mensagem: "Usuário não encontrado." });
   }
 
-  var empresaId = usuario[0].fkEmpresa;
-  var jsonBruto = await usuarioModel.pegarUsuariosPelaEmpresa(empresaId);
+  var aeroportoId = usuario[0].fkAeroporto;
+  var jsonBruto = await usuarioModel.pegarUsuariosPeloAeroporto(aeroportoId);
 
   var Usuarios = {};
 

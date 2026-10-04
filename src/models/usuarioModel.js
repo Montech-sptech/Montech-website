@@ -8,7 +8,7 @@ function autenticar(email, senha) {
   );
   var instrucaoSql = `
         SELECT 
-            idUsuario AS id, nome, email, senha, fkEmpresa AS empresaId, fkCargo
+            idUsuario AS id, nome, email, senha, fkAeroporto AS aeroportoId, fkCargo
         FROM usuario 
         WHERE email = '${email}' AND senha = '${senha}';
     `;
@@ -16,19 +16,19 @@ function autenticar(email, senha) {
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome, email, senha, fkEmpresa, fkCargo) {
+function cadastrar(nome, email, senha, fkAeroporto, fkCargo) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
     email,
     senha,
-    fkEmpresa,
+    fkAeroporto,
     fkCargo,
   );
 
   var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fkEmpresa, fkCargo) 
-        VALUES ('${nome}', '${email}', '${senha}', '${fkEmpresa}', '${fkCargo}');
+        INSERT INTO usuario (nome, email, senha, fkAeroporto, fkCargo) 
+        VALUES ('${nome}', '${email}', '${senha}', '${fkAeroporto}', '${fkCargo}');
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -50,10 +50,10 @@ function encontrarUsuarioPorId(idUsuario) {
   return database.executar(instrucaoSql);
 }
 
-function pegarUsuariosPelaEmpresa(idEmpresa) {
+function pegarUsuariosPeloAeroporto(idAeroporto) {
   console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarUsuariosPelaEmpresa():",
-    idEmpresa,
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pegarUsuariosPeloAeroporto():",
+    idAeroporto,
   );
   var instrucaoSql = `
         SELECT 
@@ -66,10 +66,10 @@ function pegarUsuariosPelaEmpresa(idEmpresa) {
             s.nomeServidor,
             s.hostname
         FROM usuario u
-        LEFT JOIN usuarioServidor us ON us.fkUsuario = u.idUsuario
-        LEFT JOIN servidor s ON s.idServidor = us.fkServidor
+        LEFT JOIN visualizacao v ON v.fkUsuario = u.idUsuario
+        LEFT JOIN servidor s ON s.idServidor = v.fkServidor
         LEFT JOIN cargo c ON c.idCargo = u.fkCargo
-        WHERE u.fkEmpresa = ${idEmpresa};
+        WHERE u.fkAeroporto = ${idAeroporto};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -103,7 +103,7 @@ module.exports = {
   autenticar,
   cadastrar,
   encontrarUsuarioPorId,
-  pegarUsuariosPelaEmpresa,
+  pegarUsuariosPeloAeroporto,
   ativarUsuario,
   inativarUsuario,
 };

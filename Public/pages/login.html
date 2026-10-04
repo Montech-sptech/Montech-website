@@ -21,22 +21,25 @@
             </div>
         </section>
         <section class="direita">
-            <a href="./index.html"><img class="direita_seta" src="../img/login/seta.svg" alt=""></a>
+            <a href="/"><img class="direita_seta" src="../img/login/seta.svg" alt=""></a>
             <h1>LOGIN</h1>
-            <div class="campo">
-                <p>Email</p>
-                <div class="inputEmail inputbox">
-                    <input type="text">
+            <form id="loginForm">
+                <div class="campo">
+                    <p>Email</p>
+                    <div class="inputEmail inputbox">
+                        <input id="emailLogin" type="email" autocomplete="username" required>
+                    </div>
                 </div>
-            </div>
-            <div class="campo">
-                <p>Senha</p>
-                <div class="inputSenha inputbox">
-                    <input id="senhaInput" type="password">
-                    <img id="eyeImg" src="../img/login/openEye.png" alt="" onclick="mostrarSenha('senhaInput', 'eyeImg')">
+                <div class="campo">
+                    <p>Senha</p>
+                    <div class="inputSenha inputbox">
+                        <input id="senhaInput" type="password" autocomplete="current-password" required>
+                        <img id="eyeImg" src="../img/login/openEye.png" alt="Mostrar senha" onclick="mostrarSenha('senhaInput', 'eyeImg')">
+                    </div>
                 </div>
-            </div>
-            <button>Entrar</button>
+                <p id="loginMensagem" class="loginMensagem" role="alert"></p>
+                <button type="submit">Entrar</button>
+            </form>
         </section>
     </main>
 </body>

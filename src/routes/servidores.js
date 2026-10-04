@@ -19,9 +19,9 @@ router.delete("/removerServidorUsuario/:id", function (req, res) {
 });
 //});
 
-router.get("/pegarServidoresPorEmpresa/:id", function (req, res) {
+router.get("/pegarServidoresPorAeroporto/:id", function (req, res) {
   //  autorizacaoCargo.verificarAdministrador(req, res, () => {
-  servidorController.pegarServidoresPorEmpresa(req, res);
+  servidorController.pegarServidoresPorAeroporto(req, res);
 });
 //});
 

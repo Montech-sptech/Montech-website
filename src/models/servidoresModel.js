@@ -2,7 +2,7 @@ var database = require("../database/config");
 
 function adicionarServidoresUsuario(idUsuario, idServidor) {
   var instrucaoSql = `
-        INSERT INTO usuarioServidor (fkUsuario, fkServidor) VALUES (${idUsuario}, ${idServidor});
+        INSERT INTO visualizacao (fkUsuario, fkServidor) VALUES (${idUsuario}, ${idServidor});
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -10,13 +10,13 @@ function adicionarServidoresUsuario(idUsuario, idServidor) {
 
 function removerServidorUsuario(idUsuario, idServidor) {
   var instrucaoSql = `
-        DELETE FROM usuarioServidor WHERE fkUsuario = ${idUsuario} AND fkServidor = ${idServidor};
+        DELETE FROM visualizacao WHERE fkUsuario = ${idUsuario} AND fkServidor = ${idServidor};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
-function pegarServidoresPorEmpresa(idEmpresa) {
+function pegarServidoresPorAeroporto(idAeroporto) {
   var instrucaoSql = `
         SELECT 
             s.idServidor,
@@ -28,7 +28,7 @@ function pegarServidoresPorEmpresa(idEmpresa) {
             t.nomeTipoServidor as tipoServidor
         FROM servidor s
         JOIN tipoServidor t ON s.fkTipoServidor = t.idTipoServidor
-        WHERE s.fkEmpresa = ${idEmpresa}
+        WHERE s.fkAeroporto = ${idAeroporto}
         ORDER BY s.idServidor;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -43,7 +43,7 @@ function cadastrarServidor(
   metodoColeta,
   intervaloColeta,
   statusAtividade,
-  fkEmpresa,
+  fkAeroporto,
   fkTipoServidor,
 ) {
   var hostNameSql = hostName ? `'${hostName}'` : "NULL";
@@ -58,11 +58,11 @@ function cadastrarServidor(
       ? statusAtividade
       : "NULL";
   var fkTipoServidorSql = fkTipoServidor ? fkTipoServidor : "NULL";
-  var fkEmpresaSql = fkEmpresa ? fkEmpresa : "NULL";
+  var fkAeroportoSql = fkAeroporto ? fkAeroporto : "NULL";
 
   var instrucaoSql = `
-        INSERT INTO servidor (nomeServidor, hostName, sistemaOperacional, tipoServidor, metodoColeta, intervaloColeta, statusAtividade, fkEmpresa, fkTipoServidor)
-        VALUES ('${nomeServidor}', ${hostNameSql}, ${sistemaOperacionalSql}, ${tipoServidorSql}, ${metodoDeColetaSql}, ${intervaloDeColetaSql}, ${statusAtividadeSql}, ${fkEmpresaSql}, ${fkTipoServidorSql});
+        INSERT INTO servidor (nomeServidor, hostName, sistemaOperacional, tipoServidor, metodoColeta, intervaloColeta, statusAtividade, fkAeroporto, fkTipoServidor)
+        VALUES ('${nomeServidor}', ${hostNameSql}, ${sistemaOperacionalSql}, ${tipoServidorSql}, ${metodoDeColetaSql}, ${intervaloDeColetaSql}, ${statusAtividadeSql}, ${fkAeroportoSql}, ${fkTipoServidorSql});
     `;
   return database.executar(instrucaoSql);
 }
@@ -102,7 +102,7 @@ function adicionarComponenteServidor(
 module.exports = {
   adicionarServidoresUsuario,
   removerServidorUsuario,
-  pegarServidoresPorEmpresa,
+  pegarServidoresPorAeroporto,
   cadastrarServidor,
   buscarIdComponentePorNome,
   adicionarComponenteServidor,

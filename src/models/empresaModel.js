@@ -3,7 +3,7 @@ var database = require("../database/config");
 function listarEmpresas() {
   var instrucaoSql = `
         SELECT 
-            idEmpresa, razaoSocial, cnpj, cep, numero, statusAtividade FROM Empresa;
+            idAeroporto, razaoSocial, cnpj, cep, numero, statusAtividade FROM Empresa;
     `;
 
   console.log("Executando instrução SQL:\n" + instrucaoSql);

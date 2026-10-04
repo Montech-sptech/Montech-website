@@ -1,0 +1,361 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Mantém a fonte e a paleta do projeto. */
+body {
+    margin: 0;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    background-color: #050b1f;
+    color: #ffffff;
+}
+
+a:focus-visible {
+    outline: 2px solid #4fa3ff;
+    outline-offset: 3px;
+}
+
+/* Divide a página entre o menu e a área principal. */
+.app {
+    display: grid;
+    grid-template-columns: 202px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 20px 12px;
+    background-color: #050b1f;
+    border-right: 1px solid #262f5c;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 2px 8px;
+    font-size: 1.16rem;
+    font-weight: 900;
+}
+
+.logo svg {
+    width: 30px;
+    height: 30px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav a {
+    padding: 12px;
+    border-radius: 6px;
+    color: #b8c1d9;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.nav a.active {
+    background-color: #2b3990;
+    color: #ffffff;
+}
+
+.nav a:hover {
+    background-color: #1e2766;
+}
+
+.main {
+    min-width: 0;
+    padding: 24px 32px 55px;
+    background: radial-gradient(circle at 76% 5%,
+            #141b3d 0%,
+            #0a1128 37%,
+            #050b1f 74%);
+}
+
+.container {
+    max-width: 1450px;
+    margin: auto;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.head h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: -0.04em;
+}
+
+.context {
+    padding: 10px 13px;
+    border: 1px solid #262f5c;
+    border-radius: 6px;
+    background-color: #0a1128;
+    color: #b8c1d9;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.context b {
+    color: #ffffff;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 23px 0 10px;
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.section-title small {
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+/* Os quatro KPIs ficam em colunas na versão desktop. */
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.kpi,
+.card {
+    border: 1px solid #262f5c;
+    border-radius: 5px;
+    background-color: #141b3d;
+}
+
+.kpi {
+    min-height: 119px;
+    padding: 14px;
+}
+
+.kpi-label {
+    min-height: 33px;
+    margin: 0;
+    color: #b8c1d9;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.kpi-number {
+    display: block;
+    margin: 4px 0;
+    font-size: 29px;
+    font-weight: 800;
+}
+
+.kpi small {
+    display: block;
+    color: #b8c1d9;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Cores dos indicadores e estados. */
+.red {
+    color: #ff5361;
+}
+
+.orange {
+    color: #ffad1f;
+}
+
+.green {
+    color: #60d98d;
+}
+
+.blue {
+    color: #4fa3ff;
+}
+
+.card {
+    min-width: 0;
+    padding: 15px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.card-head h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.card-head small {
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+/* Organiza os gráficos em duas ou três colunas. */
+.two-columns {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 13px;
+}
+
+.three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Permite rolagem da tabela em telas pequenas. */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 11px 9px;
+    border-bottom: 1px solid #262f5c;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+th {
+    color: #b8c1d9;
+    font-weight: 700;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+td:first-child {
+    width: 22%;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.tag-critical {
+    background-color: #681e31;
+    color: #ff8993;
+}
+
+.tag-warning {
+    background-color: #6a431c;
+    color: #ffcd71;
+}
+
+.tag-ok {
+    background-color: #19492d;
+    color: #81e68a;
+}
+
+/* O resumo do recurso aparece abaixo do título do cartão. */
+.resource-card .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.resource-summary {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+/* Define o espaço ocupado pelos gráficos responsivos. */
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    margin-top: 12px;
+}
+
+.resource-card .chart-container {
+    height: 190px;
+}
+
+/* Adapta o número de colunas à largura disponível. */
+@media (max-width: 1150px) {
+    .kpis {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .app {
+        display: block;
+    }
+
+    .side {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+
+    .nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .main {
+        padding: 20px 15px 42px;
+    }
+
+    .head {
+        flex-direction: column;
+    }
+
+    .three-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .section-title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 470px) {
+    .kpis {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-label {
+        min-height: 0;
+    }
+}

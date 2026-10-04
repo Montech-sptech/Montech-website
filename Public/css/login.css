@@ -1,8 +1,13 @@
+@import url(https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap);
+
+* {
+    font-family: 'space Grotesk';
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: 'space Grotesk';
 }
  
 body {
@@ -73,18 +78,18 @@ body {
 
 .direita_seta {
     position: absolute;
+    transform: rotate(180deg);
     top: 20px;
     left: 20px;
     width: 4vw;
     height: auto;
     cursor: pointer;
-    opacity: 0.85;
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
 }
 
 .direita_seta:hover {
     opacity: 1;
-    transform: translateX(-3px);
 }
  
 .direita > h1 {
@@ -92,7 +97,7 @@ body {
     max-width: 860px;
     text-align: center;
     color: #1a2470;
-    font-size: 3.5vw;
+    font-size: 4vw;
     letter-spacing: 1px;
     margin-bottom: 60px;
 }
@@ -167,9 +172,7 @@ button:active {
     transform: scale(0.98);
 }
  
-/* ===== RESPONSIVO ===== */
- 
-/* Tablets */
+
 @media (max-width: 900px) {
     .esquerda,
     .direita {
@@ -233,7 +236,7 @@ button:active {
         top: 20px;
         left: 20px;
         width: 9vw;
-        height: 3vw;
+        height: 9vw;
     }
 
 }
@@ -250,7 +253,6 @@ button:active {
 
 }
  
-/* Telas bem pequenas */
 @media (max-width: 380px) {
     .inputbox {
         padding: 0 14px;

@@ -73,18 +73,18 @@ body {
 
 .direita_seta {
     position: absolute;
+    transform: rotate(180deg);
     top: 20px;
     left: 20px;
     width: 4vw;
     height: auto;
     cursor: pointer;
-    opacity: 0.85;
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
 }
 
 .direita_seta:hover {
     opacity: 1;
-    transform: translateX(-3px);
 }
  
 .direita > h1 {
@@ -167,9 +167,7 @@ button:active {
     transform: scale(0.98);
 }
  
-/* ===== RESPONSIVO ===== */
- 
-/* Tablets */
+
 @media (max-width: 900px) {
     .esquerda,
     .direita {
@@ -233,7 +231,7 @@ button:active {
         top: 20px;
         left: 20px;
         width: 9vw;
-        height: 3vw;
+        height: 9vw;
     }
 
 }
@@ -250,7 +248,6 @@ button:active {
 
 }
  
-/* Telas bem pequenas */
 @media (max-width: 380px) {
     .inputbox {
         padding: 0 14px;

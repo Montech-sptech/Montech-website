@@ -22,14 +22,12 @@
 }
 
 .footerDescricao {
-    font-family: 'Inter';
     font-size: 14px;
     line-height: 1.6;
     color: #8F8EA4;
 }
 
 .footerColuna h4 {
-    font-family: 'Inter';
     font-size: 14px;
     color: #8F8EA4;
     margin-bottom: 20px;
@@ -41,7 +39,6 @@
 }
 
 .footerColuna li {
-    font-family: 'Inter';
     font-size: 14px;
     font-weight: 700;
     color: #FFFFFF;
@@ -50,7 +47,6 @@
 }
 
 .footerColuna a {
-    font-family: 'Inter';
     font-size: 14px;
     font-weight: 700;
     color: #FFFFFF;
@@ -81,7 +77,6 @@
 }
 
 .footerBase p {
-    font-family: 'Inter';
     font-size: 12px;
     color: #8F8EA4;
 }

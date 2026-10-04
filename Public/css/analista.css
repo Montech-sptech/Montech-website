@@ -1,0 +1,587 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    background-color: #050b1f;
+    color: #ffffff;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+/* Destaca o elemento selecionado pelo teclado. */
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #4fa3ff;
+    outline-offset: 3px;
+}
+
+/* Divide a página em menu lateral e conteúdo. */
+.app {
+    display: grid;
+    grid-template-columns: 202px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 20px 12px;
+    background-color: #050b1f;
+    border-right: 1px solid #262f5c;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 2px 8px;
+    font-size: 1.16rem;
+    font-weight: 900;
+}
+
+.logo svg {
+    width: 30px;
+    height: 30px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav a {
+    padding: 12px;
+    border-radius: 6px;
+    color: #b8c1d9;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.nav a.active {
+    background-color: #2b3990;
+    color: #ffffff;
+}
+
+.nav a:hover {
+    background-color: #1e2766;
+}
+
+/* Fundo azul-marinho da área principal. */
+.main {
+    min-width: 0;
+    padding: 24px 32px 55px;
+    background: radial-gradient(circle at 76% 5%,
+            #141b3d 0%,
+            #0a1128 37%,
+            #050b1f 74%);
+}
+
+.container {
+    max-width: 1450px;
+    margin: auto;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.head h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: -0.04em;
+}
+
+.context {
+    padding: 10px 13px;
+    background-color: #0a1128;
+    border: 1px solid #262f5c;
+    border-radius: 6px;
+    color: #b8c1d9;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.context b {
+    color: #ffffff;
+}
+
+/* Organiza o título e a informação secundária da seção. */
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 23px 0 10px;
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.section-title small {
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+/* Os cinco KPIs ficam lado a lado em telas maiores. */
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.kpi,
+.card,
+.server {
+    background-color: #141b3d;
+    border: 1px solid #262f5c;
+    border-radius: 5px;
+}
+
+.kpi {
+    min-height: 119px;
+    padding: 14px;
+}
+
+.kpi-label {
+    min-height: 33px;
+    margin: 0;
+    color: #b8c1d9;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.kpi-number {
+    display: block;
+    margin: 4px 0;
+    font-size: 29px;
+    font-weight: 800;
+}
+
+.kpi small {
+    display: block;
+    color: #b8c1d9;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Cores usadas para representar os estados. */
+.red {
+    color: #ff5361;
+}
+
+.orange {
+    color: #ffad1f;
+}
+
+.green {
+    color: #60d98d;
+}
+
+.blue {
+    color: #4fa3ff;
+}
+
+/* Organiza os três servidores em colunas. */
+.servers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.server {
+    min-height: 183px;
+    padding: 14px;
+}
+
+.server-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.server-name {
+    min-height: 38px;
+    margin: 11px 0;
+    color: #c3cbe3;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.tag-ok {
+    background-color: #19492d;
+    color: #81e68a;
+}
+
+.tag-warning {
+    background-color: #6a431c;
+    color: #ffcd71;
+}
+
+.tag-critical {
+    background-color: #681e31;
+    color: #ff8993;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.metrics span {
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+.metrics b {
+    display: block;
+    margin-top: 3px;
+    font-size: 14px;
+}
+
+.track {
+    height: 4px;
+    margin-top: 5px;
+    overflow: hidden;
+    background-color: #262f5c;
+    border-radius: 5px;
+}
+
+.track div {
+    height: 100%;
+    background-color: #60d98d;
+}
+
+.track .warm {
+    background-color: #ffad1f;
+}
+
+.track .hot {
+    background-color: #ff5361;
+}
+
+.updated {
+    margin: 13px 0 0;
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+.card {
+    min-width: 0;
+    padding: 15px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.card-head h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.card-head small {
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+/* Evita que a tabela ultrapasse a tela no celular. */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px 7px;
+    border-bottom: 1px solid #262f5c;
+    text-align: left;
+    font-size: 13px;
+}
+
+th {
+    color: #b8c1d9;
+    font-weight: 600;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Aparência do botão com o ícone de olho. */
+.eye {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 29px;
+    border: 1px solid #293b8f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #4fa3ff;
+}
+
+.eye:hover,
+.eye[aria-expanded="true"] {
+    background-color: #2b3990;
+    color: #ffffff;
+}
+
+.eye svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+/* Área exibida quando o usuário clica no olhinho. */
+.alert-chart {
+    max-width: 760px;
+    margin-top: 12px;
+    padding-top: 18px;
+    border-top: 1px solid #262f5c;
+}
+
+.alert-chart[hidden] {
+    display: none;
+}
+
+.close-chart {
+    border: none;
+    background: none;
+    color: #4fa3ff;
+    font-size: 13px;
+}
+
+.incident-note {
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid #293b8f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #c3cbe3;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Botões usados para escolher o servidor do diagnóstico. */
+.detail-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0;
+}
+
+.detail-tabs button {
+    padding: 8px 12px;
+    border: 1px solid #293b8f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #c3cbe3;
+    font-size: 13px;
+}
+
+.detail-tabs button.selected {
+    background-color: #2b3990;
+    color: #ffffff;
+}
+
+.deep-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(330px, 1fr);
+    gap: 13px;
+}
+
+.technical-grid,
+.derived {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.derived {
+    margin: 10px 0;
+}
+
+.technical-grid div,
+.derived div {
+    padding: 10px;
+    border: 1px solid #262f5c;
+    border-radius: 5px;
+    background-color: #0a1128;
+}
+
+.technical-grid small,
+.derived small {
+    display: block;
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+.technical-grid b {
+    display: block;
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.technical-grid em {
+    color: #b8c1d9;
+    font-size: 12px;
+    font-style: normal;
+}
+
+.derived b {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* O Chart.js usa o tamanho deste contêiner para ajustar o gráfico. */
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    margin-top: 12px;
+}
+
+.timeline {
+    margin-left: 7px;
+    padding-left: 16px;
+    border-left: 2px solid #293b8f;
+}
+
+.timeline div {
+    position: relative;
+    padding: 4px 0 13px;
+    color: #c3cbe3;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.timeline div::before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: -22px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4fa3ff;
+}
+
+.timeline strong {
+    color: #ffffff;
+}
+
+.note {
+    margin: 10px 0 0;
+    color: #b8c1d9;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Reduz o número de colunas conforme a tela diminui. */
+@media (max-width: 1150px) {
+    .kpis {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1000px) {
+    .deep-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .app {
+        display: block;
+    }
+
+    .side {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+
+    .nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .main {
+        padding: 20px 15px 42px;
+    }
+
+    .head {
+        flex-direction: column;
+    }
+
+    .servers {
+        grid-template-columns: 1fr;
+    }
+
+    .kpis {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .technical-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .derived {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 470px) {
+
+    .kpis,
+    .derived {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-label {
+        min-height: 0;
+    }
+}

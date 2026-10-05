@@ -19,17 +19,16 @@ function removerServidorUsuario(idUsuario, idServidor) {
 function pegarServidoresPorAeroporto(idAeroporto) {
   var instrucaoSql = `
         SELECT 
-            s.idServidor,
-            s.nomeServidor,
-            s.hostName,
-            s.tipoServidor,
-            s.metodoDeColeta,
-            s.intervaloDeColeta,
-            t.nomeTipoServidor as tipoServidor
-        FROM servidor s
-        JOIN tipoServidor t ON s.fkTipoServidor = t.idTipoServidor
-        WHERE s.fkAeroporto = ${idAeroporto}
-        ORDER BY s.idServidor;
+            idServidor,
+            token,
+            nomeServidor,
+            hostname,
+            sistemaOperacional,
+            intervaloColeta,
+            statusAtividade,
+            fkAeroporto
+        FROM servidor
+        WHERE fkAeroporto = ${idAeroporto}
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

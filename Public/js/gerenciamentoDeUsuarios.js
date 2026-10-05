@@ -1,18 +1,12 @@
-// =====================================================================
-// Estado da tabela
-// =====================================================================
 const USUARIOS_POR_PAGINA = 10;
 
-let listaUsuariosGlobais = []; // todos os usuários (já normalizados)
-let usuariosFiltrados = []; // resultado de busca + ordenação
+let listaUsuariosGlobais = [];
+let usuariosFiltrados = [];
 let termoBusca = "";
-let campoOrdenacao = null; // 'nome' | 'email' | 'cargo' | 'status' | 'ultimoAcesso'
+let campoOrdenacao = null;
 let direcaoOrdenacao = "asc";
 let paginaAtual = 1;
 
-// =====================================================================
-// Ícones (SVG inline, herdam a cor via currentColor)
-// =====================================================================
 function svgIcone(corpo) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${corpo}</svg>`;
 }
@@ -34,9 +28,6 @@ const ICONES = {
   direita: svgIcone('<path d="m9 18 6-6-6-6"/>'),
 };
 
-// =====================================================================
-// Helpers
-// =====================================================================
 function escaparHtml(texto) {
   return String(texto ?? "")
     .replace(/&/g, "&amp;")
@@ -54,7 +45,6 @@ function normalizarTexto(texto) {
     .trim();
 }
 
-// "Analista Júnior" -> "analista-junior" (usado como classe CSS do selo de cargo)
 function classeCargo(cargo) {
   return normalizarTexto(cargo)
     .replace(/[^a-z0-9]+/g, "-")
@@ -84,8 +74,6 @@ function formatarUltimoAcesso(valor) {
   return `${dia} - ${hora}`;
 }
 
-// Aceita tanto o formato antigo (status / cargo) quanto o novo do banco
-// (statusAtividade / nomeCargo), para não quebrar durante a migração.
 function normalizarUsuario(u) {
   const statusBruto = u.status !== undefined ? u.status : u.statusAtividade;
 
@@ -104,12 +92,7 @@ function normalizarUsuario(u) {
   };
 }
 
-// =====================================================================
-// Carregamento
-// =====================================================================
 function pegarUsuariosPeloAdministrador() {
-  // Se o HTML for a versão antiga (com linhas de exemplo fixas), a tabela real
-  // não tem onde ser desenhada e a tela fica mostrando só os usuários de exemplo.
   if (!document.getElementById("listaUsuarios")) {
     console.error(
       "gerenciamentoDeUsuarios.html está desatualizado: falta o elemento #listaUsuarios. Substitua o HTML pela versão nova e recarregue com Ctrl+F5.",
@@ -146,9 +129,6 @@ function pegarUsuariosPeloAdministrador() {
     });
 }
 
-// =====================================================================
-// Busca, ordenação e paginação (tudo no front)
-// =====================================================================
 function valorParaOrdenar(usuario, campo) {
   switch (campo) {
     case "nome":
@@ -224,7 +204,6 @@ function irParaPagina(pagina) {
   renderizarTabela();
 }
 
-// Ex.: 1 2 3 … 5
 function gerarListaPaginas(atual, total) {
   if (total <= 5) {
     return Array.from({ length: total }, (_, i) => i + 1);
@@ -254,9 +233,6 @@ function gerarListaPaginas(atual, total) {
   return resultado;
 }
 
-// =====================================================================
-// Renderização
-// =====================================================================
 function montarLinhaUsuario(usuario) {
   const classeDoCargo = classeCargo(usuario.cargo);
   const iconeDoCargo =
@@ -314,7 +290,6 @@ function renderizarTabela() {
     inicio + USUARIOS_POR_PAGINA,
   );
 
-  // Linhas
   const lista = document.getElementById("listaUsuarios");
   if (usuariosDaPagina.length == 0) {
     const mensagem =
@@ -326,7 +301,6 @@ function renderizarTabela() {
     lista.innerHTML = usuariosDaPagina.map(montarLinhaUsuario).join("");
   }
 
-  // Texto "Mostrando 1 a 10 de 33 usuários"
   const info = document.getElementById("infoPaginacao");
   if (total == 0) {
     info.textContent = "";
@@ -334,7 +308,6 @@ function renderizarTabela() {
     info.textContent = `Mostrando ${inicio + 1} a ${inicio + usuariosDaPagina.length} de ${total} ${total == 1 ? "usuário" : "usuários"}`;
   }
 
-  // Paginação
   const paginacao = document.getElementById("paginacao");
   if (totalPaginas <= 1) {
     paginacao.innerHTML = "";
@@ -355,7 +328,6 @@ function renderizarTabela() {
     paginacao.innerHTML = html;
   }
 
-  // Indicador de ordenação nos cabeçalhos
   document.querySelectorAll(".btnOrdenar").forEach((botao) => {
     const ativo = botao.dataset.campo == campoOrdenacao;
     botao.classList.toggle("ativo", ativo);
@@ -364,17 +336,10 @@ function renderizarTabela() {
   });
 }
 
-// =====================================================================
-// Novo usuário (a implementar)
-// =====================================================================
 function abrirModalNovoUsuario() {
-  // TODO: abrir modal de cadastro (POST /usuarios/cadastrar).
   alert("Cadastro de novo usuário ainda não implementado.");
 }
 
-// =====================================================================
-// Exclusão de usuário
-// =====================================================================
 let idUsuarioExcluindo = null;
 
 function abrirModalExclusao(idUsuarioClicado) {
@@ -402,7 +367,6 @@ function fecharModalExclusao() {
 function confirmarExclusaoUsuario() {
   const idAdministrador = sessionStorage.ID;
 
-  // OBS: essa rota ainda precisa ser criada no backend.
   fetch(`/usuarios/excluirUsuario/${idAdministrador}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -420,10 +384,6 @@ function confirmarExclusaoUsuario() {
       alert("Não foi possível excluir o usuário.");
     });
 }
-
-// =====================================================================
-// Servidores + modal de edição (lógica original, sem alterações)
-// =====================================================================
 
 let servidoresDisponiveis = [];
 

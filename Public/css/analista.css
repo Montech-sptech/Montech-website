@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+/* Fonte e cores principais do projeto */
 body {
     margin: 0;
     font-family: Inter, "Helvetica Neue", Arial, sans-serif;
@@ -14,14 +15,14 @@ button {
     cursor: pointer;
 }
 
-/* Destaca o elemento selecionado pelo teclado. */
+/* Destaca os elementos ao navegar pelo teclado */
 button:focus-visible,
 a:focus-visible {
     outline: 2px solid #4fa3ff;
     outline-offset: 3px;
 }
 
-/* Divide a página em menu lateral e conteúdo. */
+/* Divide a página em menu lateral e conteúdo */
 .app {
     display: grid;
     grid-template-columns: 202px minmax(0, 1fr);
@@ -46,9 +47,12 @@ a:focus-visible {
     font-weight: 900;
 }
 
-.logo svg {
-    width: 30px;
-    height: 30px;
+/* Logo completa na barra lateral */
+.logo img {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .nav {
@@ -74,14 +78,16 @@ a:focus-visible {
     background-color: #1e2766;
 }
 
-/* Fundo azul-marinho da área principal. */
+/* Fundo da área principal */
 .main {
     min-width: 0;
     padding: 24px 32px 55px;
-    background: radial-gradient(circle at 76% 5%,
-            #141b3d 0%,
-            #0a1128 37%,
-            #050b1f 74%);
+    background: radial-gradient(
+        circle at 76% 5%,
+        #141b3d 0%,
+        #0a1128 37%,
+        #050b1f 74%
+    );
 }
 
 .container {
@@ -117,7 +123,7 @@ a:focus-visible {
     color: #ffffff;
 }
 
-/* Organiza o título e a informação secundária da seção. */
+/* Títulos das seções */
 .section-title {
     display: flex;
     justify-content: space-between;
@@ -136,7 +142,7 @@ a:focus-visible {
     font-size: 12px;
 }
 
-/* Os cinco KPIs ficam lado a lado em telas maiores. */
+/* Cinco indicadores lado a lado */
 .kpis {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -178,7 +184,7 @@ a:focus-visible {
     line-height: 1.4;
 }
 
-/* Cores usadas para representar os estados. */
+/* Cores dos indicadores */
 .red {
     color: #ff5361;
 }
@@ -195,7 +201,7 @@ a:focus-visible {
     color: #4fa3ff;
 }
 
-/* Organiza os três servidores em colunas. */
+/* Cartões dos servidores */
 .servers {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -223,6 +229,7 @@ a:focus-visible {
     line-height: 1.4;
 }
 
+/* Etiquetas dos estados */
 .tag {
     display: inline-block;
     padding: 4px 7px;
@@ -246,6 +253,7 @@ a:focus-visible {
     color: #ff8993;
 }
 
+/* CPU, RAM e disco dentro de cada cartão */
 .metrics {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -263,6 +271,7 @@ a:focus-visible {
     font-size: 14px;
 }
 
+/* Barras que representam os percentuais de uso */
 .track {
     height: 4px;
     margin-top: 5px;
@@ -313,7 +322,7 @@ a:focus-visible {
     font-size: 12px;
 }
 
-/* Evita que a tabela ultrapasse a tela no celular. */
+/* Permite rolagem da tabela em telas pequenas */
 .table-wrap {
     overflow-x: auto;
 }
@@ -341,7 +350,7 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Aparência do botão com o ícone de olho. */
+/* Botão que mostra o gráfico da ocorrência */
 .eye {
     display: inline-grid;
     place-items: center;
@@ -367,7 +376,7 @@ tbody tr:last-child td {
     stroke-width: 1.8;
 }
 
-/* Área exibida quando o usuário clica no olhinho. */
+/* Área aberta pelo botão de olho */
 .alert-chart {
     max-width: 760px;
     margin-top: 12px;
@@ -397,7 +406,7 @@ tbody tr:last-child td {
     line-height: 1.5;
 }
 
-/* Botões usados para escolher o servidor do diagnóstico. */
+/* Seleção do servidor em análise */
 .detail-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -425,6 +434,7 @@ tbody tr:last-child td {
     gap: 13px;
 }
 
+/* Indicadores do diagnóstico técnico */
 .technical-grid,
 .derived {
     display: grid;
@@ -470,7 +480,7 @@ tbody tr:last-child td {
     line-height: 1.4;
 }
 
-/* O Chart.js usa o tamanho deste contêiner para ajustar o gráfico. */
+/* Espaço usado pelos gráficos do Chart.js */
 .chart-container {
     position: relative;
     width: 100%;
@@ -478,6 +488,7 @@ tbody tr:last-child td {
     margin-top: 12px;
 }
 
+/* Linha do tempo dos eventos */
 .timeline {
     margin-left: 7px;
     padding-left: 16px;
@@ -514,7 +525,7 @@ tbody tr:last-child td {
     line-height: 1.5;
 }
 
-/* Reduz o número de colunas conforme a tela diminui. */
+/* Ajustes para telas menores */
 @media (max-width: 1150px) {
     .kpis {
         grid-template-columns: repeat(3, 1fr);
@@ -575,7 +586,6 @@ tbody tr:last-child td {
 }
 
 @media (max-width: 470px) {
-
     .kpis,
     .derived {
         grid-template-columns: 1fr;

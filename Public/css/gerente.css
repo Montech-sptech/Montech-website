@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-/* Mantém a fonte e a paleta do projeto. */
+/* Fonte e cores principais do projeto */
 body {
     margin: 0;
     font-family: Inter, "Helvetica Neue", Arial, sans-serif;
@@ -15,7 +15,7 @@ a:focus-visible {
     outline-offset: 3px;
 }
 
-/* Divide a página entre o menu e a área principal. */
+/* Divide a página em menu lateral e conteúdo */
 .app {
     display: grid;
     grid-template-columns: 202px minmax(0, 1fr);
@@ -40,9 +40,12 @@ a:focus-visible {
     font-weight: 900;
 }
 
-.logo svg {
-    width: 30px;
-    height: 30px;
+/* Logo completa na barra lateral */
+.logo img {
+    width: 160px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .nav {
@@ -68,13 +71,16 @@ a:focus-visible {
     background-color: #1e2766;
 }
 
+/* Fundo da área principal */
 .main {
     min-width: 0;
     padding: 24px 32px 55px;
-    background: radial-gradient(circle at 76% 5%,
-            #141b3d 0%,
-            #0a1128 37%,
-            #050b1f 74%);
+    background: radial-gradient(
+        circle at 76% 5%,
+        #141b3d 0%,
+        #0a1128 37%,
+        #050b1f 74%
+    );
 }
 
 .container {
@@ -110,6 +116,7 @@ a:focus-visible {
     color: #ffffff;
 }
 
+/* Títulos das seções */
 .section-title {
     display: flex;
     justify-content: space-between;
@@ -128,7 +135,7 @@ a:focus-visible {
     font-size: 12px;
 }
 
-/* Os quatro KPIs ficam em colunas na versão desktop. */
+/* Quatro indicadores lado a lado */
 .kpis {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -169,7 +176,7 @@ a:focus-visible {
     line-height: 1.4;
 }
 
-/* Cores dos indicadores e estados. */
+/* Cores dos indicadores */
 .red {
     color: #ff5361;
 }
@@ -209,7 +216,7 @@ a:focus-visible {
     font-size: 12px;
 }
 
-/* Organiza os gráficos em duas ou três colunas. */
+/* Organiza os cartões dos gráficos */
 .two-columns {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
@@ -222,7 +229,7 @@ a:focus-visible {
     gap: 12px;
 }
 
-/* Permite rolagem da tabela em telas pequenas. */
+/* Permite rolagem da tabela em telas pequenas */
 .table-wrap {
     overflow-x: auto;
 }
@@ -255,6 +262,7 @@ td:first-child {
     width: 22%;
 }
 
+/* Etiquetas dos estados */
 .tag {
     display: inline-block;
     padding: 4px 7px;
@@ -279,7 +287,7 @@ td:first-child {
     color: #81e68a;
 }
 
-/* O resumo do recurso aparece abaixo do título do cartão. */
+/* Posiciona o resumo abaixo do título do recurso */
 .resource-card .card-head {
     flex-direction: column;
     align-items: flex-start;
@@ -292,7 +300,7 @@ td:first-child {
     line-height: 1.5;
 }
 
-/* Define o espaço ocupado pelos gráficos responsivos. */
+/* Espaço usado pelos gráficos do Chart.js */
 .chart-container {
     position: relative;
     width: 100%;
@@ -304,7 +312,7 @@ td:first-child {
     height: 190px;
 }
 
-/* Adapta o número de colunas à largura disponível. */
+/* Ajustes para telas menores */
 @media (max-width: 1150px) {
     .kpis {
         grid-template-columns: repeat(2, 1fr);

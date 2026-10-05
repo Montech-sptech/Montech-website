@@ -13,18 +13,11 @@
 <body>
     <div class="app">
 
-        <!-- Menu lateral de navegação. -->
+        <!-- Menu lateral de navegação -->
         <aside class="side">
             <div class="logo">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                    <circle cx="20" cy="20" r="17" fill="none" stroke="#4fa3ff" stroke-width="2"></circle>
-
-                    <circle cx="20" cy="20" r="12" fill="none" stroke="#262f5c"></circle>
-
-                    <path d="M7 21h8l4-8 5 16 4-9h6" fill="none" stroke="#4fa3ff" stroke-width="2"></path>
-                </svg>
-
-                <span>MONTECH</span>
+                <!-- Troque o src pelo caminho da sua imagem -->
+                <img src="logoEscuraMontech.png" alt="Logo MonTech">
             </div>
 
             <nav class="nav" aria-label="Navegação das dashboards">
@@ -38,7 +31,7 @@
             </nav>
         </aside>
 
-        <!-- Visão histórica do aeroporto administrado pela gerente. -->
+        <!-- Visão histórica do aeroporto -->
         <main class="main">
             <div class="container">
 
@@ -52,8 +45,9 @@
                     </div>
                 </header>
 
-                <!-- Indicadores estáticos para comparar os períodos. -->
+                <!-- Indicadores estáticos para comparar os períodos -->
                 <section class="kpis" aria-label="Indicadores gerenciais">
+
                     <div class="kpi">
                         <p class="kpi-label">Incidentes críticos</p>
                         <strong class="kpi-number red">8</strong>
@@ -84,8 +78,9 @@
                     <small>Comparação temporal · Congonhas</small>
                 </div>
 
-                <!-- Os gráficos mostram a evolução ao longo das semanas. -->
+                <!-- Gráficos da evolução semanal -->
                 <section class="two-columns">
+
                     <div class="card">
                         <div class="card-head">
                             <h3>Incidentes críticos por semana</h3>
@@ -93,7 +88,9 @@
                         </div>
 
                         <div class="chart-container">
-                            <canvas id="incidents-canvas" role="img"
+                            <canvas
+                                id="incidents-canvas"
+                                role="img"
                                 aria-label="Incidentes críticos por semana: 1, 2, 2 e 3">
                                 Incidentes críticos por semana: 1, 2, 2 e 3.
                             </canvas>
@@ -107,7 +104,10 @@
                         </div>
 
                         <div class="chart-container">
-                            <canvas id="days-canvas" role="img" aria-label="Dias com alerta por semana: 1, 2, 2 e 4">
+                            <canvas
+                                id="days-canvas"
+                                role="img"
+                                aria-label="Dias com alerta por semana: 1, 2, 2 e 4">
                                 Dias com alerta por semana: 1, 2, 2 e 4.
                             </canvas>
                         </div>
@@ -119,7 +119,7 @@
                     <small>3 servidores do aeroporto · últimos 30 dias</small>
                 </div>
 
-                <!-- Relaciona a quantidade de ocorrências com cada servidor. -->
+                <!-- Quantidade e padrão das ocorrências por servidor -->
                 <section class="card">
                     <div class="table-wrap">
                         <table>
@@ -139,15 +139,15 @@
                                         <br>
                                         Informação aeronáutica
                                     </td>
-
                                     <td>5 · 4 da categoria CPU</td>
-
                                     <td>
-                                        CPU aparece repetidamente; comparar picos, média e horários
+                                        CPU aparece repetidamente;
+                                        comparar picos, média e horários
                                     </td>
-
                                     <td>
-                                        <span class="tag tag-critical">Crítico</span>
+                                        <span class="tag tag-critical">
+                                            Crítico
+                                        </span>
                                     </td>
                                 </tr>
 
@@ -157,15 +157,15 @@
                                         <br>
                                         Dados de vigilância
                                     </td>
-
                                     <td>4 · 3 da categoria disco</td>
-
                                     <td>
-                                        Disco aparece repetidamente; comparar ocupação ao longo do período
+                                        Disco aparece repetidamente;
+                                        comparar ocupação ao longo do período
                                     </td>
-
                                     <td>
-                                        <span class="tag tag-warning">Atenção</span>
+                                        <span class="tag tag-warning">
+                                            Atenção
+                                        </span>
                                     </td>
                                 </tr>
 
@@ -175,15 +175,14 @@
                                         <br>
                                         Planos de voo
                                     </td>
-
                                     <td>2 · categorias diferentes</td>
-
                                     <td>
                                         Sem repetição da mesma categoria no período
                                     </td>
-
                                     <td>
-                                        <span class="tag tag-ok">Normal</span>
+                                        <span class="tag tag-ok">
+                                            Normal
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -195,18 +194,23 @@
                     <h2>Comportamento dos recursos</h2>
                 </div>
 
-                <!-- Compara o uso dos recursos entre a primeira e a quarta semana. -->
+                <!-- Uso dos recursos ao longo das quatro semanas -->
                 <section class="three-columns">
+
                     <div class="card resource-card">
                         <div class="card-head">
                             <h3>AIS · CPU média</h3>
+
                             <span class="resource-summary orange">
                                 CPU média: 62% na 1ª semana · 72% na 4ª semana
                             </span>
                         </div>
 
                         <div class="chart-container">
-                            <canvas id="ais-canvas" role="img" aria-label="CPU média do AIS: 62%, 65%, 68% e 72%">
+                            <canvas
+                                id="ais-canvas"
+                                role="img"
+                                aria-label="CPU média do AIS: 62%, 65%, 68% e 72%">
                                 CPU média do AIS: 62%, 65%, 68% e 72%.
                             </canvas>
                         </div>
@@ -215,13 +219,17 @@
                     <div class="card resource-card">
                         <div class="card-head">
                             <h3>SDV · disco utilizado</h3>
+
                             <span class="resource-summary orange">
                                 Disco ocupado: 68% na 1ª semana · 77% na 4ª semana
                             </span>
                         </div>
 
                         <div class="chart-container">
-                            <canvas id="sdv-canvas" role="img" aria-label="Disco ocupado no SDV: 68%, 70%, 74% e 77%">
+                            <canvas
+                                id="sdv-canvas"
+                                role="img"
+                                aria-label="Disco ocupado no SDV: 68%, 70%, 74% e 77%">
                                 Disco ocupado no SDV: 68%, 70%, 74% e 77%.
                             </canvas>
                         </div>
@@ -230,13 +238,17 @@
                     <div class="card resource-card">
                         <div class="card-head">
                             <h3>SPA · CPU média</h3>
+
                             <span class="resource-summary green">
                                 CPU média: 57% na 1ª semana · 58% na 4ª semana
                             </span>
                         </div>
 
                         <div class="chart-container">
-                            <canvas id="spa-canvas" role="img" aria-label="CPU média do SPA: 57%, 58%, 56% e 58%">
+                            <canvas
+                                id="spa-canvas"
+                                role="img"
+                                aria-label="CPU média do SPA: 57%, 58%, 56% e 58%">
                                 CPU média do SPA: 57%, 58%, 56% e 58%.
                             </canvas>
                         </div>
@@ -248,8 +260,9 @@
                     <small>Incidentes resolvidos nos últimos 30 dias</small>
                 </div>
 
-                <!-- Apresenta os tempos de resolução dos incidentes. -->
+                <!-- Comparação e distribuição dos tempos de resolução -->
                 <section class="two-columns">
+
                     <div class="card">
                         <div class="card-head">
                             <h3>Tempo de resolução</h3>
@@ -257,9 +270,12 @@
                         </div>
 
                         <div class="chart-container">
-                            <canvas id="resolution-canvas" role="img"
+                            <canvas
+                                id="resolution-canvas"
+                                role="img"
                                 aria-label="Tempo mediano: anterior 160 minutos; atual 200 minutos">
-                                Tempo mediano: anterior 160 minutos; atual 200 minutos.
+                                Tempo mediano: anterior 160 minutos;
+                                atual 200 minutos.
                             </canvas>
                         </div>
                     </div>
@@ -271,9 +287,12 @@
                         </div>
 
                         <div class="chart-container">
-                            <canvas id="distribution-canvas" role="img"
+                            <canvas
+                                id="distribution-canvas"
+                                role="img"
                                 aria-label="2 incidentes até 2 horas, 3 entre 2 e 4 horas e 3 acima de 4 horas">
-                                2 incidentes até 2 horas, 3 entre 2 e 4 horas
+                                2 incidentes até 2 horas,
+                                3 entre 2 e 4 horas
                                 e 3 acima de 4 horas.
                             </canvas>
                         </div>
@@ -283,8 +302,8 @@
         </main>
     </div>
 
+    <!-- A biblioteca precisa carregar antes do JS da página -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-
     <script src="gerente.js"></script>
 </body>
 

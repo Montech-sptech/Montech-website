@@ -13,18 +13,11 @@
 <body>
     <div class="app">
 
-        <!-- Menu lateral de navegação. -->
+        <!-- Menu lateral de navegação -->
         <aside class="side">
             <div class="logo">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                    <circle cx="20" cy="20" r="17" fill="none" stroke="#4fa3ff" stroke-width="2"></circle>
-
-                    <circle cx="20" cy="20" r="12" fill="none" stroke="#262f5c"></circle>
-
-                    <path d="M7 21h8l4-8 5 16 4-9h6" fill="none" stroke="#4fa3ff" stroke-width="2"></path>
-                </svg>
-
-                <span>MONTECH</span>
+                <!-- Troque o src pelo caminho da sua imagem -->
+                <img src="logoEscuraMontech.png" alt="Logo MonTech">
             </div>
 
             <nav class="nav" aria-label="Navegação das dashboards">
@@ -38,7 +31,7 @@
             </nav>
         </aside>
 
-        <!-- Conteúdo principal da dashboard. -->
+        <!-- Conteúdo principal -->
         <main class="main">
             <div class="container">
 
@@ -52,7 +45,7 @@
                     </div>
                 </header>
 
-                <!-- KPIs estáticos. -->
+                <!-- Indicadores operacionais estáticos -->
                 <section class="kpis" aria-label="Indicadores operacionais">
                     <div class="kpi">
                         <p class="kpi-label">Servidores críticos</p>
@@ -89,7 +82,7 @@
                     <h2>Servidores do seu aeroporto</h2>
                 </div>
 
-                <!-- Cada cartão mostra os recursos de um servidor. -->
+                <!-- Cada cartão apresenta os recursos de um servidor -->
                 <section class="servers" aria-label="Servidores monitorados">
 
                     <div class="server">
@@ -104,6 +97,7 @@
                             <div>
                                 <span>CPU</span>
                                 <b>58%</b>
+
                                 <div class="track">
                                     <div style="width: 58%"></div>
                                 </div>
@@ -112,6 +106,7 @@
                             <div>
                                 <span>RAM</span>
                                 <b>56%</b>
+
                                 <div class="track">
                                     <div style="width: 56%"></div>
                                 </div>
@@ -120,6 +115,7 @@
                             <div>
                                 <span>Disco</span>
                                 <b>62%</b>
+
                                 <div class="track">
                                     <div style="width: 62%"></div>
                                 </div>
@@ -137,12 +133,15 @@
                             <span class="tag tag-warning">Atenção</span>
                         </div>
 
-                        <p class="server-name">Tratamento de Dados de Vigilância</p>
+                        <p class="server-name">
+                            Tratamento de Dados de Vigilância
+                        </p>
 
                         <div class="metrics">
                             <div>
                                 <span>CPU</span>
                                 <b>60%</b>
+
                                 <div class="track">
                                     <div style="width: 60%"></div>
                                 </div>
@@ -151,6 +150,7 @@
                             <div>
                                 <span>RAM</span>
                                 <b>56%</b>
+
                                 <div class="track">
                                     <div style="width: 56%"></div>
                                 </div>
@@ -159,6 +159,7 @@
                             <div>
                                 <span>Disco</span>
                                 <b>82%</b>
+
                                 <div class="track">
                                     <div class="warm" style="width: 82%"></div>
                                 </div>
@@ -182,6 +183,7 @@
                             <div>
                                 <span>CPU</span>
                                 <b>92%</b>
+
                                 <div class="track">
                                     <div class="hot" style="width: 92%"></div>
                                 </div>
@@ -190,6 +192,7 @@
                             <div>
                                 <span>RAM</span>
                                 <b>81%</b>
+
                                 <div class="track">
                                     <div class="warm" style="width: 81%"></div>
                                 </div>
@@ -198,6 +201,7 @@
                             <div>
                                 <span>Disco</span>
                                 <b>71%</b>
+
                                 <div class="track">
                                     <div style="width: 71%"></div>
                                 </div>
@@ -221,7 +225,7 @@
                         <small>Ordenada por severidade e duração</small>
                     </div>
 
-                    <!-- A tabela apresenta os alertas ativos. -->
+                    <!-- Tabela de alertas ativos -->
                     <div class="table-wrap">
                         <table>
                             <thead>
@@ -240,13 +244,20 @@
                                     <td>CPU 92% / crítico 90%</td>
                                     <td>há 26 min</td>
                                     <td>
-                                        <span class="tag tag-critical">Crítico</span>
+                                        <span class="tag tag-critical">
+                                            Crítico
+                                        </span>
                                     </td>
                                     <td>
-                                        <!-- O clique envia o recurso e o botão à função. -->
-                                        <button class="eye" type="button" onclick="showAlertChart('cpu', this)"
-                                            aria-label="Ver gráfico de CPU do AIS" aria-expanded="false"
+                                        <!-- Abre o gráfico da ocorrência -->
+                                        <button
+                                            class="eye"
+                                            type="button"
+                                            onclick="showAlertChart('cpu', this)"
+                                            aria-label="Ver gráfico de CPU do AIS"
+                                            aria-expanded="false"
                                             aria-controls="alert-chart">
+
                                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                                 <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path>
                                                 <circle cx="12" cy="12" r="3"></circle>
@@ -260,12 +271,19 @@
                                     <td>RAM 81% / atenção 80%</td>
                                     <td>há 17 min</td>
                                     <td>
-                                        <span class="tag tag-warning">Atenção</span>
+                                        <span class="tag tag-warning">
+                                            Atenção
+                                        </span>
                                     </td>
                                     <td>
-                                        <button class="eye" type="button" onclick="showAlertChart('ram', this)"
-                                            aria-label="Ver gráfico de RAM do AIS" aria-expanded="false"
+                                        <button
+                                            class="eye"
+                                            type="button"
+                                            onclick="showAlertChart('ram', this)"
+                                            aria-label="Ver gráfico de RAM do AIS"
+                                            aria-expanded="false"
                                             aria-controls="alert-chart">
+
                                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                                 <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path>
                                                 <circle cx="12" cy="12" r="3"></circle>
@@ -279,12 +297,19 @@
                                     <td>Disco 82% / atenção 80%</td>
                                     <td>há 11 min</td>
                                     <td>
-                                        <span class="tag tag-warning">Atenção</span>
+                                        <span class="tag tag-warning">
+                                            Atenção
+                                        </span>
                                     </td>
                                     <td>
-                                        <button class="eye" type="button" onclick="showAlertChart('disk', this)"
-                                            aria-label="Ver gráfico de disco do SDV" aria-expanded="false"
+                                        <button
+                                            class="eye"
+                                            type="button"
+                                            onclick="showAlertChart('disk', this)"
+                                            aria-label="Ver gráfico de disco do SDV"
+                                            aria-expanded="false"
                                             aria-controls="alert-chart">
+
                                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                                 <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path>
                                                 <circle cx="12" cy="12" r="3"></circle>
@@ -296,19 +321,27 @@
                         </table>
                     </div>
 
-                    <!-- O atributo hidden mantém o gráfico escondido inicialmente. -->
+                    <!-- O gráfico fica escondido até clicar no olhinho -->
                     <div class="alert-chart" id="alert-chart" hidden>
                         <div class="card-head">
-                            <h3 id="alert-chart-title">Gráfico da ocorrência</h3>
+                            <h3 id="alert-chart-title">
+                                Gráfico da ocorrência
+                            </h3>
 
-                            <button class="close-chart" type="button" onclick="closeAlertChart()">
+                            <button
+                                class="close-chart"
+                                type="button"
+                                onclick="closeAlertChart()">
                                 Fechar ✕
                             </button>
                         </div>
 
-                        <!-- O Chart.js desenha o gráfico dentro do canvas. -->
+                        <!-- O Chart.js desenha dentro do canvas -->
                         <div class="chart-container">
-                            <canvas id="alert-canvas" role="img" aria-label="Uso do recurso e limite de alerta">
+                            <canvas
+                                id="alert-canvas"
+                                role="img"
+                                aria-label="Uso do recurso e limite de alerta">
                                 Histórico do recurso e limite de alerta.
                             </canvas>
                         </div>
@@ -324,17 +357,24 @@
                     <h2>Diagnóstico técnico do servidor</h2>
                 </div>
 
-                <!-- Os botões alteram o servidor apresentado no diagnóstico. -->
+                <!-- Seleciona o servidor apresentado no diagnóstico -->
                 <div class="detail-tabs" aria-label="Servidor em análise">
-                    <button class="selected" type="button" onclick="selectServer('AIS', this)">
+                    <button
+                        class="selected"
+                        type="button"
+                        onclick="selectServer('AIS', this)">
                         AIS · crítico
                     </button>
 
-                    <button type="button" onclick="selectServer('SDV', this)">
+                    <button
+                        type="button"
+                        onclick="selectServer('SDV', this)">
                         SDV · atenção
                     </button>
 
-                    <button type="button" onclick="selectServer('SPA', this)">
+                    <button
+                        type="button"
+                        onclick="selectServer('SPA', this)">
                         SPA · normal
                     </button>
                 </div>
@@ -342,16 +382,27 @@
                 <section class="deep-grid">
                     <div class="card">
                         <div class="card-head">
-                            <h3 id="diagnostic-title">AIS · recursos e limites</h3>
+                            <h3 id="diagnostic-title">
+                                AIS · recursos e limites
+                            </h3>
                             <small>Última coleta há 5 s</small>
                         </div>
 
-                        <!-- O JavaScript preenche estes elementos. -->
-                        <div class="technical-grid" id="technical-metrics"></div>
-                        <div class="derived" id="derived-metrics"></div>
+                        <!-- Estas áreas são preenchidas pelo JavaScript -->
+                        <div
+                            class="technical-grid"
+                            id="technical-metrics">
+                        </div>
+
+                        <div
+                            class="derived"
+                            id="derived-metrics">
+                        </div>
 
                         <div class="chart-container">
-                            <canvas id="technical-canvas" role="img"
+                            <canvas
+                                id="technical-canvas"
+                                role="img"
                                 aria-label="Histórico de CPU, RAM e disco do servidor">
                                 Histórico de CPU, RAM e disco.
                             </canvas>
@@ -364,17 +415,20 @@
                             <small>Coleta recente</small>
                         </div>
 
-                        <div class="timeline" id="diagnostic-timeline"></div>
+                        <div
+                            class="timeline"
+                            id="diagnostic-timeline">
+                        </div>
+
                         <p class="note" id="diagnostic-action"></p>
                     </div>
                 </section>
             </div>
         </main>
     </div>
-    <!-- Carrega a biblioteca que desenha os gráficos -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
 
-    <!-- Carrega os dados e os gráficos do analista -->
+    <!-- A biblioteca precisa carregar antes do JS da página -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <script src="analista.js"></script>
 </body>
 

@@ -125,6 +125,37 @@ async function pegarUsuariosPeloAdministrador(req, res) {
   return res.json(usuariosAgrupados);
 }
 
+function editarUsuario(req, res) {
+  var usuarioId = Number(req.params.id);
+  var nome = typeof req.body.nome === "string" ? req.body.nome.trim() : "";
+  var email = typeof req.body.email === "string" ? req.body.email.trim() : "";
+  var statusAtividade = req.body.statusAtividade;
+
+  if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
+    return res.status(400).json({ mensagem: "ID de usuário inválido." });
+  }
+  if (!nome || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ mensagem: "Nome ou email inválido." });
+  }
+  if (typeof statusAtividade !== "boolean") {
+    return res.status(400).json({ mensagem: "Status de atividade inválido." });
+  }
+
+  usuarioModel
+    .editarUsuario(usuarioId, nome, email, statusAtividade)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao editar o usuário! Erro:",
+        erro.sqlMessage,
+      );
+      res.status(500).json({ mensagem: "Não foi possível editar o usuário." });
+    });
+}
+
 function inativarUsuario(req, res) {
   var usuarioId = req.body.idUsuario;
 
@@ -164,6 +195,7 @@ function ativarUsuario(req, res) {
 module.exports = {
   autenticar,
   cadastrar,
+  editarUsuario,
   pegarUsuariosPeloAdministrador,
   inativarUsuario,
   ativarUsuario,

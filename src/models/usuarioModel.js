@@ -1,4 +1,5 @@
 var database = require("../database/config");
+var mysql = require("mysql2");
 
 function autenticar(email, senha) {
   console.log(
@@ -60,7 +61,7 @@ function pegarUsuariosPeloAeroporto(idAeroporto) {
             u.idUsuario,
             u.nome AS nomeUsuario,
             u.email,
-            u.statusAtividade,
+            u.statusAtividade AS status,
             c.nome AS nomeCargo,
             s.idServidor,
             s.nomeServidor,
@@ -75,13 +76,25 @@ function pegarUsuariosPeloAeroporto(idAeroporto) {
   return database.executar(instrucaoSql);
 }
 
+function editarUsuario(idUsuario, nome, email, statusAtividade) {
+  var instrucaoSql = `
+        UPDATE usuario
+        SET nome = ${mysql.escape(nome)},
+            email = ${mysql.escape(email)},
+            statusAtividade = ${statusAtividade ? 1 : 0}
+        WHERE idUsuario = ${Number(idUsuario)};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 function inativarUsuario(idUsuario) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function inativarUsuario():",
     idUsuario,
   );
   var instrucaoSql = `
-        UPDATE usuario SET statusAtividade = false WHERE idUsuario = ${idUsuario};
+        UPDATE usuario SET statusAtividade = 0 WHERE idUsuario = ${idUsuario};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -93,7 +106,7 @@ function ativarUsuario(idUsuario) {
     idUsuario,
   );
   var instrucaoSql = `
-        UPDATE usuario SET statusAtividade = true WHERE idUsuario = ${idUsuario};
+        UPDATE usuario SET statusAtividade = 1 WHERE idUsuario = ${idUsuario};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -104,6 +117,7 @@ module.exports = {
   cadastrar,
   encontrarUsuarioPorId,
   pegarUsuariosPeloAeroporto,
+  editarUsuario,
   ativarUsuario,
   inativarUsuario,
 };

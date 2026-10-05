@@ -1,4 +1,4 @@
-const USUARIOS_POR_PAGINA = 10;
+const USUARIOS_POR_PAGINA = 8;
 
 let listaUsuariosGlobais = [];
 let usuariosFiltrados = [];
@@ -480,37 +480,41 @@ function salvarEdicaoUsuario() {
 
   let usuarioOriginal = null;
   for (let i = 0; i < listaUsuariosGlobais.length; i++) {
-    if (listaUsuariosGlobais[i].idUsuario === idUsuarioEditando) {
+    if (
+      String(listaUsuariosGlobais[i].idUsuario) === String(idUsuarioEditando)
+    ) {
       usuarioOriginal = listaUsuariosGlobais[i];
       break;
     }
   }
 
+  if (!usuarioOriginal) {
+    alert("Não foi possível encontrar o usuário selecionado.");
+    return;
+  }
+
   let requisicoesPendentes = [];
 
+  const novoNome = document.getElementById("inputNomeModal").value.trim();
+  const novoEmail = document.getElementById("inputEmailModal").value.trim();
   const novoStatus = document.getElementById("selectStatusModal").value;
 
-  if (novoStatus === "inativo" && usuarioOriginal.status == true) {
-    const reqInativar = fetch(`/usuarios/inativarUsuario/${idAdministrador}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        idUsuario: idUsuarioEditando,
-      }),
-    });
-    requisicoesPendentes.push(reqInativar);
+  if (!novoNome || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novoEmail)) {
+    alert("Informe um nome e um email válidos.");
+    return;
   }
 
-  if (novoStatus === "ativo" && usuarioOriginal.status == false) {
-    const reqAtivar = fetch(`/usuarios/ativarUsuario/${idAdministrador}`, {
+  requisicoesPendentes.push(
+    fetch(`/usuarios/editarUsuario/${idUsuarioEditando}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        idUsuario: idUsuarioEditando,
+        nome: novoNome,
+        email: novoEmail,
+        statusAtividade: novoStatus === "ativo",
       }),
-    });
-    requisicoesPendentes.push(reqAtivar);
-  }
+    }),
+  );
 
   const checkboxes = document.querySelectorAll(".inputServidorCheckbox");
 
@@ -591,6 +595,12 @@ function salvarEdicaoUsuario() {
   if (requisicoesPendentes.length > 0) {
     Promise.all(requisicoesPendentes)
       .then((respostas) => {
+        const respostaComErro = respostas.find((resposta) => !resposta.ok);
+        if (respostaComErro) {
+          throw new Error(
+            `Erro ${respostaComErro.status} ao salvar alterações`,
+          );
+        }
         fecharModalEdicao();
         pegarUsuariosPeloAdministrador();
       })

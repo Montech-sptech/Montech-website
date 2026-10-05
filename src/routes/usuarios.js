@@ -12,6 +12,10 @@ router.post("/autenticar", function (req, res) {
   usuarioController.autenticar(req, res);
 });
 
+router.put("/editarUsuario/:id", function (req, res) {
+  usuarioController.editarUsuario(req, res);
+});
+
 router.get("/pegarUsuariosPeloAdministrador/:id", function (req, res) {
   //autorizacaoCargo.verificarAdministrador(req, res, () => {
   usuarioController.pegarUsuariosPeloAdministrador(req, res);

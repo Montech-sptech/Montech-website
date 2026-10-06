@@ -49,7 +49,7 @@ function cadastrar(req, res) {
   var nome = req.body.nomeServer;
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
-  var fkEmpresa = req.body.idEmpresaVincularServer;
+  var fkAeroporto = req.body.idAeroportoVincularServer;
   var fkCargo = req.body.fkCargoServer;
 
   if (nome == undefined) {
@@ -58,13 +58,13 @@ function cadastrar(req, res) {
     res.status(400).send("Seu email está undefined!");
   } else if (senha == undefined) {
     res.status(400).send("Sua senha está undefined!");
-  } else if (fkEmpresa == undefined) {
-    res.status(400).send("Sua empresa a vincular está undefined!");
+  } else if (fkAeroporto == undefined) {
+    res.status(400).send("Seu aeroporto a vincular está undefined!");
   } else if (fkCargo == undefined) {
     res.status(400).send("Cargo inválido");
   } else {
     usuarioModel
-      .cadastrar(nome, email, senha, fkEmpresa, fkCargo)
+      .cadastrar(nome, email, senha, fkAeroporto, fkCargo)
       .then(function (resultado) {
         res.json(resultado);
       })
@@ -88,8 +88,8 @@ async function pegarUsuariosPeloAdministrador(req, res) {
     return res.status(404).json({ mensagem: "Usuário não encontrado." });
   }
 
-  var empresaId = usuario[0].fkEmpresa;
-  var jsonBruto = await usuarioModel.pegarUsuariosPelaEmpresa(empresaId);
+  var aeroportoId = usuario[0].fkAeroporto;
+  var jsonBruto = await usuarioModel.pegarUsuariosPeloAeroporto(aeroportoId);
 
   var Usuarios = {};
 
@@ -123,6 +123,37 @@ async function pegarUsuariosPeloAdministrador(req, res) {
   }
 
   return res.json(usuariosAgrupados);
+}
+
+function editarUsuario(req, res) {
+  var usuarioId = Number(req.params.id);
+  var nome = typeof req.body.nome === "string" ? req.body.nome.trim() : "";
+  var email = typeof req.body.email === "string" ? req.body.email.trim() : "";
+  var statusAtividade = req.body.statusAtividade;
+
+  if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
+    return res.status(400).json({ mensagem: "ID de usuário inválido." });
+  }
+  if (!nome || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ mensagem: "Nome ou email inválido." });
+  }
+  if (typeof statusAtividade !== "boolean") {
+    return res.status(400).json({ mensagem: "Status de atividade inválido." });
+  }
+
+  usuarioModel
+    .editarUsuario(usuarioId, nome, email, statusAtividade)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao editar o usuário! Erro:",
+        erro.sqlMessage,
+      );
+      res.status(500).json({ mensagem: "Não foi possível editar o usuário." });
+    });
 }
 
 function inativarUsuario(req, res) {
@@ -164,6 +195,7 @@ function ativarUsuario(req, res) {
 module.exports = {
   autenticar,
   cadastrar,
+  editarUsuario,
   pegarUsuariosPeloAdministrador,
   inativarUsuario,
   ativarUsuario,

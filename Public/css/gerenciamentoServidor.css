@@ -9,7 +9,6 @@
   --card-border: rgba(255, 255, 255, 0.45);
   --texto: #ffffff;
   --texto-suave: #d9d9e3;
-  --status-ativo: #1fb21f;
   --azul-icone: #3d5afe;
   --btn-novo-bg: #14141c;
 }
@@ -123,6 +122,14 @@
 .status-valor {
   font-weight: 500;
   color: var(--status-ativo);
+}
+
+.ativo {
+    color: #1fb21f;
+}
+
+.desativado {
+    color: #bc0202;
 }
 
 .nome-servidor {

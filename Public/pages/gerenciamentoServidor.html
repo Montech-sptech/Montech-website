@@ -10,15 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/headerPosLogin.css">
-    <link rel="stylesheet" href="../css/cadastroDeServidor.css" />
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/gerenciamentoServidor.css">
     <link rel="stylesheet" href="../css/sidebar.css" />
     <script src="../js/cadastroServidor.js" defer></script>
     <script src="../js/sidebar.js" defer></script>
-    <title>MonTech - Cadastro de Servidor</title>
+    <title>MonTech - Gerenciamento de Servidor</title>
 </head>
-
-<body onload="carregarInformacoes()">
+<body>
     <aside class="sidebar" id="sidebar" aria-label="Menu principal">
       <div class="sbLogo">
         <img class="sbLogoLonga" src="../img/longLigthLogo.svg" alt="MonTech" />
@@ -173,7 +172,7 @@
         </a>
         <a
           class="sbItem"
-          href="cadastroDeServidor.html"
+          href="gerenciamentoServidor.html"
           data-cargos="Administrador"
           data-titulo="Cadastrar Servidores"
         >
@@ -232,46 +231,77 @@
       </div>
     </aside>
 
-    <main class="containerCadastroServidor">
-        <section class="primeira_secao">
-            <div class="tituloCadastroServidor">
-                <h1>Cadastrar Servidor</h1>
-                <p>Registre um novo servidor para monitoramento</p>
-            </div>
-            <div class="EspecificacaoToken">
-                <div class="especificacao">
-                    <h1>ESPECIFICAÇÃO</h1>
-                    <div class="especificacao_campo">
-                        <div class="NomeDoServidor">
-                            <h6>Nome do servidor</h6>
-                            <input type="text" placeholder="SPA - ACC Brasília">
-                        </div>
-                        <div class="SistemaOperacional">
-                            <h6>Sistema operacional</h6>
-                            <select>
-                                <option value="linux">Linux</option>
-                                <option value="windows">Windows</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="especificacao_campo_abaixo">
-                        <div class="intervalo_campo">
-                            <h6>Intervalo da coleta (segundos)</h6>
-                            <input type="text" placeholder="15">
-                        </div>
-                    </div>
-                </div>
-                <div class="token">
-    
-                </div>
-            </div>
-        </section>
-
-        <section>
-
-        </section>
-    
+    <main class="containerGerenciamentoServidor">
+        <header>
+            <h1>Gerenciamento de Servidores</h1>
+        </header>
+ 
+    <div class="actions">
+      <div id="btn-novo-servidor">
+        <p>Novo Servidor</p>
+        <img src="../img/GerenciamentoServidores/MaisIcon.svg" alt="">
+      </div>
+    </div>
+ 
+    <section class="servidores">
+ 
+      <!-- Card 1 -->
+      <article class="card-servidor">
+        <p class="status">Status: <span class="status-valor">ativo</span></p>
+        <h2 class="nome-servidor">Nome do servidor</h2>
+        <h3 class="sistema-operacional">Sistema Operacional</h3>
+ 
+        <button type="button" class="btn-visualizar">Visualizar</button>
+ 
+        <div class="card-acoes">
+          <button type="button" class="btn-editar" aria-label="Editar servidor">
+            <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
+        </button>
+          <button type="button" class="btn-excluir" aria-label="Excluir servidor">
+            <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
+          </button>
+        </div>
+      </article>
+ 
+      <!-- Card 2 -->
+      <article class="card-servidor">
+        <p class="status">Status: <span class="status-valor">ativo</span></p>
+        <h2 class="nome-servidor">Nome do servidor</h2>
+        <h3 class="sistema-operacional">Sistema Operacional</h3>
+ 
+        <button type="button" class="btn-visualizar">Visualizar</button>
+ 
+        <div class="card-acoes">
+          <button type="button" class="btn-editar" aria-label="Editar servidor">
+            <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
+        </button>
+          <button type="button" class="btn-excluir" aria-label="Excluir servidor">
+            <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
+          </button>
+        </div>
+      </article>
+ 
+      <!-- Card 3 -->
+      <article class="card-servidor">
+        <p class="status">Status: <span class="status-valor">ativo</span></p>
+        <h2 class="nome-servidor">Nome do servidor</h2>
+        <h3 class="sistema-operacional">Sistema Operacional</h3>
+ 
+        <button type="button" class="btn-visualizar">Visualizar</button>
+ 
+        <div class="card-acoes">
+          <button type="button" class="btn-editar" aria-label="Editar servidor">
+            <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
+        </button>
+          <button type="button" class="btn-excluir" aria-label="Excluir servidor">
+            <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
+          </button>
+        </div>
+      </article>
+ 
+    </section>
     </main>
 
 </body>
+
 </html>

@@ -1,0 +1,366 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+
+:root {
+  --bg-start: #1f1f2b;
+  --bg-end: #1b1a4a;
+  --card-bg-top: #1c2145;
+  --card-bg-bottom: #1a1d3a;
+  --card-border: rgba(255, 255, 255, 0.45);
+  --texto: #ffffff;
+  --texto-suave: #d9d9e3;
+  --status-ativo: #1fb21f;
+  --azul-icone: #3d5afe;
+  --btn-novo-bg: #14141c;
+}
+
+.containerGerenciamentoServidor header {
+    width: auto;
+    height: auto;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+.containerGerenciamentoServidor header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--texto);
+}
+
+/* ===== Ações (botão Novo Servidor) ===== */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 36px;
+}
+
+#btn-novo-servidor {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background-color: var(--btn-novo-bg);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+#btn-novo-servidor p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+#btn-novo-servidor img {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+#btn-novo-servidor:hover {
+  background-color: #1f1f2c;
+  transform: translateY(-1px);
+}
+
+/* ===== Lista de cards ===== */
+.servidores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  justify-items: center;
+  gap: 32px 24px;
+  margin-top: 32px;
+  padding: 0 16px;
+}
+/* .servidores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
+  justify-items: center;
+  gap: 32px 24px;
+  margin-top: 32px;
+  padding: 0 16px;
+} */
+/* ===== Card ===== */
+.card-servidor {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  padding: 10px 11px 12px;
+  background: linear-gradient(180deg, var(--card-bg-top), var(--card-bg-bottom));
+  border: 1px solid var(--card-border);
+  transition: transform 0.2s ease, box-shadow 0.5s ease;
+}
+
+/* .card-servidor {
+  display: flex;
+  flex-direction: column;
+  width: 178px;
+  padding: 10px 11px 12px;
+  background: linear-gradient(180deg, var(--card-bg-top), var(--card-bg-bottom));
+  border: 1px solid var(--card-border);
+  transition: transform 0.2s ease, box-shadow 0.5s ease;
+} */
+
+.card-servidor:hover {
+  box-shadow: 1px 8px 20px rgba(0, 0, 0, 1);
+}
+
+.status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--texto);
+}
+/* 
+.status {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--texto);
+} */
+
+.status-valor {
+  font-weight: 500;
+  color: var(--status-ativo);
+}
+
+.nome-servidor {
+  margin-top: 6px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--texto);
+}
+/* .nome-servidor {
+  margin-top: 6px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--texto);
+} */
+
+.sistema-operacional {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--texto);
+}
+/* 
+.sistema-operacional {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--texto);
+} */
+
+/* ===== Botão Visualizar ===== */
+.btn-visualizar {
+  width: 100%;
+  margin-top: 42px;
+  padding: 8px 0;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: bolder;
+  color: var(--texto-suave);
+  background: transparent;
+  border: 1px solid var(--card-border);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+/* .btn-visualizar {
+  width: 100%;
+  margin-top: 22px;
+  padding: 8px 0;
+  font-family: inherit;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: var(--texto-suave);
+  background: transparent;
+  border: 1px solid var(--card-border);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+} */
+
+.btn-visualizar:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--texto);
+}
+
+/* ===== Ações do card (editar / excluir) ===== */
+.card-acoes {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.card-acoes button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.card-acoes button img {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
+.btn-editar:hover {
+  background-color: rgba(61, 90, 254, 0.18);
+  border-color: var(--azul-icone);
+}
+
+.btn-excluir:hover {
+  background-color: rgba(255, 70, 70, 0.15);
+  border-color: #ff4646;
+}
+
+/* ===== Foco acessível ===== */
+.btn-visualizar:focus-visible,
+.card-acoes button:focus-visible {
+  outline: 2px solid var(--azul-icone);
+  outline-offset: 2px;
+}
+
+@media (min-width: 1440px) {
+  .containerGerenciamentoServidor {
+    max-width: 1400px;
+  }
+
+  .servidores {
+    gap: 40px 32px;
+  }
+}
+
+/* Notebooks / tablets na horizontal */
+@media (max-width: 1024px) {
+  .containerGerenciamentoServidor header h1 {
+    font-size: 1.75rem;
+  }
+
+  .servidores {
+    gap: 28px 20px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .containerGerenciamentoServidor {
+    padding: 20px 20px 40px;
+  }
+
+  .containerGerenciamentoServidor header h1 {
+    font-size: 1.5rem;
+  }
+
+  .actions {
+    margin-top: 94px;
+    align-self: start;
+  }
+
+  .servidores {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    margin-top: 24px;
+    padding: 0;
+  }
+
+  .card-servidor {
+    width: 100%;
+    max-width: 240px;
+  }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+  .containerGerenciamentoServidor {
+    padding: 16px 16px 32px;
+  }
+
+  .containerGerenciamentoServidor header h1 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  #btn-novo-servidor {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 14px;
+  }
+
+  #btn-novo-servidor p {
+    font-size: 0.875rem;
+  }
+
+  #btn-novo-servidor img {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* 1 card por linha, ocupando a largura toda */
+  .servidores {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-servidor {
+    max-width: 100%;
+    padding: 14px 14px 16px;
+  }
+
+  .status {
+    font-size: 0.6875rem;
+  }
+
+  .nome-servidor {
+    font-size: 1.25rem;
+  }
+
+  .sistema-operacional {
+    font-size: 0.9375rem;
+  }
+
+  /* Alvos de toque maiores */
+  .btn-visualizar {
+    padding: 12px 0;
+    font-size: 0.8125rem;
+  }
+
+  .card-acoes button {
+    height: 44px;
+  }
+
+  .card-acoes button img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 360px) {
+  .card-acoes {
+    gap: 12px;
+  }
+}
+
+/* Desativa o hover de "levantar" em dispositivos touch */
+@media (hover: none) {
+  .card-servidor:hover,
+  #btn-novo-servidor:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

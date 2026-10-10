@@ -1,0 +1,476 @@
+:root {
+    --bg-pagina: #0a0f1f;
+    --bg-card: #121936;
+    --bg-card-borda: #2b3463;
+    --bg-item: #262c4a;
+    --bg-input: #1e2442;
+    --borda-input: #3a4272;
+    --texto: #ffffff;
+    --texto-suave: #aab0cc;
+    --texto-placeholder: #7d84a8;
+    --primaria: #6573e6;
+    --primaria-hover: #7784f0;
+    --perigo: #ff1a1a;
+    --raio: 6px;
+    --espaco: clamp(12px, 2vw, 24px);
+}
+
+
+
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+ 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--primaria-hover);
+    outline-offset: 2px;
+}
+ 
+label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--texto-suave);
+}
+ 
+input,
+select {
+    width: 100%;
+    height: 32px;
+    padding: 0 12px;
+    background: var(--bg-input);
+    color: var(--texto);
+    border: 1px solid var(--borda-input);
+    border-radius: var(--raio);
+    font-family: inherit;
+    font-size: 0.75rem;
+}
+ 
+input::placeholder {
+    color: var(--texto-placeholder);
+}
+ 
+input[type="number"] {
+    text-align: center;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+ 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+select {
+    cursor: pointer;
+}
+ 
+/* ---------- Cabeçalho ---------- */
+ 
+.cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-direction: row;
+    margin-bottom: var(--espaco);
+}
+ 
+.btn-voltar {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+}
+ 
+.btn-voltar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+ 
+.cabecalho-titulos h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+ 
+.cabecalho-titulos p {
+    margin: 2px 0 0;
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+}
+ 
+/* ---------- Cards (Especificação e Token) ---------- */
+ 
+.topo {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: var(--espaco);
+    margin-bottom: var(--espaco);
+}
+ 
+.card {
+    padding: 14px 18px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-borda);
+    border-radius: 8px;
+}
+ 
+.card h2 {
+    margin: 0 0 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+ 
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+ 
+/* Especificação: nome + SO na linha 1, intervalo na linha 2 */
+.especificacao {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 18px;
+    row-gap: 14px;
+    align-content: start;
+}
+ 
+.especificacao h2 {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+}
+ 
+.especificacao .campo:nth-of-type(3) {
+    max-width: 100%;
+}
+ 
+.especificacao .campo:nth-of-type(3) input {
+    max-width: 140px;
+}
+ 
+/* Token */
+.token .campo-token {
+    position: relative;
+}
+ 
+.token .campo-token input {
+    padding-right: 40px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-overflow: ellipsis;
+}
+ 
+.btn-copiar {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+}
+ 
+.btn-copiar img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+ 
+.texto-auxiliar {
+    margin: 14px 0 0;
+    font-size: 0.72rem;
+    color: var(--texto-suave);
+}
+ 
+/* ---------- Componentes ---------- */
+ 
+.componentes {
+    padding: clamp(16px, 3vw, 40px);
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-borda);
+    border-radius: 4px;
+    min-height: 300px;
+}
+ 
+.componentes-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+ 
+.componentes-topo h2 {
+    margin: 0;
+    max-width: 420px;
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.25;
+}
+ 
+.btn-adicionar,
+.btn-cancelar,
+.btn-salvar {
+    padding: 12px 24px;
+    background: var(--primaria);
+    color: var(--texto);
+    border: 0;
+    border-radius: var(--raio);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+ 
+.btn-adicionar:hover,
+.btn-cancelar:hover,
+.btn-salvar:hover {
+    background: var(--primaria-hover);
+}
+ 
+.btn-adicionar {
+    flex-shrink: 0;
+    padding: 12px 24px;
+    font-size: 0.85rem;
+}
+ 
+.lista-componentes {
+    padding-left: clamp(0px, 3vw, 26px);
+}
+ 
+.lista-componentes h3 {
+    margin: 0 0 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+ 
+.lista-componentes > p {
+    margin: 0 0 18px;
+    max-width: 260px;
+    font-size: 0.72rem;
+    color: var(--texto-suave);
+}
+ 
+.lista-componentes {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+ 
+.lista-componentes h3,
+.lista-componentes > p {
+    margin-bottom: 0;
+}
+ 
+.lista-componentes > p {
+    margin-bottom: 4px;
+}
+ 
+/* Item de componente */
+.componente-item {
+    display: grid;
+    grid-template-columns: 150px repeat(3, minmax(0, 1fr)) 40px;
+    align-items: center;
+    column-gap: clamp(12px, 2vw, 28px);
+    padding: 12px 24px 12px 20px;
+    background: var(--bg-item);
+    border: 1px solid #343b5e;
+    border-radius: 4px;
+}
+ 
+.componente-nome {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+ 
+.componente-nome img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+ 
+.componente-campo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+ 
+.componente-campo label {
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+}
+ 
+.componente-campo input {
+    flex: 1;
+    min-width: 0;
+    height: 28px;
+    padding: 0 8px;
+    background: #2d3454;
+    border: 1px solid #454d7a;
+    font-size: 0.72rem;
+}
+ 
+.btn-excluir {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    justify-self: end;
+    background: transparent;
+    border: 0;
+}
+ 
+.btn-excluir img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+ 
+.btn-excluir:hover {
+    filter: brightness(1.25);
+}
+ 
+/* ---------- Ações ---------- */
+ 
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+    margin-top: clamp(24px, 6vw, 70px);
+    padding-bottom: var(--espaco);
+}
+ 
+.btn-cancelar,
+.btn-salvar {
+    min-width: 152px;
+    padding: 14px 24px;
+    font-size: 1rem;
+}
+ 
+/* ==========================================================
+   Responsividade
+   ========================================================== */
+ 
+/* Tablets */
+@media (max-width: 1024px) {
+    .componente-item {
+        position: relative;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 14px 20px;
+        padding: 16px 18px;
+    }
+ 
+    .componente-nome {
+        grid-column: 1 / -1;
+        gap: 14px;
+        padding-right: 48px;
+    }
+ 
+    .componente-campo {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+ 
+    .componente-campo label {
+        font-size: 0.8rem;
+    }
+ 
+    .componente-campo input {
+        flex: none;
+        width: 100%;
+        height: 36px;
+        padding: 0 12px;
+        font-size: 0.85rem;
+    }
+ 
+    .btn-excluir {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        width: 34px;
+        height: 34px;
+    }
+}
+ 
+/* Tablets pequenos: cards de cima empilhados */
+@media (max-width: 800px) {
+    .topo {
+        grid-template-columns: 1fr;
+    }
+}
+ 
+/* Celulares */
+@media (max-width: 560px) {
+    .cabecalho {
+        gap: 10px;
+    }
+ 
+    .btn-voltar {
+        width: 40px;
+        height: 40px;
+    }
+ 
+    .especificacao {
+        grid-template-columns: 1fr;
+    }
+ 
+    .especificacao .campo:nth-of-type(3) input {
+        max-width: none;
+    }
+ 
+    .componentes-topo {
+        flex-direction: column;
+        align-items: stretch;
+    }
+ 
+    .btn-adicionar {
+        width: 100%;
+    }
+ 
+    .lista-componentes {
+        padding-left: 0;
+    }
+ 
+    /* Um campo por linha, com largura total */
+    .componente-item {
+        grid-template-columns: 1fr;
+    }
+ 
+    .acoes {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+ 
+    .btn-cancelar,
+    .btn-salvar {
+        width: 100%;
+    }
+}
+ 
+/* Respeita preferência de menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}

@@ -17,7 +17,7 @@
     <title>MonTech - Cadastro de Servidor</title>
 </head>
 
-<body onload="carregarInformacoes()">
+<body id="pagina">
     <aside class="sidebar" id="sidebar" aria-label="Menu principal">
       <div class="sbLogo">
         <img class="sbLogoLonga" src="../img/longLigthLogo.svg" alt="MonTech" />
@@ -234,7 +234,7 @@
     <main class="containerCadastroServidor">
         <!-- Cabeçalho -->
       <header class="cabecalho">
-          <button type="button" class="btn-voltar">
+          <button type="button" class="btn-voltar" id="btn-voltar">
               <img src="../img/Servidores/voltarIcon.svg" alt="Voltar">
           </button>
           <div class="cabecalho-titulos">
@@ -273,14 +273,14 @@
               <div class="campo">
                   <label for="token-unico">Token único (Esse token é a identificação única desse servidor )</label>
                   <div class="campo-token">
-                      <input type="text" id="token-unico" name="token-unico" readonly>
-                      <button type="button" class="btn-copiar">
+                      <input type="text" id="token-unico" name="token-unico" readonly value="AAAAAAAAAAa">
+                      <button type="button" class="btn-copiar" id="btn-copiar">
                           <img src="../img/Servidores/copyIcon.svg" alt="Copiar token">
                       </button>
                   </div>
               </div>
-
               <p class="texto-auxiliar">O token será necessário para ativar o monitoramento do servidor</p>
+              <p class="texto-auxiliar" id="msgTokenCopiado">Token copiado com sucesso!</p>
           </div>
       </section>
 
@@ -288,74 +288,41 @@
       <section class="componentes">
           <div class="componentes-topo">
               <h2>Selecione os componentes para monitorar</h2>
-              <button type="button" class="btn-adicionar">Adicionar componente</button>
+              <button type="button" class="btn-adicionar" id="btn-lista-componente">Adicionar componente</button>
           </div>
 
           <div class="lista-componentes">
               <h3>Lista de componente</h3>
               <p>Ajuste os parâmetros de atenção e crítico para receber seus alertas</p>
 
-              <!-- Item: CPU -->
-              <div class="componente-item">
-                  <div class="componente-nome">
-                      <img src="../img/Servidores/cpuIcon.svg" alt="CPU">
-                      <span>CPU</span>
-                  </div>
 
-                  <div class="componente-campo">
-                      <label for="cpu-metrica">Métrica</label>
-                      <input type="text" id="cpu-metrica" placeholder="Porcentagem">
-                  </div>
-
-                  <div class="componente-campo">
-                      <label for="cpu-atencao">Atenção</label>
-                      <input type="number" id="cpu-atencao">
-                  </div>
-
-                  <div class="componente-campo">
-                      <label for="cpu-critico">Crítico</label>
-                      <input type="number" id="cpu-critico">
-                  </div>
-
-                  <button type="button" class="btn-excluir">
-                      <img src="../img/Servidores/lixoIcon.svg" alt="Excluir componente">
-                  </button>
-              </div>
-
-              <!-- Item: Mem. RAM -->
-              <div class="componente-item">
-                  <div class="componente-nome">
-                      <img src="../img/Servidores/ramIcon.svg" alt="Memória RAM">
-                      <span>Mem. RAM</span>
-                  </div>
-
-                  <div class="componente-campo">
-                      <label for="ram-metrica">Métrica</label>
-                      <input type="text" id="ram-metrica" placeholder="Porcentagem">
-                  </div>
-
-                  <div class="componente-campo">
-                      <label for="ram-atencao">Atenção</label>
-                      <input type="number" id="ram-atencao">
-                  </div>
-
-                  <div class="componente-campo">
-                      <label for="ram-critico">Crítico</label>
-                      <input type="number" id="ram-critico">
-                  </div>
-
-                  <button type="button" class="btn-excluir">
-                      <img src="../img/Servidores/lixoIcon.svg" alt="Excluir componente">
-                  </button>
-              </div>
           </div>
       </section>
 
       <!-- Ações -->
       <footer class="acoes">
-          <button type="button" class="btn-cancelar">Cancelar</button>
+          <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
           <button type="button" class="btn-salvar">Salvar servidor</button>
       </footer>
+
+
+      <div class="popup" id="popup-componente" aria-labelledby="popup-titulo">
+        <button class="popup__fechar" id="btnFecharPopUp" type="button" aria-label="Fechar" data-fechar-popup>
+          <img src="../img/Servidores/LetraXicon.svg" alt="">
+        </button>
+
+        <div class="popup__conteudo">
+          <header class="popup__cabecalho">
+            <h2 class="popup__titulo" id="popup-titulo">Selecione o componente</h2>
+            <p class="popup__subtitulo">(Clique para adicionar)</p>
+          </header>
+
+          <div class="popup__painel">
+            <ul class="popup__lista">
+            </ul>
+          </div>
+        </div>
+      </div>
     </main>
 
 </body>

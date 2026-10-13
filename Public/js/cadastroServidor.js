@@ -1,23 +1,7 @@
-const BotaoVoltar = document.getElementById('btn-voltar');
-const Token = document.getElementById('token-unico');
-const msgToken = document.getElementById('msgTokenCopiado');
-const botaoCopiar = document.getElementById('btn-copiar');
-const btnFecharPopUp = document.getElementById('btnFecharPopUp');
-const ListaComponenteAdicionar = document.getElementById('popup-componente');
-const btnListaComponente = document.getElementById('btn-lista-componente');
-const btnCancelar = document.getElementById('btn-cancelar');
-
 window.addEventListener('DOMContentLoaded', function() {
     gerarToken();
 });
 
-BotaoVoltar.addEventListener('click', function() {
-    window.location.href = './gerenciamentoServidor.html';
-});
-
-btnCancelar.addEventListener('click', function() {
-    window.location.href = './gerenciamentoServidor.html';
-});
 
 function gerarToken() {
     const inicial = 'm'
@@ -42,19 +26,7 @@ function gerarToken() {
     }
 }
 
-botaoCopiar.addEventListener('click', function() {
-        navigator.clipboard.writeText(Token.value)
-            .then(() => {
-                msgToken.style.display = 'flex';
-                msgToken.innerHTML = 'Token copiado com sucesso!';
-            })
-            .catch(err => {
-                msgToken.style.display = 'flex';
-                msgToken.innerHTML = 'Token não copiado (Erro)';
-                console.error('Erro ao copiar o token: ', err);
-            });
-            
-});
+
 
 const OpcoesDisponiveis = [
   {
@@ -83,11 +55,9 @@ function renderizarListaComponentes(dados) {
     container.innerHTML = '';
 
     dados.forEach(item => {
-        // Cria a div principal do item
         const divItem = document.createElement('div');
         divItem.className = 'componente-item';
 
-        // Injeta a estrutura HTML baseada no seu molde
         divItem.innerHTML = `
             <div class="componente-nome">
                 <img src="${item.icone}" alt="${item.componente}">
@@ -96,7 +66,11 @@ function renderizarListaComponentes(dados) {
 
             <div class="componente-campo">
                 <label for="${item.id}-metrica">Métrica</label>
-                <input type="text" id="${item.id}-metrica" placeholder="${item.metrica}">
+                <select id="${item.id}-metrica" name="metrica">
+                      <option value="Porcentagem">Porcentagem</option>
+                      <option value="Processos">Processos</option>
+                      <option value="Bytes">Bytes</option>
+                </select>
             </div>
 
             <div class="componente-campo">
@@ -168,11 +142,6 @@ function renderizarPopupList() {
     });
 }
 
-btnListaComponente.addEventListener('click', function(){
-    ListaComponenteAdicionar.style.display = 'flex';
-    renderizarPopupList();
-})
 
-btnFecharPopUp.addEventListener('click', function(){
-    ListaComponenteAdicionar.style.display = 'none';
-})
+
+

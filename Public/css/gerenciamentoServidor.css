@@ -27,7 +27,6 @@
   color: var(--texto);
 }
 
-/* ===== Ações (botão Novo Servidor) ===== */
 .actions {
   display: flex;
   justify-content: flex-end;
@@ -63,7 +62,6 @@
   transform: translateY(-1px);
 }
 
-/* ===== Lista de cards ===== */
 .servidores {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -72,15 +70,7 @@
   margin-top: 32px;
   padding: 0 16px;
 }
-/* .servidores {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
-  justify-items: center;
-  gap: 32px 24px;
-  margin-top: 32px;
-  padding: 0 16px;
-} */
-/* ===== Card ===== */
+
 .card-servidor {
   display: flex;
   flex-direction: column;
@@ -90,16 +80,6 @@
   border: 1px solid var(--card-border);
   transition: transform 0.2s ease, box-shadow 0.5s ease;
 }
-
-/* .card-servidor {
-  display: flex;
-  flex-direction: column;
-  width: 178px;
-  padding: 10px 11px 12px;
-  background: linear-gradient(180deg, var(--card-bg-top), var(--card-bg-bottom));
-  border: 1px solid var(--card-border);
-  transition: transform 0.2s ease, box-shadow 0.5s ease;
-} */
 
 .card-servidor:hover {
   box-shadow: 1px 8px 20px rgba(0, 0, 0, 1);
@@ -111,13 +91,6 @@
   line-height: 1;
   color: var(--texto);
 }
-/* 
-.status {
-  font-size: 0.5625rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--texto);
-} */
 
 .status-valor {
   font-weight: 500;
@@ -139,13 +112,6 @@
   line-height: 1.2;
   color: var(--texto);
 }
-/* .nome-servidor {
-  margin-top: 6px;
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--texto);
-} */
 
 .sistema-operacional {
   margin-top: 6px;
@@ -154,16 +120,7 @@
   line-height: 1.2;
   color: var(--texto);
 }
-/* 
-.sistema-operacional {
-  margin-top: 6px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--texto);
-} */
 
-/* ===== Botão Visualizar ===== */
 .btn-visualizar {
   width: 100%;
   margin-top: 42px;
@@ -177,26 +134,12 @@
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-/* .btn-visualizar {
-  width: 100%;
-  margin-top: 22px;
-  padding: 8px 0;
-  font-family: inherit;
-  font-size: 0.6875rem;
-  font-weight: 400;
-  color: var(--texto-suave);
-  background: transparent;
-  border: 1px solid var(--card-border);
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-} */
 
 .btn-visualizar:hover {
   background-color: rgba(255, 255, 255, 0.08);
   color: var(--texto);
 }
 
-/* ===== Ações do card (editar / excluir) ===== */
 .card-acoes {
   display: flex;
   justify-content: space-between;
@@ -232,7 +175,6 @@
   border-color: #ff4646;
 }
 
-/* ===== Foco acessível ===== */
 .btn-visualizar:focus-visible,
 .card-acoes button:focus-visible {
   outline: 2px solid var(--azul-icone);
@@ -249,7 +191,6 @@
   }
 }
 
-/* Notebooks / tablets na horizontal */
 @media (max-width: 1024px) {
   .containerGerenciamentoServidor header h1 {
     font-size: 1.75rem;
@@ -260,7 +201,6 @@
   }
 }
 
-/* Tablets */
 @media (max-width: 768px) {
   .containerGerenciamentoServidor {
     padding: 20px 20px 40px;
@@ -287,7 +227,6 @@
   }
 }
 
-/* Celulares */
 @media (max-width: 480px) {
   .containerGerenciamentoServidor {
     padding: 16px 16px 32px;
@@ -317,7 +256,6 @@
     height: 14px;
   }
 
-  /* 1 card por linha, ocupando a largura toda */
   .servidores {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -340,7 +278,6 @@
     font-size: 0.9375rem;
   }
 
-  /* Alvos de toque maiores */
   .btn-visualizar {
     padding: 12px 0;
     font-size: 0.8125rem;
@@ -356,14 +293,12 @@
   }
 }
 
-/* Telas muito pequenas */
 @media (max-width: 360px) {
   .card-acoes {
     gap: 12px;
   }
 }
 
-/* Desativa o hover de "levantar" em dispositivos touch */
 @media (hover: none) {
   .card-servidor:hover,
   #btn-novo-servidor:hover {

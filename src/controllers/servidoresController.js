@@ -39,7 +39,7 @@ async function removerServidorUsuario(req, res) {
     });
 }
 
-async function pegarServidoresPorEmpresa(req, res) {
+async function pegarServidoresPorAeroporto(req, res) {
   let usuarioId = req.params.id;
 
   let usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
@@ -47,10 +47,10 @@ async function pegarServidoresPorEmpresa(req, res) {
     return res.status(404).json({ mensagem: "Usuário não encontrado." });
   }
 
-  let fkEmpresa = usuario[0].fkEmpresa;
+  let fkAeroporto = usuario[0].fkAeroporto;
 
   servidorModel
-    .pegarServidoresPorEmpresa(fkEmpresa)
+    .pegarServidoresPorAeroporto(fkAeroporto)
     .then(function (resultado) {
       res.json(resultado);
     })
@@ -70,7 +70,7 @@ async function cadastrarServidor(req, res) {
   var metodoDeColeta = req.body.metodoDeColetaServer;
   var intervaloDeColeta = req.body.intervaloDeColetaServer;
   var componentes = req.body.componentesServer;
-  var fkEmpresa = req.body.fkEmpresaServer;
+  var fkAeroporto = req.body.fkAeroportoServer;
 
   if (!nomeServidor) {
     res.status(400).send("O nome do servidor está vazio ou undefined!");
@@ -84,8 +84,8 @@ async function cadastrarServidor(req, res) {
         sistemaOperacional,
         metodoDeColeta,
         intervaloDeColeta,
-        fkEmpresa,
-        fktipoServidor,
+        fkAeroporto,
+        fkTipoServidor,
       );
 
       let idServidor = resultadoServidor.insertId;
@@ -126,6 +126,6 @@ async function cadastrarServidor(req, res) {
 module.exports = {
   adicionarServidoresUsuario,
   removerServidorUsuario,
-  pegarServidoresPorEmpresa,
+  pegarServidoresPorAeroporto,
   cadastrarServidor,
 };

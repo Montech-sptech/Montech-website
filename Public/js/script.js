@@ -4,7 +4,6 @@ var fecharCadastro = document.getElementById("fecharModalCadastro");
 var modalL = document.getElementById("modalLogin");
 var fecharLogin = document.getElementById("fecharModalLogin");
 
-var botaoLogin = document.getElementById("botaoEntrar");
 var botaoCriar = document.getElementById("botaoCriar");
 
 let usuarioEmEmpresa = false;
@@ -178,18 +177,6 @@ function verificarCadastrados() {
         .catch(function (erro) {
             console.log(`#ERRO: ${erro}`);
         });
-}
-
-
-function validar() {
-    if (sessionStorage.getItem("ID")) {
-        botaoCriar.style.display = 'none';
-        botaoLogin.style.display = 'none';
-        botaoAcesso.style.display = 'block';
-        modalL.style.display = 'none';
-    } else {
-        botaoAcesso.style.display = 'none';
-    }
 }
 
 function logar() {

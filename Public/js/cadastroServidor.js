@@ -1,143 +1,147 @@
-var formCadastroServidor = document.getElementById("formCadastroServidor");
-var listaLimites = document.getElementById("listaLimites");
-var checkboxesComponentes = document.querySelectorAll("input[name='componentes']");
-
-var nomesComponentes = {
-    cpu: "CPU",
-    ram: "Mem. RAM",
-    disco: "Disco"
-};
- 
-var iconesComponentes = {
-    cpu: "../imagens/cpu.png",
-    ram: "../imagens/ram.png",
-    disco: "../imagens/disco.png"
-};
- 
-var limitesPadrao = {
-    atencao: 70,
-    critico: 90
-};
-
-checkboxesComponentes.forEach(function (checkbox) {
-    checkbox.addEventListener("change", atualizarListaLimites);
+window.addEventListener('DOMContentLoaded', function() {
+    gerarToken();
 });
 
 
-function atualizarListaLimites() {
-    checkboxesComponentes.forEach(function (checkbox) {
-        var idLinha = "limite_" + checkbox.value;
-        var linhaExistente = document.getElementById(idLinha);
+function gerarToken() {
+    const inicial = 'm'
+        .trim()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .charAt(0)
+        .toUpperCase();
 
-        if (checkbox.checked && !linhaExistente) {
-            adicionarLinhaLimite(checkbox.value);
-        } else if (!checkbox.checked && linhaExistente) {
-            linhaExistente.remove();
-        }
-    });
-}
+    const hoje = new Date();
+    const dia = String(hoje.getDate()).padStart(2, "0");
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+    const ano = hoje.getFullYear();
+    const prefixo = `${inicial}${dia}${mes}${ano}`;
 
-function adicionarLinhaLimite(componente) {
-    var linha = document.createElement("div");
-    linha.className = "linhaLimite";
-    linha.id = "limite_" + componente;
+    const aleatorio = Array.from(
+        crypto.getRandomValues(new Uint8Array(32 - prefixo.length)),
+        n => n % 10
+    ).join("");
 
-    linha.innerHTML = `
-        <div class="infoComponenteLimite">
-            <img class="iconeComponente" src="${iconesComponentes[componente]}" alt="">
-            <span class="nomeLimite">${nomesComponentes[componente]}</span>
-        </div>
-        <div class="campoLimiteItem">
-            <label class="labelLimite">Atenção</label>
-            <div class="grupoInputLimite">
-                <input type="number" class="inputLimite inputLimiteAtencao" data-componente="${componente}"
-                    value="${limitesPadrao.atencao}" min="0" max="100">
-                <span class="sufixoLimite">%</span>
-            </div>
-        </div>
-        <div class="campoLimiteItem">
-            <label class="labelLimite">Crítico</label>
-            <div class="grupoInputLimite">
-                <input type="number" class="inputLimite inputLimiteCritico" data-componente="${componente}"
-                    value="${limitesPadrao.critico}" min="0" max="100">
-                <span class="sufixoLimite">%</span>
-            </div>
-        </div>
-    `;
-
-    listaLimites.appendChild(linha);
-}
-
-// Monta as linhas de limite para os componentes já marcados por padrão ao carregar a página
-atualizarListaLimites();
-
-function cancelarCadastroServidor() {
-    formCadastroServidor.reset();
-    listaLimites.innerHTML = "";
-    atualizarListaLimites();
-}
-
-function salvarServidor() {
-    var nomeServidor = document.getElementById("nomeServidor").value;
-    var hostName = document.getElementById("hostnameServidor").value;
-    var tipoServidor = document.getElementById("tipoServidor").value;
-    var metodoDeColeta = document.getElementById("metodoColeta").value;
-    var intervaloDeColeta = document.getElementById("intervaloColeta").value;
-
-    var componentesSelecionados = document.querySelectorAll("input[name='componentes']:checked");
-    var componentes = [];
-
-    componentesSelecionados.forEach(function (checkbox) {
-        var inputAtencao = document.querySelector(".inputLimiteAtencao[data-componente='" + checkbox.value + "']");
-        var inputCritico = document.querySelector(".inputLimiteCritico[data-componente='" + checkbox.value + "']");
-
-        componentes.push({
-            nomeComponente: nomesComponentes[checkbox.value],
-            limiteAtencao: inputAtencao ? inputAtencao.value : null,
-            limiteCritico: inputCritico ? inputCritico.value : null
-        });
-    });
-
-    if (componentes.length === 0) {
-        alert("Selecione ao menos um componente para monitorar!");
-        return;
+    if (Token) {
+        Token.value = `${prefixo}${aleatorio}`;
     }
-
-    console.log(componentes)
-
-    fetch("/servidores/cadastrar/servidor", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nomeServidorServer: nomeServidor,
-            hostNameServer: hostName,
-            tipoServidorServer: tipoServidor,
-            metodoDeColetaServer: metodoDeColeta,
-            intervaloDeColetaServer: intervaloDeColeta,
-            componentesServer: componentes
-        })
-    })
-        .then(function (resposta) {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                return resposta.text().then(function (mensagemErro) {
-                    throw new Error(mensagemErro);
-                });
-            }
-        })
-        .then(function (resultado) {
-            console.log("Servidor cadastrado com sucesso: ", resultado);
-            alert("Servidor cadastrado com sucesso!");
-            formCadastroServidor.reset();
-            listaLimites.innerHTML = "";
-            atualizarListaLimites();
-        })
-        .catch(function (erro) {
-            console.log(erro);
-            alert("Erro ao cadastrar servidor: " + erro.message);
-        });
 }
+
+
+
+const OpcoesDisponiveis = [
+  {
+    "id": "1",
+    "componente": "CPU",
+    "metrica": "Porcentagem",
+    "icone": "../img/Servidores/cpuIcon.svg",
+    "atencao": 13,
+    "critico": 13
+  },
+  {
+    "id": "2",
+    "componente": "Mem. RAM",
+    "metrica": "Porcentagem",
+    "icone": "../img/Servidores/ramIcon.svg",
+    "atencao": 22,
+    "critico": 22 
+  }
+];
+
+const itemAdicionados = []
+
+
+function renderizarListaComponentes(dados) {
+    const container = document.querySelector('.lista-componentes');
+    container.innerHTML = '';
+
+    dados.forEach(item => {
+        const divItem = document.createElement('div');
+        divItem.className = 'componente-item';
+
+        divItem.innerHTML = `
+            <div class="componente-nome">
+                <img src="${item.icone}" alt="${item.componente}">
+                <span>${item.componente}</span>
+            </div>
+
+            <div class="componente-campo">
+                <label for="${item.id}-metrica">Métrica</label>
+                <select id="${item.id}-metrica" name="metrica">
+                      <option value="Porcentagem">Porcentagem</option>
+                      <option value="Processos">Processos</option>
+                      <option value="Bytes">Bytes</option>
+                </select>
+            </div>
+
+            <div class="componente-campo">
+                <label for="${item.id}-atencao">Atenção</label>
+                <input type="number" id="${item.id}-atencao" value="${item.atencao}">
+            </div>
+
+            <div class="componente-campo">
+                <label for="${item.id}-critico">Crítico</label>
+                <input type="number" id="${item.id}-critico" value="${item.critico}">
+            </div>
+
+            <button type="button" class="btn-excluir">
+                <img src="../img/Servidores/lixoIcon.svg" alt="Excluir componente">
+            </button>
+        `;
+
+        const btnExcluir = divItem.querySelector('.btn-excluir');
+        btnExcluir.addEventListener('click', function() {
+            const indice = itemAdicionados.findIndex(elemento => elemento.id === item.id);
+            
+            OpcoesDisponiveis.push(itemAdicionados[indice])
+
+            if (indice !== -1) {
+                itemAdicionados.splice(indice, 1);
+                console.log('Item removido do array. Lista atual:', itemAdicionados);
+            }
+
+            divItem.remove();
+        });
+
+        container.appendChild(divItem);
+    });
+}
+
+function renderizarPopupList() {
+    const popupContainer = document.querySelector('.popup__lista');
+        popupContainer.innerHTML = '';
+
+    OpcoesDisponiveis.forEach(item => {
+
+        const li = document.createElement('li');
+
+        li.innerHTML = `
+            <button class="componente btn-adicionar-componente" type="button" data-componente="${item.id}">
+                <img class="componente__icone" src="${item.icone}" alt="${item.componente}">
+                ${item.componente}
+            </button>
+        `;
+
+        const botao = li.querySelector('.btn-adicionar-componente');
+
+        botao.addEventListener('click', function() { 
+            const idBuscado = botao.dataset.componente;
+            
+            const indiceOpcao = OpcoesDisponiveis.findIndex(opcao => opcao.id === idBuscado);
+            
+            if (indiceOpcao !== -1) {
+                const [itemEncontrado] = OpcoesDisponiveis.splice(indiceOpcao, 1);
+                itemAdicionados.push(itemEncontrado);
+                renderizarListaComponentes(itemAdicionados);                
+                renderizarPopupList();
+                console.log('Item movido com sucesso para os adicionados:', itemAdicionados);
+            }
+            ListaComponenteAdicionar.style.display = 'none';
+        });
+
+        popupContainer.appendChild(li);
+    });
+}
+
+
+
 

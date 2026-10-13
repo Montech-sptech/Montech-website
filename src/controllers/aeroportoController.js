@@ -1,4 +1,4 @@
-var empresaModel = require("../models/empresaModel");
+var empresaModel = require("../models/aeroportoModel");
 
 function verificarCadastrados(req, res) {
   empresaModel
@@ -13,22 +13,22 @@ function verificarCadastrados(req, res) {
     });
 }
 
-function carregarEmpresas(req, res) {
+function carregarAeroportos(req, res) {
   empresaModel
-    .listarEmpresas()
+    .listarAeroportos()
     .then(function (resultado) {
       res.status(200).json(resultado);
     })
     .catch(function (erro) {
       console.log(erro);
-      console.log("Erro ao buscar empresas cadastradas");
+      console.log("Erro ao buscar aeroportos cadastrados");
 
       res.status(500).json(erro.sqlMessage);
     });
 }
 
 async function cadastrar(req, res) {
-  console.log("Acessei o empresaController - cadastrar");
+  console.log("Acessei o aeroportoController - cadastrar");
 
   var razaoSocial = req.body.razaoSocialServer;
   var cnpj = req.body.cnpjServer;
@@ -63,13 +63,13 @@ async function cadastrar(req, res) {
         .cadastrar(razaoSocial, cnpj, email, cep, numero)
         .then(function (resultado) {
           res.json({
-            empresa_id: resultado.insertId,
-            codigo_empresa: codigo,
+            aeroporto_id: resultado.insertId,
+            codigo_aeroporto: codigo,
           });
         })
         .catch(function (erro) {
           console.log(
-            "\nHouve erro ao cadastrar empresa! ERRO: ",
+            "\nHouve erro ao cadastrar aeroporto! ERRO: ",
             erro.sqlMessage,
           );
           res.status(500).json(erro.sqlMessage);
@@ -83,6 +83,6 @@ async function cadastrar(req, res) {
 
 module.exports = {
   verificarCadastrados,
-  carregarEmpresas,
+  carregarAeroportos,
   cadastrar,
 };

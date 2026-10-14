@@ -9,6 +9,10 @@ let idCargoEditando = null;
 let idCargoExcluindo = null;
 let salvandoCargo = false;
 
+function usuarioPodeGerenciarCargos() {
+  return normalizarTexto(sessionStorage.getItem("CARGO")) == "administrador";
+}
+
 function svgIcone(corpo) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${corpo}</svg>`;
 }
@@ -56,32 +60,41 @@ function formatarNomePermissao(nome) {
 }
 
 async function carregarDadosCargos() {
+  if (!usuarioPodeGerenciarCargos()) {
+    listaCargos = [];
+    renderizarCargos();
+    return;
+  }
+
   const idAdministrador = sessionStorage.ID;
 
   try {
-    const [respostaCargos, respostaPermissoes] = await Promise.all([
-      fetch(`/cargos/listar/${idAdministrador}`),
-      fetch(`/cargos/permissoes/${idAdministrador}`),
-    ]);
-    const [cargos, permissoes] = await Promise.all([
-      respostaCargos.json().catch(() => null),
-      respostaPermissoes.json().catch(() => null),
-    ]);
+    const respostaCargos = await fetch(`/cargos/listar/${idAdministrador}`);
+    const cargos = await respostaCargos.json().catch(() => null);
 
     if (!respostaCargos.ok) {
       throw new Error(
         (cargos && cargos.mensagem) || `Erro ${respostaCargos.status}`,
       );
     }
-    if (!respostaPermissoes.ok) {
-      throw new Error(
-        (permissoes && permissoes.mensagem) ||
-          `Erro ${respostaPermissoes.status}`,
-      );
-    }
 
     listaCargos = Array.isArray(cargos) ? cargos : [];
-    permissoesDisponiveis = Array.isArray(permissoes) ? permissoes : [];
+    permissoesDisponiveis = [];
+
+    if (usuarioPodeGerenciarCargos()) {
+      const respostaPermissoes = await fetch(
+        `/cargos/permissoes/${idAdministrador}`,
+      );
+      const permissoes = await respostaPermissoes.json().catch(() => null);
+
+      if (!respostaPermissoes.ok) {
+        throw new Error(
+          (permissoes && permissoes.mensagem) ||
+            `Erro ${respostaPermissoes.status}`,
+        );
+      }
+      permissoesDisponiveis = Array.isArray(permissoes) ? permissoes : [];
+    }
 
     renderizarCargos();
   } catch (erro) {
@@ -159,6 +172,7 @@ function montarChipsPermissoes(permissoes) {
 function montarLinhaCargo(cargo) {
   const classeStatus = cargo.status ? "ativo" : "inativo";
   const textoStatus = cargo.status ? "Ativo" : "Inativo";
+  const podeGerenciar = usuarioPodeGerenciarCargos();
 
   let motivoSemExcluir = "";
   if (cargo.protegido) {
@@ -189,8 +203,8 @@ function montarLinhaCargo(cargo) {
       </div>
       <div class="col colAcoes">
         <div class="acoesLinha">
-          <button class="btnIcone" type="button" title="Editar cargo" aria-label="Editar ${escaparHtml(cargo.nome)}" onclick="abrirModalCargo(${cargo.idCargo})">${ICONES.editar}</button>
-          <button class="btnIcone perigo" type="button" title="${escaparHtml(motivoSemExcluir || "Excluir cargo")}" aria-label="Excluir ${escaparHtml(cargo.nome)}" ${motivoSemExcluir ? "disabled" : ""} onclick="abrirModalExclusaoCargo(${cargo.idCargo})">${ICONES.lixeira}</button>
+          <button class="btnIcone" type="button" title="${podeGerenciar ? "Editar cargo" : "Sem permissão para editar cargos"}" aria-label="Editar ${escaparHtml(cargo.nome)}" ${podeGerenciar ? "" : "disabled"} onclick="abrirModalCargo(${cargo.idCargo})">${ICONES.editar}</button>
+          <button class="btnIcone perigo" type="button" title="${escaparHtml(motivoSemExcluir || (podeGerenciar ? "Excluir cargo" : "Sem permissão para excluir cargos"))}" aria-label="Excluir ${escaparHtml(cargo.nome)}" ${motivoSemExcluir || !podeGerenciar ? "disabled" : ""} onclick="abrirModalExclusaoCargo(${cargo.idCargo})">${ICONES.lixeira}</button>
         </div>
       </div>
     </div>`;
@@ -202,7 +216,9 @@ function renderizarCargos() {
 
   if (filtrados.length == 0) {
     const mensagem =
-      listaCargos.length == 0
+      !usuarioPodeGerenciarCargos()
+        ? "Você não tem permissão para visualizar os cargos."
+        : listaCargos.length == 0
         ? "Nenhum cargo cadastrado. Clique em “Novo Cargo” para criar o primeiro."
         : "Nenhum cargo encontrado para essa busca.";
     lista.innerHTML = `<div class="estadoVazio">${mensagem}</div>`;
@@ -289,12 +305,15 @@ function atualizarContadorDescricao() {
 }
 
 function abrirModalCargo(idCargoClicado) {
+  if (!usuarioPodeGerenciarCargos()) return;
+
   idCargoEditando = idCargoClicado ?? null;
+  const editando = idCargoEditando !== null;
+
   const erroModalCargo = document.getElementById("erroModalCargo");
   erroModalCargo.textContent = "";
   erroModalCargo.hidden = true;
 
-  const editando = idCargoEditando !== null;
   const cargo = editando
     ? listaCargos.find((c) => c.idCargo === idCargoEditando)
     : null;
@@ -460,6 +479,13 @@ document.addEventListener("keydown", (evento) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  const botaoNovoCargo = document.querySelector(".btnNovoCargo");
+  const podeGerenciar = usuarioPodeGerenciarCargos();
+  botaoNovoCargo.disabled = !podeGerenciar;
+  botaoNovoCargo.title = podeGerenciar
+    ? "Novo cargo"
+    : "Sem permissão para criar cargos";
+
   document.getElementById("modalCargo").addEventListener("mousedown", (e) => {
     if (e.target.id == "modalCargo") fecharModalCargo();
   });

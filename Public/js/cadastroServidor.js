@@ -2,7 +2,6 @@ window.addEventListener('DOMContentLoaded', function() {
     gerarToken();
 });
 
-
 function gerarToken() {
     const inicial = 'm'
         .trim()
@@ -65,7 +64,9 @@ window.addEventListener('DOMContentLoaded', function() {
     CarregarComponentes()
 })
 
-const itemAdicionados = []
+const itemAdicionados = [];
+const OpcoesDisponiveis = [];
+
 
 
 function renderizarListaComponentes(dados) {
@@ -159,7 +160,61 @@ function renderizarPopupList() {
     });
 }
 
-const OpcoesDisponiveis = [];
+
+const btnSalvar = document.getElementById('btn-salvar');
+
+btnSalvar.addEventListener('click', function() {
+    cadastrarServidor();
+})
 
 
+async function cadastrarServidor() {
+    const nomeServidor = document.getElementById('nome-servidor');
+    const sistemaOperacional = document.getElementById('sistema-operacional');
+    const tokenUnico = document.getElementById('token-unico');
+    const idAeroporto = sessionStorage.AEROPORTO_ID;
 
+    try {
+        const resposta = await fetch("/gerServidores/cadastrarServidor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                tokenServer: tokenUnico.value,
+                nomeServidorServer: nomeServidor.value,
+                sistemaOperacionalServer: sistemaOperacional.value,
+                fkAeroportoServer: idAeroporto
+            })
+        });
+
+        if (!resposta.ok) {
+            console.log("Houve um erro ao tentar realizar o cadastro de servidor!");
+            return false;
+        }
+
+        const json = await resposta.json();
+        const idServidor = json.insertId;
+
+        const componentes = itemAdicionados.map(({ idComponente, atencao, critico }) => ({
+            fkComponente: idComponente,
+            limiteAtencao: atencao,
+            limiteCritico: critico
+        }));
+
+        const respostaComp = await fetch("/gerServidores/cadastrarComponenteServidor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fkServidorServer: idServidor, componentesServer: componentes })
+        });
+
+        if (!respostaComp.ok) {
+            console.log("Erro componentes");
+            return false;
+        }
+
+        console.log("Tudo certo");
+        return true;
+    } catch (erro) {
+        console.log(erro);
+        return false;
+    }
+}

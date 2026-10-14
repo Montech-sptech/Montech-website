@@ -26,7 +26,77 @@ async function buscarComponentes(req, res) {
     });
 }
 
+
+function cadastrarServidor(req, res) {
+    var token = req.body.tokenServer;
+    var nomeServidor = req.body.nomeServidorServer;
+    var sistemaOperacional = req.body.sistemaOperacionalServer;
+    var fkAeroporto = req.body.fkAeroportoServer;
+
+    if (token == undefined) {
+        res.status(400).send("Seu token está undefined!");
+    } else if (nomeServidor == undefined) {
+        res.status(400).send("Seu nomeServidor está undefined!");
+    } else if (sistemaOperacional == undefined) {
+        res.status(400).send("Sua sistemaOperacional está undefined!");
+    } else if (fkAeroporto == undefined) {
+        res.status(400).send("Sua fkAeroporto está undefined!");
+    } else {
+        gerServidorModel.cadastrarServidor(token, nomeServidor, sistemaOperacional, fkAeroporto)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do servidor! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function cadastrarComponenteServidor(req, res) {
+    var fkServidor = req.body.fkServidorServer;
+    var componentes = req.body.componentesServer;
+
+
+    if (!fkServidor) {
+        return res.status(400).send("fkServidor Dados inválidos");
+    } else if (!Array.isArray(componentes)) {
+        return res.status(400).send("Array Dados inválidos");
+    }
+
+    if (componentes.length === 0) {
+        return res.status(200).json({ mensagem: "Nenhum componente para cadastrar" });
+    }
+
+
+    gerServidorModel.cadastrarComponenteServidor(fkServidor, componentes)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro do servidor! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
 module.exports = {
   buscarServidoresAeroporto,
-  buscarComponentes
+  buscarComponentes,
+  cadastrarServidor,
+  cadastrarComponenteServidor
 };

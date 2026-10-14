@@ -10,4 +10,12 @@ router.get("/buscarComponentes", function (req, res) {
     gerServidorController.buscarComponentes(req, res);
 });
 
+router.post("/cadastrarServidor", function (req, res) {
+    gerServidorController.cadastrarServidor(req, res);
+});
+
+router.post("/cadastrarComponenteServidor", function (req, res) {
+    gerServidorController.cadastrarComponenteServidor(req, res);
+});
+
 module.exports = router;

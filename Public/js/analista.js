@@ -1,170 +1,110 @@
-// Dados fixos usados no diagnóstico de cada servidor.
-var servidores = {
+// Dados fixos
+var servidorSelecionado = "AIS";
+var visualizacaoDisco = "ocupacao";
+
+var horariosColeta = [
+    "14:30", "14:31", "14:32",
+    "14:33", "14:34", "14:35"
+];
+
+var horariosOcorrencias = [
+    "14:00", "14:05", "14:10", "14:15",
+    "14:20", "14:25", "14:30", "14:35"
+];
+
+// A primeira taxa é null porque não há intervalo anterior
+var dadosServidores = {
     AIS: {
-        recursos: [
-            ["CPU", "92%", "Crítico ≥ 90%", "red"],
-            ["RAM", "81%", "Atenção ≥ 80%", "orange"],
-            ["Disco", "71%", "Atenção ≥ 80%", "green"]
-        ],
+        cpu: [85, 96, 87, 89, 90, 92],
+        ram: [76, 77, 78, 79, 80, 81],
+        disco: [70, 70.2, 70.4, 70.6, 70.8, 71],
 
-        indicadores: [
-            ["CPU média · 5 min", "87,4%"],
-            ["Pico de CPU · 5 min", "96% às 14:31"],
-            ["RAM média · janela disponível", "78,6%"],
-            ["Swap · 5 min", "houve atividade"],
-            ["Disco I/O · por ciclo", "leitura 2,4 MB · escrita 1,1 MB"],
-            ["CPU por núcleo", "[96, 91, 88, 93]%"]
-        ],
+        leituraDisco: [null, 0.35, 0.42, 0.55, 0.51, 0.48],
+        escritaDisco: [null, 0.18, 0.21, 0.29, 0.25, 0.22],
 
-        eventos: [
-            ["14:35", "Coleta recebida"],
-            ["14:18", "RAM ultrapassou 80%"],
-            ["14:09", "CPU ultrapassou 90%; INC-1024 aberto"]
-        ],
-
-        observacao:
-            "Comparar média de CPU, pico, uso por núcleo e horário do alerta.",
-
-        cpu: [62, 64, 70, 78, 82, 89, 92],
-        ram: [61, 62, 65, 70, 73, 77, 81],
-        disco: [66, 66, 67, 68, 69, 70, 71]
+        entradaSwap: [null, 0.01, 0.03, 0.02, 0.04, 0.02],
+        saidaSwap: [null, 0.02, 0.04, 0.03, 0.05, 0.03]
     },
 
     SDV: {
-        recursos: [
-            ["CPU", "60%", "Crítico ≥ 90%", "green"],
-            ["RAM", "56%", "Atenção ≥ 80%", "green"],
-            ["Disco", "82%", "Atenção ≥ 80%", "orange"]
-        ],
+        cpu: [55, 57, 73, 58, 59, 60],
+        ram: [54, 55, 55, 56, 56, 56],
+        disco: [80, 80.4, 80.8, 81.2, 81.6, 82],
 
-        indicadores: [
-            ["CPU média · 5 min", "59,2%"],
-            ["Pico de CPU · 5 min", "73% às 14:27"],
-            ["RAM média · janela disponível", "55,8%"],
-            ["Swap · 5 min", "sem atividade"],
-            ["Disco I/O · por ciclo", "leitura 1,8 MB · escrita 3,2 MB"],
-            ["CPU por núcleo", "[61, 58, 60, 61]%"]
-        ],
+        leituraDisco: [null, 0.25, 0.30, 0.40, 0.32, 0.36],
+        escritaDisco: [null, 0.42, 0.48, 0.62, 0.58, 0.64],
 
-        eventos: [
-            ["14:35", "Coleta recebida"],
-            ["14:24", "Disco ultrapassou 80%"],
-            ["30 dias", "3 incidentes anteriores da categoria disco"]
-        ],
-
-        observacao:
-            "Acompanhar a persistência do uso de disco e seu crescimento no período.",
-
-        cpu: [54, 55, 56, 56, 58, 59, 60],
-        ram: [51, 52, 52, 53, 54, 55, 56],
-        disco: [68, 70, 72, 75, 77, 80, 82]
+        entradaSwap: [null, 0, 0, 0, 0, 0],
+        saidaSwap: [null, 0, 0, 0, 0, 0]
     },
 
     SPA: {
-        recursos: [
-            ["CPU", "58%", "Crítico ≥ 90%", "green"],
-            ["RAM", "56%", "Atenção ≥ 80%", "green"],
-            ["Disco", "62%", "Atenção ≥ 80%", "green"]
-        ],
+        cpu: [54, 56, 68, 55, 57, 58],
+        ram: [54, 54, 55, 55, 56, 56],
+        disco: [61, 61.2, 61.4, 61.6, 61.8, 62],
 
-        indicadores: [
-            ["CPU média · 5 min", "56,9%"],
-            ["Pico de CPU · 5 min", "68% às 14:22"],
-            ["RAM média · janela disponível", "55,3%"],
-            ["Swap · 5 min", "sem atividade"],
-            ["Disco I/O · por ciclo", "leitura 0,9 MB · escrita 0,7 MB"],
-            ["CPU por núcleo", "[55, 59, 58, 60]%"]
-        ],
+        leituraDisco: [null, 0.12, 0.15, 0.21, 0.16, 0.18],
+        escritaDisco: [null, 0.09, 0.10, 0.18, 0.12, 0.14],
 
-        eventos: [
-            ["14:35", "Coleta recebida"],
-            ["Últimas 6 h", "Recursos abaixo dos limites"],
-            ["30 dias", "Sem recorrência da mesma categoria"]
-        ],
-
-        observacao:
-            "Recursos dentro dos limites no período apresentado.",
-
-        cpu: [55, 56, 54, 57, 55, 57, 58],
-        ram: [52, 53, 54, 54, 55, 56, 56],
-        disco: [58, 59, 60, 60, 61, 61, 62]
+        entradaSwap: [null, 0, 0, 0, 0, 0],
+        saidaSwap: [null, 0, 0, 0, 0, 0]
     }
 };
 
-// Dados fixos apresentados ao clicar nos olhinhos.
-var ocorrencias = {
+// Histórico exibido pelo botão Analisar
+var dadosOcorrencias = {
     cpu: {
-        titulo: "CPU do AIS · alerta crítico",
-        recurso: "CPU",
+        titulo: "CPU do AIS: alerta crítico",
+        nome: "CPU",
         limite: 90,
-        cor: "#ff5361",
-        valores: [48, 50, 54, 62, 71, 80, 89, 92]
+        valores: [48, 50, 54, 62, 71, 80, 85, 92]
     },
 
     ram: {
-        titulo: "RAM do AIS · alerta de atenção",
-        recurso: "RAM",
+        titulo: "RAM do AIS: alerta de atenção",
+        nome: "RAM",
         limite: 80,
-        cor: "#4fa3ff",
-        valores: [54, 56, 59, 64, 70, 74, 78, 81]
+        valores: [54, 56, 59, 64, 70, 74, 76, 81]
     },
 
-    disk: {
-        titulo: "Disco do SDV · alerta de atenção",
-        recurso: "Disco",
+    disco: {
+        titulo: "Disco do SDV: alerta de atenção",
+        nome: "Disco",
         limite: 80,
-        cor: "#ffad1f",
         valores: [51, 55, 59, 64, 70, 76, 80, 82]
     }
 };
 
-// Guarda os gráficos criados pelo Chart.js.
-var graficoRecursos = null;
-var graficoOcorrencia = null;
+// Guarda os gráficos para atualizar o mesmo canvas
+var graficosCriados = {};
 
-// Define a fonte e a cor dos textos dos gráficos.
-Chart.defaults.color = "#b8c1d9";
-Chart.defaults.font.family =
-    "Inter, 'Helvetica Neue', Arial, sans-serif";
+// Centraliza as configurações do Chart.js
+function criarGrafico(
+    idCanvas,
+    tipoGrafico,
+    rotulosEixoHorizontal,
+    seriesGrafico,
+    unidadeMedida
+) {
+    if (unidadeMedida === undefined) {
+        unidadeMedida = "";
+    }
 
-// Monta uma série de dados para um gráfico de linhas.
-function criarSerie(nome, valores, cor) {
-    return {
-        label: nome,
-        data: valores,
-        borderColor: cor,
-        backgroundColor: cor,
-        borderWidth: 2,
-        pointRadius: 3,
-        tension: 0.25,
-        fill: false
-    };
-}
-
-// Define a aparência dos gráficos de percentual.
-function opcoesPercentual() {
-    return {
+    var opcoesGrafico = {
         responsive: true,
         maintainAspectRatio: false,
         animation: false,
 
-        interaction: {
-            mode: "index",
-            intersect: false
-        },
-
         plugins: {
             legend: {
-                labels: {
-                    boxWidth: 12
-                }
-            },
+                display: true,
 
-            tooltip: {
-                callbacks: {
-                    label: function (contexto) {
-                        return contexto.dataset.label + ": " + contexto.raw + "%";
-                    }
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: "rect",
+                    boxWidth: 10,
+                    boxHeight: 10,
+                    padding: 16
                 }
             }
         },
@@ -177,210 +117,389 @@ function opcoesPercentual() {
             },
 
             y: {
-                min: 0,
-                max: 100,
+                beginAtZero: true,
+
+                title: {
+                    display: true,
+                    text: unidadeMedida
+                },
 
                 grid: {
                     color: "#262f5c"
                 },
 
                 ticks: {
-                    callback: function (valor) {
-                        return valor + "%";
-                    }
+                    precision: 0
                 }
             }
         }
     };
-}
 
-// Troca o conteúdo do diagnóstico para o servidor escolhido.
-function selectServer(nome, botao) {
-    var servidor = servidores[nome];
-    var botoes = document.querySelectorAll(".detail-tabs button");
-
-    // Remove o destaque dos botões anteriores.
-    for (var i = 0; i < botoes.length; i++) {
-        botoes[i].classList.remove("selected");
+    if (unidadeMedida === "%") {
+        opcoesGrafico.scales.y.max = 100;
     }
 
-    // Destaca o botão correspondente ao servidor.
-    if (botao != null) {
-        botao.classList.add("selected");
-    } else {
-        botoes[0].classList.add("selected");
+    if (unidadeMedida === " MB/s") {
+        opcoesGrafico.scales.y.ticks.precision = 2;
     }
 
-    document.getElementById("diagnostic-title").textContent =
-        nome + " · recursos e limites";
-
-    var htmlRecursos = "";
-
-    // Cada linha do array vira um cartão de recurso.
-    for (var i = 0; i < servidor.recursos.length; i++) {
-        var recurso = servidor.recursos[i];
-
-        htmlRecursos +=
-            "<div>" +
-            "<small>" + recurso[0] + "</small>" +
-            "<b class='" + recurso[3] + "'>" + recurso[1] + "</b>" +
-            "<em>" + recurso[2] + "</em>" +
-            "</div>";
+    if (seriesGrafico.length === 1) {
+        opcoesGrafico.plugins.legend.display = false;
     }
 
-    document.getElementById("technical-metrics").innerHTML = htmlRecursos;
-
-    var htmlIndicadores = "";
-
-    // Preenche os indicadores derivados da coleta.
-    for (var i = 0; i < servidor.indicadores.length; i++) {
-        var indicador = servidor.indicadores[i];
-
-        htmlIndicadores +=
-            "<div>" +
-            "<small>" + indicador[0] + "</small>" +
-            "<b>" + indicador[1] + "</b>" +
-            "</div>";
+    // Remove a versão anterior antes de desenhar novamente
+    if (graficosCriados[idCanvas]) {
+        graficosCriados[idCanvas].destroy();
     }
 
-    document.getElementById("derived-metrics").innerHTML = htmlIndicadores;
-
-    var htmlEventos = "";
-
-    // Monta a linha do tempo.
-    for (var i = 0; i < servidor.eventos.length; i++) {
-        var evento = servidor.eventos[i];
-
-        htmlEventos +=
-            "<div>" +
-            "<strong>" + evento[0] + "</strong>" +
-            "<br>" +
-            evento[1] +
-            "</div>";
-    }
-
-    document.getElementById("diagnostic-timeline").innerHTML = htmlEventos;
-
-    document.getElementById("diagnostic-action").textContent =
-        servidor.observacao;
-
-    atualizarGraficoRecursos(nome);
-}
-
-// Desenha CPU, RAM e disco do servidor selecionado.
-function atualizarGraficoRecursos(nome) {
-    var servidor = servidores[nome];
-
-    // Remove o gráfico anterior antes de criar outro no mesmo canvas.
-    if (graficoRecursos != null) {
-        graficoRecursos.destroy();
-    }
-
-    graficoRecursos = new Chart(
-        document.getElementById("technical-canvas"),
+    graficosCriados[idCanvas] = new Chart(
+        document.getElementById(idCanvas),
         {
-            type: "line",
+            type: tipoGrafico,
 
             data: {
-                labels: [
-                    "08:35", "09:35", "10:35", "11:35",
-                    "12:35", "13:35", "14:35"
-                ],
-
-                datasets: [
-                    criarSerie("CPU", servidor.cpu, "#4fa3ff"),
-                    criarSerie("RAM", servidor.ram, "#60d98d"),
-                    criarSerie("Disco", servidor.disco, "#ffad1f")
-                ]
+                labels: rotulosEixoHorizontal,
+                datasets: seriesGrafico
             },
 
-            options: opcoesPercentual()
+            options: opcoesGrafico
         }
     );
 }
 
-// Abre o gráfico da ocorrência clicada.
-function showAlertChart(recurso, botao) {
-    var painel = document.getElementById("alert-chart");
+// Uma série reúne os valores representados pela mesma cor
+function criarSerie(nomeSerie, valoresSerie, corSerie) {
+    return {
+        label: nomeSerie,
+        data: valoresSerie,
+        borderColor: corSerie,
+        backgroundColor: corSerie,
+        borderWidth: 2,
+        pointRadius: 3,
+        borderRadius: 4
+    };
+}
 
-    // Um segundo clique no mesmo olhinho fecha o gráfico.
-    if (botao.getAttribute("aria-expanded") == "true") {
-        closeAlertChart();
-        return;
+// Verifica se a biblioteca carregou antes de iniciar
+function verificarChartJs() {
+    if (typeof Chart === "undefined") {
+        document.getElementById("mensagem-erro-graficos").hidden = false;
+
+        var controlesGraficos = document.querySelectorAll(
+            "button, select"
+        );
+
+        for (
+            var indiceControle = 0;
+            indiceControle < controlesGraficos.length;
+            indiceControle++
+        ) {
+            controlesGraficos[indiceControle].disabled = true;
+        }
+
+        return false;
     }
 
-    var botoes = document.querySelectorAll(".eye");
+    Chart.defaults.color = "#b8c1d9";
+    Chart.defaults.font.family =
+        'Inter, "Helvetica Neue", Arial, sans-serif';
 
-    for (var i = 0; i < botoes.length; i++) {
-        botoes[i].setAttribute("aria-expanded", "false");
+    return true;
+}
+
+// Apresenta números com vírgula e até duas casas decimais
+function formatarNumero(valorNumerico) {
+    return valorNumerico.toLocaleString("pt-BR", {
+        maximumFractionDigits: 2
+    });
+}
+
+function calcularMedia(valoresMedidos) {
+    var somaValores = 0;
+
+    for (
+        var indiceLeitura = 0;
+        indiceLeitura < valoresMedidos.length;
+        indiceLeitura++
+    ) {
+        somaValores += valoresMedidos[indiceLeitura];
     }
 
-    botao.setAttribute("aria-expanded", "true");
-    painel.hidden = false;
+    return somaValores / valoresMedidos.length;
+}
 
-    var ocorrencia = ocorrencias[recurso];
+function buscarMaiorValor(valoresMedidos) {
+    var maiorValor = valoresMedidos[0];
 
-    document.getElementById("alert-chart-title").textContent =
-        ocorrencia.titulo;
+    for (
+        var indiceLeitura = 1;
+        indiceLeitura < valoresMedidos.length;
+        indiceLeitura++
+    ) {
+        if (valoresMedidos[indiceLeitura] > maiorValor) {
+            maiorValor = valoresMedidos[indiceLeitura];
+        }
+    }
 
-    // Repete o limite para formar uma linha horizontal.
+    return maiorValor;
+}
+
+// Monta um indicador dentro do cartão de recurso
+function montarIndicador(rotuloIndicador, valorIndicador) {
+    return "<div>"
+        + "<span>" + rotuloIndicador + "</span>"
+        + "<strong>" + valorIndicador + "</strong>"
+        + "</div>";
+}
+
+// Repete o limite para criar uma linha horizontal
+function criarLinhaLimite(
+    descricaoLimite,
+    percentualLimite,
+    quantidadeLeituras
+) {
     var valoresLimite = [];
 
-    for (var i = 0; i < ocorrencia.valores.length; i++) {
-        valoresLimite.push(ocorrencia.limite);
+    for (
+        var indiceLeitura = 0;
+        indiceLeitura < quantidadeLeituras;
+        indiceLeitura++
+    ) {
+        valoresLimite.push(percentualLimite);
     }
 
-    var serieRecurso = criarSerie(
-        ocorrencia.recurso,
-        ocorrencia.valores,
-        ocorrencia.cor
-    );
-
     var serieLimite = criarSerie(
-        "Limite de " + ocorrencia.limite + "%",
+        descricaoLimite,
         valoresLimite,
-        "#b8c1d9"
+        "#ffad1f"
     );
 
     serieLimite.borderDash = [5, 5];
     serieLimite.pointRadius = 0;
 
-    if (graficoOcorrencia != null) {
-        graficoOcorrencia.destroy();
-    }
+    return serieLimite;
+}
 
-    graficoOcorrencia = new Chart(
-        document.getElementById("alert-canvas"),
-        {
-            type: "line",
+// Executada ao clicar em AIS, SDV ou SPA
+function selecionarServidor(siglaServidor, botaoClicado) {
+    servidorSelecionado = siglaServidor;
 
-            data: {
-                labels: [
-                    "14:00", "14:05", "14:10", "14:15",
-                    "14:20", "14:25", "14:30", "14:35"
-                ],
+    if (botaoClicado) {
+        var botoesServidores = document.querySelectorAll(
+            ".seletor-servidor button"
+        );
 
-                datasets: [
-                    serieRecurso,
-                    serieLimite
-                ]
-            },
-
-            options: opcoesPercentual()
+        for (
+            var indiceBotao = 0;
+            indiceBotao < botoesServidores.length;
+            indiceBotao++
+        ) {
+            botoesServidores[indiceBotao].classList.remove("selecionado");
         }
-    );
+
+        botaoClicado.classList.add("selecionado");
+    }
+
+    var dadosServidor = dadosServidores[siglaServidor];
+
+    // A última posição contém a leitura mais recente
+    var indiceUltimaLeitura = dadosServidor.cpu.length - 1;
+
+    document.getElementById("titulo-cpu").textContent =
+        "CPU do " + siglaServidor;
+
+    document.getElementById("titulo-ram").textContent =
+        "RAM do " + siglaServidor;
+
+    document.getElementById("titulo-disco").textContent =
+        "Disco do " + siglaServidor;
+
+    document.getElementById("titulo-swap").textContent =
+        "Swap do " + siglaServidor;
+
+    document.getElementById("indicadores-cpu").innerHTML =
+        montarIndicador(
+            "Uso atual",
+            dadosServidor.cpu[indiceUltimaLeitura] + "%"
+        )
+        + montarIndicador(
+            "Média em 5 minutos",
+            formatarNumero(calcularMedia(dadosServidor.cpu)) + "%"
+        )
+        + montarIndicador(
+            "Pico em 5 minutos",
+            buscarMaiorValor(dadosServidor.cpu) + "%"
+        );
+
+    document.getElementById("indicadores-ram").innerHTML =
+        montarIndicador(
+            "Uso atual",
+            dadosServidor.ram[indiceUltimaLeitura] + "%"
+        )
+        + montarIndicador(
+            "Média em 5 minutos",
+            formatarNumero(calcularMedia(dadosServidor.ram)) + "%"
+        )
+        + montarIndicador("Limite de atenção", "80%");
+
+    document.getElementById("indicadores-swap").innerHTML =
+        montarIndicador(
+            "Entrada no último intervalo",
+            formatarNumero(
+                dadosServidor.entradaSwap[indiceUltimaLeitura]
+            ) + " MB/s"
+        )
+        + montarIndicador(
+            "Saída no último intervalo",
+            formatarNumero(
+                dadosServidor.saidaSwap[indiceUltimaLeitura]
+            ) + " MB/s"
+        );
+
+    criarGrafico("grafico-cpu", "line", horariosColeta, [
+        criarSerie("Uso de CPU", dadosServidor.cpu, "#4fa3ff"),
+        criarLinhaLimite("Limite crítico", 90, 6)
+    ], "%");
+
+    criarGrafico("grafico-ram", "line", horariosColeta, [
+        criarSerie("Uso de RAM", dadosServidor.ram, "#60d98d"),
+        criarLinhaLimite("Limite de atenção", 80, 6)
+    ], "%");
+
+    criarGrafico("grafico-swap", "line", horariosColeta, [
+        criarSerie("Entrada", dadosServidor.entradaSwap, "#4fa3ff"),
+        criarSerie("Saída", dadosServidor.saidaSwap, "#ffad1f")
+    ], " MB/s");
+
+    atualizarDisco();
 }
 
-// Esconde o gráfico e remove o destaque dos olhinhos.
-function closeAlertChart() {
-    document.getElementById("alert-chart").hidden = true;
+// Executada pelos dois botões de visualização do disco
+function selecionarVisualizacaoDisco(visualizacao, botaoClicado) {
+    visualizacaoDisco = visualizacao;
 
-    var botoes = document.querySelectorAll(".eye");
+    var botoesDisco = document.querySelectorAll(
+        ".seletor-disco button"
+    );
 
-    for (var i = 0; i < botoes.length; i++) {
-        botoes[i].setAttribute("aria-expanded", "false");
+    for (
+        var indiceBotao = 0;
+        indiceBotao < botoesDisco.length;
+        indiceBotao++
+    ) {
+        botoesDisco[indiceBotao].classList.remove("selecionado");
+    }
+
+    botaoClicado.classList.add("selecionado");
+
+    atualizarDisco();
+}
+
+function atualizarDisco() {
+    var dadosServidor = dadosServidores[servidorSelecionado];
+    var indiceUltimaLeitura = dadosServidor.disco.length - 1;
+
+    if (visualizacaoDisco === "ocupacao") {
+        document.getElementById("indicadores-disco").innerHTML =
+            montarIndicador(
+                "Disco ocupado",
+                dadosServidor.disco[indiceUltimaLeitura] + "%"
+            )
+            + montarIndicador(
+                "Espaço livre",
+                formatarNumero(
+                    100 - dadosServidor.disco[indiceUltimaLeitura]
+                ) + "%"
+            )
+            + montarIndicador("Limite de atenção", "80%");
+
+        criarGrafico("grafico-disco", "line", horariosColeta, [
+            criarSerie("Ocupação", dadosServidor.disco, "#4fa3ff"),
+            criarLinhaLimite("Limite de atenção", 80, 6)
+        ], "%");
+
+    } else {
+        document.getElementById("indicadores-disco").innerHTML =
+            montarIndicador(
+                "Leitura no último intervalo",
+                formatarNumero(
+                    dadosServidor.leituraDisco[indiceUltimaLeitura]
+                ) + " MB/s"
+            )
+            + montarIndicador(
+                "Escrita no último intervalo",
+                formatarNumero(
+                    dadosServidor.escritaDisco[indiceUltimaLeitura]
+                ) + " MB/s"
+            );
+
+        criarGrafico("grafico-disco", "line", horariosColeta, [
+            criarSerie(
+                "Leitura",
+                dadosServidor.leituraDisco,
+                "#4fa3ff"
+            ),
+            criarSerie(
+                "Escrita",
+                dadosServidor.escritaDisco,
+                "#60d98d"
+            )
+        ], " MB/s");
     }
 }
 
-// Mostra o AIS quando a página é aberta.
-selectServer("AIS", null);
+// Executada ao clicar em Analisar
+function abrirGraficoOcorrencia(recursoSelecionado, botaoClicado) {
+    var graficoJaAberto =
+        botaoClicado.getAttribute("aria-expanded") === "true";
+
+    fecharGraficoOcorrencia();
+
+    if (graficoJaAberto) {
+        return;
+    }
+
+    var ocorrenciaSelecionada = dadosOcorrencias[recursoSelecionado];
+
+    document.getElementById("historico-ocorrencia").hidden = false;
+
+    document.getElementById("titulo-ocorrencia").textContent =
+        ocorrenciaSelecionada.titulo;
+
+    botaoClicado.setAttribute("aria-expanded", "true");
+
+    criarGrafico("grafico-ocorrencia", "line", horariosOcorrencias, [
+        criarSerie(
+            ocorrenciaSelecionada.nome,
+            ocorrenciaSelecionada.valores,
+            "#4fa3ff"
+        ),
+        criarLinhaLimite(
+            "Limite de alerta",
+            ocorrenciaSelecionada.limite,
+            8
+        )
+    ], "%");
+}
+
+function fecharGraficoOcorrencia() {
+    document.getElementById("historico-ocorrencia").hidden = true;
+
+    var botoesAnalise = document.querySelectorAll(".botao-analisar");
+
+    for (
+        var indiceBotao = 0;
+        indiceBotao < botoesAnalise.length;
+        indiceBotao++
+    ) {
+        botoesAnalise[indiceBotao].setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+}
+
+// Ponto de início da dashboard
+if (verificarChartJs()) {
+    selecionarServidor("AIS", null);
+}

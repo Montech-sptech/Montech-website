@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-/* Fonte e cores principais do projeto */
+/* Fonte e cores principais do projeto. */
 body {
     margin: 0;
     font-family: Inter, "Helvetica Neue", Arial, sans-serif;
@@ -10,26 +10,30 @@ body {
     color: #ffffff;
 }
 
-button {
+button,
+select {
     font: inherit;
+}
+
+button {
     cursor: pointer;
 }
 
-/* Destaca os elementos ao navegar pelo teclado */
 button:focus-visible,
-a:focus-visible {
+a:focus-visible,
+select:focus-visible {
     outline: 2px solid #4fa3ff;
     outline-offset: 3px;
 }
 
-/* Divide a página em menu lateral e conteúdo */
-.app {
+/* Divide a página entre navegação e conteúdo. */
+.estrutura-pagina {
     display: grid;
     grid-template-columns: 202px minmax(0, 1fr);
     min-height: 100vh;
 }
 
-.side {
+.menu-lateral {
     display: flex;
     flex-direction: column;
     gap: 35px;
@@ -38,30 +42,26 @@ a:focus-visible {
     border-right: 1px solid #262f5c;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 2px 8px;
-    font-size: 1.16rem;
-    font-weight: 900;
+.logotipo {
+    padding: 2px 4px;
 }
 
-/* Logo completa na barra lateral */
-.logo img {
-    width: 300px;
+.logotipo img {
+    display: block;
+    width: 170px;
     max-width: 100%;
     height: auto;
     object-fit: contain;
 }
 
-.nav {
+.navegacao {
     display: flex;
     flex-direction: column;
     gap: 7px;
 }
 
-.nav a {
+.navegacao a {
+    display: block;
     padding: 12px;
     border-radius: 6px;
     color: #b8c1d9;
@@ -69,17 +69,16 @@ a:focus-visible {
     text-decoration: none;
 }
 
-.nav a.active {
+.navegacao a.pagina-atual {
     background-color: #2b3990;
     color: #ffffff;
 }
 
-.nav a:hover {
+.navegacao a:hover {
     background-color: #1e2766;
 }
 
-/* Fundo da área principal */
-.main {
+.conteudo-principal {
     min-width: 0;
     padding: 24px 32px 55px;
     background: radial-gradient(
@@ -90,12 +89,12 @@ a:focus-visible {
     );
 }
 
-.container {
+.limite-conteudo {
     max-width: 1450px;
     margin: auto;
 }
 
-.head {
+.cabecalho-pagina {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -103,28 +102,27 @@ a:focus-visible {
     margin-bottom: 22px;
 }
 
-.head h1 {
+.cabecalho-pagina h1 {
     margin: 0;
     font-size: 2rem;
     letter-spacing: -0.04em;
 }
 
-.context {
+.informacoes-aeroporto {
     padding: 10px 13px;
-    background-color: #0a1128;
     border: 1px solid #262f5c;
     border-radius: 6px;
+    background-color: #0a1128;
     color: #b8c1d9;
     font-size: 13px;
     line-height: 1.5;
 }
 
-.context b {
+.informacoes-aeroporto b {
     color: #ffffff;
 }
 
-/* Títulos das seções */
-.section-title {
+.titulo-secao {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -132,37 +130,39 @@ a:focus-visible {
     margin: 23px 0 10px;
 }
 
-.section-title h2 {
+.titulo-secao h2 {
     margin: 0;
     font-size: 16px;
 }
 
-.section-title small {
+.titulo-secao small,
+.cabecalho-painel small {
     color: #b8c1d9;
     font-size: 12px;
 }
 
-/* Cinco indicadores lado a lado */
-.kpis {
+/* kpi. */
+.lista-indicadores {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
 }
 
-.kpi,
-.card,
-.server {
+.indicador,
+.painel,
+.servidor {
+    min-width: 0;
     background-color: #141b3d;
     border: 1px solid #262f5c;
     border-radius: 5px;
 }
 
-.kpi {
-    min-height: 119px;
+.indicador {
+    min-height: 200px;
     padding: 14px;
 }
 
-.kpi-label {
+.titulo-indicador {
     min-height: 33px;
     margin: 0;
     color: #b8c1d9;
@@ -170,141 +170,48 @@ a:focus-visible {
     line-height: 1.4;
 }
 
-.kpi-number {
+.valor-indicador {
     display: block;
     margin: 4px 0;
     font-size: 29px;
     font-weight: 800;
 }
 
-.kpi small {
-    display: block;
+.detalhes-indicador {
+    display: grid;
+    gap: 7px;
+    margin-top: 10px;
     color: #b8c1d9;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
-/* Cores dos indicadores */
-.red {
+.detalhes-indicador b {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.texto-critico {
     color: #ff5361;
 }
 
-.orange {
+.texto-atencao {
     color: #ffad1f;
 }
 
-.green {
+.texto-normal {
     color: #60d98d;
 }
 
-.blue {
+.texto-destaque {
     color: #4fa3ff;
 }
 
-/* Cartões dos servidores */
-.servers {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-}
-
-.server {
-    min-height: 183px;
-    padding: 14px;
-}
-
-.server-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-}
-
-.server-name {
-    min-height: 38px;
-    margin: 11px 0;
-    color: #c3cbe3;
-    font-size: 13px;
-    line-height: 1.4;
-}
-
-/* Etiquetas dos estados */
-.tag {
-    display: inline-block;
-    padding: 4px 7px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.tag-ok {
-    background-color: #19492d;
-    color: #81e68a;
-}
-
-.tag-warning {
-    background-color: #6a431c;
-    color: #ffcd71;
-}
-
-.tag-critical {
-    background-color: #681e31;
-    color: #ff8993;
-}
-
-/* CPU, RAM e disco dentro de cada cartão */
-.metrics {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-
-.metrics span {
-    color: #b8c1d9;
-    font-size: 12px;
-}
-
-.metrics b {
-    display: block;
-    margin-top: 3px;
-    font-size: 14px;
-}
-
-/* Barras que representam os percentuais de uso */
-.track {
-    height: 4px;
-    margin-top: 5px;
-    overflow: hidden;
-    background-color: #262f5c;
-    border-radius: 5px;
-}
-
-.track div {
-    height: 100%;
-    background-color: #60d98d;
-}
-
-.track .warm {
-    background-color: #ffad1f;
-}
-
-.track .hot {
-    background-color: #ff5361;
-}
-
-.updated {
-    margin: 13px 0 0;
-    color: #b8c1d9;
-    font-size: 12px;
-}
-
-.card {
-    min-width: 0;
+.painel {
     padding: 15px;
 }
 
-.card-head {
+.cabecalho-painel {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -312,109 +219,187 @@ a:focus-visible {
     margin-bottom: 13px;
 }
 
-.card-head h3 {
+.cabecalho-painel h3 {
     margin: 0;
     font-size: 14px;
 }
 
-.card-head small {
+/* Identificação visual dos estados. */
+.etiqueta-estado {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.estado-normal {
+    background-color: #19492d;
+    color: #81e68a;
+}
+
+.estado-atencao {
+    background-color: #6a431c;
+    color: #ffcd71;
+}
+
+.estado-critico {
+    background-color: #681e31;
+    color: #ff8993;
+}
+
+/* Resumo dos três servidores. */
+.lista-servidores {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.servidor {
+    padding: 14px;
+}
+
+.cabecalho-servidor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+}
+
+.descricao-servidor {
+    min-height: 38px;
+    margin: 11px 0;
+    color: #c3cbe3;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.resumo-recursos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.resumo-recursos span {
     color: #b8c1d9;
     font-size: 12px;
 }
 
-/* Permite rolagem da tabela em telas pequenas */
-.table-wrap {
+.resumo-recursos b {
+    display: block;
+    margin-top: 3px;
+    font-size: 14px;
+}
+
+.barra-uso {
+    height: 4px;
+    margin-top: 5px;
+    overflow: hidden;
+    background-color: #262f5c;
+    border-radius: 5px;
+}
+
+.barra-uso i {
+    display: block;
+    height: 100%;
+    background-color: #60d98d;
+}
+
+.barra-uso .barra-atencao {
+    background-color: #ffad1f;
+}
+
+.barra-uso .barra-critica {
+    background-color: #ff5361;
+}
+
+.informacoes-coleta {
+    margin-top: 13px;
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+.informacoes-coleta span {
+    display: block;
+    line-height: 1.6;
+}
+
+/* Permite rolar a tabela em telas menores */
+.tabela-responsiva {
     overflow-x: auto;
 }
 
 table {
     width: 100%;
-    min-width: 560px;
+    min-width: 650px;
     border-collapse: collapse;
 }
 
 th,
 td {
-    padding: 10px 7px;
+    padding: 11px 9px;
     border-bottom: 1px solid #262f5c;
     text-align: left;
     font-size: 13px;
+    line-height: 1.5;
 }
 
 th {
     color: #b8c1d9;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Botão que mostra o gráfico da ocorrência */
-.eye {
-    display: inline-grid;
-    place-items: center;
-    width: 32px;
-    height: 29px;
+/* Botões e histórico da ocorrência selecionada */
+.botao-analisar {
+    padding: 7px 12px;
     border: 1px solid #293b8f;
     border-radius: 5px;
     background-color: #0a1128;
     color: #4fa3ff;
+    font-size: 13px;
 }
 
-.eye:hover,
-.eye[aria-expanded="true"] {
+.botao-analisar:hover,
+.botao-analisar[aria-expanded="true"] {
     background-color: #2b3990;
     color: #ffffff;
 }
 
-.eye svg {
-    width: 17px;
-    height: 17px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-}
-
-/* Área aberta pelo botão de olho */
-.alert-chart {
-    max-width: 760px;
+.painel-ocorrencia {
+    width: 100%;
     margin-top: 12px;
     padding-top: 18px;
     border-top: 1px solid #262f5c;
 }
 
-.alert-chart[hidden] {
+.painel-ocorrencia[hidden] {
     display: none;
 }
 
-.close-chart {
+.botao-fechar {
     border: none;
     background: none;
     color: #4fa3ff;
     font-size: 13px;
 }
 
-.incident-note {
-    margin-top: 12px;
-    padding: 12px;
-    border: 1px solid #293b8f;
-    border-radius: 5px;
-    background-color: #0a1128;
-    color: #c3cbe3;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-/* Seleção do servidor em análise */
-.detail-tabs {
+/* Seletores de servidor e visualização do disco*/
+.seletor-servidor,
+.seletor-disco {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     margin: 12px 0;
 }
 
-.detail-tabs button {
+.seletor-servidor button,
+.seletor-disco button {
     padding: 8px 12px;
     border: 1px solid #293b8f;
     border-radius: 5px;
@@ -423,175 +408,136 @@ tbody tr:last-child td {
     font-size: 13px;
 }
 
-.detail-tabs button.selected {
+.seletor-servidor button.selecionado,
+.seletor-disco button.selecionado {
     background-color: #2b3990;
     color: #ffffff;
 }
 
-.deep-grid {
+/* Organiza os quatro componentes em duas colunas */
+.grade-recursos {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(330px, 1fr);
-    gap: 13px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
 }
 
-/* Indicadores do diagnóstico técnico */
-.technical-grid,
-.derived {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 9px;
+.painel-recurso {
+    padding: 20px;
 }
 
-.derived {
-    margin: 10px 0;
+.painel-recurso .cabecalho-painel h3 {
+    font-size: 17px;
 }
 
-.technical-grid div,
-.derived div {
-    padding: 10px;
-    border: 1px solid #262f5c;
-    border-radius: 5px;
-    background-color: #0a1128;
+.indicadores-recurso {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    min-height: 62px;
 }
 
-.technical-grid small,
-.derived small {
+.indicadores-recurso > div {
+    flex: 1;
+    min-width: 120px;
+}
+
+.indicadores-recurso span {
     display: block;
+    margin-bottom: 7px;
     color: #b8c1d9;
     font-size: 12px;
 }
 
-.technical-grid b {
+.indicadores-recurso strong {
     display: block;
-    margin: 5px 0;
-    font-size: 18px;
+    font-size: 21px;
 }
 
-.technical-grid em {
-    color: #b8c1d9;
-    font-size: 12px;
-    font-style: normal;
-}
-
-.derived b {
-    display: block;
-    margin-top: 5px;
-    font-size: 13px;
-    line-height: 1.4;
-}
-
-/* Espaço usado pelos gráficos do Chart.js */
-.chart-container {
+/* Define o espaço ocupado pelo Chart.js */
+.area-grafico {
     position: relative;
     width: 100%;
     height: 230px;
     margin-top: 12px;
 }
 
-/* Linha do tempo dos eventos */
-.timeline {
-    margin-left: 7px;
-    padding-left: 16px;
-    border-left: 2px solid #293b8f;
+.painel-recurso .area-grafico {
+    margin-top: 18px;
 }
 
-.timeline div {
-    position: relative;
-    padding: 4px 0 13px;
-    color: #c3cbe3;
-    font-size: 13px;
-    line-height: 1.5;
+.area-grafico canvas {
+    max-width: 100%;
 }
 
-.timeline div::before {
-    content: "";
-    position: absolute;
-    top: 9px;
-    left: -22px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #4fa3ff;
+.erro-graficos {
+    padding: 12px;
+    border: 1px solid #ffad1f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #ffcd71;
 }
 
-.timeline strong {
-    color: #ffffff;
+.erro-graficos[hidden] {
+    display: none;
 }
 
-.note {
-    margin: 10px 0 0;
-    color: #b8c1d9;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-/* Ajustes para telas menores */
 @media (max-width: 1150px) {
-    .kpis {
-        grid-template-columns: repeat(3, 1fr);
+    .lista-indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 1000px) {
-    .deep-grid {
+    .grade-recursos {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 800px) {
-    .app {
+    .estrutura-pagina {
         display: block;
     }
 
-    .side {
+    .menu-lateral {
         padding: 12px 15px;
         gap: 12px;
     }
 
-    .nav {
+    .navegacao {
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-    .main {
+    .conteudo-principal {
         padding: 20px 15px 42px;
     }
 
-    .head {
+    .cabecalho-pagina {
         flex-direction: column;
     }
 
-    .servers {
+    .lista-servidores {
         grid-template-columns: 1fr;
-    }
-
-    .kpis {
-        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 650px) {
-    .technical-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .derived {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .section-title {
-        align-items: flex-start;
+    .titulo-secao {
         flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cabecalho-painel {
+        flex-wrap: wrap;
     }
 }
 
 @media (max-width: 470px) {
-    .kpis,
-    .derived {
+    .lista-indicadores {
         grid-template-columns: 1fr;
     }
 
-    .kpi-label {
+    .titulo-indicador {
         min-height: 0;
     }
 }

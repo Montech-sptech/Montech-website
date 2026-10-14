@@ -58,6 +58,34 @@ async function CarregarInfos() {
         console.error("Erro ao carregar informações:", erro);
         ModoFavorito.innerHTML = 'Erro ao carregar dados';
     }
+
+    var botoesExcluir = document.querySelectorAll('.btn-excluir');
+    var popUpFechar = document.getElementById('popup-fechar');
+    var popUp = document.getElementById('popup-excluir');
+    var botoesVisualizar = document.querySelectorAll('.btn-visualizar');
+    var botoesEditar = document.querySelectorAll('.btn-editar');
+
+    popUpFechar.addEventListener('click', function() {
+        popUp.style.display = 'none'; 
+    })
+
+    botoesExcluir.forEach(function(botao) {
+        botao.addEventListener('click', function() { 
+            popUp.style.display = 'flex'; 
+        });
+    });
+
+    botoesEditar.forEach(function(botao) {
+        botao.addEventListener('click', function() { 
+            window.location.href = './editarServidor.html';    
+        });
+    });
+
+    botoesVisualizar.forEach(function(botao) {
+        botao.addEventListener('click', function() { 
+            window.location.href = './visualizarServidor.html';    
+        });
+    });
 }
 
     

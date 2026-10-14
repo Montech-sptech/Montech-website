@@ -39,6 +39,26 @@ function cadastrarServidor(token, nomeServidor, sistemaOperacional, fkAeroporto)
     return database.executar(instrucaoSql);
 }
 
+function deletarServidor(idServidor) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+
+    var instrucaoSql = `
+        DELETE FROM servidor WHERE idServidor = ${Number(idServidor)};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function deletarComponenteServidor(idServidor) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+
+    var instrucaoSql = `
+        DELETE FROM servidorcomponente WHERE fkServidor = ${Number(idServidor)};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function cadastrarComponenteServidor(fkServidor, componentes) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
     const valores = componentes
@@ -59,5 +79,7 @@ module.exports = {
   buscarServidoresAeroporto,
   buscarComponentes,
   cadastrarServidor,
-  cadastrarComponenteServidor
+  cadastrarComponenteServidor,
+  deletarServidor,
+  deletarComponenteServidor
 };

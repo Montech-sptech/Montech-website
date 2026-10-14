@@ -93,10 +93,60 @@ function cadastrarComponenteServidor(req, res) {
         );
 }
 
+function deletarServidor(req, res) {
+    var idServidor = req.body.idServidorServer;
+
+    if (idServidor == undefined) {
+        res.status(400).send("Seu idServidor está undefined!");
+    } else {
+        gerServidorModel.deletarServidor(idServidor)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o delete do servidor! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
+function deletarComponenteServidor(req, res) {
+    var idServidor = req.body.idServidorServer;
+
+    if (idServidor == undefined) {
+        res.status(400).send("Seu idServidor está undefined!");
+    } else {
+        gerServidorModel.deletarComponenteServidor(idServidor)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o delete do componente! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
 
 module.exports = {
   buscarServidoresAeroporto,
   buscarComponentes,
   cadastrarServidor,
-  cadastrarComponenteServidor
+  cadastrarComponenteServidor,
+  deletarServidor,
+  deletarComponenteServidor
 };

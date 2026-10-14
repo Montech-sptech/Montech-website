@@ -41,7 +41,7 @@ async function CarregarInfos() {
                             <button type="button" class="btn-editar" aria-label="Editar servidor">
                                 <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
                             </button>
-                            <button type="button" class="btn-excluir" aria-label="Excluir servidor">
+                            <button type="button" class="btn-excluir" data-servidor="${idServidor}" aria-label="Excluir servidor">
                                 <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
                             </button>
                             </div>
@@ -59,19 +59,25 @@ async function CarregarInfos() {
         ModoFavorito.innerHTML = 'Erro ao carregar dados';
     }
 
-    var botoesExcluir = document.querySelectorAll('.btn-excluir');
-    var popUpFechar = document.getElementById('popup-fechar');
-    var popUp = document.getElementById('popup-excluir');
-    var botoesVisualizar = document.querySelectorAll('.btn-visualizar');
-    var botoesEditar = document.querySelectorAll('.btn-editar');
+    const botoesExcluir = document.querySelectorAll('.btn-excluir');
+    const popUpFechar = document.querySelectorAll('.popup-fechar');
+    const popUp = document.getElementById('popup-excluir');
+    const popUpAviso = document.getElementById('popup-aviso');
+    const botoesVisualizar = document.querySelectorAll('.btn-visualizar');
+    const botoesEditar = document.querySelectorAll('.btn-editar');
 
-    popUpFechar.addEventListener('click', function() {
-        popUp.style.display = 'none'; 
-    })
+    popUpFechar.forEach(function(botao) {
+        botao.addEventListener('click', function() { 
+            popUp.style.display = 'none'; 
+            popUpAviso.style.display = 'none'; 
+            sessionStorage.ID_SERVIDOR_EXCLUIR = undefined;
+        });
+    });
 
     botoesExcluir.forEach(function(botao) {
         botao.addEventListener('click', function() { 
-            popUp.style.display = 'flex'; 
+            popUp.style.display = 'flex';
+            sessionStorage.ID_SERVIDOR_EXCLUIR = botao.dataset.servidor
         });
     });
 
@@ -92,3 +98,62 @@ async function CarregarInfos() {
 window.addEventListener('DOMContentLoaded', function() {
     CarregarInfos()
 })
+
+const btnConfirmarExclusao = document.getElementById('btn-confirmar-exclusao');
+const iptConfirmarExclusao = document.getElementById('input-confirmar-exclusao');
+
+btnConfirmarExclusao.addEventListener('click', function() {
+    if(iptConfirmarExclusao.value == 'excluir') {
+        DeletarServidor(sessionStorage.ID_SERVIDOR_EXCLUIR)
+    } else {
+        alert("Erro")
+    }
+})
+
+async function DeletarServidor(idServidor) {
+        try {
+        const resposta = await fetch("/gerServidores/deletarComponenteServidor", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idServidorServer: idServidor
+            })
+        });
+
+        if (!resposta.ok) {
+            console.log("Houve um erro ao tentar realizar o delete de servidor!");
+            alert("erro")
+            return false;
+        }
+
+        const respostaComp = await fetch("/gerServidores/deletarServidor", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idServidorServer: idServidor
+            })
+        });
+
+        if (!respostaComp.ok) {
+            console.log("Erro componentes");
+            alert("erro")
+            return false;
+        }
+
+        const popUpAviso = document.getElementById('popup-aviso');
+        const popUp = document.getElementById('popup-excluir');
+        
+        CarregarInfos();
+        popUp.style.display = 'none';
+        popUpAviso.style.display = 'flex';
+        console.log("Tudo certo");
+        return true;
+    } catch (erro) {
+        console.log(erro);
+        alert("erro")
+        return false;
+    }
+}
+
+
+

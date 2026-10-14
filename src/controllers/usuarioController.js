@@ -102,7 +102,7 @@ async function pegarUsuariosPeloAdministrador(req, res) {
         idUsuario: linha.idUsuario,
         nomeUsuario: linha.nomeUsuario,
         email: linha.email,
-        fkCargo: linha.fkCargo,
+        nomeCargo: linha.nomeCargo,
         status: linha.status,
         servidores: [],
       };

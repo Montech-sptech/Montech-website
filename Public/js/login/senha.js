@@ -50,12 +50,11 @@ loginForm.addEventListener("submit", async function (event) {
         }
 
         var usuario = await resposta.json();
-        sessionStorage.setItem("ID", usuario.id);
+        sessionStorage.setItem("USUARIO_ID", usuario.idUsuario);
         sessionStorage.setItem("EMAIL", usuario.email);
         sessionStorage.setItem("NOME", usuario.nome);
-        sessionStorage.setItem("CARGO", usuario.cargo);
-        sessionStorage.setItem("EMPRESA_ID", usuario.empresaId);
-        sessionStorage.setItem("FOTO_PERFIL", usuario.fotoPerfil);
+        sessionStorage.setItem("CARGO", usuario.fkCargo);
+        sessionStorage.setItem("AEROPORTO_ID", usuario.fkAeroporto);
 
         if (usuario.cargo === "TI") {
             window.location.href = "/pages/inicioCadastroEmpresa.html";

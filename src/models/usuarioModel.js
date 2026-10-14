@@ -9,7 +9,7 @@ function autenticar(email, senha) {
   );
   var instrucaoSql = `
         SELECT 
-            idUsuario AS id, nome, email, senha, fkAeroporto AS aeroportoId, fkCargo
+            idUsuario, nome, email, senha, fkAeroporto, fkCargo
         FROM usuario 
         WHERE email = '${email}' AND senha = '${senha}';
     `;

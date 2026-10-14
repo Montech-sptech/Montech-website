@@ -11,117 +11,155 @@
 </head>
 
 <body>
-    <div class="app">
+    <div class="estrutura-pagina">
 
-        <!-- Menu lateral de navegação -->
-        <aside class="side">
-            <div class="logo">
-                <!-- Troque o src pelo caminho da sua imagem -->
-                <img src="/Public/img/logoEscuraMontech.png" alt="Logo MonTech">
+        <!-- Navegação entre as dashboards. -->
+        <aside class="menu-lateral">
+            <div class="logotipo">
+                <img src="logoEscuraMontech.png" alt="Logo MonTech">
             </div>
 
-            <nav class="nav" aria-label="Navegação das dashboards">
+            <nav class="navegacao" aria-label="Navegação das dashboards">
                 <a href="analista.html">
                     Painel do analista
                 </a>
 
-                <a href="gerente.html" class="active">
+                <a href="gerente.html" class="pagina-atual">
                     Painel da gerente
                 </a>
             </nav>
         </aside>
 
-        <!-- Visão histórica do aeroporto -->
-        <main class="main">
-            <div class="container">
+        <main class="conteudo-principal">
+            <div class="limite-conteudo">
 
-                <header class="head">
-                    <h1>Visão gerencial · Congonhas</h1>
+                <header class="cabecalho-pagina">
+                    <h1>Visão gerencial de Congonhas</h1>
 
-                    <div class="context">
-                        <b>Seu aeroporto: Congonhas</b>
+                    <div class="informacoes-aeroporto">
+                        <b>Congonhas</b>
                         <br>
-                        30 dias comparados aos 30 anteriores
+                        Setembro/2026 comparado a agosto/2026
                     </div>
                 </header>
 
-                <!-- Indicadores estáticos para comparar os períodos -->
-                <section class="kpis" aria-label="Indicadores gerenciais">
+                <p
+                    id="mensagem-erro-graficos"
+                    class="erro-graficos"
+                    role="alert"
+                    hidden>
+                    Não foi possível carregar o Chart.js.
+                    Verifique sua conexão e atualize a página.
+                </p>
 
-                    <div class="kpi">
-                        <p class="kpi-label">Incidentes críticos</p>
-                        <strong class="kpi-number red">8</strong>
-                        <small>6 no período anterior · +2</small>
+                <!-- kpi -->
+                <section class="lista-indicadores" aria-label="Indicadores gerenciais">
+
+                    <div class="indicador">
+                        <p class="titulo-indicador">Incidentes críticos no mês</p>
+                        <strong class="valor-indicador texto-critico">8</strong>
+
+                        <div class="detalhes-indicador">
+                            <div>Mês analisado: <b>setembro/2026</b></div>
+                            <div>Agosto: <b>6 incidentes críticos</b></div>
+                            <div>Variação: <b>2 incidentes a mais</b></div>
+                        </div>
                     </div>
 
-                    <div class="kpi">
-                        <p class="kpi-label">Dias com alertas</p>
-                        <strong class="kpi-number orange">9/30</strong>
-                        <small>6/30 no período anterior</small>
+                    <div class="indicador">
+                        <p class="titulo-indicador">Dias com alertas em setembro</p>
+                        <strong class="valor-indicador texto-atencao">9/30</strong>
+
+                        <div class="detalhes-indicador">
+                            <div>
+                                Setembro:
+                                <b>9 dias com alertas em 30 dias</b>
+                            </div>
+                            <div>
+                                Agosto:
+                                <b>6 dias com alertas em 31 dias</b>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="kpi">
-                        <p class="kpi-label">Servidores com recorrência</p>
-                        <strong class="kpi-number orange">2/3</strong>
-                        <small>AIS e SDV</small>
+                    <div class="indicador">
+                        <p class="titulo-indicador">
+                            Servidores com alertas repetidos no mês
+                        </p>
+
+                        <strong class="valor-indicador texto-atencao">2/3</strong>
+
+                        <div class="detalhes-indicador">
+                            <div>AIS: <b>CPU repetida em 4 ocorrências</b></div>
+                            <div>SDV: <b>disco repetido em 3 ocorrências</b></div>
+                            <div>Total monitorado: <b>3 servidores</b></div>
+                        </div>
                     </div>
 
-                    <div class="kpi">
-                        <p class="kpi-label">Tempo mediano de resolução</p>
-                        <strong class="kpi-number blue">3h 20m</strong>
-                        <small>2h 40m no período anterior</small>
+                    <div class="indicador">
+                        <p class="titulo-indicador">
+                            Tempo mediano para encerrar incidentes
+                        </p>
+
+                        <strong class="valor-indicador texto-destaque">
+                            3h 20m
+                        </strong>
+
+                        <div class="detalhes-indicador">
+                            <div>Setembro: <b>3h20</b></div>
+                            <div>Agosto: <b>2h40</b></div>
+                            <div>Variação: <b>40 minutos a mais</b></div>
+                        </div>
                     </div>
+
                 </section>
 
-                <div class="section-title">
+                <div class="titulo-secao">
                     <h2>Como a situação evoluiu</h2>
-                    <small>Comparação temporal · Congonhas</small>
+                    <small>Setembro/2026</small>
                 </div>
 
-                <!-- Gráficos da evolução semanal -->
-                <section class="two-columns">
+                <section class="grade-duas-colunas" aria-label="Evolução mensal">
 
-                    <div class="card">
-                        <div class="card-head">
+                    <article class="painel">
+                        <div class="cabecalho-painel">
                             <h3>Incidentes críticos por semana</h3>
-                            <small>8 nos últimos 30 dias</small>
+                            <small>8 em setembro</small>
                         </div>
 
-                        <div class="chart-container">
+                        <div class="area-grafico">
                             <canvas
-                                id="incidents-canvas"
+                                id="grafico-incidentes"
                                 role="img"
-                                aria-label="Incidentes críticos por semana: 1, 2, 2 e 3">
-                                Incidentes críticos por semana: 1, 2, 2 e 3.
+                                aria-label="Incidentes críticos por semana">
                             </canvas>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="card">
-                        <div class="card-head">
+                    <article class="painel">
+                        <div class="cabecalho-painel">
                             <h3>Dias com ao menos um alerta</h3>
-                            <small>9 dias no período</small>
+                            <small>9 dias em setembro</small>
                         </div>
 
-                        <div class="chart-container">
+                        <div class="area-grafico">
                             <canvas
-                                id="days-canvas"
+                                id="grafico-dias-alertas"
                                 role="img"
-                                aria-label="Dias com alerta por semana: 1, 2, 2 e 4">
-                                Dias com alerta por semana: 1, 2, 2 e 4.
+                                aria-label="Dias com alerta por semana">
                             </canvas>
                         </div>
-                    </div>
+                    </article>
+
                 </section>
 
-                <div class="section-title">
+                <div class="titulo-secao">
                     <h2>Onde as ocorrências se concentram</h2>
-                    <small>3 servidores do aeroporto · últimos 30 dias</small>
+                    <small>Setembro/2026</small>
                 </div>
 
-                <!-- Quantidade e padrão das ocorrências por servidor -->
-                <section class="card">
-                    <div class="table-wrap">
+                <section class="painel">
+                    <div class="tabela-responsiva">
                         <table>
                             <thead>
                                 <tr>
@@ -137,15 +175,14 @@
                                     <td>
                                         <b>AIS</b>
                                         <br>
-                                        Informação aeronáutica
+                                        Informações Aeronáuticas
                                     </td>
-                                    <td>5 · 4 da categoria CPU</td>
+
+                                    <td>4 de 5 ocorrências ligadas à CPU</td>
+                                    <td>CPU repetida em 4 ocorrências no mês</td>
+
                                     <td>
-                                        CPU aparece repetidamente;
-                                        comparar picos, média e horários
-                                    </td>
-                                    <td>
-                                        <span class="tag tag-critical">
+                                        <span class="etiqueta-estado estado-critico">
                                             Crítico
                                         </span>
                                     </td>
@@ -155,15 +192,14 @@
                                     <td>
                                         <b>SDV</b>
                                         <br>
-                                        Dados de vigilância
+                                        Dados de Vigilância
                                     </td>
-                                    <td>4 · 3 da categoria disco</td>
+
+                                    <td>3 de 4 ocorrências ligadas ao disco</td>
+                                    <td>Disco repetido em 3 ocorrências no mês</td>
+
                                     <td>
-                                        Disco aparece repetidamente;
-                                        comparar ocupação ao longo do período
-                                    </td>
-                                    <td>
-                                        <span class="tag tag-warning">
+                                        <span class="etiqueta-estado estado-atencao">
                                             Atenção
                                         </span>
                                     </td>
@@ -173,14 +209,14 @@
                                     <td>
                                         <b>SPA</b>
                                         <br>
-                                        Planos de voo
+                                        Planos de Voo
                                     </td>
-                                    <td>2 · categorias diferentes</td>
+
+                                    <td>2 ocorrências: 1 de CPU e 1 de disco</td>
+                                    <td>Sem repetição do mesmo recurso no mês</td>
+
                                     <td>
-                                        Sem repetição da mesma categoria no período
-                                    </td>
-                                    <td>
-                                        <span class="tag tag-ok">
+                                        <span class="etiqueta-estado estado-normal">
                                             Normal
                                         </span>
                                     </td>
@@ -190,120 +226,148 @@
                     </div>
                 </section>
 
-                <div class="section-title">
+                <div class="titulo-secao">
                     <h2>Comportamento dos recursos</h2>
                 </div>
 
-                <!-- Uso dos recursos ao longo das quatro semanas -->
-                <section class="three-columns">
+                <!-- O recurso selecionado aparece nos três servidores -->
+                <div
+                    class="seletor-recurso"
+                    role="group"
+                    aria-label="Recurso comparado">
 
-                    <div class="card resource-card">
-                        <div class="card-head">
-                            <h3>AIS · CPU média</h3>
+                    <button
+                        type="button"
+                        aria-pressed="true"
+                        onclick="selecionarRecurso('cpu', this)">
+                        CPU
+                    </button>
 
-                            <span class="resource-summary orange">
-                                CPU média: 62% na 1ª semana · 72% na 4ª semana
-                            </span>
-                        </div>
+                    <button
+                        type="button"
+                        aria-pressed="false"
+                        onclick="selecionarRecurso('ram', this)">
+                        RAM
+                    </button>
 
-                        <div class="chart-container">
-                            <canvas
-                                id="ais-canvas"
-                                role="img"
-                                aria-label="CPU média do AIS: 62%, 65%, 68% e 72%">
-                                CPU média do AIS: 62%, 65%, 68% e 72%.
-                            </canvas>
-                        </div>
-                    </div>
-
-                    <div class="card resource-card">
-                        <div class="card-head">
-                            <h3>SDV · disco utilizado</h3>
-
-                            <span class="resource-summary orange">
-                                Disco ocupado: 68% na 1ª semana · 77% na 4ª semana
-                            </span>
-                        </div>
-
-                        <div class="chart-container">
-                            <canvas
-                                id="sdv-canvas"
-                                role="img"
-                                aria-label="Disco ocupado no SDV: 68%, 70%, 74% e 77%">
-                                Disco ocupado no SDV: 68%, 70%, 74% e 77%.
-                            </canvas>
-                        </div>
-                    </div>
-
-                    <div class="card resource-card">
-                        <div class="card-head">
-                            <h3>SPA · CPU média</h3>
-
-                            <span class="resource-summary green">
-                                CPU média: 57% na 1ª semana · 58% na 4ª semana
-                            </span>
-                        </div>
-
-                        <div class="chart-container">
-                            <canvas
-                                id="spa-canvas"
-                                role="img"
-                                aria-label="CPU média do SPA: 57%, 58%, 56% e 58%">
-                                CPU média do SPA: 57%, 58%, 56% e 58%.
-                            </canvas>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="section-title">
-                    <h2>Como a equipe respondeu</h2>
-                    <small>Incidentes resolvidos nos últimos 30 dias</small>
+                    <button
+                        type="button"
+                        aria-pressed="false"
+                        onclick="selecionarRecurso('disco', this)">
+                        Disco
+                    </button>
                 </div>
 
-                <!-- Comparação e distribuição dos tempos de resolução -->
-                <section class="two-columns">
+                <section class="grade-tres-colunas graficos-recursos">
 
-                    <div class="card">
-                        <div class="card-head">
-                            <h3>Tempo de resolução</h3>
-                            <small>Mediana · 30 dias</small>
+                    <article class="painel">
+                        <div class="cabecalho-painel">
+                            <h3 id="titulo-recurso-ais">CPU utilizada no AIS</h3>
                         </div>
 
-                        <div class="chart-container">
+                        <div class="area-grafico">
                             <canvas
-                                id="resolution-canvas"
+                                id="grafico-ais"
                                 role="img"
-                                aria-label="Tempo mediano: anterior 160 minutos; atual 200 minutos">
-                                Tempo mediano: anterior 160 minutos;
-                                atual 200 minutos.
+                                aria-label="Mínimo, média e máximo semanal no AIS">
                             </canvas>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="card">
-                        <div class="card-head">
-                            <h3>Distribuição dos tempos</h3>
-                            <small>8 incidentes resolvidos</small>
+                    <article class="painel">
+                        <div class="cabecalho-painel">
+                            <h3 id="titulo-recurso-sdv">CPU utilizada no SDV</h3>
                         </div>
 
-                        <div class="chart-container">
+                        <div class="area-grafico">
                             <canvas
-                                id="distribution-canvas"
+                                id="grafico-sdv"
                                 role="img"
-                                aria-label="2 incidentes até 2 horas, 3 entre 2 e 4 horas e 3 acima de 4 horas">
-                                2 incidentes até 2 horas,
-                                3 entre 2 e 4 horas
-                                e 3 acima de 4 horas.
+                                aria-label="Mínimo, média e máximo semanal no SDV">
                             </canvas>
                         </div>
-                    </div>
+                    </article>
+
+                    <article class="painel">
+                        <div class="cabecalho-painel">
+                            <h3 id="titulo-recurso-spa">CPU utilizada no SPA</h3>
+                        </div>
+
+                        <div class="area-grafico">
+                            <canvas
+                                id="grafico-spa"
+                                role="img"
+                                aria-label="Mínimo, média e máximo semanal no SPA">
+                            </canvas>
+                        </div>
+                    </article>
+
                 </section>
+
+                <div class="titulo-secao">
+                    <h2>Como a equipe respondeu</h2>
+                    <small>Setembro/2026</small>
+                </div>
+
+                <section class="grade-duas-colunas">
+
+                    <article class="painel">
+                        <div class="cabecalho-painel">
+                            <h3>Resolução por turno de abertura</h3>
+                        </div>
+
+                        <!-- O filtro separa os incidentes por severidade. -->
+                        <label class="filtro-severidade">
+                            Severidade dos incidentes
+
+                            <select
+                                id="severidade-incidentes"
+                                onchange="atualizarResolucaoPorTurno(this.value)">
+
+                                <option value="todas">Todas as severidades</option>
+                                <option value="critico">Críticos</option>
+                                <option value="atencao">Atenção</option>
+                            </select>
+                        </label>
+
+                        <div class="area-grafico">
+                            <canvas
+                                id="grafico-resolucao-turnos"
+                                role="img"
+                                aria-label="Tempo mediano de resolução por turno">
+                            </canvas>
+                        </div>
+
+                        <div class="quantidade-por-turno" id="resumo-turnos"></div>
+                    </article>
+
+                    <article class="painel">
+                        <div class="cabecalho-painel">
+                            <h3>Ocorrências por recurso</h3>
+
+                            <small>
+                                11 ocorrências em setembro
+                                <br>
+                                Todas as severidades
+                            </small>
+                        </div>
+
+                        <div class="area-grafico">
+                            <canvas
+                                id="grafico-ocorrencias-recursos"
+                                role="img"
+                                aria-label="Ocorrências de CPU, disco e RAM">
+                            </canvas>
+                        </div>
+                    </article>
+
+                </section>
+
             </div>
         </main>
     </div>
 
-    <!-- A biblioteca precisa carregar antes do JS da página -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.js"></script>
     <script src="gerente.js"></script>
 </body>
 

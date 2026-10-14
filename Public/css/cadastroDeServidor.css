@@ -26,6 +26,13 @@
     --scroll-track: #0a1029;
     --scroll-thumb: #4a5cae;
     --scroll-thumb-hover: #6c80d4;
+    --bg-start: #1f1f2b;
+    --bg-end: #1b1a4a;
+    --card-bg-top: #1c2145;
+    --card-bg-bottom: #1a1d3a;
+    --card-border: rgba(255, 255, 255, 0.45);
+    --azul-icone: #3d5afe;
+    --btn-novo-bg: #14141c;
 }
 
 

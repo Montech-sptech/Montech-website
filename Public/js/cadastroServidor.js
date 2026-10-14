@@ -162,6 +162,12 @@ function renderizarPopupList() {
 
 
 const btnSalvar = document.getElementById('btn-salvar');
+const popUpFechar = document.getElementById('popup-fechar');
+const popUp = document.getElementById('popup-excluir');
+
+popUpFechar.addEventListener('click', function() {
+    popUp.style.display = 'none'; 
+})
 
 btnSalvar.addEventListener('click', function() {
     cadastrarServidor();
@@ -188,6 +194,7 @@ async function cadastrarServidor() {
 
         if (!resposta.ok) {
             console.log("Houve um erro ao tentar realizar o cadastro de servidor!");
+            alert("erro")
             return false;
         }
 
@@ -208,13 +215,16 @@ async function cadastrarServidor() {
 
         if (!respostaComp.ok) {
             console.log("Erro componentes");
+            alert("erro")
             return false;
         }
 
+        popUp.style.display = 'flex';
         console.log("Tudo certo");
         return true;
     } catch (erro) {
         console.log(erro);
+        alert("erro")
         return false;
     }
 }

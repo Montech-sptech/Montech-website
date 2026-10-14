@@ -15,7 +15,21 @@ function buscarServidoresAeroporto(idAeroporto) {
   return database.executar(instrucaoSql);
 }
 
+function buscarComponentes() {
+  var instrucaoSql = `
+        SELECT
+            idComponente,
+            nomeComponente,
+            unidadeMedida
+        FROM componente;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
-  buscarServidoresAeroporto
+  buscarServidoresAeroporto,
+  buscarComponentes
+  
 };

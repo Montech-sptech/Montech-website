@@ -224,12 +224,12 @@ select {
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 14px;
 }
  
 .componentes-topo h2 {
     margin: 0;
-    max-width: 420px;
+    max-width: 620px;
     font-size: clamp(1.15rem, 2.2vw, 1.5rem);
     font-weight: 600;
     line-height: 1.25;
@@ -265,13 +265,11 @@ select {
 }
  
 .lista-componentes h3 {
-    margin: 0 0 4px;
     font-size: 0.8rem;
     font-weight: 600;
 }
  
 .lista-componentes > p {
-    margin: 0 0 18px;
     max-width: 260px;
     font-size: 0.72rem;
     color: var(--texto-suave);
@@ -280,7 +278,7 @@ select {
 .lista-componentes {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 4px;
 }
  
 .lista-componentes h3,
@@ -289,7 +287,7 @@ select {
 }
  
 .lista-componentes > p {
-    margin-bottom: 4px;
+    margin-bottom: 15px;
 }
  
 .componente-item {
@@ -301,6 +299,7 @@ select {
     background: var(--bg-item);
     border: 1px solid #343b5e;
     border-radius: 4px;
+    margin-bottom: 15px;
 }
  
 .componente-nome {

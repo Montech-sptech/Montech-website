@@ -55,7 +55,6 @@ async function CarregarInfos() {
             console.log("Sem servidores")
         }
     } catch (erro) {
-        // 4. Captura erros de rede ou falhas na requisição
         console.error("Erro ao carregar informações:", erro);
         ModoFavorito.innerHTML = 'Erro ao carregar dados';
     }

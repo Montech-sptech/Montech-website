@@ -14,6 +14,19 @@ async function buscarServidoresAeroporto(req, res) {
     });
 }
 
+async function buscarComponentes(req, res) {  
+  gerServidorModel
+    .buscarComponentes()
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
-  buscarServidoresAeroporto
+  buscarServidoresAeroporto,
+  buscarComponentes
 };

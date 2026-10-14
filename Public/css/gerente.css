@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-/* Fonte e cores principais do projeto */
+/* Fonte e cores principais do projeto. */
 body {
     margin: 0;
     font-family: Inter, "Helvetica Neue", Arial, sans-serif;
@@ -10,19 +10,30 @@ body {
     color: #ffffff;
 }
 
-a:focus-visible {
+button,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
     outline: 2px solid #4fa3ff;
     outline-offset: 3px;
 }
 
-/* Divide a página em menu lateral e conteúdo */
-.app {
+/* Divide a página entre navegação e conteúdo. */
+.estrutura-pagina {
     display: grid;
     grid-template-columns: 202px minmax(0, 1fr);
     min-height: 100vh;
 }
 
-.side {
+.menu-lateral {
     display: flex;
     flex-direction: column;
     gap: 35px;
@@ -31,30 +42,26 @@ a:focus-visible {
     border-right: 1px solid #262f5c;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 2px 8px;
-    font-size: 1.16rem;
-    font-weight: 900;
+.logotipo {
+    padding: 2px 4px;
 }
 
-/* Logo completa na barra lateral */
-.logo img {
-    width: 160px;
+.logotipo img {
+    display: block;
+    width: 170px;
     max-width: 100%;
     height: auto;
     object-fit: contain;
 }
 
-.nav {
+.navegacao {
     display: flex;
     flex-direction: column;
     gap: 7px;
 }
 
-.nav a {
+.navegacao a {
+    display: block;
     padding: 12px;
     border-radius: 6px;
     color: #b8c1d9;
@@ -62,17 +69,16 @@ a:focus-visible {
     text-decoration: none;
 }
 
-.nav a.active {
+.navegacao a.pagina-atual {
     background-color: #2b3990;
     color: #ffffff;
 }
 
-.nav a:hover {
+.navegacao a:hover {
     background-color: #1e2766;
 }
 
-/* Fundo da área principal */
-.main {
+.conteudo-principal {
     min-width: 0;
     padding: 24px 32px 55px;
     background: radial-gradient(
@@ -83,12 +89,12 @@ a:focus-visible {
     );
 }
 
-.container {
+.limite-conteudo {
     max-width: 1450px;
     margin: auto;
 }
 
-.head {
+.cabecalho-pagina {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -96,13 +102,13 @@ a:focus-visible {
     margin-bottom: 22px;
 }
 
-.head h1 {
+.cabecalho-pagina h1 {
     margin: 0;
     font-size: 2rem;
     letter-spacing: -0.04em;
 }
 
-.context {
+.informacoes-aeroporto {
     padding: 10px 13px;
     border: 1px solid #262f5c;
     border-radius: 6px;
@@ -112,12 +118,11 @@ a:focus-visible {
     line-height: 1.5;
 }
 
-.context b {
+.informacoes-aeroporto b {
     color: #ffffff;
 }
 
-/* Títulos das seções */
-.section-title {
+.titulo-secao {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,36 +130,38 @@ a:focus-visible {
     margin: 23px 0 10px;
 }
 
-.section-title h2 {
+.titulo-secao h2 {
     margin: 0;
     font-size: 16px;
 }
 
-.section-title small {
+.titulo-secao small,
+.cabecalho-painel small {
     color: #b8c1d9;
     font-size: 12px;
 }
 
-/* Quatro indicadores lado a lado */
-.kpis {
+/* kpi */
+.lista-indicadores {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
 }
 
-.kpi,
-.card {
+.indicador,
+.painel {
+    min-width: 0;
+    background-color: #141b3d;
     border: 1px solid #262f5c;
     border-radius: 5px;
-    background-color: #141b3d;
 }
 
-.kpi {
-    min-height: 119px;
+.indicador {
+    min-height: 200px;
     padding: 14px;
 }
 
-.kpi-label {
+.titulo-indicador {
     min-height: 33px;
     margin: 0;
     color: #b8c1d9;
@@ -162,43 +169,48 @@ a:focus-visible {
     line-height: 1.4;
 }
 
-.kpi-number {
+.valor-indicador {
     display: block;
     margin: 4px 0;
     font-size: 29px;
     font-weight: 800;
 }
 
-.kpi small {
-    display: block;
+.detalhes-indicador {
+    display: grid;
+    gap: 7px;
+    margin-top: 10px;
     color: #b8c1d9;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
-/* Cores dos indicadores */
-.red {
+.detalhes-indicador b {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.texto-critico {
     color: #ff5361;
 }
 
-.orange {
+.texto-atencao {
     color: #ffad1f;
 }
 
-.green {
+.texto-normal {
     color: #60d98d;
 }
 
-.blue {
+.texto-destaque {
     color: #4fa3ff;
 }
 
-.card {
-    min-width: 0;
+.painel {
     padding: 15px;
 }
 
-.card-head {
+.cabecalho-painel {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -206,31 +218,30 @@ a:focus-visible {
     margin-bottom: 13px;
 }
 
-.card-head h3 {
+.cabecalho-painel h3 {
     margin: 0;
     font-size: 14px;
 }
 
-.card-head small {
-    color: #b8c1d9;
-    font-size: 12px;
-}
-
-/* Organiza os cartões dos gráficos */
-.two-columns {
+/* Distribuição dos painéis */
+.grade-duas-colunas {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
     gap: 13px;
 }
 
-.three-columns {
+.grade-tres-colunas {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
 }
 
-/* Permite rolagem da tabela em telas pequenas */
-.table-wrap {
+.graficos-recursos .cabecalho-painel {
+    align-items: flex-start;
+}
+
+/* Tabela de concentração das ocorrências */
+.tabela-responsiva {
     overflow-x: auto;
 }
 
@@ -258,12 +269,7 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-td:first-child {
-    width: 22%;
-}
-
-/* Etiquetas dos estados */
-.tag {
+.etiqueta-estado {
     display: inline-block;
     padding: 4px 7px;
     border-radius: 4px;
@@ -272,98 +278,166 @@ td:first-child {
     white-space: nowrap;
 }
 
-.tag-critical {
-    background-color: #681e31;
-    color: #ff8993;
-}
-
-.tag-warning {
-    background-color: #6a431c;
-    color: #ffcd71;
-}
-
-.tag-ok {
+.estado-normal {
     background-color: #19492d;
     color: #81e68a;
 }
 
-/* Posiciona o resumo abaixo do título do recurso */
-.resource-card .card-head {
-    flex-direction: column;
-    align-items: flex-start;
+.estado-atencao {
+    background-color: #6a431c;
+    color: #ffcd71;
+}
+
+.estado-critico {
+    background-color: #681e31;
+    color: #ff8993;
+}
+
+/* Escolha do componente comparado */
+.seletor-recurso {
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
+    margin: 12px 0;
 }
 
-.resource-summary {
+.seletor-recurso button {
+    padding: 8px 18px;
+    border: 1px solid #293b8f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #c3cbe3;
+    font-size: 14px;
+}
+
+.seletor-recurso button[aria-pressed="true"] {
+    background-color: #2b3990;
+    color: #ffffff;
+}
+
+/* Filtro do gráfico de resolução */
+.filtro-severidade {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+    color: #c3cbe3;
+    font-size: 14px;
+}
+
+.filtro-severidade select {
+    max-width: 100%;
+    padding: 7px;
+    border: 1px solid #262f5c;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #ffffff;
+}
+
+.quantidade-por-turno {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.quantidade-por-turno div {
+    display: grid;
+    gap: 4px;
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+.quantidade-por-turno strong {
+    color: #ffffff;
     font-size: 13px;
-    font-weight: 700;
-    line-height: 1.5;
 }
 
-/* Espaço usado pelos gráficos do Chart.js */
-.chart-container {
+/* Define o espaço ocupado pelo Chart.js */
+.area-grafico {
     position: relative;
     width: 100%;
     height: 230px;
     margin-top: 12px;
 }
 
-.resource-card .chart-container {
-    height: 190px;
+.area-grafico canvas {
+    max-width: 100%;
 }
 
-/* Ajustes para telas menores */
+.erro-graficos {
+    padding: 12px;
+    border: 1px solid #ffad1f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #ffcd71;
+}
+
+.erro-graficos[hidden] {
+    display: none;
+}
+
 @media (max-width: 1150px) {
-    .kpis {
-        grid-template-columns: repeat(2, 1fr);
+    .lista-indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .two-columns {
+    .grade-duas-colunas {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 800px) {
-    .app {
+    .estrutura-pagina {
         display: block;
     }
 
-    .side {
+    .menu-lateral {
         padding: 12px 15px;
         gap: 12px;
     }
 
-    .nav {
+    .navegacao {
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-    .main {
+    .conteudo-principal {
         padding: 20px 15px 42px;
     }
 
-    .head {
+    .cabecalho-pagina {
         flex-direction: column;
     }
 
-    .three-columns {
+    .grade-tres-colunas {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 650px) {
-    .section-title {
+    .titulo-secao {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .cabecalho-painel {
+        flex-wrap: wrap;
+    }
+
+    .quantidade-por-turno {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 470px) {
-    .kpis {
+    .lista-indicadores {
         grid-template-columns: 1fr;
     }
 
-    .kpi-label {
+    .titulo-indicador {
         min-height: 0;
     }
 }

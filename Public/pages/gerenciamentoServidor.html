@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="../css/PopUp.css">
     <link rel="stylesheet" href="../css/gerenciamentoServidor.css">
     <link rel="stylesheet" href="../css/sidebar.css" />
-    <script src="../js/cadastroServidor.js" defer></script>
+    <script src="../js/gerenciamentoServidor/gerenciamentoServidor.js" defer></script>
+    <script src="../js/gerenciamentoServidor/btnFunctions.js" defer></script>
     <script src="../js/sidebar.js" defer></script>
 
     <script src="../js/gerenciamentoServidor/btnFunctions.js" defer></script>
@@ -248,64 +249,14 @@
       </div>
     </div>
  
-    <section class="servidores">
-      <article class="card-servidor">
-        <p class="status">Status: <span class="status-valor ativo">ativo</span></p>
-        <h2 class="nome-servidor">Nome do servidor</h2>
-        <h3 class="sistema-operacional">Sistema Operacional</h3>
- 
-        <button type="button" class="btn-visualizar">Visualizar</button>
- 
-        <div class="card-acoes">
-          <button type="button" class="btn-editar" aria-label="Editar servidor">
-            <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
-        </button>
-          <button type="button" class="btn-excluir" aria-label="Excluir servidor">
-            <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
-          </button>
-        </div>
-      </article>
- 
-      <article class="card-servidor">
-        <p class="status">Status: <span class="status-valor ativo">ativo</span></p>
-        <h2 class="nome-servidor">Nome do servidor</h2>
-        <h3 class="sistema-operacional">Sistema Operacional</h3>
- 
-        <button type="button" class="btn-visualizar">Visualizar</button>
- 
-        <div class="card-acoes">
-          <button type="button" class="btn-editar" aria-label="Editar servidor">
-            <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
-        </button>
-          <button type="button" class="btn-excluir" aria-label="Excluir servidor">
-            <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
-          </button>
-        </div>
-      </article>
- 
-      <article class="card-servidor">
-        <p class="status">Status: <span class="status-valor desativado">desativado</span></p>
-        <h2 class="nome-servidor">Nome do servidor</h2>
-        <h3 class="sistema-operacional">Sistema Operacional</h3>
- 
-        <button type="button" class="btn-visualizar">Visualizar</button>
- 
-        <div class="card-acoes">
-          <button type="button" class="btn-editar" aria-label="Editar servidor">
-            <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
-        </button>
-          <button type="button" class="btn-excluir" aria-label="Excluir servidor">
-            <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
-          </button>
-        </div>
-      </article>
- 
+    <section class="servidores" id="listaServidores">
+
     </section>
     <div class="popup-overlay" id="popup-excluir">
         <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
 
             <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
-            <img src="../img/GerenciamentoServidores/LetraXicon.svg" alt="">
+              <img src="../img/Servidores/LetraXicon.svg" alt="">
             </button>
 
             <h2 class="popup-titulo" id="popup-titulo">
@@ -317,7 +268,23 @@
             <label for="input-confirmar-exclusao">Digite "excluir" para confirmar</label>
             <input type="text" id="input-confirmar-exclusao" autocomplete="off">
 
-            <button type="button" class="btn-confirmar-exclusao" disabled>Enviar</button>
+            <button type="button" class="btn-confirmar-exclusao" id="btn-confirmar-exclusao">Enviar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popup-aviso">
+        <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
+
+            <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
+              <img src="../img/Servidores/LetraXicon.svg" alt="">
+            </button>
+
+            <h2 class="popup-titulo" id="popup-titulo">
+              Servidor deletado com sucesso!
+            </h2>
+            <p class="popup-aviso">(O servidor não poderá ser recuperado)</p>
             </div>
 
         </div>

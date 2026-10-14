@@ -26,6 +26,13 @@
     --scroll-track: #0a1029;
     --scroll-thumb: #4a5cae;
     --scroll-thumb-hover: #6c80d4;
+    --bg-start: #1f1f2b;
+    --bg-end: #1b1a4a;
+    --card-bg-top: #1c2145;
+    --card-bg-bottom: #1a1d3a;
+    --card-border: rgba(255, 255, 255, 0.45);
+    --azul-icone: #3d5afe;
+    --btn-novo-bg: #14141c;
 }
 
 
@@ -224,12 +231,12 @@ select {
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 14px;
 }
  
 .componentes-topo h2 {
     margin: 0;
-    max-width: 420px;
+    max-width: 620px;
     font-size: clamp(1.15rem, 2.2vw, 1.5rem);
     font-weight: 600;
     line-height: 1.25;
@@ -265,13 +272,11 @@ select {
 }
  
 .lista-componentes h3 {
-    margin: 0 0 4px;
     font-size: 0.8rem;
     font-weight: 600;
 }
  
 .lista-componentes > p {
-    margin: 0 0 18px;
     max-width: 260px;
     font-size: 0.72rem;
     color: var(--texto-suave);
@@ -280,7 +285,7 @@ select {
 .lista-componentes {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 4px;
 }
  
 .lista-componentes h3,
@@ -289,7 +294,7 @@ select {
 }
  
 .lista-componentes > p {
-    margin-bottom: 4px;
+    margin-bottom: 15px;
 }
  
 .componente-item {
@@ -301,6 +306,7 @@ select {
     background: var(--bg-item);
     border: 1px solid #343b5e;
     border-radius: 4px;
+    margin-bottom: 15px;
 }
  
 .componente-nome {

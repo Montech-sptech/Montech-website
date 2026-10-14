@@ -2,7 +2,6 @@ window.addEventListener('DOMContentLoaded', function() {
     gerarToken();
 });
 
-
 function gerarToken() {
     const inicial = 'm'
         .trim()
@@ -26,33 +25,56 @@ function gerarToken() {
     }
 }
 
+async function CarregarComponentes() {
+    try {
+        let resposta = await fetch(`/gerServidores/buscarComponentes`);
+        if (resposta.ok) {
+            let dados = await resposta.json();
+            if (dados && dados.length >= 0) {
+                OpcoesDisponiveis.length = 0; 
 
+                for (let i = 0; i < dados.length; i++) {
+                    let idComponente = dados[i].idComponente;
+                    let nomeComponente = dados[i].nomeComponente;
+                    let unidadeMedida = dados[i].unidadeMedida;
 
-const OpcoesDisponiveis = [
-  {
-    "id": "1",
-    "componente": "CPU",
-    "metrica": "Porcentagem",
-    "icone": "../img/Servidores/cpuIcon.svg",
-    "atencao": 13,
-    "critico": 13
-  },
-  {
-    "id": "2",
-    "componente": "Mem. RAM",
-    "metrica": "Porcentagem",
-    "icone": "../img/Servidores/ramIcon.svg",
-    "atencao": 22,
-    "critico": 22 
-  }
-];
+                    OpcoesDisponiveis.push({
+                        "idComponente": idComponente,
+                        "nomeComponente": nomeComponente,
+                        "unidadeMedida": unidadeMedida,
+                        "atencao": 0,
+                        "critico": 0,
+                        "icone": "../img/Servidores/cpuIcon.svg"
+                    });
+                }
+                
+                console.log("Componentes carregados no array:", OpcoesDisponiveis);
+            } else {
+                console.log('Nenhum dado encontrado');
+            }
+        } else {
+            console.log("Sem componente")
+        }
+    } catch (erro) {
+        console.error("Erro ao carregar informações:", erro);
+    }
+}
+    
+window.addEventListener('DOMContentLoaded', function() {
+    CarregarComponentes()
+})
 
-const itemAdicionados = []
+const itemAdicionados = [];
+const OpcoesDisponiveis = [];
+
 
 
 function renderizarListaComponentes(dados) {
     const container = document.querySelector('.lista-componentes');
-    container.innerHTML = '';
+    container.innerHTML = `
+        <h3>Lista de componente</h3>
+        <p>Ajuste os parâmetros de atenção e crítico para receber seus alertas</p>
+    `;
 
     dados.forEach(item => {
         const divItem = document.createElement('div');
@@ -60,27 +82,23 @@ function renderizarListaComponentes(dados) {
 
         divItem.innerHTML = `
             <div class="componente-nome">
-                <img src="${item.icone}" alt="${item.componente}">
-                <span>${item.componente}</span>
+                <img src="${item.icone}" alt="${item.nomeComponente}">
+                <span>${item.nomeComponente}</span>
             </div>
 
             <div class="componente-campo">
-                <label for="${item.id}-metrica">Métrica</label>
-                <select id="${item.id}-metrica" name="metrica">
-                      <option value="Porcentagem">Porcentagem</option>
-                      <option value="Processos">Processos</option>
-                      <option value="Bytes">Bytes</option>
-                </select>
+                <label for="${item.idComponente}-metrica">Métrica</label>
+                <input type="text" id="${item.idComponente}-metrica" readonly value="${item.unidadeMedida}">
             </div>
 
             <div class="componente-campo">
-                <label for="${item.id}-atencao">Atenção</label>
-                <input type="number" id="${item.id}-atencao" value="${item.atencao}">
+                <label for="${item.idComponente}-atencao">Atenção</label>
+                <input type="number" id="${item.idComponente}-atencao" value="${item.atencao}">
             </div>
 
             <div class="componente-campo">
-                <label for="${item.id}-critico">Crítico</label>
-                <input type="number" id="${item.id}-critico" value="${item.critico}">
+                <label for="${item.idComponente}-critico">Crítico</label>
+                <input type="number" id="${item.idComponente}-critico" value="${item.critico}">
             </div>
 
             <button type="button" class="btn-excluir">
@@ -115,24 +133,24 @@ function renderizarPopupList() {
         const li = document.createElement('li');
 
         li.innerHTML = `
-            <button class="componente btn-adicionar-componente" type="button" data-componente="${item.id}">
-                <img class="componente__icone" src="${item.icone}" alt="${item.componente}">
-                ${item.componente}
+            <button class="componente btn-adicionar-componente" type="button" data-componente="${item.idComponente}">
+                <img class="componente__icone" src="${item.icone}" alt="${item.nomeComponente}">
+                ${item.nomeComponente}
             </button>
         `;
 
         const botao = li.querySelector('.btn-adicionar-componente');
 
         botao.addEventListener('click', function() { 
-            const idBuscado = botao.dataset.componente;
-            
-            const indiceOpcao = OpcoesDisponiveis.findIndex(opcao => opcao.id === idBuscado);
+            const idBuscado = parseInt(botao.dataset.componente);
+            const indiceOpcao = OpcoesDisponiveis.findIndex(opcao => opcao.idComponente === idBuscado);
             
             if (indiceOpcao !== -1) {
                 const [itemEncontrado] = OpcoesDisponiveis.splice(indiceOpcao, 1);
                 itemAdicionados.push(itemEncontrado);
                 renderizarListaComponentes(itemAdicionados);                
                 renderizarPopupList();
+                console.log(itemAdicionados)
                 console.log('Item movido com sucesso para os adicionados:', itemAdicionados);
             }
             ListaComponenteAdicionar.style.display = 'none';
@@ -143,5 +161,70 @@ function renderizarPopupList() {
 }
 
 
+const btnSalvar = document.getElementById('btn-salvar');
+const popUpFechar = document.getElementById('popup-fechar');
+const popUp = document.getElementById('popup-excluir');
+
+popUpFechar.addEventListener('click', function() {
+    popUp.style.display = 'none'; 
+})
+
+btnSalvar.addEventListener('click', function() {
+    cadastrarServidor();
+})
 
 
+async function cadastrarServidor() {
+    const nomeServidor = document.getElementById('nome-servidor');
+    const sistemaOperacional = document.getElementById('sistema-operacional');
+    const tokenUnico = document.getElementById('token-unico');
+    const idAeroporto = sessionStorage.AEROPORTO_ID;
+
+    try {
+        const resposta = await fetch("/gerServidores/cadastrarServidor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                tokenServer: tokenUnico.value,
+                nomeServidorServer: nomeServidor.value,
+                sistemaOperacionalServer: sistemaOperacional.value,
+                fkAeroportoServer: idAeroporto
+            })
+        });
+
+        if (!resposta.ok) {
+            console.log("Houve um erro ao tentar realizar o cadastro de servidor!");
+            alert("erro")
+            return false;
+        }
+
+        const json = await resposta.json();
+        const idServidor = json.insertId;
+
+        const componentes = itemAdicionados.map(({ idComponente, atencao, critico }) => ({
+            fkComponente: idComponente,
+            limiteAtencao: atencao,
+            limiteCritico: critico
+        }));
+
+        const respostaComp = await fetch("/gerServidores/cadastrarComponenteServidor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fkServidorServer: idServidor, componentesServer: componentes })
+        });
+
+        if (!respostaComp.ok) {
+            console.log("Erro componentes");
+            alert("erro")
+            return false;
+        }
+
+        popUp.style.display = 'flex';
+        console.log("Tudo certo");
+        return true;
+    } catch (erro) {
+        console.log(erro);
+        alert("erro")
+        return false;
+    }
+}

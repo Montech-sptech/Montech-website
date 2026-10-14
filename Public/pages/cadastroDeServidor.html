@@ -11,7 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/cadastroDeServidor.css" />
     <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/sidebar.css" />
+    <link rel="stylesheet" href="../css/sidebar.css"/>
+    <link rel="stylesheet" href="../css/PopUp.css"/>
     <script src="../js/gerenciamentoServidor/rotasServidores.js" defer></script>
     <script src="../js/cadastroServidor.js" defer></script>
     <script src="../js/sidebar.js" defer></script>
@@ -233,7 +234,6 @@
     </aside>
 
     <main class="containerCadastroServidor">
-        <!-- Cabeçalho -->
       <header class="cabecalho">
           <button type="button" class="btn-voltar" id="btn-voltar">
               <img src="../img/Servidores/voltarIcon.svg" alt="Voltar">
@@ -244,7 +244,6 @@
           </div>
       </header>
 
-      <!-- Especificação e Token -->
       <section class="topo">
           <div class="card especificacao">
               <h2>ESPECIFICAÇÃO</h2>
@@ -269,7 +268,7 @@
               <div class="campo">
                   <label for="token-unico">Token único (Esse token é a identificação única desse servidor )</label>
                   <div class="campo-token">
-                      <input type="text" id="token-unico" name="token-unico" readonly value="AAAAAAAAAAa">
+                      <input type="text" id="token-unico" name="token-unico" readonly value="">
                       <button type="button" class="btn-copiar" id="btn-copiar">
                           <img src="../img/Servidores/copyIcon.svg" alt="Copiar token">
                       </button>
@@ -280,7 +279,6 @@
           </div>
       </section>
 
-      <!-- Componentes -->
       <section class="componentes">
           <div class="componentes-topo">
               <h2>Selecione os componentes para monitorar</h2>
@@ -290,15 +288,14 @@
           <div class="lista-componentes">
               <h3>Lista de componente</h3>
               <p>Ajuste os parâmetros de atenção e crítico para receber seus alertas</p>
-
+              
 
           </div>
       </section>
 
-      <!-- Ações -->
       <footer class="acoes">
           <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
-          <button type="button" class="btn-salvar">Salvar servidor</button>
+          <button type="button" class="btn-salvar" id="btn-salvar">Salvar servidor</button>
       </footer>
 
 
@@ -318,6 +315,25 @@
             </ul>
           </div>
         </div>
+      </div>
+
+      <div class="popup-overlay" id="popup-excluir">
+          <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
+
+              <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
+              <img src="../img/Servidores/LetraXicon.svg" alt="">
+              </button>
+
+              <h2 class="popup-titulo" id="popup-titulo">
+                Seu servidor foi cadastrado com sucesso
+              </h2>
+              <p class="popup-aviso">Baixe o manual de instalação para ativar seu servidor</p>
+
+              <div class="popup-confirmacao">
+              <button type="button" class="btn-confirmar-exclusao">Visualizar servidor</button>
+              </div>
+
+          </div>
       </div>
     </main>
 

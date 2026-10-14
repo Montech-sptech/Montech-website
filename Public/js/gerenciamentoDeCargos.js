@@ -219,3 +219,269 @@ function renderizarCargos() {
     info.textContent = `Mostrando ${filtrados.length} de ${listaCargos.length} cargos`;
   }
 }
+
+function montarCheckboxesPermissoes(idsMarcados) {
+  const grid = document.getElementById("gridPermissoes");
+
+  if (permissoesDisponiveis.length == 0) {
+    grid.innerHTML = `<div class="semPermissoesDisponiveis">Nenhuma permissão cadastrada no sistema.</div>`;
+    return;
+  }
+
+  grid.innerHTML = permissoesDisponiveis
+    .map((permissao) => {
+      const marcado = idsMarcados.includes(permissao.idPermissao);
+      return `
+        <label class="checkboxPermissao ${marcado ? "ativo" : ""}">
+          <input type="checkbox" class="inputPermissaoCheckbox" value="${permissao.idPermissao}" ${marcado ? "checked" : ""} onchange="aoMudarPermissao(this)">
+          <span class="marcadorPermissao">${ICONES.check}</span>
+          <span class="textoPermissao">
+            <span class="permissaoNome">${escaparHtml(formatarNomePermissao(permissao.nome))}</span>
+            ${permissao.descricao ? `<span class="permissaoDescricao">${escaparHtml(permissao.descricao)}</span>` : ""}
+          </span>
+        </label>`;
+    })
+    .join("");
+}
+
+function checkboxesPermissao() {
+  return Array.from(document.querySelectorAll(".inputPermissaoCheckbox"));
+}
+
+function aoMudarPermissao(input) {
+  input.closest(".checkboxPermissao").classList.toggle("ativo", input.checked);
+  atualizarResumoPermissoes();
+}
+
+function atualizarResumoPermissoes() {
+  const caixas = checkboxesPermissao();
+  const marcadas = caixas.filter((c) => c.checked).length;
+
+  document.getElementById("contadorPermissoes").textContent =
+    marcadas == 1 ? "1 selecionada" : `${marcadas} selecionadas`;
+
+  const botao = document.getElementById("btnSelecionarTodas");
+  botao.textContent =
+    caixas.length > 0 && marcadas == caixas.length
+      ? "Limpar seleção"
+      : "Selecionar todas";
+  botao.disabled = caixas.length == 0;
+}
+
+function alternarTodasPermissoes() {
+  const caixas = checkboxesPermissao();
+  const todasMarcadas = caixas.every((c) => c.checked);
+
+  caixas.forEach((c) => {
+    c.checked = !todasMarcadas;
+    c.closest(".checkboxPermissao").classList.toggle("ativo", c.checked);
+  });
+  atualizarResumoPermissoes();
+  const erroModalCargo = document.getElementById("erroModalCargo");
+  erroModalCargo.textContent = "";
+  erroModalCargo.hidden = true;
+}
+
+function atualizarContadorDescricao() {
+  const campo = document.getElementById("inputDescricaoCargo");
+  document.getElementById("contadorDescricao").textContent =
+    `${campo.value.length}/${campo.maxLength}`;
+}
+
+function abrirModalCargo(idCargoClicado) {
+  idCargoEditando = idCargoClicado ?? null;
+  const erroModalCargo = document.getElementById("erroModalCargo");
+  erroModalCargo.textContent = "";
+  erroModalCargo.hidden = true;
+
+  const editando = idCargoEditando !== null;
+  const cargo = editando
+    ? listaCargos.find((c) => c.idCargo === idCargoEditando)
+    : null;
+
+  if (editando && !cargo) return;
+
+  document.getElementById("tituloModalCargo").textContent = editando
+    ? "Editar cargo"
+    : "Novo cargo";
+  document.getElementById("botaoSalvarCargo").textContent = editando
+    ? "SALVAR MUDANÇAS"
+    : "CADASTRAR CARGO";
+
+  const inputNome = document.getElementById("inputNomeCargo");
+  const selectStatus = document.getElementById("selectStatusCargo");
+
+  inputNome.value = cargo ? cargo.nome : "";
+  document.getElementById("inputDescricaoCargo").value = cargo
+    ? cargo.descricao
+    : "";
+  selectStatus.value = cargo && !cargo.status ? "inativo" : "ativo";
+
+  document.getElementById("campoStatusCargo").hidden = !editando;
+  const protegido = Boolean(cargo && cargo.protegido);
+  inputNome.disabled = protegido;
+  selectStatus.disabled = protegido;
+
+  montarCheckboxesPermissoes(
+    cargo ? cargo.permissoes.map((p) => p.idPermissao) : [],
+  );
+  atualizarResumoPermissoes();
+  atualizarContadorDescricao();
+
+  document.getElementById("modalCargo").classList.remove("escondido");
+  if (!protegido) inputNome.focus();
+}
+
+function fecharModalCargo() {
+  document.getElementById("modalCargo").classList.add("escondido");
+}
+
+async function salvarCargo() {
+  if (salvandoCargo) return;
+  const erroModalCargo = document.getElementById("erroModalCargo");
+  erroModalCargo.textContent = "";
+  erroModalCargo.hidden = true;
+
+  const nome = document.getElementById("inputNomeCargo").value.trim();
+  const descricao = document.getElementById("inputDescricaoCargo").value.trim();
+  const status = document.getElementById("selectStatusCargo").value == "ativo";
+  const permissoes = checkboxesPermissao()
+    .filter((c) => c.checked)
+    .map((c) => Number(c.value));
+
+  if (nome.length < 2) {
+    erroModalCargo.textContent = "Informe o nome do cargo (mínimo 2 letras).";
+    erroModalCargo.hidden = false;
+    return;
+  }
+  if (permissoes.length == 0) {
+    erroModalCargo.textContent = "Selecione ao menos uma permissão.";
+    erroModalCargo.hidden = false;
+    return;
+  }
+
+  const idAdministrador = sessionStorage.ID;
+  const editando = idCargoEditando !== null;
+
+  const botao = document.getElementById("botaoSalvarCargo");
+  const textoOriginal = botao.textContent;
+  salvandoCargo = true;
+  botao.disabled = true;
+  botao.textContent = "SALVANDO...";
+
+  try {
+    let resposta;
+    if (editando) {
+      resposta = await fetch(`/cargos/atualizar/${idAdministrador}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idCargo: idCargoEditando,
+          nome,
+          descricao,
+          status,
+          permissoes,
+        }),
+      });
+    } else {
+      resposta = await fetch(`/cargos/cadastrar/${idAdministrador}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, descricao, permissoes }),
+      });
+    }
+    const corpo = await resposta.json().catch(() => null);
+    if (!resposta.ok) {
+      throw new Error((corpo && corpo.mensagem) || `Erro ${resposta.status}`);
+    }
+
+    fecharModalCargo();
+    await recarregarCargos();
+  } catch (erro) {
+    console.error("Erro ao salvar cargo:", erro);
+    erroModalCargo.textContent = erro.message;
+    erroModalCargo.hidden = false;
+  } finally {
+    salvandoCargo = false;
+    botao.disabled = false;
+    botao.textContent = textoOriginal;
+  }
+}
+
+function abrirModalExclusaoCargo(idCargoClicado) {
+  const cargo = listaCargos.find((c) => c.idCargo === idCargoClicado);
+  if (!cargo) return;
+
+  idCargoExcluindo = idCargoClicado;
+  const erroExclusaoCargo = document.getElementById("erroExclusaoCargo");
+  erroExclusaoCargo.textContent = "";
+  erroExclusaoCargo.hidden = true;
+
+  document.getElementById("textoConfirmacaoExclusaoCargo").innerHTML =
+    `Tem certeza que deseja excluir o cargo <strong>${escaparHtml(cargo.nome)}</strong>? As permissões dele também serão removidas. Essa ação não pode ser desfeita.`;
+
+  document.getElementById("modalExclusaoCargo").classList.remove("escondido");
+}
+
+function fecharModalExclusaoCargo() {
+  document.getElementById("modalExclusaoCargo").classList.add("escondido");
+}
+
+async function confirmarExclusaoCargo() {
+  const erroExclusaoCargo = document.getElementById("erroExclusaoCargo");
+  erroExclusaoCargo.textContent = "";
+  erroExclusaoCargo.hidden = true;
+  const idAdministrador = sessionStorage.ID;
+
+  try {
+    const resposta = await fetch(`/cargos/excluir/${idAdministrador}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ idCargo: idCargoExcluindo }),
+    });
+    const corpo = await resposta.json().catch(() => null);
+    if (!resposta.ok) {
+      throw new Error((corpo && corpo.mensagem) || `Erro ${resposta.status}`);
+    }
+
+    fecharModalExclusaoCargo();
+    await recarregarCargos();
+  } catch (erro) {
+    console.error("Erro ao excluir cargo:", erro);
+    erroExclusaoCargo.textContent = erro.message;
+    erroExclusaoCargo.hidden = false;
+  }
+}
+
+document.addEventListener("keydown", (evento) => {
+  if (evento.key != "Escape") return;
+  fecharModalCargo();
+  fecharModalExclusaoCargo();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("modalCargo").addEventListener("mousedown", (e) => {
+    if (e.target.id == "modalCargo") fecharModalCargo();
+  });
+  document
+    .getElementById("modalExclusaoCargo")
+    .addEventListener("mousedown", (e) => {
+      if (e.target.id == "modalExclusaoCargo") fecharModalExclusaoCargo();
+    });
+
+  document
+    .getElementById("inputDescricaoCargo")
+    .addEventListener("input", atualizarContadorDescricao);
+
+  const formulario = document.querySelector("#modalCargo .formModal");
+  formulario.addEventListener("input", () => {
+    const erroModalCargo = document.getElementById("erroModalCargo");
+    erroModalCargo.textContent = "";
+    erroModalCargo.hidden = true;
+  });
+  formulario.addEventListener("change", () => {
+    const erroModalCargo = document.getElementById("erroModalCargo");
+    erroModalCargo.textContent = "";
+    erroModalCargo.hidden = true;
+  });
+});

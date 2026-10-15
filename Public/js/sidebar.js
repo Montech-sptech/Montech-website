@@ -1,30 +1,36 @@
 const PAGINA_APOS_SAIR = "/";
 
-const CARGOS_CONHECIDOS = ["Administrador", "Analista", "TI"];
+const PAGINAS_RESTRITAS_A_ADMINISTRADOR = [
+  "gerenciamentoDeUsuarios.html",
+  "gerenciamentoDeCargos.html",
+];
 
 function pegarItensSidebar() {
   return Array.from(document.querySelectorAll("#sidebar .sbItem"));
 }
 
 function aplicarPermissoesSidebar() {
-  const cargoAtual = sessionStorage.getItem("CARGO");
-  const cargoReconhecido = CARGOS_CONHECIDOS.includes(cargoAtual);
-
-  if (!cargoReconhecido) {
-    console.warn(
-      `Sidebar: cargo "${cargoAtual}" não reconhecido, exibindo todos os itens.`,
-    );
-    return;
-  }
+  const cargoAtual = (sessionStorage.getItem("CARGO") || "")
+    .trim()
+    .toLowerCase();
 
   pegarItensSidebar().forEach((item) => {
     const cargosPermitidos = (item.dataset.cargos || "")
       .split(",")
       .map((cargo) => cargo.trim())
-      .filter(Boolean);
+      .filter(Boolean)
+      .map((cargo) => cargo.toLowerCase());
 
     item.hidden = !cargosPermitidos.includes(cargoAtual);
   });
+
+  const paginaAtual = window.location.pathname.split("/").pop();
+  if (
+    cargoAtual !== "administrador" &&
+    PAGINAS_RESTRITAS_A_ADMINISTRADOR.includes(paginaAtual)
+  ) {
+    window.location.replace("cadastroDeServidor.html");
+  }
 }
 
 function marcarItemAtivoSidebar() {

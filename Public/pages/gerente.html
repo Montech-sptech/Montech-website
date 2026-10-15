@@ -1,374 +1,369 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>MonTech - Dashboard da gerente</title>
 
-    <link rel="stylesheet" href="gerente.css">
-</head>
+    <link rel="stylesheet" href="../css/gerente.css" />
+  </head>
 
-<body>
+  <body>
     <div class="estrutura-pagina">
+      <!-- Navegação entre as dashboards. -->
+      <aside class="menu-lateral">
+        <div class="logotipo">
+          <img src="logoEscuraMontech.png" alt="Logo MonTech" />
+        </div>
 
-        <!-- Navegação entre as dashboards. -->
-        <aside class="menu-lateral">
-            <div class="logotipo">
-                <img src="logoEscuraMontech.png" alt="Logo MonTech">
+        <nav class="navegacao" aria-label="Navegação das dashboards">
+          <a href="analista.html"> Painel do analista </a>
+
+          <a href="gerente.html" class="pagina-atual"> Painel da gerente </a>
+        </nav>
+      </aside>
+
+      <main class="conteudo-principal">
+        <div class="limite-conteudo">
+          <header class="cabecalho-pagina">
+            <h1>Visão gerencial de Congonhas</h1>
+
+            <div class="informacoes-aeroporto">
+              <b>Congonhas</b>
+              <br />
+              Setembro/2026 comparado a agosto/2026
+            </div>
+          </header>
+
+          <p
+            id="mensagem-erro-graficos"
+            class="erro-graficos"
+            role="alert"
+            hidden
+          >
+            Não foi possível carregar o Chart.js. Verifique sua conexão e
+            atualize a página.
+          </p>
+
+          <!-- kpi -->
+          <section
+            class="lista-indicadores"
+            aria-label="Indicadores gerenciais"
+          >
+            <div class="indicador">
+              <p class="titulo-indicador">Incidentes críticos no mês</p>
+              <strong class="valor-indicador texto-critico">8</strong>
+
+              <div class="detalhes-indicador">
+                <div>Mês analisado: <b>setembro/2026</b></div>
+                <div>Agosto: <b>6 incidentes críticos</b></div>
+                <div>Variação: <b>2 incidentes a mais</b></div>
+              </div>
             </div>
 
-            <nav class="navegacao" aria-label="Navegação das dashboards">
-                <a href="analista.html">
-                    Painel do analista
-                </a>
+            <div class="indicador">
+              <p class="titulo-indicador">Dias com alertas em setembro</p>
+              <strong class="valor-indicador texto-atencao">9/30</strong>
 
-                <a href="gerente.html" class="pagina-atual">
-                    Painel da gerente
-                </a>
-            </nav>
-        </aside>
-
-        <main class="conteudo-principal">
-            <div class="limite-conteudo">
-
-                <header class="cabecalho-pagina">
-                    <h1>Visão gerencial de Congonhas</h1>
-
-                    <div class="informacoes-aeroporto">
-                        <b>Congonhas</b>
-                        <br>
-                        Setembro/2026 comparado a agosto/2026
-                    </div>
-                </header>
-
-                <p
-                    id="mensagem-erro-graficos"
-                    class="erro-graficos"
-                    role="alert"
-                    hidden>
-                    Não foi possível carregar o Chart.js.
-                    Verifique sua conexão e atualize a página.
-                </p>
-
-                <!-- kpi -->
-                <section class="lista-indicadores" aria-label="Indicadores gerenciais">
-
-                    <div class="indicador">
-                        <p class="titulo-indicador">Incidentes críticos no mês</p>
-                        <strong class="valor-indicador texto-critico">8</strong>
-
-                        <div class="detalhes-indicador">
-                            <div>Mês analisado: <b>setembro/2026</b></div>
-                            <div>Agosto: <b>6 incidentes críticos</b></div>
-                            <div>Variação: <b>2 incidentes a mais</b></div>
-                        </div>
-                    </div>
-
-                    <div class="indicador">
-                        <p class="titulo-indicador">Dias com alertas em setembro</p>
-                        <strong class="valor-indicador texto-atencao">9/30</strong>
-
-                        <div class="detalhes-indicador">
-                            <div>
-                                Setembro:
-                                <b>9 dias com alertas em 30 dias</b>
-                            </div>
-                            <div>
-                                Agosto:
-                                <b>6 dias com alertas em 31 dias</b>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="indicador">
-                        <p class="titulo-indicador">
-                            Servidores com alertas repetidos no mês
-                        </p>
-
-                        <strong class="valor-indicador texto-atencao">2/3</strong>
-
-                        <div class="detalhes-indicador">
-                            <div>AIS: <b>CPU repetida em 4 ocorrências</b></div>
-                            <div>SDV: <b>disco repetido em 3 ocorrências</b></div>
-                            <div>Total monitorado: <b>3 servidores</b></div>
-                        </div>
-                    </div>
-
-                    <div class="indicador">
-                        <p class="titulo-indicador">
-                            Tempo mediano para encerrar incidentes
-                        </p>
-
-                        <strong class="valor-indicador texto-destaque">
-                            3h 20m
-                        </strong>
-
-                        <div class="detalhes-indicador">
-                            <div>Setembro: <b>3h20</b></div>
-                            <div>Agosto: <b>2h40</b></div>
-                            <div>Variação: <b>40 minutos a mais</b></div>
-                        </div>
-                    </div>
-
-                </section>
-
-                <div class="titulo-secao">
-                    <h2>Como a situação evoluiu</h2>
-                    <small>Setembro/2026</small>
+              <div class="detalhes-indicador">
+                <div>
+                  Setembro:
+                  <b>9 dias com alertas em 30 dias</b>
                 </div>
-
-                <section class="grade-duas-colunas" aria-label="Evolução mensal">
-
-                    <article class="painel">
-                        <div class="cabecalho-painel">
-                            <h3>Incidentes críticos por semana</h3>
-                            <small>8 em setembro</small>
-                        </div>
-
-                        <div class="area-grafico">
-                            <canvas
-                                id="grafico-incidentes"
-                                role="img"
-                                aria-label="Incidentes críticos por semana">
-                            </canvas>
-                        </div>
-                    </article>
-
-                    <article class="painel">
-                        <div class="cabecalho-painel">
-                            <h3>Dias com ao menos um alerta</h3>
-                            <small>9 dias em setembro</small>
-                        </div>
-
-                        <div class="area-grafico">
-                            <canvas
-                                id="grafico-dias-alertas"
-                                role="img"
-                                aria-label="Dias com alerta por semana">
-                            </canvas>
-                        </div>
-                    </article>
-
-                </section>
-
-                <div class="titulo-secao">
-                    <h2>Onde as ocorrências se concentram</h2>
-                    <small>Setembro/2026</small>
+                <div>
+                  Agosto:
+                  <b>6 dias com alertas em 31 dias</b>
                 </div>
-
-                <section class="painel">
-                    <div class="tabela-responsiva">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Servidor</th>
-                                    <th>Ocorrências</th>
-                                    <th>Padrão observado</th>
-                                    <th>Estado atual</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <b>AIS</b>
-                                        <br>
-                                        Informações Aeronáuticas
-                                    </td>
-
-                                    <td>4 de 5 ocorrências ligadas à CPU</td>
-                                    <td>CPU repetida em 4 ocorrências no mês</td>
-
-                                    <td>
-                                        <span class="etiqueta-estado estado-critico">
-                                            Crítico
-                                        </span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <b>SDV</b>
-                                        <br>
-                                        Dados de Vigilância
-                                    </td>
-
-                                    <td>3 de 4 ocorrências ligadas ao disco</td>
-                                    <td>Disco repetido em 3 ocorrências no mês</td>
-
-                                    <td>
-                                        <span class="etiqueta-estado estado-atencao">
-                                            Atenção
-                                        </span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <b>SPA</b>
-                                        <br>
-                                        Planos de Voo
-                                    </td>
-
-                                    <td>2 ocorrências: 1 de CPU e 1 de disco</td>
-                                    <td>Sem repetição do mesmo recurso no mês</td>
-
-                                    <td>
-                                        <span class="etiqueta-estado estado-normal">
-                                            Normal
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <div class="titulo-secao">
-                    <h2>Comportamento dos recursos</h2>
-                </div>
-
-                <!-- O recurso selecionado aparece nos três servidores -->
-                <div
-                    class="seletor-recurso"
-                    role="group"
-                    aria-label="Recurso comparado">
-
-                    <button
-                        type="button"
-                        aria-pressed="true"
-                        onclick="selecionarRecurso('cpu', this)">
-                        CPU
-                    </button>
-
-                    <button
-                        type="button"
-                        aria-pressed="false"
-                        onclick="selecionarRecurso('ram', this)">
-                        RAM
-                    </button>
-
-                    <button
-                        type="button"
-                        aria-pressed="false"
-                        onclick="selecionarRecurso('disco', this)">
-                        Disco
-                    </button>
-                </div>
-
-                <section class="grade-tres-colunas graficos-recursos">
-
-                    <article class="painel">
-                        <div class="cabecalho-painel">
-                            <h3 id="titulo-recurso-ais">CPU utilizada no AIS</h3>
-                        </div>
-
-                        <div class="area-grafico">
-                            <canvas
-                                id="grafico-ais"
-                                role="img"
-                                aria-label="Mínimo, média e máximo semanal no AIS">
-                            </canvas>
-                        </div>
-                    </article>
-
-                    <article class="painel">
-                        <div class="cabecalho-painel">
-                            <h3 id="titulo-recurso-sdv">CPU utilizada no SDV</h3>
-                        </div>
-
-                        <div class="area-grafico">
-                            <canvas
-                                id="grafico-sdv"
-                                role="img"
-                                aria-label="Mínimo, média e máximo semanal no SDV">
-                            </canvas>
-                        </div>
-                    </article>
-
-                    <article class="painel">
-                        <div class="cabecalho-painel">
-                            <h3 id="titulo-recurso-spa">CPU utilizada no SPA</h3>
-                        </div>
-
-                        <div class="area-grafico">
-                            <canvas
-                                id="grafico-spa"
-                                role="img"
-                                aria-label="Mínimo, média e máximo semanal no SPA">
-                            </canvas>
-                        </div>
-                    </article>
-
-                </section>
-
-                <div class="titulo-secao">
-                    <h2>Como a equipe respondeu</h2>
-                    <small>Setembro/2026</small>
-                </div>
-
-                <section class="grade-duas-colunas">
-
-                    <article class="painel">
-                        <div class="cabecalho-painel">
-                            <h3>Resolução por turno de abertura</h3>
-                        </div>
-
-                        <!-- O filtro separa os incidentes por severidade. -->
-                        <label class="filtro-severidade">
-                            Severidade dos incidentes
-
-                            <select
-                                id="severidade-incidentes"
-                                onchange="atualizarResolucaoPorTurno(this.value)">
-
-                                <option value="todas">Todas as severidades</option>
-                                <option value="critico">Críticos</option>
-                                <option value="atencao">Atenção</option>
-                            </select>
-                        </label>
-
-                        <div class="area-grafico">
-                            <canvas
-                                id="grafico-resolucao-turnos"
-                                role="img"
-                                aria-label="Tempo mediano de resolução por turno">
-                            </canvas>
-                        </div>
-
-                        <div class="quantidade-por-turno" id="resumo-turnos"></div>
-                    </article>
-
-                    <article class="painel">
-                        <div class="cabecalho-painel">
-                            <h3>Ocorrências por recurso</h3>
-
-                            <small>
-                                11 ocorrências em setembro
-                                <br>
-                                Todas as severidades
-                            </small>
-                        </div>
-
-                        <div class="area-grafico">
-                            <canvas
-                                id="grafico-ocorrencias-recursos"
-                                role="img"
-                                aria-label="Ocorrências de CPU, disco e RAM">
-                            </canvas>
-                        </div>
-                    </article>
-
-                </section>
-
+              </div>
             </div>
-        </main>
+
+            <div class="indicador">
+              <p class="titulo-indicador">
+                Servidores com alertas repetidos no mês
+              </p>
+
+              <strong class="valor-indicador texto-atencao">2/3</strong>
+
+              <div class="detalhes-indicador">
+                <div>AIS: <b>CPU repetida em 4 ocorrências</b></div>
+                <div>SDV: <b>disco repetido em 3 ocorrências</b></div>
+                <div>Total monitorado: <b>3 servidores</b></div>
+              </div>
+            </div>
+
+            <div class="indicador">
+              <p class="titulo-indicador">
+                Tempo mediano para encerrar incidentes
+              </p>
+
+              <strong class="valor-indicador texto-destaque"> 3h 20m </strong>
+
+              <div class="detalhes-indicador">
+                <div>Setembro: <b>3h20</b></div>
+                <div>Agosto: <b>2h40</b></div>
+                <div>Variação: <b>40 minutos a mais</b></div>
+              </div>
+            </div>
+          </section>
+
+          <div class="titulo-secao">
+            <h2>Como a situação evoluiu</h2>
+            <small>Setembro/2026</small>
+          </div>
+
+          <section class="grade-duas-colunas" aria-label="Evolução mensal">
+            <article class="painel">
+              <div class="cabecalho-painel">
+                <h3>Incidentes críticos por semana</h3>
+                <small>8 em setembro</small>
+              </div>
+
+              <div class="area-grafico">
+                <canvas
+                  id="grafico-incidentes"
+                  role="img"
+                  aria-label="Incidentes críticos por semana"
+                >
+                </canvas>
+              </div>
+            </article>
+
+            <article class="painel">
+              <div class="cabecalho-painel">
+                <h3>Dias com ao menos um alerta</h3>
+                <small>9 dias em setembro</small>
+              </div>
+
+              <div class="area-grafico">
+                <canvas
+                  id="grafico-dias-alertas"
+                  role="img"
+                  aria-label="Dias com alerta por semana"
+                >
+                </canvas>
+              </div>
+            </article>
+          </section>
+
+          <div class="titulo-secao">
+            <h2>Onde as ocorrências se concentram</h2>
+            <small>Setembro/2026</small>
+          </div>
+
+          <section class="painel">
+            <div class="tabela-responsiva">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Servidor</th>
+                    <th>Ocorrências</th>
+                    <th>Padrão observado</th>
+                    <th>Estado atual</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <b>AIS</b>
+                      <br />
+                      Informações Aeronáuticas
+                    </td>
+
+                    <td>4 de 5 ocorrências ligadas à CPU</td>
+                    <td>CPU repetida em 4 ocorrências no mês</td>
+
+                    <td>
+                      <span class="etiqueta-estado estado-critico">
+                        Crítico
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <b>SDV</b>
+                      <br />
+                      Dados de Vigilância
+                    </td>
+
+                    <td>3 de 4 ocorrências ligadas ao disco</td>
+                    <td>Disco repetido em 3 ocorrências no mês</td>
+
+                    <td>
+                      <span class="etiqueta-estado estado-atencao">
+                        Atenção
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <b>SPA</b>
+                      <br />
+                      Planos de Voo
+                    </td>
+
+                    <td>2 ocorrências: 1 de CPU e 1 de disco</td>
+                    <td>Sem repetição do mesmo recurso no mês</td>
+
+                    <td>
+                      <span class="etiqueta-estado estado-normal">
+                        Normal
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="titulo-secao">
+            <h2>Comportamento dos recursos</h2>
+          </div>
+
+          <!-- O recurso selecionado aparece nos três servidores -->
+          <div
+            class="seletor-recurso"
+            role="group"
+            aria-label="Recurso comparado"
+          >
+            <button
+              type="button"
+              aria-pressed="true"
+              onclick="selecionarRecurso('cpu', this)"
+            >
+              CPU
+            </button>
+
+            <button
+              type="button"
+              aria-pressed="false"
+              onclick="selecionarRecurso('ram', this)"
+            >
+              RAM
+            </button>
+
+            <button
+              type="button"
+              aria-pressed="false"
+              onclick="selecionarRecurso('disco', this)"
+            >
+              Disco
+            </button>
+          </div>
+
+          <section class="grade-tres-colunas graficos-recursos">
+            <article class="painel">
+              <div class="cabecalho-painel">
+                <h3 id="titulo-recurso-ais">CPU utilizada no AIS</h3>
+              </div>
+
+              <div class="area-grafico">
+                <canvas
+                  id="grafico-ais"
+                  role="img"
+                  aria-label="Mínimo, média e máximo semanal no AIS"
+                >
+                </canvas>
+              </div>
+            </article>
+
+            <article class="painel">
+              <div class="cabecalho-painel">
+                <h3 id="titulo-recurso-sdv">CPU utilizada no SDV</h3>
+              </div>
+
+              <div class="area-grafico">
+                <canvas
+                  id="grafico-sdv"
+                  role="img"
+                  aria-label="Mínimo, média e máximo semanal no SDV"
+                >
+                </canvas>
+              </div>
+            </article>
+
+            <article class="painel">
+              <div class="cabecalho-painel">
+                <h3 id="titulo-recurso-spa">CPU utilizada no SPA</h3>
+              </div>
+
+              <div class="area-grafico">
+                <canvas
+                  id="grafico-spa"
+                  role="img"
+                  aria-label="Mínimo, média e máximo semanal no SPA"
+                >
+                </canvas>
+              </div>
+            </article>
+          </section>
+
+          <div class="titulo-secao">
+            <h2>Como a equipe respondeu</h2>
+            <small>Setembro/2026</small>
+          </div>
+
+          <section class="grade-duas-colunas">
+            <article class="painel">
+              <div class="cabecalho-painel">
+                <h3>Resolução por turno de abertura</h3>
+              </div>
+
+              <!-- O filtro separa os incidentes por severidade. -->
+              <label class="filtro-severidade">
+                Severidade dos incidentes
+
+                <select
+                  id="severidade-incidentes"
+                  onchange="atualizarResolucaoPorTurno(this.value)"
+                >
+                  <option value="todas">Todas as severidades</option>
+                  <option value="critico">Críticos</option>
+                  <option value="atencao">Atenção</option>
+                </select>
+              </label>
+
+              <div class="area-grafico">
+                <canvas
+                  id="grafico-resolucao-turnos"
+                  role="img"
+                  aria-label="Tempo mediano de resolução por turno"
+                >
+                </canvas>
+              </div>
+
+              <div class="quantidade-por-turno" id="resumo-turnos"></div>
+            </article>
+
+            <article class="painel">
+              <div class="cabecalho-painel">
+                <h3>Ocorrências por recurso</h3>
+
+                <small>
+                  11 ocorrências em setembro
+                  <br />
+                  Todas as severidades
+                </small>
+              </div>
+
+              <div class="area-grafico">
+                <canvas
+                  id="grafico-ocorrencias-recursos"
+                  role="img"
+                  aria-label="Ocorrências de CPU, disco e RAM"
+                >
+                </canvas>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.js"></script>
-    <script src="gerente.js"></script>
-</body>
-
+    <script src="../js/gerente.js"></script>
+  </body>
 </html>

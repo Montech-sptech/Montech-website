@@ -1,0 +1,443 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Fonte e cores principais do projeto. */
+body {
+    margin: 0;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    background-color: #050b1f;
+    color: #ffffff;
+}
+
+button,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+    outline: 2px solid #4fa3ff;
+    outline-offset: 3px;
+}
+
+/* Divide a página entre navegação e conteúdo. */
+.estrutura-pagina {
+    display: grid;
+    grid-template-columns: 202px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 20px 12px;
+    background-color: #050b1f;
+    border-right: 1px solid #262f5c;
+}
+
+.logotipo {
+    padding: 2px 4px;
+}
+
+.logotipo img {
+    display: block;
+    width: 170px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.navegacao {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.navegacao a {
+    display: block;
+    padding: 12px;
+    border-radius: 6px;
+    color: #b8c1d9;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.navegacao a.pagina-atual {
+    background-color: #2b3990;
+    color: #ffffff;
+}
+
+.navegacao a:hover {
+    background-color: #1e2766;
+}
+
+.conteudo-principal {
+    min-width: 0;
+    padding: 24px 32px 55px;
+    background: radial-gradient(
+        circle at 76% 5%,
+        #141b3d 0%,
+        #0a1128 37%,
+        #050b1f 74%
+    );
+}
+
+.limite-conteudo {
+    max-width: 1450px;
+    margin: auto;
+}
+
+.cabecalho-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.cabecalho-pagina h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: -0.04em;
+}
+
+.informacoes-aeroporto {
+    padding: 10px 13px;
+    border: 1px solid #262f5c;
+    border-radius: 6px;
+    background-color: #0a1128;
+    color: #b8c1d9;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.informacoes-aeroporto b {
+    color: #ffffff;
+}
+
+.titulo-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 23px 0 10px;
+}
+
+.titulo-secao h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.titulo-secao small,
+.cabecalho-painel small {
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+/* kpi */
+.lista-indicadores {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.indicador,
+.painel {
+    min-width: 0;
+    background-color: #141b3d;
+    border: 1px solid #262f5c;
+    border-radius: 5px;
+}
+
+.indicador {
+    min-height: 200px;
+    padding: 14px;
+}
+
+.titulo-indicador {
+    min-height: 33px;
+    margin: 0;
+    color: #b8c1d9;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.valor-indicador {
+    display: block;
+    margin: 4px 0;
+    font-size: 29px;
+    font-weight: 800;
+}
+
+.detalhes-indicador {
+    display: grid;
+    gap: 7px;
+    margin-top: 10px;
+    color: #b8c1d9;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.detalhes-indicador b {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.texto-critico {
+    color: #ff5361;
+}
+
+.texto-atencao {
+    color: #ffad1f;
+}
+
+.texto-normal {
+    color: #60d98d;
+}
+
+.texto-destaque {
+    color: #4fa3ff;
+}
+
+.painel {
+    padding: 15px;
+}
+
+.cabecalho-painel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.cabecalho-painel h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Distribuição dos painéis */
+.grade-duas-colunas {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 13px;
+}
+
+.grade-tres-colunas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.graficos-recursos .cabecalho-painel {
+    align-items: flex-start;
+}
+
+/* Tabela de concentração das ocorrências */
+.tabela-responsiva {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 11px 9px;
+    border-bottom: 1px solid #262f5c;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+th {
+    color: #b8c1d9;
+    font-weight: 700;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.etiqueta-estado {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.estado-normal {
+    background-color: #19492d;
+    color: #81e68a;
+}
+
+.estado-atencao {
+    background-color: #6a431c;
+    color: #ffcd71;
+}
+
+.estado-critico {
+    background-color: #681e31;
+    color: #ff8993;
+}
+
+/* Escolha do componente comparado */
+.seletor-recurso {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.seletor-recurso button {
+    padding: 8px 18px;
+    border: 1px solid #293b8f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #c3cbe3;
+    font-size: 14px;
+}
+
+.seletor-recurso button[aria-pressed="true"] {
+    background-color: #2b3990;
+    color: #ffffff;
+}
+
+/* Filtro do gráfico de resolução */
+.filtro-severidade {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+    color: #c3cbe3;
+    font-size: 14px;
+}
+
+.filtro-severidade select {
+    max-width: 100%;
+    padding: 7px;
+    border: 1px solid #262f5c;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #ffffff;
+}
+
+.quantidade-por-turno {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.quantidade-por-turno div {
+    display: grid;
+    gap: 4px;
+    color: #b8c1d9;
+    font-size: 12px;
+}
+
+.quantidade-por-turno strong {
+    color: #ffffff;
+    font-size: 13px;
+}
+
+/* Define o espaço ocupado pelo Chart.js */
+.area-grafico {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    margin-top: 12px;
+}
+
+.area-grafico canvas {
+    max-width: 100%;
+}
+
+.erro-graficos {
+    padding: 12px;
+    border: 1px solid #ffad1f;
+    border-radius: 5px;
+    background-color: #0a1128;
+    color: #ffcd71;
+}
+
+.erro-graficos[hidden] {
+    display: none;
+}
+
+@media (max-width: 1150px) {
+    .lista-indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grade-duas-colunas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .estrutura-pagina {
+        display: block;
+    }
+
+    .menu-lateral {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+
+    .navegacao {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .conteudo-principal {
+        padding: 20px 15px 42px;
+    }
+
+    .cabecalho-pagina {
+        flex-direction: column;
+    }
+
+    .grade-tres-colunas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .titulo-secao {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cabecalho-painel {
+        flex-wrap: wrap;
+    }
+
+    .quantidade-por-turno {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 470px) {
+    .lista-indicadores {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo-indicador {
+        min-height: 0;
+    }
+}

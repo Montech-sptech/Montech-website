@@ -1,143 +1,230 @@
-var formCadastroServidor = document.getElementById("formCadastroServidor");
-var listaLimites = document.getElementById("listaLimites");
-var checkboxesComponentes = document.querySelectorAll("input[name='componentes']");
-
-var nomesComponentes = {
-    cpu: "CPU",
-    ram: "Mem. RAM",
-    disco: "Disco"
-};
- 
-var iconesComponentes = {
-    cpu: "../imagens/cpu.png",
-    ram: "../imagens/ram.png",
-    disco: "../imagens/disco.png"
-};
- 
-var limitesPadrao = {
-    atencao: 70,
-    critico: 90
-};
-
-checkboxesComponentes.forEach(function (checkbox) {
-    checkbox.addEventListener("change", atualizarListaLimites);
+window.addEventListener('DOMContentLoaded', function() {
+    gerarToken();
 });
 
+function gerarToken() {
+    const inicial = 'm'
+        .trim()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .charAt(0)
+        .toUpperCase();
 
-function atualizarListaLimites() {
-    checkboxesComponentes.forEach(function (checkbox) {
-        var idLinha = "limite_" + checkbox.value;
-        var linhaExistente = document.getElementById(idLinha);
+    const hoje = new Date();
+    const dia = String(hoje.getDate()).padStart(2, "0");
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+    const ano = hoje.getFullYear();
+    const prefixo = `${inicial}${dia}${mes}${ano}`;
 
-        if (checkbox.checked && !linhaExistente) {
-            adicionarLinhaLimite(checkbox.value);
-        } else if (!checkbox.checked && linhaExistente) {
-            linhaExistente.remove();
-        }
-    });
+    const aleatorio = Array.from(
+        crypto.getRandomValues(new Uint8Array(32 - prefixo.length)),
+        n => n % 10
+    ).join("");
+
+    if (Token) {
+        Token.value = `${prefixo}${aleatorio}`;
+    }
 }
 
-function adicionarLinhaLimite(componente) {
-    var linha = document.createElement("div");
-    linha.className = "linhaLimite";
-    linha.id = "limite_" + componente;
+async function CarregarComponentes() {
+    try {
+        let resposta = await fetch(`/gerServidores/buscarComponentes`);
+        if (resposta.ok) {
+            let dados = await resposta.json();
+            if (dados && dados.length >= 0) {
+                OpcoesDisponiveis.length = 0; 
 
-    linha.innerHTML = `
-        <div class="infoComponenteLimite">
-            <img class="iconeComponente" src="${iconesComponentes[componente]}" alt="">
-            <span class="nomeLimite">${nomesComponentes[componente]}</span>
-        </div>
-        <div class="campoLimiteItem">
-            <label class="labelLimite">Atenção</label>
-            <div class="grupoInputLimite">
-                <input type="number" class="inputLimite inputLimiteAtencao" data-componente="${componente}"
-                    value="${limitesPadrao.atencao}" min="0" max="100">
-                <span class="sufixoLimite">%</span>
-            </div>
-        </div>
-        <div class="campoLimiteItem">
-            <label class="labelLimite">Crítico</label>
-            <div class="grupoInputLimite">
-                <input type="number" class="inputLimite inputLimiteCritico" data-componente="${componente}"
-                    value="${limitesPadrao.critico}" min="0" max="100">
-                <span class="sufixoLimite">%</span>
-            </div>
-        </div>
+                for (let i = 0; i < dados.length; i++) {
+                    let idComponente = dados[i].idComponente;
+                    let nomeComponente = dados[i].nomeComponente;
+                    let unidadeMedida = dados[i].unidadeMedida;
+
+                    OpcoesDisponiveis.push({
+                        "idComponente": idComponente,
+                        "nomeComponente": nomeComponente,
+                        "unidadeMedida": unidadeMedida,
+                        "atencao": 0,
+                        "critico": 0,
+                        "icone": "../img/Servidores/cpuIcon.svg"
+                    });
+                }
+                
+                console.log("Componentes carregados no array:", OpcoesDisponiveis);
+            } else {
+                console.log('Nenhum dado encontrado');
+            }
+        } else {
+            console.log("Sem componente")
+        }
+    } catch (erro) {
+        console.error("Erro ao carregar informações:", erro);
+    }
+}
+    
+window.addEventListener('DOMContentLoaded', function() {
+    CarregarComponentes()
+})
+
+const itemAdicionados = [];
+const OpcoesDisponiveis = [];
+
+
+
+function renderizarListaComponentes(dados) {
+    const container = document.querySelector('.lista-componentes');
+    container.innerHTML = `
+        <h3>Lista de componente</h3>
+        <p>Ajuste os parâmetros de atenção e crítico para receber seus alertas</p>
     `;
 
-    listaLimites.appendChild(linha);
-}
+    dados.forEach(item => {
+        const divItem = document.createElement('div');
+        divItem.className = 'componente-item';
 
-// Monta as linhas de limite para os componentes já marcados por padrão ao carregar a página
-atualizarListaLimites();
+        divItem.innerHTML = `
+            <div class="componente-nome">
+                <img src="${item.icone}" alt="${item.nomeComponente}">
+                <span>${item.nomeComponente}</span>
+            </div>
 
-function cancelarCadastroServidor() {
-    formCadastroServidor.reset();
-    listaLimites.innerHTML = "";
-    atualizarListaLimites();
-}
+            <div class="componente-campo">
+                <label for="${item.idComponente}-metrica">Métrica</label>
+                <input type="text" id="${item.idComponente}-metrica" readonly value="${item.unidadeMedida}">
+            </div>
 
-function salvarServidor() {
-    var nomeServidor = document.getElementById("nomeServidor").value;
-    var hostName = document.getElementById("hostnameServidor").value;
-    var tipoServidor = document.getElementById("tipoServidor").value;
-    var metodoDeColeta = document.getElementById("metodoColeta").value;
-    var intervaloDeColeta = document.getElementById("intervaloColeta").value;
+            <div class="componente-campo">
+                <label for="${item.idComponente}-atencao">Atenção</label>
+                <input type="number" id="${item.idComponente}-atencao" value="${item.atencao}">
+            </div>
 
-    var componentesSelecionados = document.querySelectorAll("input[name='componentes']:checked");
-    var componentes = [];
+            <div class="componente-campo">
+                <label for="${item.idComponente}-critico">Crítico</label>
+                <input type="number" id="${item.idComponente}-critico" value="${item.critico}">
+            </div>
 
-    componentesSelecionados.forEach(function (checkbox) {
-        var inputAtencao = document.querySelector(".inputLimiteAtencao[data-componente='" + checkbox.value + "']");
-        var inputCritico = document.querySelector(".inputLimiteCritico[data-componente='" + checkbox.value + "']");
+            <button type="button" class="btn-excluir">
+                <img src="../img/Servidores/lixoIcon.svg" alt="Excluir componente">
+            </button>
+        `;
 
-        componentes.push({
-            nomeComponente: nomesComponentes[checkbox.value],
-            limiteAtencao: inputAtencao ? inputAtencao.value : null,
-            limiteCritico: inputCritico ? inputCritico.value : null
-        });
-    });
+        const btnExcluir = divItem.querySelector('.btn-excluir');
+        btnExcluir.addEventListener('click', function() {
+            const indice = itemAdicionados.findIndex(elemento => elemento.id === item.id);
+            
+            OpcoesDisponiveis.push(itemAdicionados[indice])
 
-    if (componentes.length === 0) {
-        alert("Selecione ao menos um componente para monitorar!");
-        return;
-    }
-
-    console.log(componentes)
-
-    fetch("/servidores/cadastrar/servidor", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nomeServidorServer: nomeServidor,
-            hostNameServer: hostName,
-            tipoServidorServer: tipoServidor,
-            metodoDeColetaServer: metodoDeColeta,
-            intervaloDeColetaServer: intervaloDeColeta,
-            componentesServer: componentes
-        })
-    })
-        .then(function (resposta) {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                return resposta.text().then(function (mensagemErro) {
-                    throw new Error(mensagemErro);
-                });
+            if (indice !== -1) {
+                itemAdicionados.splice(indice, 1);
+                console.log('Item removido do array. Lista atual:', itemAdicionados);
             }
-        })
-        .then(function (resultado) {
-            console.log("Servidor cadastrado com sucesso: ", resultado);
-            alert("Servidor cadastrado com sucesso!");
-            formCadastroServidor.reset();
-            listaLimites.innerHTML = "";
-            atualizarListaLimites();
-        })
-        .catch(function (erro) {
-            console.log(erro);
-            alert("Erro ao cadastrar servidor: " + erro.message);
+
+            divItem.remove();
         });
+
+        container.appendChild(divItem);
+    });
 }
 
+function renderizarPopupList() {
+    const popupContainer = document.querySelector('.popup__lista');
+        popupContainer.innerHTML = '';
+
+    OpcoesDisponiveis.forEach(item => {
+
+        const li = document.createElement('li');
+
+        li.innerHTML = `
+            <button class="componente btn-adicionar-componente" type="button" data-componente="${item.idComponente}">
+                <img class="componente__icone" src="${item.icone}" alt="${item.nomeComponente}">
+                ${item.nomeComponente}
+            </button>
+        `;
+
+        const botao = li.querySelector('.btn-adicionar-componente');
+
+        botao.addEventListener('click', function() { 
+            const idBuscado = parseInt(botao.dataset.componente);
+            const indiceOpcao = OpcoesDisponiveis.findIndex(opcao => opcao.idComponente === idBuscado);
+            
+            if (indiceOpcao !== -1) {
+                const [itemEncontrado] = OpcoesDisponiveis.splice(indiceOpcao, 1);
+                itemAdicionados.push(itemEncontrado);
+                renderizarListaComponentes(itemAdicionados);                
+                renderizarPopupList();
+                console.log(itemAdicionados)
+                console.log('Item movido com sucesso para os adicionados:', itemAdicionados);
+            }
+            ListaComponenteAdicionar.style.display = 'none';
+        });
+
+        popupContainer.appendChild(li);
+    });
+}
+
+
+const btnSalvar = document.getElementById('btn-salvar');
+const popUpFechar = document.getElementById('popup-fechar');
+const popUp = document.getElementById('popup-excluir');
+
+popUpFechar.addEventListener('click', function() {
+    popUp.style.display = 'none'; 
+})
+
+btnSalvar.addEventListener('click', function() {
+    cadastrarServidor();
+})
+
+
+async function cadastrarServidor() {
+    const nomeServidor = document.getElementById('nome-servidor');
+    const sistemaOperacional = document.getElementById('sistema-operacional');
+    const tokenUnico = document.getElementById('token-unico');
+    const idAeroporto = sessionStorage.AEROPORTO_ID;
+
+    try {
+        const resposta = await fetch("/gerServidores/cadastrarServidor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                tokenServer: tokenUnico.value,
+                nomeServidorServer: nomeServidor.value,
+                sistemaOperacionalServer: sistemaOperacional.value,
+                fkAeroportoServer: idAeroporto
+            })
+        });
+
+        if (!resposta.ok) {
+            console.log("Houve um erro ao tentar realizar o cadastro de servidor!");
+            alert("erro")
+            return false;
+        }
+
+        const json = await resposta.json();
+        const idServidor = json.insertId;
+
+        const componentes = itemAdicionados.map(({ idComponente, atencao, critico }) => ({
+            fkComponente: idComponente,
+            limiteAtencao: atencao,
+            limiteCritico: critico
+        }));
+
+        const respostaComp = await fetch("/gerServidores/cadastrarComponenteServidor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fkServidorServer: idServidor, componentesServer: componentes })
+        });
+
+        if (!respostaComp.ok) {
+            console.log("Erro componentes");
+            alert("erro")
+            return false;
+        }
+
+        popUp.style.display = 'flex';
+        console.log("Tudo certo");
+        return true;
+    } catch (erro) {
+        console.log(erro);
+        alert("erro")
+        return false;
+    }
+}

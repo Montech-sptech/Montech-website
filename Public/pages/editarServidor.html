@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/shortLigthLogo.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/cadastroDeServidor.css" />
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <script src="../js/gerenciamentoServidor/rotasServidores.js" defer></script>
+    <script src="../js/sidebar.js" defer></script>
+    <title>MonTech - Editor de Servidor</title>
+</head>
+
+<body id="pagina">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="sbLogo">
+        <img class="sbLogoLonga" src="../img/longLigthLogo.svg" alt="MonTech" />
+        <img
+          class="sbLogoCurta"
+          src="../img/shortLigthLogo.svg"
+          alt="MonTech"
+        />
+      </div>
+
+      <nav class="sbNav">
+        <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+              <path
+                d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              />
+            </svg>
+          </span>
+          <span class="sbRotulo">Dashboard</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a class="sbItem" href="relatorios.html" data-cargos="Analista">
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <path d="M14 2v6h6" />
+              <path d="M8 18v-2" />
+              <path d="M12 18v-4" />
+              <path d="M16 18v-6" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Relatórios</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoDeUsuarios.html"
+          data-cargos="Administrador"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Usuários</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="alertas.html"
+          data-cargos="Administrador,Analista"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Alertas</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="cadastroDeServidor.html"
+          data-cargos="Administrador"
+          data-titulo="Cadastrar Servidores"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5v14a9 3 0 0 0 18 0V5" />
+              <path d="M3 12a9 3 0 0 0 18 0" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Servidores</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+      </nav>
+
+      <div class="sbRodape">
+        <div class="sbRodapeFundo"></div>
+        <button class="sbSair" id="sbSair" type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <path d="m16 17 5-5-5-5" />
+            <path d="M21 12H9" />
+          </svg>
+          <span class="sbRotulo">Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="containerCadastroServidor">
+      <header class="cabecalho">
+          <button type="button" class="btn-voltar" id="btn-voltar">
+              <img src="../img/Servidores/voltarIcon.svg" alt="Voltar">
+          </button>
+          <div class="cabecalho-titulos">
+              <h1>Edite seu servidor</h1>
+              <p>Nome do servidor</p>
+          </div>
+      </header>
+
+      <section class="topo">
+          <div class="card especificacao">
+              <h2>ESPECIFICAÇÃO</h2>
+
+              <div class="campo">
+                  <label for="nome-servidor">Nome do servidor</label>
+                  <input type="text" id="nome-servidor" name="nome-servidor">
+              </div>
+
+              <div class="campo">
+                  <label for="sistema-operacional">Sistema operacional</label>
+                  <select id="sistema-operacional" name="sistema-operacional">
+                      <option value="linux">Linux</option>
+                      <option value="windows">Windows</option>
+                  </select>
+              </div>
+
+              <div class="campo">
+                  <label for="status-servidor">Status do servidor</label>
+                  <select id="status-servidor" name="status-servidor">
+                      <option value="linux">Ativado</option>
+                      <option value="windows">Desativado</option>
+                  </select>
+              </div>
+          </div>
+
+          <div class="card token">
+              <h2>TOKEN</h2>
+
+              <div class="campo">
+                  <label for="token-unico">Token único (Esse token é a identificação única desse servidor )</label>
+                  <div class="campo-token">
+                      <input type="text" id="token-unico" name="token-unico" readonly value="AAAAAAAAAAa">
+                      <button type="button" class="btn-copiar" id="btn-copiar">
+                          <img src="../img/Servidores/copyIcon.svg" alt="Copiar token">
+                      </button>
+                  </div>
+              </div>
+              <p class="texto-auxiliar">O token será necessário para ativar o monitoramento do servidor</p>
+              <p class="texto-auxiliar" id="msgTokenCopiado">Token copiado com sucesso!</p>
+          </div>
+      </section>
+
+      <section class="componentes">
+          <div class="componentes-topo">
+              <h2>Selecione os componentes para monitorar</h2>
+              <button type="button" class="btn-adicionar" id="btn-lista-componente">Adicionar componente</button>
+          </div>
+
+          <div class="lista-componentes">
+              <h3>Lista de componente</h3>
+              <p>Ajuste os parâmetros de atenção e crítico para receber seus alertas</p>
+
+
+          </div>
+      </section>
+
+      <footer class="acoes">
+          <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+          <button type="button" class="btn-salvar">Salvar servidor</button>
+      </footer>
+
+
+      <div class="popup" id="popup-componente" aria-labelledby="popup-titulo">
+        <button class="popup__fechar" id="btnFecharPopUp" type="button" aria-label="Fechar" data-fechar-popup>
+          <img src="../img/Servidores/LetraXicon.svg" alt="">
+        </button>
+
+        <div class="popup__conteudo">
+          <header class="popup__cabecalho">
+            <h2 class="popup__titulo" id="popup-titulo">Selecione o componente</h2>
+            <p class="popup__subtitulo">(Clique para adicionar)</p>
+          </header>
+
+          <div class="popup__painel">
+            <ul class="popup__lista">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+</body>
+</html>

@@ -16,8 +16,8 @@
 :root {
     --largura-sidebar: 264px;
 
-    --sb-fundo: #1a1d31;
-    --sb-borda: rgba(255, 255, 255, 0.07);
+    --sb-fundo: #080c26;
+    --sb-borda: #5b5bff;
     --sb-texto: #c4c8e2;
     --sb-texto-forte: #ffffff;
     --sb-icone: #8a90bd;
@@ -62,7 +62,7 @@
 
 .sbLogo .sbLogoCurta {
     display: none;
-    width: 38px;
+    width: 68px;
 }
 
 /* ---------- Navegação ---------- */
@@ -200,11 +200,11 @@
 
 .sbSair:hover {
     background: rgba(240, 110, 130, 0.12);
-    color: #f2a1ae;
+    color: #fa758c;
 }
 
 .sbSair:hover svg {
-    color: #f2a1ae;
+    color: #fa758c;
 }
 
 /* =====================================================================
@@ -269,7 +269,7 @@
     }
 
     .sbLogo .sbLogoCurta {
-        width: 32px;
+        width: 55px;
     }
 
     .sbNav,

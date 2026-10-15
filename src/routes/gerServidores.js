@@ -10,6 +10,14 @@ router.get("/buscarComponentes", function (req, res) {
     gerServidorController.buscarComponentes(req, res);
 });
 
+router.get("/buscarServidor/:idServidor", function (req, res) {
+    gerServidorController.buscarServidor(req, res);
+});
+
+router.get("/buscarComponentesServidor/:idServidor", function (req, res) {
+    gerServidorController.buscarComponentesServidor(req, res);
+});
+
 router.post("/cadastrarServidor", function (req, res) {
     gerServidorController.cadastrarServidor(req, res);
 });

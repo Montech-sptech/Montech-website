@@ -75,11 +75,31 @@ function cadastrarComponenteServidor(fkServidor, componentes) {
 }
 
 
+function buscarServidor(idServidor) {
+  var instrucaoSql = `
+        SELECT token, nomeServidor, sistemaOperacional, statusAtividade FROM servidor WHERE idServidor = ${Number(idServidor)};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function buscarComponentesServidor(idServidor) {
+  var instrucaoSql = `
+    SELECT c.idComponente, c.nomeComponente, c.unidadeMedida, sc.limiteAtencao, sc.limiteCritico FROM servidorcomponente sc
+    JOIN componente c ON c.Idcomponente = fkComponente WHERE fkServidor = ${Number(idServidor)};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
   buscarServidoresAeroporto,
   buscarComponentes,
   cadastrarServidor,
   cadastrarComponenteServidor,
   deletarServidor,
-  deletarComponenteServidor
+  deletarComponenteServidor,
+  buscarServidor,
+  buscarComponentesServidor
 };

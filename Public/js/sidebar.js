@@ -5,14 +5,42 @@ const PAGINAS_RESTRITAS_A_ADMINISTRADOR = [
   "gerenciamentoDeCargos.html",
 ];
 
+const PERMISSOES_POR_ITEM_SIDEBAR = {
+  Dashboard: ["VISUALIZAR_DASHBOARD"],
+  "Relatórios": ["EXPORTAR_RELATORIOS"],
+  Usuários: ["GERENCIAR_USUARIOS"],
+  Alertas: ["VISUALIZAR_DASHBOARD"],
+  Servidores: ["GERENCIAR_SERVIDORES"],
+};
+
 function pegarItensSidebar() {
   return Array.from(document.querySelectorAll("#sidebar .sbItem"));
+}
+
+function pegarPermissoesUsuario() {
+  const permissoesSalvas = sessionStorage.getItem("PERMISSOES");
+  if (!permissoesSalvas) return null;
+
+  try {
+    const permissoes = JSON.parse(permissoesSalvas);
+    return Array.isArray(permissoes)
+      ? permissoes.map((permissao) => String(permissao).toUpperCase())
+      : [];
+  } catch (erro) {
+    console.error("Não foi possível ler as permissões do usuário:", erro);
+    return [];
+  }
 }
 
 function aplicarPermissoesSidebar() {
   const cargoAtual = (sessionStorage.getItem("CARGO") || "")
     .trim()
     .toLowerCase();
+  const permissoesUsuario = pegarPermissoesUsuario();
+  const cargoSidebar =
+    permissoesUsuario === null && cargoAtual !== "administrador"
+      ? "analista"
+      : cargoAtual;
 
   pegarItensSidebar().forEach((item) => {
     const cargosPermitidos = (item.dataset.cargos || "")
@@ -21,7 +49,15 @@ function aplicarPermissoesSidebar() {
       .filter(Boolean)
       .map((cargo) => cargo.toLowerCase());
 
-    item.hidden = !cargosPermitidos.includes(cargoAtual);
+    const rotulo = item.querySelector(".sbRotulo")?.textContent.trim();
+    const permissoesNecessarias = PERMISSOES_POR_ITEM_SIDEBAR[rotulo] || [];
+    const possuiPermissao =
+      permissoesUsuario?.some((permissao) =>
+        permissoesNecessarias.includes(permissao),
+      ) || false;
+
+    item.hidden =
+      !cargosPermitidos.includes(cargoSidebar) && !possuiPermissao;
   });
 
   const paginaAtual = window.location.pathname.split("/").pop();
@@ -29,7 +65,7 @@ function aplicarPermissoesSidebar() {
     cargoAtual !== "administrador" &&
     PAGINAS_RESTRITAS_A_ADMINISTRADOR.includes(paginaAtual)
   ) {
-    window.location.replace("cadastroDeServidor.html");
+    window.location.replace("gerenciamentoServidor.html");
   }
 }
 

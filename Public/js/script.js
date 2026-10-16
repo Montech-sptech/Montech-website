@@ -206,24 +206,32 @@ function logar() {
                     sessionStorage.setItem("NOME", dados.nome);
                     sessionStorage.setItem("CARGO", dados.cargo);
                     sessionStorage.setItem("EMPRESA_ID", dados.empresaId);
+                    sessionStorage.setItem(
+                        "PERMISSOES",
+                        JSON.stringify(dados.permissoes || [])
+                    );
                     sessionStorage.removeItem("FOTO_PERFIL");
 
                     validar();
 
-                    if (dados.cargo === "TI") {
-                        window.location.href = "/telas/inicioCadastroEmpresa.html";
-                    } else if (dados.cargo === "Administrador") {
-                        window.location.href = "/telas/gerenciamentoDeUsuarios.html";
-                    } else if (dados.cargo === "Analista") {
-                        window.location.href = "/telas/relatorios.html";
+                    if (normalizarCargo(dados.cargo) === "administrador") {
+                        window.location.href = "/pages/gerenciamentoDeUsuarios.html";
                     } else {
-                        window.location.href = "/telas/gerenciamentoDeUsuarios.html";
+                        window.location.href = "/pages/gerenciamentoServidor.html";
                     }
                 });
             } else {
                 resposta.text().then(function (mensagem) {
                     alert(mensagem);
                 });
+            }
+
+            function normalizarCargo(cargo) {
+                return String(cargo || "")
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim()
+                    .toLowerCase();
             }
         })
 

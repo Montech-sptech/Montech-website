@@ -57,17 +57,27 @@ loginForm.addEventListener("submit", async function (event) {
         sessionStorage.setItem("CARGO", usuario.cargo);
         sessionStorage.setItem("AEROPORTO_ID", usuario.fkAeroporto);
         sessionStorage.setItem("EMPRESA_ID", usuario.empresaId);
+        sessionStorage.setItem(
+            "PERMISSOES",
+            JSON.stringify(usuario.permissoes || [])
+        );
         sessionStorage.removeItem("FOTO_PERFIL");
 
-        if (usuario.cargo === "TI") {
-            window.location.href = "/pages/inicioCadastroEmpresa.html";
-        } else if (usuario.cargo === "Analista") {
-            window.location.href = "/pages/relatorios.html";
-        } else {
+        if (normalizarCargo(usuario.cargo) === "administrador") {
             window.location.href = "/pages/gerenciamentoDeUsuarios.html";
+        } else {
+            window.location.href = "/pages/gerenciamentoServidor.html";
         }
     } catch (erro) {
         console.error("Erro ao realizar login:", erro);
         mensagem.textContent = "Não foi possível conectar ao servidor. Tente novamente.";
     }
 });
+
+function normalizarCargo(cargo) {
+    return String(cargo || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase();
+}

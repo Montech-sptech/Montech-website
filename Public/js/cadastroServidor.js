@@ -219,6 +219,13 @@ async function cadastrarServidor() {
             return false;
         }
 
+        const botaoVisualizar = document.getElementById('visualizar_servidor');
+        botaoVisualizar.dataset.servidor = idServidor;
+
+        botaoVisualizar.addEventListener('click', function() {
+            window.location.href = './visualizarServidor.html?id=' + encodeURIComponent(botaoVisualizar.dataset.servidor);
+        });
+
         popUp.style.display = 'flex';
         console.log("Tudo certo");
         return true;

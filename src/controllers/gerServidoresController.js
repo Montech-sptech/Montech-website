@@ -141,6 +141,34 @@ function deletarComponenteServidor(req, res) {
     }
 }
 
+async function buscarServidor(req, res) {
+  let idServidor = req.params.idServidor;
+  
+  gerServidorModel
+    .buscarServidor(idServidor)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+async function buscarComponentesServidor(req, res) {
+  let idServidor = req.params.idServidor;
+  
+  gerServidorModel
+    .buscarComponentesServidor(idServidor)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 module.exports = {
   buscarServidoresAeroporto,
@@ -148,5 +176,7 @@ module.exports = {
   cadastrarServidor,
   cadastrarComponenteServidor,
   deletarServidor,
-  deletarComponenteServidor
+  deletarComponenteServidor,
+  buscarServidor,
+  buscarComponentesServidor
 };

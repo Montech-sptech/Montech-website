@@ -53,7 +53,7 @@ loginForm.addEventListener("submit", async function (event) {
         sessionStorage.setItem("USUARIO_ID", usuario.idUsuario);
         sessionStorage.setItem("EMAIL", usuario.email);
         sessionStorage.setItem("NOME", usuario.nome);
-        sessionStorage.setItem("CARGO", usuario.fkCargo);
+        sessionStorage.setItem("CARGO", usuario.cargoNome);
         sessionStorage.setItem("AEROPORTO_ID", usuario.fkAeroporto);
 
         if (usuario.cargo === "TI") {

@@ -57,10 +57,21 @@ function aplicarPermissoesSidebar() {
       ) || false;
 
     item.hidden =
-      !cargosPermitidos.includes(cargoSidebar) && !possuiPermissao;
+      rotulo === "Dashboard"
+        ? !possuiPermissao
+        : !cargosPermitidos.includes(cargoSidebar) && !possuiPermissao;
   });
 
   const paginaAtual = window.location.pathname.split("/").pop();
+  const paginasDashboard = ["gerente.html", "analista.html"];
+  const possuiPermissaoDashboard =
+    permissoesUsuario?.includes("VISUALIZAR_DASHBOARD") || false;
+
+  if (paginasDashboard.includes(paginaAtual) && !possuiPermissaoDashboard) {
+    window.location.replace("gerenciamentoServidor.html");
+    return;
+  }
+
   if (
     cargoAtual !== "administrador" &&
     PAGINAS_RESTRITAS_A_ADMINISTRADOR.includes(paginaAtual)

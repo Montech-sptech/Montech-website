@@ -17,15 +17,16 @@ function autenticar(req, res) {
         console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
 
         if (resultadoAutenticar.length == 1) {
+          var usuario = resultadoAutenticar[0];
           res.json({
-            idUsuario: resultadoAutenticar[0].idUsuario,
-            email: resultadoAutenticar[0].email,
-            nome: resultadoAutenticar[0].nome,
-            senha: resultadoAutenticar[0].senha,
-            empresaId: resultadoAutenticar[0].empresaId,
-            cargo: resultadoAutenticar[0].fkCargo,
-            fotoPerfil: resultadoAutenticar[0].fotoPerfil,
-
+            id: usuario.id,
+            idUsuario: usuario.idUsuario,
+            email: usuario.email,
+            nome: usuario.nome,
+            empresaId: usuario.empresaId,
+            cargo: usuario.cargo,
+            fkCargo: usuario.fkCargo,
+            fkAeroporto: usuario.fkAeroporto,
           });
         } else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");

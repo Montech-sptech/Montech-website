@@ -206,7 +206,7 @@ function logar() {
                     sessionStorage.setItem("NOME", dados.nome);
                     sessionStorage.setItem("CARGO", dados.cargo);
                     sessionStorage.setItem("EMPRESA_ID", dados.empresaId);
-                    sessionStorage.setItem("FOTO_PERFIL", dados.fotoPerfil);
+                    sessionStorage.removeItem("FOTO_PERFIL");
 
                     validar();
 

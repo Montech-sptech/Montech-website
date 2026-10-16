@@ -10,10 +10,11 @@ function autenticar(email, senha) {
   var instrucaoSql = `
         SELECT 
             u.idUsuario AS id,
+            u.idUsuario AS idUsuario,
             u.nome,
             u.email,
-            u.senha,
-            u.fkAeroporto AS aeroportoId,
+            u.fkAeroporto,
+            u.fkCargo,
             a.fkEmpresa AS empresaId,
             c.nome AS cargo
         FROM usuario u

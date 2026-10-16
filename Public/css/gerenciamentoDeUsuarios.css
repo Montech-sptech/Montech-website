@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+
 :root {
     --largura-sidebar: max(10vw, 150px);
 
@@ -908,4 +912,354 @@
             "acesso"
             "acoes";
     }
+}
+
+/*telad e cadastro de usuario*/
+
+.telaCadastroUser {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+    box-sizing: border-box;
+
+    background: rgba(4, 8, 24, 0.72);
+    backdrop-filter: blur(3px);
+}
+
+.telaCadastroUser.escondido {
+    display: none;
+}
+
+/* popup */
+
+.conteudoCadastroUser {
+    position: relative;
+
+    width: 100%;
+    max-width: 760px;
+    max-height: 90vh;
+    max-height: 90dvh;
+
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    padding: 28px;
+
+    background: linear-gradient(
+        180deg,
+        #121a3f,
+        #0b1230
+    );
+
+    color: #ffffff;
+
+    border: 1px solid #2b3a78;
+    border-radius: 16px;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+
+    font-family: inherit;
+
+    scrollbar-width: thin;
+    scrollbar-color: #4a5cae #0a1029;
+}
+
+/* Barra de rolagem */
+
+.conteudoCadastroUser::-webkit-scrollbar {
+    width: 10px;
+}
+
+.conteudoCadastroUser::-webkit-scrollbar-track {
+    background: #0a1029;
+    border-radius: 999px;
+}
+
+.conteudoCadastroUser::-webkit-scrollbar-thumb {
+    background: #4a5cae;
+    border: 2px solid #0a1029;
+    border-radius: 999px;
+}
+
+.conteudoCadastroUser::-webkit-scrollbar-thumb:hover {
+    background: #6c80d4;
+}
+
+/* Cabeçalho */
+
+.cabecalhoCadastroUser {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+    padding-right: 38px;
+    margin: 12px 0 24px;
+}
+
+.cabecalhoCadastroUser h2 {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #ffffff;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.cabecalhoCadastroUser p {
+    margin: 8px 0 0;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #aab0cc;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+
+
+/* Botão X */
+
+.fecharCadastroUser {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    display: grid;
+    place-items: center;
+
+    width: 44px;
+    height: 44px;
+    padding: 0;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: transparent;
+    color: #ffffff;
+
+    font-size: 36px;
+    line-height: 1;
+
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.fecharCadastroUser:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.fecharCadastroUser:focus-visible {
+    outline: 2px solid #8fb0ff;
+    outline-offset: 2px;
+}
+
+/* Divisórias */
+
+.divisorCadastroUser {
+    height: 1px;
+    width: 100%;
+
+    background: #26346c;
+    margin: 20px 0;
+}
+
+/* Grade dos campos */
+
+.camposCadastroUser {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+        font-family: 'Inter', sans-serif;
+    column-gap: 20px;
+    row-gap: 18px;
+}
+
+/* Cada campo */
+
+.campoCadastroUser {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    gap: 7px;
+}
+
+.campoCadastroUser label {
+    display: block;
+
+    color: #aab0cc;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Inputs e seletores
+   Estilos limitados ao popup para não afetar outras telas */
+
+.conteudoCadastroUser .campoCadastroUser input,
+.conteudoCadastroUser .campoCadastroUser select {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+
+    box-sizing: border-box;
+    padding: 0 12px;
+
+    background: #1e2442;
+    color: #ffffff;
+
+    border: 1px solid #3a4272;
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 0.8rem;
+
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.conteudoCadastroUser .campoCadastroUser input::placeholder {
+    color: #7d84a8;
+}
+
+.conteudoCadastroUser .campoCadastroUser input:focus,
+.conteudoCadastroUser .campoCadastroUser select:focus {
+    border-color: #8fb0ff;
+    box-shadow: 0 0 0 2px rgba(143, 176, 255, 0.15);
+}
+
+.conteudoCadastroUser .campoCadastroUser select {
+    cursor: pointer;
+}
+
+.conteudoCadastroUser .campoCadastroUser select option {
+    background: #121a3f;
+    color: #ffffff;
+}
+
+/* mensagem retorno de retorno */
+
+.mensagemCadastroUser {
+    margin: 14px 0 0;
+
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.mensagemCadastroUser:empty {
+    display: none;
+}
+
+.mensagemCadastroUser.erro {
+    color: #ff8585;
+}
+
+.mensagemCadastroUser.sucesso {
+    color: #65dfa0;
+}
+
+/* acoes formulário */
+
+.acoesCadastroUser {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: 'Space Grotesk', sans-serif;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.acoesCadastroUser button {
+    min-height: 44px;
+    padding: 12px 24px;
+
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* cancelar */
+
+.botaoCancelarCadastroUser {
+    background: transparent;
+    color: #d5dcff;
+
+    border: 1px solid #3a4272;
+}
+
+.botaoCancelarCadastroUser:hover {
+    background: #262c4a;
+}
+
+/* cadastrar */
+
+.botaoSalvarCadastroUser {
+    background: #6573e6;
+    color: #ffffff;
+
+    border: 1px solid #6573e6;
+}
+
+.botaoSalvarCadastroUser:hover {
+    background: #7784f0;
+    border-color: #7784f0;
+}
+
+.botaoSalvarCadastroUser:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* responsividade */
+
+@media (max-width: 600px) {
+    .telaCadastroUser {
+        padding: 10px;
+    }
+
+    .conteudoCadastroUser {
+        padding: 22px 18px;
+        max-height: 94vh;
+        max-height: 94dvh;
+    }
+
+    .camposCadastroUser {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 15px;
+    }
+
+    .acoesCadastroUser {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .acoesCadastroUser button {
+        width: 100%;
+    }
+}
+
+
+.mensagemCadastroUser {
+    margin: 14px 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.mensagemCadastroUser.erro {
+    color: #ff6b6b;
+}
+
+.mensagemCadastroUser:empty {
+    display: none;
 }

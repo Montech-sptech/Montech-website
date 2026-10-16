@@ -1,634 +1,467 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/gerenciamentoDeUsuarios.css" />
-    <link rel="shortcut icon" href="../img/" type="image/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../css/headerPosLogin.css" />
-    <link rel="stylesheet" href="../css/sidebar.css" />
-    <script src="../js/fotoPerfil.js" defer></script>
-    <script src="../js/gerenciamentoDeUsuarios.js"></script>
-    <script src="../js/sidebar.js" defer></script>
-    <title>MonTech - gerenciamento de usuários</title>
-  </head>
 
-  <body
-  >
-    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
-      <div class="sbLogo">
-        <img class="sbLogoLonga" src="../img/logoEscuraMontech.png" alt="MonTech" />
-        <img
-          class="sbLogoCurta"
-          src="../img/logoTipo.png"
-          alt="MonTech"
-        />
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/gerenciamentoDeUsuarios.css" />
+  <link rel="shortcut icon" href="../img/" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/headerPosLogin.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <script src="../js/fotoPerfil.js" defer></script>
+  <script src="../js/gerenciamentoDeUsuarios.js"></script>
+  <script src="../js/sidebar.js" defer></script>
+  <title>MonTech - gerenciamento de usuários</title>
+</head>
 
-      <nav class="sbNav">
-        <a class="sbItem" href="#" data-cargos="Administrador,Analista">
-          <span class="sbIcone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-              <path
-                d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-              />
-            </svg>
-          </span>
-          <span class="sbRotulo">Dashboard</span>
-          <svg
-            class="sbSeta"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </a>
-        <a class="sbItem" href="relatorios.html" data-cargos="Analista">
-          <span class="sbIcone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path
-                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
-              />
-              <path d="M14 2v6h6" />
-              <path d="M8 18v-2" />
-              <path d="M12 18v-4" />
-              <path d="M16 18v-6" />
-            </svg>
-          </span>
-          <span class="sbRotulo">Relatórios</span>
-          <svg
-            class="sbSeta"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </a>
-        <a
-          class="sbItem"
-          href="gerenciamentoDeUsuarios.html"
-          data-cargos="Administrador"
-        >
-          <span class="sbIcone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-          </span>
-          <span class="sbRotulo">Usuários</span>
-          <svg
-            class="sbSeta"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </a>
-        <a
-          class="sbItem"
-          href="gerenciamentoDeCargos.html"
-          data-cargos="Administrador"
-        >
-          <span class="sbIcone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path
-                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
-              />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
-          </span>
-          <span class="sbRotulo">Cargos</span>
-          <svg
-            class="sbSeta"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </a>
-        <a
-          class="sbItem"
-          href="alertas.html"
-          data-cargos="Administrador,Analista"
-        >
-          <span class="sbIcone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-            </svg>
-          </span>
-          <span class="sbRotulo">Alertas</span>
-          <svg
-            class="sbSeta"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </a>
-        <a
-          class="sbItem"
-          href="gerenciamentoServidor.html"
-          data-cargos="Administrador"
-          data-titulo="Cadastrar Servidores"
-        >
-          <span class="sbIcone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M3 5v14a9 3 0 0 0 18 0V5" />
-              <path d="M3 12a9 3 0 0 0 18 0" />
-            </svg>
-          </span>
-          <span class="sbRotulo">Servidores</span>
-          <svg
-            class="sbSeta"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </a>
-      </nav>
+<body>
+  <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+    <div class="sbLogo">
+      <img class="sbLogoLonga" src="../img/logoEscuraMontech.png" alt="MonTech" />
+      <img class="sbLogoCurta" src="../img/logoTipo.png" alt="MonTech" />
+    </div>
 
-      <div class="sbRodape">
-        <div class="sbRodapeFundo"></div>
-        <button class="sbSair" id="sbSair" type="button">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <path d="m16 17 5-5-5-5" />
-            <path d="M21 12H9" />
+    <nav class="sbNav">
+      <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+        <span class="sbIcone">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+            <path
+              d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
           </svg>
-          <span class="sbRotulo">Sair</span>
-        </button>
-      </div>
-    </aside>
-
-    <main class="containerGerenciamentoUsuarios">
-      <div id="containerGerenciamentoUsuariosTitulo">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            d="M16 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-8 0a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm0 2c-2.7 0-8 1.3-8 4v2.5c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5V17c0-2.7-5.3-4-8-4Zm8 0c-.4 0-.9 0-1.4.1 1.6 1.2 2.4 2.7 2.4 3.9v3h5.5c.8 0 1.5-.7 1.5-1.5V17c0-2.7-5.3-4-8-4Z"
-          />
+        </span>
+        <span class="sbRotulo">Dashboard</span>
+        <svg class="sbSeta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
         </svg>
-        <h1>Gerenciamento de Usuários</h1>
+      </a>
+      <a class="sbItem" href="relatorios.html" data-cargos="Analista">
+        <span class="sbIcone">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+            <path d="M14 2v6h6" />
+            <path d="M8 18v-2" />
+            <path d="M12 18v-4" />
+            <path d="M16 18v-6" />
+          </svg>
+        </span>
+        <span class="sbRotulo">Relatórios</span>
+        <svg class="sbSeta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+      <a class="sbItem" href="gerenciamentoDeUsuarios.html" data-cargos="Administrador">
+        <span class="sbIcone">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </span>
+        <span class="sbRotulo">Usuários</span>
+        <svg class="sbSeta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+      <a class="sbItem" href="gerenciamentoDeCargos.html" data-cargos="Administrador">
+        <span class="sbIcone">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path
+              d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </span>
+        <span class="sbRotulo">Cargos</span>
+        <svg class="sbSeta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+      <a class="sbItem" href="alertas.html" data-cargos="Administrador,Analista">
+        <span class="sbIcone">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+          </svg>
+        </span>
+        <span class="sbRotulo">Alertas</span>
+        <svg class="sbSeta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+      <a class="sbItem" href="gerenciamentoServidor.html" data-cargos="Administrador"
+        data-titulo="Cadastrar Servidores">
+        <span class="sbIcone">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <ellipse cx="12" cy="5" rx="9" ry="3" />
+            <path d="M3 5v14a9 3 0 0 0 18 0V5" />
+            <path d="M3 12a9 3 0 0 0 18 0" />
+          </svg>
+        </span>
+        <span class="sbRotulo">Servidores</span>
+        <svg class="sbSeta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+    </nav>
+
+    <div class="sbRodape">
+      <div class="sbRodapeFundo"></div>
+      <button class="sbSair" id="sbSair" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <path d="m16 17 5-5-5-5" />
+          <path d="M21 12H9" />
+        </svg>
+        <span class="sbRotulo">Sair</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="containerGerenciamentoUsuarios">
+    <div id="containerGerenciamentoUsuariosTitulo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          d="M16 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-8 0a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm0 2c-2.7 0-8 1.3-8 4v2.5c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5V17c0-2.7-5.3-4-8-4Zm8 0c-.4 0-.9 0-1.4.1 1.6 1.2 2.4 2.7 2.4 3.9v3h5.5c.8 0 1.5-.7 1.5-1.5V17c0-2.7-5.3-4-8-4Z" />
+      </svg>
+      <h1>Gerenciamento de Usuários</h1>
+    </div>
+
+    <section class="cartaoUsuarios">
+      <div class="barraFerramentas">
+        <h2>Usuários do Sistema</h2>
+
+        <div class="acoesFerramentas">
+          <label class="campoBusca">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input type="search" id="inputBuscaUsuario" placeholder="Buscar usuário..." aria-label="Buscar usuário"
+              oninput="buscarUsuarios(this.value)" autocomplete="off" />
+          </label>
+
+          <button id="btnNovoUsuario" class="btnNovoUsuario" type="button" onclick="abrirModalNovoUsuario()">
+            <span>Novo Usuário</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5v14" />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <section class="cartaoUsuarios">
-        <div class="barraFerramentas">
-          <h2>Usuários do Sistema</h2>
+      <div class="containerTabela">
+        <div class="tabelaDados" id="tabelaUsuarios">
+          <div class="linhaCabecalho">
+            <div class="col colUsuario">
+              <button class="btnOrdenar" type="button" data-campo="nome" onclick="ordenarUsuarios('nome')">
+                Usuário
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path class="setaCima" d="m7 9 5-5 5 5" />
+                  <path class="setaBaixo" d="m7 15 5 5 5-5" />
+                </svg>
+              </button>
+            </div>
+            <div class="col colEmail">
+              <button class="btnOrdenar" type="button" data-campo="email" onclick="ordenarUsuarios('email')">
+                Email
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path class="setaCima" d="m7 9 5-5 5 5" />
+                  <path class="setaBaixo" d="m7 15 5 5 5-5" />
+                </svg>
+              </button>
+            </div>
+            <div class="col colCargo">
+              <button class="btnOrdenar" type="button" data-campo="cargo" onclick="ordenarUsuarios('cargo')">
+                Cargo
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path class="setaCima" d="m7 9 5-5 5 5" />
+                  <path class="setaBaixo" d="m7 15 5 5 5-5" />
+                </svg>
+              </button>
+            </div>
+            <div class="col colStatus">
+              <button class="btnOrdenar" type="button" data-campo="status" onclick="ordenarUsuarios('status')">
+                Status
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path class="setaCima" d="m7 9 5-5 5 5" />
+                  <path class="setaBaixo" d="m7 15 5 5 5-5" />
+                </svg>
+              </button>
+            </div>
+            <div class="col colUltimoAcesso">
+              <button class="btnOrdenar" type="button" data-campo="ultimoAcesso"
+                onclick="ordenarUsuarios('ultimoAcesso')">
+                Último Acesso
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path class="setaCima" d="m7 9 5-5 5 5" />
+                  <path class="setaBaixo" d="m7 15 5 5 5-5" />
+                </svg>
+              </button>
+            </div>
+            <div class="col colAcoes">Ações</div>
+          </div>
 
-          <div class="acoesFerramentas">
-            <label class="campoBusca">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-              <input
-                type="search"
-                id="inputBuscaUsuario"
-                placeholder="Buscar usuário..."
-                aria-label="Buscar usuário"
-                oninput="buscarUsuarios(this.value)"
-                autocomplete="off"
-              />
+          <div id="listaUsuarios">
+            <div class="estadoVazio">Carregando usuários...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rodapeTabela">
+        <span class="infoPaginacao" id="infoPaginacao"></span>
+        <nav class="paginacao" id="paginacao" aria-label="Paginação"></nav>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalEdicao" class="escondido">
+    <div id="modalEditarUsuario">
+      <svg id="iconeFecharModal" onclick="fecharModalEdicao()" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        fill="#6f6d82" viewBox="0 0 16 16">
+        <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+      </svg>
+
+      <h2>Editar usuario</h2>
+
+      <div class="formModal">
+        <div class="campoModal">
+          <label for="inputNomeModal">NOME</label>
+          <input type="text" id="inputNomeModal" value="Gabriel Galhiardo" />
+        </div>
+
+        <div class="campoModal">
+          <label for="inputEmailModal">E-MAIL</label>
+          <input type="email" id="inputEmailModal" value="gabriel@gmail.com" />
+        </div>
+
+        <div class="campoModal">
+          <label for="selectStatusModal">Status</label>
+          <select id="selectStatusModal">
+            <option value="inativo" selected>Inativo</option>
+            <option value="ativo">Ativo</option>
+          </select>
+        </div>
+
+        <div class="campoModal">
+          <label>Acesso ao servidores</label>
+
+          <div class="gridServidoresModal">
+            <label class="checkboxServidor">
+              <input type="checkbox" value="1" class="inputServidorCheckbox" onchange="alternarVisualCheckbox(this)" />
+              <span class="nomeServidorModal">Servidor A</span>
             </label>
 
-            <button
-              class="btnNovoUsuario"
-              type="button"
-              onclick="abrirModalNovoUsuario()"
-            >
-              <span>Novo Usuário</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M5 12h14M12 5v14" />
-              </svg>
-            </button>
+            <label class="checkboxServidor">
+              <input type="checkbox" value="2" class="inputServidorCheckbox" onchange="alternarVisualCheckbox(this)" />
+              <span class="nomeServidorModal">Servidor B</span>
+            </label>
+
+            <label class="checkboxServidor">
+              <input type="checkbox" value="3" class="inputServidorCheckbox" onchange="alternarVisualCheckbox(this)" />
+              <span class="nomeServidorModal">Servidor C</span>
+            </label>
           </div>
         </div>
+      </div>
 
-        <div class="containerTabela">
-          <div class="tabelaDados" id="tabelaUsuarios">
-            <div class="linhaCabecalho">
-              <div class="col colUsuario">
-                <button
-                  class="btnOrdenar"
-                  type="button"
-                  data-campo="nome"
-                  onclick="ordenarUsuarios('nome')"
-                >
-                  Usuário
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path class="setaCima" d="m7 9 5-5 5 5" />
-                    <path class="setaBaixo" d="m7 15 5 5 5-5" />
-                  </svg>
-                </button>
-              </div>
-              <div class="col colEmail">
-                <button
-                  class="btnOrdenar"
-                  type="button"
-                  data-campo="email"
-                  onclick="ordenarUsuarios('email')"
-                >
-                  Email
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path class="setaCima" d="m7 9 5-5 5 5" />
-                    <path class="setaBaixo" d="m7 15 5 5 5-5" />
-                  </svg>
-                </button>
-              </div>
-              <div class="col colCargo">
-                <button
-                  class="btnOrdenar"
-                  type="button"
-                  data-campo="cargo"
-                  onclick="ordenarUsuarios('cargo')"
-                >
-                  Cargo
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path class="setaCima" d="m7 9 5-5 5 5" />
-                    <path class="setaBaixo" d="m7 15 5 5 5-5" />
-                  </svg>
-                </button>
-              </div>
-              <div class="col colStatus">
-                <button
-                  class="btnOrdenar"
-                  type="button"
-                  data-campo="status"
-                  onclick="ordenarUsuarios('status')"
-                >
-                  Status
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path class="setaCima" d="m7 9 5-5 5 5" />
-                    <path class="setaBaixo" d="m7 15 5 5 5-5" />
-                  </svg>
-                </button>
-              </div>
-              <div class="col colUltimoAcesso">
-                <button
-                  class="btnOrdenar"
-                  type="button"
-                  data-campo="ultimoAcesso"
-                  onclick="ordenarUsuarios('ultimoAcesso')"
-                >
-                  Último Acesso
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path class="setaCima" d="m7 9 5-5 5 5" />
-                    <path class="setaBaixo" d="m7 15 5 5 5-5" />
-                  </svg>
-                </button>
-              </div>
-              <div class="col colAcoes">Ações</div>
-            </div>
+      <div class="containerAcoesModal">
+        <button id="botaoSalvarModal" onclick="salvarEdicaoUsuario()">
+          SALVAR MUDANÇAS
+        </button>
+        <button id="botaoCancelarModal" onclick="fecharModalEdicao()">
+          CANCELAR
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="modalExclusao" class="escondido">
+    <div id="modalExcluirUsuario">
+      <svg id="iconeFecharModalExclusao" onclick="fecharModalExclusao()" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" fill="#6f6d82" viewBox="0 0 16 16">
+        <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+      </svg>
 
-            <div id="listaUsuarios">
-              <div class="estadoVazio">Carregando usuários...</div>
-            </div>
-          </div>
+      <h2>Excluir usuário</h2>
+      <p id="textoConfirmacaoExclusao"></p>
+
+      <div class="containerAcoesModal">
+        <button id="botaoConfirmarExclusao" onclick="confirmarExclusaoUsuario()">
+          EXCLUIR
+        </button>
+        <button id="botaoCancelarExclusao" onclick="fecharModalExclusao()">
+          CANCELAR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalFotoPerfil" class="escondido">
+    <div id="modalEscolherFoto">
+      <svg id="iconeFecharModalFoto" onclick="fecharModalFotoPerfil()" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" fill="#6f6d82" viewBox="0 0 16 16">
+        <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+      </svg>
+      <h2>Escolher foto de perfil</h2>
+      <div id="gridFotosPerfil"></div>
+      <div class="containerAcoesModal">
+        <button id="botaoSalvarFotoPerfil" onclick="salvarFotoPerfil()">
+          SALVAR
+        </button>
+        <button id="botaoCancelarFotoPerfil" onclick="fecharModalFotoPerfil()">
+          CANCELAR
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="telaCadastroUser escondido" id="telaCadastroUser">
+
+    <div class="conteudoCadastroUser">
+
+      <div class="cabecalhoCadastroUser">
+        <div>
+          <h2>Cadastrar usuário</h2>
+          <p>Preencha os dados do novo usuário</p>
         </div>
 
-        <div class="rodapeTabela">
-          <span class="infoPaginacao" id="infoPaginacao"></span>
-          <nav class="paginacao" id="paginacao" aria-label="Paginação"></nav>
-        </div>
-      </section>
-    </main>
+        <button type="button" class="fecharCadastroUser" id="fecharCadastroUser" aria-label="Fechar janela">
+          &times;
+        </button>
+      </div>
 
-    <div id="modalEdicao" class="escondido">
-      <div id="modalEditarUsuario">
-        <svg
-          id="iconeFecharModal"
-          onclick="fecharModalEdicao()"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="#6f6d82"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-          />
-        </svg>
+      <div class="divisorCadastroUser"></div>
 
-        <h2>Editar usuario</h2>
+      
+      <form id="formCadastroUser" novalidate>
 
-        <div class="formModal">
-          <div class="campoModal">
-            <label for="inputNomeModal">NOME</label>
-            <input type="text" id="inputNomeModal" value="Gabriel Galhiardo" />
+        <div class="camposCadastroUser">
+
+          <div class="campoCadastroUser">
+            <label for="nomeCadastroUser">
+              Nome completo *
+            </label>
+
+            <input type="text" id="nomeCadastroUser" name="nome" maxlength="100" placeholder="Digite o nome completo"
+              required>
           </div>
 
-          <div class="campoModal">
-            <label for="inputEmailModal">E-MAIL</label>
-            <input
-              type="email"
-              id="inputEmailModal"
-              value="gabriel@gmail.com"
-            />
+          <div class="campoCadastroUser">
+            <label for="cpfCadastroUser">CPF *</label>
+
+            <input type="text" id="cpfCadastroUser" name="cpf" maxlength="11" inputmode="numeric" pattern="[0-9]{11}"
+              placeholder="Somente números" required>
           </div>
 
-          <div class="campoModal">
-            <label for="selectStatusModal">Status</label>
-            <select id="selectStatusModal">
-              <option value="inativo" selected>Inativo</option>
-              <option value="ativo">Ativo</option>
+          <div class="campoCadastroUser">
+            <label for="emailCadastroUser">E-mail *</label>
+
+            <input type="email" id="emailCadastroUser" name="email" maxlength="200" placeholder="usuario@empresa.com"
+              required>
+          </div>
+
+          <div class="campoCadastroUser">
+            <label for="telefoneCadastroUser">Telefone</label>
+
+            <input type="tel" id="telefoneCadastroUser" name="telefone" maxlength="20" placeholder="(11) 99999-9999">
+          </div>
+
+          <div class="campoCadastroUser">
+            <label for="senhaCadastroUser">Senha *</label>
+
+            <input type="password" id="senhaCadastroUser" name="senha" maxlength="50" placeholder="Digite a senha"
+              autocomplete="new-password" required>
+          </div>
+
+          <div class="campoCadastroUser">
+            <label for="statusCadastroUser">Status *</label>
+
+            <select id="statusCadastroUser" name="statusAtividade" required>
+              <option value="1" selected>Ativo</option>
+              <option value="0">Inativo</option>
             </select>
           </div>
 
-          <div class="campoModal">
-            <label>Acesso ao servidores</label>
+          <div class="campoCadastroUser">
+            <label for="cargoCadastroUser">Cargo *</label>
 
-            <div class="gridServidoresModal">
-              <label class="checkboxServidor">
-                <input
-                  type="checkbox"
-                  value="1"
-                  class="inputServidorCheckbox"
-                  onchange="alternarVisualCheckbox(this)"
-                />
-                <span class="nomeServidorModal">Servidor A</span>
-              </label>
-
-              <label class="checkboxServidor">
-                <input
-                  type="checkbox"
-                  value="2"
-                  class="inputServidorCheckbox"
-                  onchange="alternarVisualCheckbox(this)"
-                />
-                <span class="nomeServidorModal">Servidor B</span>
-              </label>
-
-              <label class="checkboxServidor">
-                <input
-                  type="checkbox"
-                  value="3"
-                  class="inputServidorCheckbox"
-                  onchange="alternarVisualCheckbox(this)"
-                />
-                <span class="nomeServidorModal">Servidor C</span>
-              </label>
-            </div>
+            <select id="cargoCadastroUser" name="fkCargo" required>
+              <option value="">Selecione o cargo</option>
+            </select>
           </div>
+
+          <div class="campoCadastroUser">
+            <label for="aeroportoCadastroUser">
+              Aeroporto *
+            </label>
+
+            <select id="aeroportoCadastroUser" name="fkAeroporto" required>
+              <option value="">Selecione o aeroporto</option>
+            </select>
+          </div>
+
         </div>
 
-        <div class="containerAcoesModal">
-          <button id="botaoSalvarModal" onclick="salvarEdicaoUsuario()">
-            SALVAR MUDANÇAS
-          </button>
-          <button id="botaoCancelarModal" onclick="fecharModalEdicao()">
-            CANCELAR
-          </button>
-        </div>
-      </div>
-    </div>
-    <div id="modalExclusao" class="escondido">
-      <div id="modalExcluirUsuario">
-        <svg
-          id="iconeFecharModalExclusao"
-          onclick="fecharModalExclusao()"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="#6f6d82"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-          />
-        </svg>
+        <p id="mensagemCadastroUser" class="mensagemCadastroUser erro" role="alert" aria-live="assertive">
+          
+        </p>
 
-        <h2>Excluir usuário</h2>
-        <p id="textoConfirmacaoExclusao"></p>
+        <div class="divisorCadastroUser"></div>
 
-        <div class="containerAcoesModal">
-          <button
-            id="botaoConfirmarExclusao"
-            onclick="confirmarExclusaoUsuario()"
-          >
-            EXCLUIR
+        <!--botoes -->
+        <div class="acoesCadastroUser">
+
+          <button type="button" class="botaoCancelarCadastroUser" id="cancelarCadastroUser">
+            Cancelar
           </button>
-          <button id="botaoCancelarExclusao" onclick="fecharModalExclusao()">
-            CANCELAR
+
+          <button onclick="cadastrarUsuario()" type="submit" class="botaoSalvarCadastroUser">
+            Cadastrar usuário
           </button>
+
         </div>
-      </div>
+
+      </form>
+
     </div>
 
-    <div id="modalFotoPerfil" class="escondido">
-      <div id="modalEscolherFoto">
-        <svg
-          id="iconeFecharModalFoto"
-          onclick="fecharModalFotoPerfil()"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="#6f6d82"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-          />
-        </svg>
-        <h2>Escolher foto de perfil</h2>
-        <div id="gridFotosPerfil"></div>
-        <div class="containerAcoesModal">
-          <button id="botaoSalvarFotoPerfil" onclick="salvarFotoPerfil()">
-            SALVAR
-          </button>
-          <button
-            id="botaoCancelarFotoPerfil"
-            onclick="fecharModalFotoPerfil()"
-          >
-            CANCELAR
-          </button>
-        </div>
-      </div>
-    </div>
-  </body>
+  </div>
+
+
+</body>
+
 </html>

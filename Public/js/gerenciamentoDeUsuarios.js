@@ -337,8 +337,23 @@ function renderizarTabela() {
 }
 
 function abrirModalNovoUsuario() {
-  alert("Cadastro de novo usuário ainda não implementado.");
+  
+const telaCadastroUser = document.getElementById("telaCadastroUser");
+
+document.getElementById("btnNovoUsuario").addEventListener("click", () => {
+    telaCadastroUser.classList.remove("escondido");
+});
+
+document.getElementById("fecharCadastroUser").addEventListener("click", () => {
+    telaCadastroUser.classList.add("escondido");
+});
+
+document.getElementById("cancelarCadastroUser").addEventListener("click", () => {
+    telaCadastroUser.classList.add("escondido");
+});
+
 }
+
 
 let idUsuarioExcluindo = null;
 

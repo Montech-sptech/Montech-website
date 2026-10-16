@@ -201,6 +201,14 @@ function logar() {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
+                    if (!Array.isArray(dados.permissoes)) {
+                        console.error("O servidor não retornou as permissões do cargo.");
+                        alert("Não foi possível carregar as permissões do cargo. Tente novamente.");
+                        return;
+                    }
+                    var permissoesUsuario = dados.permissoes.map(function (permissao) {
+                        return String(permissao).trim().toUpperCase();
+                    });
                     sessionStorage.setItem("ID", dados.id);
                     sessionStorage.setItem("EMAIL", dados.email);
                     sessionStorage.setItem("NOME", dados.nome);
@@ -208,13 +216,13 @@ function logar() {
                     sessionStorage.setItem("EMPRESA_ID", dados.empresaId);
                     sessionStorage.setItem(
                         "PERMISSOES",
-                        JSON.stringify(dados.permissoes || [])
+                        JSON.stringify(permissoesUsuario)
                     );
                     sessionStorage.removeItem("FOTO_PERFIL");
 
                     validar();
 
-                    if (normalizarCargo(dados.cargo) === "administrador") {
+                    if (permissoesUsuario.includes("GERENCIAR_USUARIOS")) {
                         window.location.href = "/pages/gerenciamentoDeUsuarios.html";
                     } else {
                         window.location.href = "/pages/gerenciamentoServidor.html";
@@ -226,13 +234,6 @@ function logar() {
                 });
             }
 
-            function normalizarCargo(cargo) {
-                return String(cargo || "")
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")
-                    .trim()
-                    .toLowerCase();
-            }
         })
 
         .catch(function (erro) {

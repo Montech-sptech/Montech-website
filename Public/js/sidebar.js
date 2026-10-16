@@ -9,6 +9,7 @@ const PERMISSOES_POR_ITEM_SIDEBAR = {
   Dashboard: ["VISUALIZAR_DASHBOARD"],
   "Relatórios": ["EXPORTAR_RELATORIOS"],
   Usuários: ["GERENCIAR_USUARIOS"],
+  Cargos: ["GERENCIAR_USUARIOS"],
   Alertas: ["VISUALIZAR_DASHBOARD"],
   Servidores: ["GERENCIAR_SERVIDORES"],
 };
@@ -57,7 +58,9 @@ function aplicarPermissoesSidebar() {
       ) || false;
 
     item.hidden =
-      rotulo === "Dashboard"
+      rotulo === "Dashboard" ||
+      rotulo === "Usuários" ||
+      rotulo === "Cargos"
         ? !possuiPermissao
         : !cargosPermitidos.includes(cargoSidebar) && !possuiPermissao;
   });

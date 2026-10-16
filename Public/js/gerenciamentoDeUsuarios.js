@@ -612,3 +612,8 @@ function salvarEdicaoUsuario() {
     fecharModalEdicao();
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  pegarUsuariosPeloAdministrador();
+  carregarServidoresDoAeroporto();
+});

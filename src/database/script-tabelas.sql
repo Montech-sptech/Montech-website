@@ -182,13 +182,13 @@ INSERT INTO permissao (nome, descricao) VALUES
 -- ------------------------------------------------------------
 INSERT INTO cargopermissao (fkCargo, fkPermissao) VALUES
 -- Administrador: tudo
-(1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
+(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
 -- Analista de Infraestrutura: dashboard, servidores, limites, relatórios
 (2, 1), (2, 2), (2, 4), (2, 5),
 -- Operador de Monitoramento: só dashboard
 (3, 1),
 -- Gerente de TI: dashboard, usuários, limites, relatórios
-(4, 1), (4, 3), (4, 4), (4, 5),
+(4, 1), (4, 3), (4, 4), (4, 5), (4, 6),
 -- Técnico de Campo: dashboard e servidores
 (5, 1), (5, 2);
  

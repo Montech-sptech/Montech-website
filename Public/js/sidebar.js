@@ -6,7 +6,7 @@ const PAGINAS_RESTRITAS_A_GERENCIAR_USUARIOS = [
 ];
 
 const PERMISSOES_POR_ITEM_SIDEBAR = {
-  Dashboard: ["VISUALIZAR_DASHBOARD"],
+  Dashboard: ["VISUALIZAR_DASHBOARD", "VISUALIZAR_DASHBOARD_GESTOR"],
   "Relatórios": ["EXPORTAR_RELATORIOS"],
   Usuários: ["GERENCIAR_USUARIOS"],
   Cargos: ["GERENCIAR_USUARIOS"],
@@ -30,6 +30,76 @@ function pegarPermissoesUsuario() {
   } catch (erro) {
     console.error("Não foi possível ler as permissões do usuário:", erro);
     return [];
+  }
+}
+
+function configurarAcessoDashboard(permissoesUsuario) {
+  const podeVerAnalista =
+    permissoesUsuario?.includes("VISUALIZAR_DASHBOARD") || false;
+  const podeVerGestor =
+    permissoesUsuario?.includes("VISUALIZAR_DASHBOARD_GESTOR") || false;
+  const itemDashboard = pegarItensSidebar().find(
+    (item) => item.querySelector(".sbRotulo")?.textContent.trim() === "Dashboard",
+  );
+
+  if (itemDashboard) {
+    itemDashboard.dataset.dashboardNav = "true";
+
+    if (podeVerAnalista && podeVerGestor) {
+      const idSubmenu = "opcoesDashboardSidebar";
+      const submenu = document.createElement("div");
+      submenu.id = idSubmenu;
+      submenu.className = "sbSubmenuDashboard";
+      submenu.hidden = true;
+
+      [
+        { pagina: "analista.html", rotulo: "Painel do analista" },
+        { pagina: "gerente.html", rotulo: "Painel do gestor" },
+      ].forEach((opcao) => {
+        const link = document.createElement("a");
+        link.className = "sbSubitemDashboard";
+        link.href = opcao.pagina;
+        link.textContent = opcao.rotulo;
+        submenu.appendChild(link);
+      });
+
+      itemDashboard.href = "#";
+      itemDashboard.setAttribute("aria-expanded", "false");
+      itemDashboard.setAttribute("aria-controls", idSubmenu);
+      itemDashboard.insertAdjacentElement("afterend", submenu);
+      itemDashboard.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        const expandido = itemDashboard.getAttribute("aria-expanded") === "true";
+        itemDashboard.setAttribute("aria-expanded", String(!expandido));
+        submenu.hidden = expandido;
+      });
+    } else if (podeVerAnalista || podeVerGestor) {
+      itemDashboard.href = podeVerAnalista ? "analista.html" : "gerente.html";
+    }
+  }
+
+  const paginaAtual = window.location.pathname.split("/").pop();
+  const paginasDashboard = ["gerente.html", "analista.html"];
+  if (paginasDashboard.includes(paginaAtual)) {
+    const podeAcessarPagina =
+      paginaAtual === "analista.html" ? podeVerAnalista : podeVerGestor;
+
+    if (!podeAcessarPagina) {
+      const paginaPermitida = podeVerAnalista
+        ? "analista.html"
+        : podeVerGestor
+          ? "gerente.html"
+          : "gerenciamentoServidor.html";
+      window.location.replace(paginaPermitida);
+      return;
+    }
+
+    document.querySelectorAll(".navegacao a").forEach((link) => {
+      const destino = (link.getAttribute("href") || "").split("/").pop();
+      link.hidden =
+        (destino === "analista.html" && !podeVerAnalista) ||
+        (destino === "gerente.html" && !podeVerGestor);
+    });
   }
 }
 
@@ -69,15 +139,7 @@ function aplicarPermissoesSidebar() {
 
 
   const paginaAtual = window.location.pathname.split("/").pop();
-  const paginasDashboard = ["gerente.html", "analista.html"];
-  const possuiPermissaoDashboard =
-    permissoesUsuario?.includes("VISUALIZAR_DASHBOARD") || false;
-
-  if (paginasDashboard.includes(paginaAtual) && !possuiPermissaoDashboard) {
-    window.location.replace("gerenciamentoServidor.html");
-    return;
-  }
-
+  configurarAcessoDashboard(permissoesUsuario);
 
   if (
     !permissoesUsuario?.includes("GERENCIAR_USUARIOS") &&
@@ -117,7 +179,10 @@ function definirTooltipsSidebar() {
 
 function bloquearLinksVaziosSidebar() {
   pegarItensSidebar().forEach((item) => {
-    if (item.getAttribute("href") === "#") {
+    if (
+      item.getAttribute("href") === "#" &&
+      item.dataset.dashboardNav !== "true"
+    ) {
       item.addEventListener("click", (evento) => evento.preventDefault());
     }
   });

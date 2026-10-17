@@ -141,6 +141,95 @@ function deletarComponenteServidor(req, res) {
     }
 }
 
+async function buscarServidor(req, res) {
+  let idServidor = req.params.idServidor;
+  
+  gerServidorModel
+    .buscarServidor(idServidor)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+async function buscarComponentesServidor(req, res) {
+  let idServidor = req.params.idServidor;
+  
+  gerServidorModel
+    .buscarComponentesServidor(idServidor)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+async function buscarComponentesServidorSemServidor(req, res) {
+  let idServidor = req.params.idServidor;
+  
+  gerServidorModel
+    .buscarComponentesServidorSemServidor(idServidor)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+async function atualizarDadosServidor(req, res) {
+    var idServidor = req.body.idServidorServer;
+    var nomeServidor = req.body.nomeServidorServer;
+    var sistemaOperacional = req.body.sistemaOperacionalServer;
+    var statusAtividade = req.body.statusAtividadeServer;
+  
+  gerServidorModel
+    .atualizarDadosServidor(idServidor, nomeServidor, sistemaOperacional, statusAtividade)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+async function removerComponentesServidor(req, res) {
+    var idServidor = req.body.idServidorServer;
+    var componentes = req.body.componentesServer;
+  
+  gerServidorModel
+    .removerComponentesServidor(idServidor, componentes)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+async function atualizarDadosComponentesServidor(req, res) {
+    var idServidor = req.body.idServidorServer;
+    var componentes = req.body.componentesServer;
+  
+  gerServidorModel
+    .atualizarDadosComponentesServidor(idServidor, componentes)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 module.exports = {
   buscarServidoresAeroporto,
@@ -148,5 +237,11 @@ module.exports = {
   cadastrarServidor,
   cadastrarComponenteServidor,
   deletarServidor,
-  deletarComponenteServidor
+  deletarComponenteServidor,
+  buscarServidor,
+  buscarComponentesServidor,
+  buscarComponentesServidorSemServidor,
+  atualizarDadosServidor,
+  removerComponentesServidor,
+  atualizarDadosComponentesServidor
 };

@@ -8,6 +8,7 @@ function autenticar(email, senha) {
     senha,
   );
   var instrucaoSql = `
+
   SELECT
     u.idUsuario AS idUsuario,
     u.nome,
@@ -23,7 +24,6 @@ function autenticar(email, senha) {
   WHERE u.email = ${mysql.escape(email)}
     AND u.senha = ${mysql.escape(senha)};
 `;
-
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }

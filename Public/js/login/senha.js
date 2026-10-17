@@ -59,7 +59,7 @@ loginForm.addEventListener("submit", async function (event) {
         sessionStorage.setItem("NOME", usuario.nome);
         sessionStorage.setItem("CARGO", usuario.cargo);
         sessionStorage.setItem("EMPRESA_ID", usuario.empresaId);
-        sessionStorage.setItem("AEROPORTO_ID", usuario.aeroportoId);
+        sessionStorage.setItem("AEROPORTO_ID", usuario.fkAeroporto);
 
         if (usuario.cargo === "TI") {
             window.location.href = "/pages/inicioCadastroEmpresa.html";

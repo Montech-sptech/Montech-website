@@ -22,9 +22,10 @@ function autenticar(req, res) {
             email: resultadoAutenticar[0].email,
             nome: resultadoAutenticar[0].nome,
             empresaId: resultadoAutenticar[0].empresaId,
-            aeroportoId: resultadoAutenticar[0].aeroportoId,
-            cargo: resultadoAutenticar[0].cargo
-        });
+            cargo: resultadoAutenticar[0].cargo,
+            fkAeroporto: resultadoAutenticar[0].fkAeroporto,
+          });
+
         } else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");
         } else {

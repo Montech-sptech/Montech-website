@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var cargoModel = require("../models/cargoModel");
 
 function autenticar(req, res) {
   var email = req.body.emailServer;
@@ -11,19 +12,29 @@ function autenticar(req, res) {
   } else {
     usuarioModel
       .autenticar(email, senha)
-      .then(function (resultadoAutenticar) {
+      .then(async function (resultadoAutenticar) {
         console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
 
         console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
 
         if (resultadoAutenticar.length == 1) {
+          var usuario = resultadoAutenticar[0];
+          var permissoesUsuario = await cargoModel.listarNomesPermissoesDoCargo(
+            usuario.fkCargo,
+          );
           res.json({
-            id: resultadoAutenticar[0].idUsuario,
-            email: resultadoAutenticar[0].email,
-            nome: resultadoAutenticar[0].nome,
-            empresaId: resultadoAutenticar[0].empresaId,
-            cargo: resultadoAutenticar[0].cargo,
-            fkAeroporto: resultadoAutenticar[0].fkAeroporto,
+            id: usuario.id,
+            idUsuario: usuario.idUsuario,
+            email: usuario.email,
+            nome: usuario.nome,
+            empresaId: usuario.empresaId,
+            cargo: usuario.cargo,
+            fkCargo: usuario.fkCargo,
+            fkAeroporto: usuario.fkAeroporto,
+            permissoes: permissoesUsuario.map(function (permissao) {
+              return permissao.nome;
+            }),
+
           });
 
         } else if (resultadoAutenticar.length == 0) {

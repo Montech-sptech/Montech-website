@@ -8,22 +8,20 @@ function autenticar(email, senha) {
     senha,
   );
   var instrucaoSql = `
-
-  SELECT
-    u.idUsuario AS idUsuario,
-    u.nome,
-    u.email,
-    u.senha,
-    u.fkAeroporto AS aeroportoId,
-    a.fkEmpresa AS empresaId,
-    u.fkCargo AS fkCargo,
-    c.nome AS cargo
-  FROM usuario u
-  JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
-  JOIN cargo c ON c.idCargo = u.fkCargo
-  WHERE u.email = ${mysql.escape(email)}
-    AND u.senha = ${mysql.escape(senha)};
-`;
+        SELECT 
+            u.idUsuario AS id,
+            u.idUsuario AS idUsuario,
+            u.nome,
+            u.email,
+            u.fkAeroporto,
+            u.fkCargo,
+            a.fkEmpresa AS empresaId,
+            c.nome AS cargo
+        FROM usuario u
+        JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
+        JOIN cargo c ON c.idCargo = u.fkCargo
+        WHERE u.email = '${email}' AND u.senha = '${senha}';
+    `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }

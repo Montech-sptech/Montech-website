@@ -757,9 +757,7 @@ function salvarEdicaoUsuario() {
   }
 }
 
-
-
-document.getElementById("formCadastroUser").addEventListener("submit", function (evento) {
-  evento.preventDefault();
-  cadastrarUsuario();
+document.addEventListener("DOMContentLoaded", () => {
+  pegarUsuariosPeloAdministrador();
+  carregarServidoresDoAeroporto();
 });

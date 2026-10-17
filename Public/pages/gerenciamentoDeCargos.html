@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/gerenciamentoDeCargos.css" />
+    <link rel="shortcut icon" href="../img/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/headerPosLogin.css" />
+    <link rel="stylesheet" href="../css/sidebarGerenciamento.css" />
+    <script src="../js/gerenciamentoDeCargos.js"></script>
+    <script src="../js/sidebar.js" defer></script>
+    <title>MonTech - Gerenciamento de Cargos</title>
+  </head>
+
+  <body onload="carregarDadosCargos()">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="sbLogo">
+        <img class="sbLogoLonga" src="../img/longLigthLogo.svg" alt="MonTech" />
+        <img
+          class="sbLogoCurta"
+          src="../img/shortLigthLogo.svg"
+          alt="MonTech"
+        />
+      </div>
+
+      <nav class="sbNav">
+        <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+              <path
+                d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              />
+            </svg>
+          </span>
+          <span class="sbRotulo">Dashboard</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a class="sbItem" href="relatorios.html" data-cargos="Analista">
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <path d="M14 2v6h6" />
+              <path d="M8 18v-2" />
+              <path d="M12 18v-4" />
+              <path d="M16 18v-6" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Relatórios</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoDeUsuarios.html"
+          data-cargos="Administrador"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Usuários</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoDeCargos.html"
+          data-cargos="Administrador"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+              />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Cargos</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="alertas.html"
+          data-cargos="Administrador,Analista"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Alertas</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="cadastroDeServidor.html"
+          data-cargos="Administrador"
+          data-titulo="Cadastrar Servidores"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5v14a9 3 0 0 0 18 0V5" />
+              <path d="M3 12a9 3 0 0 0 18 0" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Servidores</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+      </nav>
+
+      <div class="sbRodape">
+        <div class="sbRodapeFundo"></div>
+        <button class="sbSair" id="sbSair" type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <path d="m16 17 5-5-5-5" />
+            <path d="M21 12H9" />
+          </svg>
+          <span class="sbRotulo">Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="containerGerenciamentoCargos">
+      <div id="containerGerenciamentoCargosTitulo">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+          />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+        <h1>Gerenciamento de Cargos</h1>
+      </div>
+
+      <section class="cartaoCargos">
+        <div class="barraFerramentas">
+          <h2>Cargos do Sistema</h2>
+
+          <div class="acoesFerramentas">
+            <label class="campoBusca">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <input
+                type="search"
+                id="inputBuscaCargo"
+                placeholder="Buscar cargo..."
+                aria-label="Buscar cargo"
+                oninput="buscarCargos(this.value)"
+                autocomplete="off"
+              />
+            </label>
+
+            <select
+              id="filtroStatusCargo"
+              class="campoFiltro"
+              aria-label="Filtrar por status"
+              onchange="filtrarCargosPorStatus(this.value)"
+            >
+              <option value="todos">Todos os status</option>
+              <option value="ativo">Ativos</option>
+              <option value="inativo">Inativos</option>
+            </select>
+
+            <button
+              class="btnNovoCargo"
+              type="button"
+              disabled
+              onclick="abrirModalCargo()"
+            >
+              <span>Novo Cargo</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14M12 5v14" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="containerTabela">
+          <div class="tabelaDados">
+            <div class="linhaCabecalho">
+              <div class="col colCargo">Cargo</div>
+              <div class="col colPermissoes">Permissões</div>
+              <div class="col colUsuarios">Usuários</div>
+              <div class="col colStatus">Status</div>
+              <div class="col colAcoes">Ações</div>
+            </div>
+
+            <div id="listaCargos">
+              <div class="estadoVazio">Carregando cargos...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rodapeTabela">
+          <span class="infoCargos" id="infoCargos"></span>
+        </div>
+      </section>
+    </main>
+
+    <div
+      id="modalCargo"
+      class="escondido"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tituloModalCargo"
+    >
+      <div id="modalCargoConteudo">
+        <svg
+          id="iconeFecharModalCargo"
+          onclick="fecharModalCargo()"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="#6f6d82"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+          />
+        </svg>
+
+        <h2 id="tituloModalCargo">Novo cargo</h2>
+
+        <div class="formModal">
+          <div class="campoModal">
+            <label for="inputNomeCargo">NOME DO CARGO</label>
+            <input
+              type="text"
+              id="inputNomeCargo"
+              maxlength="100"
+              placeholder="Ex.: Analista Júnior"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="campoModal">
+            <label for="inputDescricaoCargo"
+              >DESCRIÇÃO <span class="opcional">(opcional)</span></label
+            >
+            <textarea
+              id="inputDescricaoCargo"
+              maxlength="250"
+              rows="2"
+              placeholder="Para que serve esse cargo?"
+            ></textarea>
+            <span class="contadorCampo" id="contadorDescricao">0/250</span>
+          </div>
+
+          <div class="campoModal" id="campoStatusCargo" hidden>
+            <label for="selectStatusCargo">STATUS</label>
+            <select id="selectStatusCargo">
+              <option value="ativo">Ativo</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </div>
+
+          <div class="campoModal">
+            <div class="cabecalhoPermissoes">
+              <label>PERMISSÕES</label>
+              <span class="contadorPermissoes" id="contadorPermissoes"
+                >0 selecionadas</span
+              >
+              <button
+                type="button"
+                class="btnTexto"
+                id="btnSelecionarTodas"
+                onclick="alternarTodasPermissoes()"
+              >
+                Selecionar todas
+              </button>
+            </div>
+            <div class="gridPermissoesModal" id="gridPermissoes"></div>
+          </div>
+
+          <p class="erroModal" id="erroModalCargo" role="alert" hidden></p>
+        </div>
+
+        <div class="containerAcoesModal">
+          <button id="botaoSalvarCargo" type="button" onclick="salvarCargo()">
+            CADASTRAR CARGO
+          </button>
+          <button
+            id="botaoCancelarCargo"
+            type="button"
+            onclick="fecharModalCargo()"
+          >
+            CANCELAR
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modalExclusaoCargo"
+      class="escondido"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tituloExclusaoCargo"
+    >
+      <div id="modalExcluirCargo">
+        <svg
+          id="iconeFecharModalExclusaoCargo"
+          onclick="fecharModalExclusaoCargo()"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="#6f6d82"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+          />
+        </svg>
+
+        <h2 id="tituloExclusaoCargo">Excluir cargo</h2>
+        <p id="textoConfirmacaoExclusaoCargo"></p>
+        <p class="erroModal" id="erroExclusaoCargo" role="alert" hidden></p>
+
+        <div class="containerAcoesModal">
+          <button
+            id="botaoConfirmarExclusaoCargo"
+            type="button"
+            onclick="confirmarExclusaoCargo()"
+          >
+            EXCLUIR
+          </button>
+          <button
+            id="botaoCancelarExclusaoCargo"
+            type="button"
+            onclick="fecharModalExclusaoCargo()"
+          >
+            CANCELAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -18,13 +18,12 @@ function autenticar(req, res) {
 
         if (resultadoAutenticar.length == 1) {
           res.json({
-            id: resultadoAutenticar[0].id,
+            idUsuario: resultadoAutenticar[0].idUsuario,
             email: resultadoAutenticar[0].email,
             nome: resultadoAutenticar[0].nome,
             senha: resultadoAutenticar[0].senha,
-            empresaId: resultadoAutenticar[0].empresaId,
-            cargo: resultadoAutenticar[0].cargo,
-            fotoPerfil: resultadoAutenticar[0].fotoPerfil,
+            fkAeroporto: resultadoAutenticar[0].fkAeroporto,
+            cargoNome: resultadoAutenticar[0].cargoNome
           });
         } else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");
@@ -102,7 +101,7 @@ async function pegarUsuariosPeloAdministrador(req, res) {
         idUsuario: linha.idUsuario,
         nomeUsuario: linha.nomeUsuario,
         email: linha.email,
-        fkCargo: linha.fkCargo,
+        nomeCargo: linha.nomeCargo,
         status: linha.status,
         servidores: [],
       };

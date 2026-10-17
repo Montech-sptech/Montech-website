@@ -11,9 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/cadastroDeServidor.css" />
     <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/sidebar.css" />
-    <script src="../js/gerenciamentoServidor/rotasServidores.js" defer></script>
+    <link rel="stylesheet" href="../css/sidebar.css"/>
+    <link rel="stylesheet" href="../css/PopUp.css"/>
     <script src="../js/sidebar.js" defer></script>
+    <script src="../js/gerenciamentoServidor/rotasServidores.js" defer></script>
+    <script src="../js/gerenciamentoServidor/editarServidor.js" defer></script>
     <title>MonTech - Editor de Servidor</title>
 </head>
 
@@ -238,7 +240,7 @@
           </button>
           <div class="cabecalho-titulos">
               <h1>Edite seu servidor</h1>
-              <p>Nome do servidor</p>
+              <p>Edite as informações e os componentes do seu servidor</p>
           </div>
       </header>
 
@@ -262,8 +264,8 @@
               <div class="campo">
                   <label for="status-servidor">Status do servidor</label>
                   <select id="status-servidor" name="status-servidor">
-                      <option value="linux">Ativado</option>
-                      <option value="windows">Desativado</option>
+                      <option value="1">Ativado</option>
+                      <option value="2">Desativado</option>
                   </select>
               </div>
           </div>
@@ -291,7 +293,7 @@
               <button type="button" class="btn-adicionar" id="btn-lista-componente">Adicionar componente</button>
           </div>
 
-          <div class="lista-componentes">
+          <div class="lista-componentes" id="lista-componentes">
               <h3>Lista de componente</h3>
               <p>Ajuste os parâmetros de atenção e crítico para receber seus alertas</p>
 
@@ -301,12 +303,12 @@
 
       <footer class="acoes">
           <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
-          <button type="button" class="btn-salvar">Salvar servidor</button>
+          <button type="button" class="btn-salvar" id="btn-salvar-edit">Salvar servidor</button>
       </footer>
 
 
       <div class="popup" id="popup-componente" aria-labelledby="popup-titulo">
-        <button class="popup__fechar" id="btnFecharPopUp" type="button" aria-label="Fechar" data-fechar-popup>
+        <button class="popup-fechar" id="btnFecharPopUp" type="button" aria-label="Fechar" data-fechar-popup>
           <img src="../img/Servidores/LetraXicon.svg" alt="">
         </button>
 
@@ -321,6 +323,38 @@
             </ul>
           </div>
         </div>
+      </div>
+
+
+      <div class="popup-overlay" id="popup-concluido">
+          <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
+
+              <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
+              <img src="../img/Servidores/LetraXicon.svg" alt="">
+              </button>
+
+              <h2 class="popup-titulo" id="popup-titulo">
+                Seu servidor foi editado com sucesso
+              </h2>
+              <p class="popup-aviso">Em instantes o script de captura vai captar as alterações</p>
+
+              <div class="popup-confirmacao">
+                <button type="button" class="btn-confirmar-exclusao" id="visualizar_servidor">Visualizar servidor</button>
+              </div>
+          </div>
+      </div>
+
+      <div class="popup-overlay" id="popup-debug">
+          <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
+
+              <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
+              <img src="../img/Servidores/LetraXicon.svg" alt="">
+              </button>
+
+              <h2 class="popup-titulo" id="debug-titulo">
+              </h2>
+              <p class="debug-aviso" id="debug-aviso"></p>
+          </div>
       </div>
     </main>
 

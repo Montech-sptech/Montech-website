@@ -9,9 +9,17 @@ function autenticar(email, senha) {
   );
   var instrucaoSql = `
         SELECT 
-            idUsuario AS id, nome, email, senha, fkAeroporto AS aeroportoId, fkCargo
-        FROM usuario 
-        WHERE email = '${email}' AND senha = '${senha}';
+            u.idUsuario,
+            u.nome,
+            u.email,
+            u.senha,
+            u.fkAeroporto,
+            a.fkEmpresa,
+            c.nome AS cargoNome
+        FROM usuario u
+        JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
+        JOIN cargo c ON c.idCargo = u.fkCargo
+        WHERE u.email = '${email}' AND u.senha = '${senha}';
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

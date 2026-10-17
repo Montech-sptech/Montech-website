@@ -20,6 +20,8 @@ var usuarioRouter = require("./src/routes/usuarios");
 var aeroportoRouter = require("./src/routes/aeroportos");
 var servidoresRouter = require("./src/routes/servidores");
 var relatorioRouter = require("./src/routes/relatorios");
+var cargoRouter = require("./src/routes/cargos");
+var gerServidoresRouter = require("./src/routes/gerServidores");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +34,8 @@ app.use("/usuarios", usuarioRouter);
 app.use("/aeroportos", aeroportoRouter);
 app.use("/relatorios", relatorioRouter);
 app.use("/servidores", servidoresRouter);
+app.use("/cargos", cargoRouter);
+app.use("/gerServidores", gerServidoresRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`

@@ -24,13 +24,13 @@ function aplicarPermissoesSidebar() {
     item.hidden = !cargosPermitidos.includes(cargoAtual);
   });
 
-  const paginaAtual = window.location.pathname.split("/").pop();
+  /*const paginaAtual = window.location.pathname.split("/").pop();
   if (
     cargoAtual !== "administrador" &&
     PAGINAS_RESTRITAS_A_ADMINISTRADOR.includes(paginaAtual)
   ) {
     window.location.replace("cadastroDeServidor.html");
-  }
+  }*/
 }
 
 function marcarItemAtivoSidebar() {

@@ -201,6 +201,9 @@ function logar() {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
+
+                    console.log("Dados recebidos do login:", dados);
+
                     sessionStorage.setItem("ID", dados.id);
                     sessionStorage.setItem("EMAIL", dados.email);
                     sessionStorage.setItem("NOME", dados.nome);

@@ -18,15 +18,13 @@ function autenticar(req, res) {
 
         if (resultadoAutenticar.length == 1) {
           res.json({
-            idUsuario: resultadoAutenticar[0].idUsuario,
+            id: resultadoAutenticar[0].idUsuario,
             email: resultadoAutenticar[0].email,
             nome: resultadoAutenticar[0].nome,
-            senha: resultadoAutenticar[0].senha,
             empresaId: resultadoAutenticar[0].empresaId,
-            cargo: resultadoAutenticar[0].fkCargo,
-            fotoPerfil: resultadoAutenticar[0].fotoPerfil,
-
-          });
+            aeroportoId: resultadoAutenticar[0].aeroportoId,
+            cargo: resultadoAutenticar[0].cargo
+        });
         } else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");
         } else {
@@ -47,25 +45,32 @@ function autenticar(req, res) {
 }
 
 function cadastrar(req, res) {
-  var nome = req.body.nomeServer;
-  var email = req.body.emailServer;
-  var senha = req.body.senhaServer;
-  var fkAeroporto = req.body.idAeroportoVincularServer;
-  var fkCargo = req.body.fkCargoServer;
+  var nome = req.body.nome;
+  var cpf = req.body.cpf;
+  var email = req.body.email;
+  var telefone = req.body.telefone;
+  var senha = req.body.senha;
+  var statusAtividade = req.body.statusAtividade;
+  var fkAeroporto = req.body.fkAeroporto;
+  var fkCargo = req.body.fkCargo;
 
   if (nome == undefined) {
-    res.status(400).send("Seu nome está undefined!");
+    return res.status(400).send("Seu nome está undefined!");
+  } else if(cpf == undefined){
+    return res.status(400).send("Seu cpf está undefined!")
   } else if (email == undefined) {
-    res.status(400).send("Seu email está undefined!");
+    return res.status(400).send("Seu email está undefined!");
+  } else if(statusAtividade == undefined){
+    return res.status(400).send("Seu statusAtividade está undefined!")
   } else if (senha == undefined) {
-    res.status(400).send("Sua senha está undefined!");
+    return res.status(400).send("Sua senha está undefined!");
   } else if (fkAeroporto == undefined) {
-    res.status(400).send("Seu aeroporto a vincular está undefined!");
+    return res.status(400).send("Seu aeroporto a vincular está undefined!");
   } else if (fkCargo == undefined) {
-    res.status(400).send("Cargo inválido");
+    return res.status(400).send("Cargo inválido");
   } else {
     usuarioModel
-      .cadastrar(nome, email, senha, fkAeroporto, fkCargo)
+      .cadastrar(nome, cpf, email, telefone, senha, statusAtividade, fkAeroporto, fkCargo)
       .then(function (resultado) {
         res.json(resultado);
       })
@@ -193,6 +198,28 @@ function ativarUsuario(req, res) {
     });
 }
 
+function listarCargos(req, res) {
+  var empresaId = Number(req.query.empresaId);
+
+  if (!Number.isInteger(empresaId) || empresaId <= 0) {
+    return res.status(400).json({
+      mensagem: "ID da empresa inválido."
+    });
+  }
+
+  usuarioModel
+    .listarCargosPorEmpresa(empresaId)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log("Erro ao buscar cargos:", erro);
+      res.status(500).json({
+        mensagem: "Não foi possível buscar os cargos."
+      });
+    });
+}
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -200,4 +227,5 @@ module.exports = {
   pegarUsuariosPeloAdministrador,
   inativarUsuario,
   ativarUsuario,
+  listarCargos
 };

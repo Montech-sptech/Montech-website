@@ -167,14 +167,15 @@ INSERT INTO cargo (nome, descricao, statusAtividade, empresa_idEmpresa) VALUES
 ('Técnico de Campo',           'Realiza manutenção e cadastro físico dos servidores',                     1, 2);  -- 5
  
 -- ------------------------------------------------------------
--- PERMISSAO (ids 1 a 5)
+-- PERMISSAO (ids 1 a 6)
 -- ------------------------------------------------------------
 INSERT INTO permissao (nome, descricao) VALUES
 ('VISUALIZAR_DASHBOARD', 'Permite visualizar os painéis de monitoramento'),             -- 1
 ('GERENCIAR_SERVIDORES', 'Permite cadastrar, editar e desativar servidores'),           -- 2
 ('GERENCIAR_USUARIOS',   'Permite cadastrar, editar e desativar usuários'),             -- 3
 ('CONFIGURAR_LIMITES',   'Permite definir os limites de atenção e crítico dos componentes'),  -- 4
-('EXPORTAR_RELATORIOS',  'Permite gerar e exportar relatórios de desempenho');          -- 5
+('EXPORTAR_RELATORIOS',  'Permite gerar e exportar relatórios de desempenho'),          -- 5
+('VISUALIZAR_DASHBOARD_GESTOR', 'Permite visualizar o painel gerencial');               -- 6
  
 -- ------------------------------------------------------------
 -- CARGOPERMISSAO -> (fkCargo, fkPermissao)

@@ -94,12 +94,6 @@ function configurarAcessoDashboard(permissoesUsuario) {
       return;
     }
 
-    document.querySelectorAll(".navegacao a").forEach((link) => {
-      const destino = (link.getAttribute("href") || "").split("/").pop();
-      link.hidden =
-        (destino === "analista.html" && !podeVerAnalista) ||
-        (destino === "gerente.html" && !podeVerGestor);
-    });
   }
 }
 
@@ -157,10 +151,13 @@ function marcarItemAtivoSidebar() {
     const destino = (item.getAttribute("href") || "").split("/").pop();
     const ehPaginaAtual =
       destino !== "" && destino !== "#" && destino === paginaAtual;
+    const ehDashboardAtual =
+      item.querySelector(".sbRotulo")?.textContent.trim() === "Dashboard" &&
+      ["gerente.html", "analista.html"].includes(paginaAtual);
 
-    item.classList.toggle("ativo", ehPaginaAtual);
+    item.classList.toggle("ativo", ehPaginaAtual || ehDashboardAtual);
 
-    if (ehPaginaAtual) {
+    if (ehPaginaAtual || ehDashboardAtual) {
       item.setAttribute("aria-current", "page");
     } else {
       item.removeAttribute("aria-current");

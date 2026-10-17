@@ -34,4 +34,8 @@ router.put("/ativarUsuario/:id", function (req, res) {
 });
 //});
 
+router.get("/cargos", function (req, res) {
+  usuarioController.listarCargos(req, res);
+});
+
 module.exports = router;

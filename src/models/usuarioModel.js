@@ -8,36 +8,55 @@ function autenticar(email, senha) {
     senha,
   );
   var instrucaoSql = `
-        SELECT 
-            u.idUsuario,
-            u.nome,
-            u.email,
-            u.senha,
-            u.fkAeroporto,
-            a.fkEmpresa,
-            c.nome AS cargoNome
-        FROM usuario u
-        JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
-        JOIN cargo c ON c.idCargo = u.fkCargo
-        WHERE u.email = '${email}' AND u.senha = '${senha}';
-    `;
+
+  SELECT
+    u.idUsuario AS idUsuario,
+    u.nome,
+    u.email,
+    u.senha,
+    u.fkAeroporto AS aeroportoId,
+    a.fkEmpresa AS empresaId,
+    u.fkCargo AS fkCargo,
+    c.nome AS cargo
+  FROM usuario u
+  JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
+  JOIN cargo c ON c.idCargo = u.fkCargo
+  WHERE u.email = ${mysql.escape(email)}
+    AND u.senha = ${mysql.escape(senha)};
+`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome, email, senha, fkAeroporto, fkCargo) {
+function cadastrar(nome, cpf, email, telefone, senha, statusAtividade, fkAeroporto, fkCargo) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
+    cpf,
     email,
+    telefone,
     senha,
+    statusAtividade,
     fkAeroporto,
     fkCargo,
   );
 
+  var telefoneInserir = "NULL";
+
+  if (telefone != null && telefone !== "") {
+    telefoneInserir = mysql.escape(telefone);
+  }
+
   var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fkAeroporto, fkCargo) 
-        VALUES ('${nome}', '${email}', '${senha}', '${fkAeroporto}', '${fkCargo}');
+        INSERT INTO usuario (nome, cpf, email, telefone, senha, statusAtividade, fkAeroporto, fkCargo) 
+        VALUES (${mysql.escape(nome)},
+         ${mysql.escape(cpf)},
+          ${mysql.escape(email)},
+           ${telefoneInserir},
+            ${mysql.escape(senha)},
+            ${Number(statusAtividade)},
+             ${Number(fkAeroporto)},
+              ${Number(fkCargo)});
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -120,6 +139,19 @@ function ativarUsuario(idUsuario) {
   return database.executar(instrucaoSql);
 }
 
+function listarCargosPorEmpresa(empresaId) {
+  var instrucaoSql = `
+    SELECT idCargo, nome
+    FROM cargo
+    WHERE empresa_idEmpresa = ${Number(empresaId)}
+      AND statusAtividade = 1
+    ORDER BY nome;
+  `;
+
+  return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -128,4 +160,5 @@ module.exports = {
   editarUsuario,
   ativarUsuario,
   inativarUsuario,
+  listarCargosPorEmpresa
 };

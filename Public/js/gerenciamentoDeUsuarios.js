@@ -339,39 +339,25 @@ function renderizarTabela() {
 /**/
 
 function abrirModalNovoUsuario() {
-  
-const telaCadastroUser = document.getElementById("telaCadastroUser");
-
-document.getElementById("btnNovoUsuario").addEventListener("click", () => {
-    telaCadastroUser.classList.remove("escondido");
-});
-
-document.getElementById("fecharCadastroUser").addEventListener("click", () => {
-    telaCadastroUser.classList.add("escondido");
-});
-
-document.getElementById("cancelarCadastroUser").addEventListener("click", () => {
-    telaCadastroUser.classList.add("escondido");
-});
-
-carregarAeroportoDoAdministrador();
-carregarCargos();
-
+  document.getElementById("telaCadastroUser").classList.remove("escondido");
+  carregarAeroportoDoAdministrador();
+  carregarCargos();
 }
 
 function cadastrarUsuario(){
-  mensagemCadastroUser.innerHTML = "";
-  let nome = nomeCadastroUser.value;
-  let cpf = cpfCadastroUser.value;
-  let email = emailCadastroUser.value;
-  let telefone = telefoneCadastroUser.value;
-  let senha = senhaCadastroUser.value;
-  let status = statusCadastroUser.value;
-  let cargo = cargoCadastroUser.value;
-  let aeroporto = aeroportoCadastroUser.value;
+  const mensagemCadastro = document.getElementById("mensagemCadastroUser");
+  mensagemCadastro.textContent = "";
+  let nome = document.getElementById("nomeCadastroUser").value;
+  let cpf = document.getElementById("cpfCadastroUser").value;
+  let email = document.getElementById("emailCadastroUser").value;
+  let telefone = document.getElementById("telefoneCadastroUser").value;
+  let senha = document.getElementById("senhaCadastroUser").value;
+  let status = document.getElementById("statusCadastroUser").value;
+  let cargo = document.getElementById("cargoCadastroUser").value;
+  let aeroporto = document.getElementById("aeroportoCadastroUser").value;
 
   if (nome == "" || cpf == "" || email == "" || senha == "" || status == "" || cargo == "" || aeroporto == "") {
-    mensagemCadastroUser.innerHTML = `Preencha todos os campos obrigatórios.`;
+    mensagemCadastro.textContent = "Preencha todos os campos obrigatórios.";
     return
   }
 
@@ -402,24 +388,23 @@ function cadastrarUsuario(){
 
   return resposta.json();
 })
-    .then(() => {
-      mensagemCadastroUser.innerHTML =
-        "Usuário cadastrado com sucesso.";
+.then(() => {
+  mensagemCadastro.textContent = "Usuário cadastrado com sucesso.";
 
-      pegarUsuariosPeloAdministrador();
+  pegarUsuariosPeloAdministrador();
 
-      document.getElementById("formCadastroUser").reset();
+  document.getElementById("formCadastroUser").reset();
 
-      setTimeout(() => {
-        document.getElementById("telaCadastroUser")
-          .classList.add("escondido");
-        mensagemCadastroUser.innerHTML = "";
-      }, 1000);
-    })
+  setTimeout(() => {
+    document.getElementById("telaCadastroUser")
+      .classList.add("escondido");
+    mensagemCadastro.textContent = "";
+  }, 1000);
+})
     .catch((erro) => {
       console.error("Erro ao cadastrar usuário:", erro);
 
-      mensagemCadastroUser.innerHTML = erro.message;
+      mensagemCadastro.textContent = erro.message;
     });
 
 }
@@ -760,4 +745,19 @@ function salvarEdicaoUsuario() {
 document.addEventListener("DOMContentLoaded", () => {
   pegarUsuariosPeloAdministrador();
   carregarServidoresDoAeroporto();
+
+  const telaCadastroUser = document.getElementById("telaCadastroUser");
+  const formCadastroUser = document.getElementById("formCadastroUser");
+  const fecharCadastroUser = () => telaCadastroUser.classList.add("escondido");
+
+  document
+    .getElementById("fecharCadastroUser")
+    .addEventListener("click", fecharCadastroUser);
+  document
+    .getElementById("cancelarCadastroUser")
+    .addEventListener("click", fecharCadastroUser);
+  formCadastroUser.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    cadastrarUsuario();
+  });
 });

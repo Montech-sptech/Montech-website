@@ -1,7 +1,23 @@
 const Servidoreslista = document.getElementById('listaServidores');
 
+function usuarioPodeGerenciarServidores() {
+    const permissoesSalvas = sessionStorage.getItem('PERMISSOES');
+    if (!permissoesSalvas) return false;
+
+    try {
+        const permissoes = JSON.parse(permissoesSalvas);
+        return Array.isArray(permissoes) && permissoes.some(
+            permissao => String(permissao).trim().toUpperCase() === 'GERENCIAR_SERVIDORES'
+        );
+    } catch (erro) {
+        console.error('Não foi possível ler as permissões do usuário:', erro);
+        return false;
+    }
+}
+
 async function CarregarInfos() {
     let idAeroporto = sessionStorage.AEROPORTO_ID;
+    const podeGerenciar = usuarioPodeGerenciarServidores();
     console.log(idAeroporto)
     if (!idAeroporto) {
         console.log('ID do aeroporto não encontrado');
@@ -37,14 +53,14 @@ async function CarregarInfos() {
                     
                             <button type="button" class="btn-visualizar">Visualizar</button>
                     
-                            <div class="card-acoes">
+                            ${podeGerenciar ? `<div class="card-acoes">
                             <button type="button" class="btn-editar" aria-label="Editar servidor">
                                 <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
                             </button>
                             <button type="button" class="btn-excluir" data-servidor="${idServidor}" aria-label="Excluir servidor">
                                 <img src="../img/GerenciamentoServidores/LixoIcon.svg" alt="">
                             </button>
-                            </div>
+                            </div>` : ''}
                         </article>
                     `;
                 }
@@ -154,6 +170,5 @@ async function DeletarServidor(idServidor) {
         return false;
     }
 }
-
 
 

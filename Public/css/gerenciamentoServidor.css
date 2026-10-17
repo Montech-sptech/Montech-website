@@ -45,6 +45,10 @@
   transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
+#btn-novo-servidor[hidden] {
+  display: none;
+}
+
 #btn-novo-servidor p {
   font-size: 1rem;
   font-weight: 400;
@@ -182,10 +186,6 @@
 }
 
 @media (min-width: 1440px) {
-  .containerGerenciamentoServidor {
-    max-width: 1400px;
-  }
-
   .servidores {
     gap: 40px 32px;
   }

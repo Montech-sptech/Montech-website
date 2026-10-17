@@ -58,9 +58,11 @@ function aplicarPermissoesSidebar() {
       ) || false;
 
     item.hidden =
-      rotulo === "Dashboard" ||
-      rotulo === "Usuários" ||
-      rotulo === "Cargos"
+      rotulo === "Servidores"
+        ? false
+        : rotulo === "Dashboard" ||
+          rotulo === "Usuários" ||
+          rotulo === "Cargos"
         ? !possuiPermissao
         : !cargosPermitidos.includes(cargoSidebar) && !possuiPermissao;
   });

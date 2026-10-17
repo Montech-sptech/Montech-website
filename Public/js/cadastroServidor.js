@@ -128,36 +128,48 @@ function renderizarPopupList() {
     const popupContainer = document.querySelector('.popup__lista');
         popupContainer.innerHTML = '';
 
+    if(OpcoesDisponiveis.length != 0) {
     OpcoesDisponiveis.forEach(item => {
 
+            const li = document.createElement('li');
+
+            li.innerHTML = `
+                <button class="componente btn-adicionar-componente" type="button" data-componente="${item.idComponente}">
+                    <img class="componente__icone" src="${item.icone}" alt="${item.nomeComponente}">
+                    ${item.nomeComponente}
+                </button>
+            `;
+
+            const botao = li.querySelector('.btn-adicionar-componente');
+
+            botao.addEventListener('click', function() { 
+                const idBuscado = parseInt(botao.dataset.componente);
+                const indiceOpcao = OpcoesDisponiveis.findIndex(opcao => opcao.idComponente === idBuscado);
+                
+                if (indiceOpcao !== -1) {
+                    const [itemEncontrado] = OpcoesDisponiveis.splice(indiceOpcao, 1);
+                    itemAdicionados.push(itemEncontrado);
+                    renderizarListaComponentes(itemAdicionados);                
+                    renderizarPopupList();
+                    console.log(itemAdicionados)
+                    console.log('Item movido com sucesso para os adicionados:', itemAdicionados);
+                }
+                ListaComponenteAdicionar.style.display = 'none';
+            });
+
+            popupContainer.appendChild(li);
+        });
+    }  else {
         const li = document.createElement('li');
 
         li.innerHTML = `
-            <button class="componente btn-adicionar-componente" type="button" data-componente="${item.idComponente}">
-                <img class="componente__icone" src="${item.icone}" alt="${item.nomeComponente}">
-                ${item.nomeComponente}
-            </button>
+            <p>
+                Sem componentes
+            </p>
         `;
 
-        const botao = li.querySelector('.btn-adicionar-componente');
-
-        botao.addEventListener('click', function() { 
-            const idBuscado = parseInt(botao.dataset.componente);
-            const indiceOpcao = OpcoesDisponiveis.findIndex(opcao => opcao.idComponente === idBuscado);
-            
-            if (indiceOpcao !== -1) {
-                const [itemEncontrado] = OpcoesDisponiveis.splice(indiceOpcao, 1);
-                itemAdicionados.push(itemEncontrado);
-                renderizarListaComponentes(itemAdicionados);                
-                renderizarPopupList();
-                console.log(itemAdicionados)
-                console.log('Item movido com sucesso para os adicionados:', itemAdicionados);
-            }
-            ListaComponenteAdicionar.style.display = 'none';
-        });
-
         popupContainer.appendChild(li);
-    });
+    }
 }
 
 

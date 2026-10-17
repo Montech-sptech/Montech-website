@@ -38,7 +38,7 @@ async function CarregarInfos() {
                             <button type="button" class="btn-visualizar" data-servidor="${idServidor}">Visualizar</button>
                     
                             <div class="card-acoes">
-                            <button type="button" class="btn-editar" aria-label="Editar servidor">
+                            <button type="button" class="btn-editar" data-servidor="${idServidor}" aria-label="Editar servidor">
                                 <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
                             </button>
                             <button type="button" class="btn-excluir" data-servidor="${idServidor}" aria-label="Excluir servidor">
@@ -82,8 +82,8 @@ async function CarregarInfos() {
     });
 
     botoesEditar.forEach(function(botao) {
-        botao.addEventListener('click', function() { 
-            window.location.href = './editarServidor.html';    
+        botao.addEventListener('click', function() {
+            window.location.href = './editarServidor.html?id=' + encodeURIComponent(botao.dataset.servidor);
         });
     });
 

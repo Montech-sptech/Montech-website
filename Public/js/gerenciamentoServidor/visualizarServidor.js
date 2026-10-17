@@ -1,13 +1,6 @@
-const BotaoVoltar = document.getElementById('btn-voltar');
-BotaoVoltar.addEventListener('click', function() {
-    window.location.href = './gerenciamentoServidor.html';
-});
-
-
 
 const urlParams = new URLSearchParams(window.location.search);
 const idServidor = urlParams.get('id');
-
 
 async function buscarInformacoes(idServidor) {
         try {

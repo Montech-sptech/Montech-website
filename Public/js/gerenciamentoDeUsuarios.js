@@ -336,9 +336,153 @@ function renderizarTabela() {
   });
 }
 
+/**/
+
 function abrirModalNovoUsuario() {
-  alert("Cadastro de novo usuário ainda não implementado.");
+  
+const telaCadastroUser = document.getElementById("telaCadastroUser");
+
+document.getElementById("btnNovoUsuario").addEventListener("click", () => {
+    telaCadastroUser.classList.remove("escondido");
+});
+
+document.getElementById("fecharCadastroUser").addEventListener("click", () => {
+    telaCadastroUser.classList.add("escondido");
+});
+
+document.getElementById("cancelarCadastroUser").addEventListener("click", () => {
+    telaCadastroUser.classList.add("escondido");
+});
+
+carregarAeroportoDoAdministrador();
+carregarCargos();
+
 }
+
+function cadastrarUsuario(){
+  mensagemCadastroUser.innerHTML = "";
+  let nome = nomeCadastroUser.value;
+  let cpf = cpfCadastroUser.value;
+  let email = emailCadastroUser.value;
+  let telefone = telefoneCadastroUser.value;
+  let senha = senhaCadastroUser.value;
+  let status = statusCadastroUser.value;
+  let cargo = cargoCadastroUser.value;
+  let aeroporto = aeroportoCadastroUser.value;
+
+  if (nome == "" || cpf == "" || email == "" || senha == "" || status == "" || cargo == "" || aeroporto == "") {
+    mensagemCadastroUser.innerHTML = `Preencha todos os campos obrigatórios.`;
+    return
+  }
+
+  fetch("/usuarios/cadastrar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nome: nome,
+      cpf: cpf,
+      email: email,
+      telefone: telefone,
+      senha: senha,
+      statusAtividade: status,
+      fkCargo: cargo,
+      fkAeroporto: aeroporto,
+    }),
+  })
+    .then(async (resposta) => {
+  if (!resposta.ok) {
+    const erro = await resposta.text();
+
+    throw new Error(
+      erro || "Não foi possível cadastrar o usuário."
+    );
+  }
+
+  return resposta.json();
+})
+    .then(() => {
+      mensagemCadastroUser.innerHTML =
+        "Usuário cadastrado com sucesso.";
+
+      pegarUsuariosPeloAdministrador();
+
+      document.getElementById("formCadastroUser").reset();
+
+      setTimeout(() => {
+        document.getElementById("telaCadastroUser")
+          .classList.add("escondido");
+        mensagemCadastroUser.innerHTML = "";
+      }, 1000);
+    })
+    .catch((erro) => {
+      console.error("Erro ao cadastrar usuário:", erro);
+
+      mensagemCadastroUser.innerHTML = erro.message;
+    });
+
+}
+
+
+function carregarAeroportoDoAdministrador() {
+    var aeroportoId = sessionStorage.getItem("AEROPORTO_ID");
+    var selectAeroporto = document.getElementById("aeroportoCadastroUser");
+
+    if (!aeroportoId || !selectAeroporto) {
+        console.error("ID do aeroporto não encontrado ou campo inexistente.");
+        return;
+    }
+
+    selectAeroporto.innerHTML = "";
+
+    var opcao = document.createElement("option");
+    opcao.value = aeroportoId;
+    opcao.textContent = "Aeroporto do administrador";
+    opcao.selected = true;
+
+    selectAeroporto.appendChild(opcao);
+    selectAeroporto.disabled = true;
+}
+
+
+function carregarCargos() {
+    var empresaId = sessionStorage.getItem("EMPRESA_ID");
+
+    if (!empresaId) {
+        console.error("ID da empresa não encontrado.");
+        return;
+    }
+
+    var selectCargo = document.getElementById("cargoCadastroUser");
+
+    fetch(`/usuarios/cargos?empresaId=${empresaId}`)
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                throw new Error("Erro ao buscar cargos.");
+            }
+
+            return resposta.json();
+        })
+        .then(function (cargos) {
+            console.log("Cargos recebidos:", cargos);
+
+            selectCargo.innerHTML = '<option value="">Selecione o cargo</option>';
+
+            cargos.forEach(function (cargo) {
+                var opcao = document.createElement("option");
+
+                opcao.value = cargo.idCargo;
+                opcao.textContent = cargo.nome;
+
+                selectCargo.appendChild(opcao);
+            });
+        })
+        .catch(function (erro) {
+            console.error("Erro ao carregar cargos:", erro);
+        });
+}
+
 
 let idUsuarioExcluindo = null;
 

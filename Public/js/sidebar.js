@@ -67,6 +67,7 @@ function aplicarPermissoesSidebar() {
         : !cargosPermitidos.includes(cargoSidebar) && !possuiPermissao;
   });
 
+
   const paginaAtual = window.location.pathname.split("/").pop();
   const paginasDashboard = ["gerente.html", "analista.html"];
   const possuiPermissaoDashboard =
@@ -77,12 +78,14 @@ function aplicarPermissoesSidebar() {
     return;
   }
 
+
   if (
     !permissoesUsuario?.includes("GERENCIAR_USUARIOS") &&
     PAGINAS_RESTRITAS_A_GERENCIAR_USUARIOS.includes(paginaAtual)
   ) {
     window.location.replace("gerenciamentoServidor.html");
   }
+
 }
 
 function marcarItemAtivoSidebar() {

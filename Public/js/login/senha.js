@@ -64,6 +64,7 @@ loginForm.addEventListener("submit", async function (event) {
     sessionStorage.setItem("EMPRESA_ID", usuario.empresaId);
     sessionStorage.setItem("PERMISSOES", JSON.stringify(permissoesUsuario));
 
+
     if (permissoesUsuario.includes("GERENCIAR_USUARIOS")) {
       window.location.href = "/pages/gerenciamentoDeUsuarios.html";
     } else {

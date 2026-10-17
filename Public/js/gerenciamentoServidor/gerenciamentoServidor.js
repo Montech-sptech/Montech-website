@@ -51,10 +51,10 @@ async function CarregarInfos() {
                             <h2 class="nome-servidor">${nomeServidor}</h2>
                             <h3 class="sistema-operacional">${sistemaOperacional}</h3>
                     
-                            <button type="button" class="btn-visualizar">Visualizar</button>
-                    
+                            <button type="button" class="btn-visualizar" data-servidor="${idServidor}">Visualizar</button>
                             ${podeGerenciar ? `<div class="card-acoes">
                             <button type="button" class="btn-editar" aria-label="Editar servidor">
+
                                 <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
                             </button>
                             <button type="button" class="btn-excluir" data-servidor="${idServidor}" aria-label="Excluir servidor">
@@ -98,14 +98,14 @@ async function CarregarInfos() {
     });
 
     botoesEditar.forEach(function(botao) {
-        botao.addEventListener('click', function() { 
-            window.location.href = './editarServidor.html';    
+        botao.addEventListener('click', function() {
+            window.location.href = './editarServidor.html?id=' + encodeURIComponent(botao.dataset.servidor);
         });
     });
 
     botoesVisualizar.forEach(function(botao) {
-        botao.addEventListener('click', function() { 
-            window.location.href = './visualizarServidor.html';    
+        botao.addEventListener('click', function() {
+            window.location.href = './visualizarServidor.html?id=' + encodeURIComponent(botao.dataset.servidor);
         });
     });
 }

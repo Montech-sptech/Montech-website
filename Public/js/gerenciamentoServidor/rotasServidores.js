@@ -9,10 +9,11 @@ BotaoVoltar.addEventListener('click', function() {
 
 const btnCancelar = document.getElementById('btn-cancelar');
 
-
-btnCancelar.addEventListener('click', function() {
-    window.location.href = './gerenciamentoServidor.html';
-});
+try {
+    btnCancelar.addEventListener('click', function() {
+        window.location.href = './gerenciamentoServidor.html';
+    });
+} catch {}
 
 
 const btnFecharPopUp = document.getElementById('btnFecharPopUp');
@@ -24,10 +25,12 @@ btnFecharPopUp.addEventListener('click', function(){
     ListaComponenteAdicionar.style.display = 'none';
 })
 
-btnListaComponente.addEventListener('click', function(){
-    ListaComponenteAdicionar.style.display = 'flex';
-    renderizarPopupList();
-})
+try {
+    btnListaComponente.addEventListener('click', function(){
+        ListaComponenteAdicionar.style.display = 'flex';
+        renderizarPopupList();
+    })
+} catch {}
 
 
 const botaoCopiar = document.getElementById('btn-copiar');

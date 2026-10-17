@@ -33,7 +33,7 @@ function cadastrarServidor(token, nomeServidor, sistemaOperacional, fkAeroporto)
 
     var instrucaoSql = `
         INSERT INTO servidor (token, nomeServidor, sistemaOperacional, intervaloColeta, statusAtividade, fkAeroporto) VALUES
-        ('${token}', '${nomeServidor}', '${sistemaOperacional}', 5, 1, ${fkAeroporto});
+        ('${token}', '${nomeServidor}', '${sistemaOperacional}', 5, 0, ${fkAeroporto});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -75,11 +75,108 @@ function cadastrarComponenteServidor(fkServidor, componentes) {
 }
 
 
+function buscarServidor(idServidor) {
+  var instrucaoSql = `
+        SELECT token, nomeServidor, sistemaOperacional, statusAtividade FROM servidor WHERE idServidor = ${Number(idServidor)};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function buscarComponentesServidor(idServidor) {
+  var instrucaoSql = `
+    SELECT c.idComponente, c.nomeComponente, c.unidadeMedida, sc.limiteAtencao, sc.limiteCritico FROM servidorcomponente sc
+    JOIN componente c ON c.Idcomponente = fkComponente WHERE fkServidor = ${Number(idServidor)};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function buscarComponentesServidorSemServidor(idServidor) {
+  var instrucaoSql = `
+    SELECT
+    c.idComponente,
+    c.nomeComponente,
+    c.unidadeMedida,
+    IF(sc.idServidorComponente IS NULL, 0, 1) AS pertenceAoServidor,
+    IF(sc.idServidorComponente IS NULL, 0, sc.limiteAtencao) AS limiteAtencao,
+    IF(sc.idServidorComponente IS NULL, 0, sc.limiteCritico) AS limiteCritico
+    FROM componente c
+    LEFT JOIN servidorcomponente sc
+        ON sc.fkComponente = c.idComponente
+        AND sc.fkServidor = ${Number(idServidor)}
+    ORDER BY c.nomeComponente;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function atualizarDadosServidor(idServidor, nomeServidor, sistemaOperacional, statusAtividade) {
+  var instrucaoSql = `
+    UPDATE servidor
+    SET nomeServidor = '${nomeServidor}',
+        sistemaOperacional = '${sistemaOperacional}',
+        statusAtividade = ${Number(statusAtividade)}
+    WHERE idServidor = ${Number(idServidor)};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function removerComponentesServidor(idServidor, componentes) {
+    if (!componentes || componentes.length === 0) {
+        var instrucaoSql = `DELETE FROM servidorcomponente WHERE fkServidor = ${idServidor};`;
+        console.log("Executando (Deletar tudo): " + instrucaoSql);
+        return database.executar(instrucaoSql);
+    }
+    var identificaoComponentes = componentes.map((id) => `${id}`).join(', ');
+    
+    var instrucaoSql = `
+        DELETE FROM servidorcomponente 
+        WHERE fkServidor = ${idServidor} AND fkComponente NOT IN (${identificaoComponentes});
+    `;
+
+    console.log("Executando a instrução SQL parametrizada: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+}
+
+function atualizarDadosComponentesServidor(idServidor, componentes) {
+    if (!componentes || componentes.length === 0) {
+        console.log("Nenhum componente enviado para atualização.");
+        return Promise.resolve(null); 
+    }
+
+    var blocosValues = componentes.map(comp => {
+        return `(${Number(idServidor)}, ${Number(comp.idComponente)}, ${Number(comp.limiteAtencao)}, ${Number(comp.limiteCritico)})`;
+    }).join(',\n        ');
+
+    var instrucaoSql = `
+        INSERT INTO servidorcomponente (fkServidor, fkComponente, limiteAtencao, limiteCritico)
+        VALUES 
+            ${blocosValues}
+        ON DUPLICATE KEY UPDATE
+            limiteAtencao = VALUES(limiteAtencao),
+            limiteCritico = VALUES(limiteCritico);
+    `;
+    
+    console.log("Executando a instrução SQL Dinâmica: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+
+
 module.exports = {
   buscarServidoresAeroporto,
   buscarComponentes,
   cadastrarServidor,
   cadastrarComponenteServidor,
   deletarServidor,
-  deletarComponenteServidor
+  deletarComponenteServidor,
+  buscarServidor,
+  buscarComponentesServidor,
+  buscarComponentesServidorSemServidor,
+  atualizarDadosServidor,
+  removerComponentesServidor,
+  atualizarDadosComponentesServidor
 };

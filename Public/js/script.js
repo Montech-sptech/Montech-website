@@ -209,6 +209,7 @@ function logar() {
                     var permissoesUsuario = dados.permissoes.map(function (permissao) {
                         return String(permissao).trim().toUpperCase();
                     });
+
                     sessionStorage.setItem("ID", dados.id);
                     sessionStorage.setItem("EMAIL", dados.email);
                     sessionStorage.setItem("NOME", dados.nome);

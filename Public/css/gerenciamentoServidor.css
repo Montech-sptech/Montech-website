@@ -14,10 +14,16 @@
 }
 
 .containerGerenciamentoServidor header {
-    width: auto;
-    height: auto;
-    border: 0;
-    background-color: rgba(0, 0, 0, 0.0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  border: 0;
+  background-color: transparent;
+  margin-top: 36px;
 }
 
 .containerGerenciamentoServidor header h1 {
@@ -29,11 +35,13 @@
 
 .actions {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 36px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 10px;
 }
 
-#btn-novo-servidor {
+.btn-acao {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -42,6 +50,7 @@
   border-radius: 6px;
   cursor: pointer;
   user-select: none;
+  text-decoration: none;
   transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
@@ -53,17 +62,28 @@
   font-size: 1rem;
   font-weight: 400;
   color: var(--texto-suave);
+  text-decoration: none;
 }
 
-#btn-novo-servidor img {
+.btn-acao img {
   width: 12px;
   height: 12px;
   display: block;
 }
 
-#btn-novo-servidor:hover {
+.botao-download img {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-acao:hover {
   background-color: #1f1f2c;
   transform: translateY(-1px);
+}
+
+.btn-acao:focus-visible {
+  outline: 2px solid var(--azul-icone);
+  outline-offset: 2px;
 }
 
 .servidores {
@@ -206,13 +226,19 @@
     padding: 20px 20px 40px;
   }
 
+  .containerGerenciamentoServidor header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .containerGerenciamentoServidor header h1 {
     font-size: 1.5rem;
   }
 
   .actions {
-    margin-top: 94px;
-    align-self: start;
+    margin-top: 0;
+    justify-content: flex-start;
+    gap: 12px;
   }
 
   .servidores {
@@ -238,22 +264,31 @@
   }
 
   .actions {
-    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
 
-  #btn-novo-servidor {
+  .btn-acao {
     width: 100%;
     justify-content: center;
     padding: 12px 14px;
   }
 
-  #btn-novo-servidor p {
+  .btn-acao p,
+  .btn-acao span {
     font-size: 0.875rem;
   }
 
-  #btn-novo-servidor img {
+  .btn-acao img {
     width: 14px;
     height: 14px;
+  }
+
+  .botao-download img {
+    width: 16px;
+    height: 16px;
   }
 
   .servidores {

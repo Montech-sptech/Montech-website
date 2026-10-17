@@ -1,6 +1,6 @@
 const PAGINA_APOS_SAIR = "/";
 
-const PAGINAS_RESTRITAS_A_ADMINISTRADOR = [
+const PAGINAS_RESTRITAS_A_GERENCIAR_USUARIOS = [
   "gerenciamentoDeUsuarios.html",
   "gerenciamentoDeCargos.html",
 ];
@@ -78,8 +78,8 @@ function aplicarPermissoesSidebar() {
   }
 
   if (
-    cargoAtual !== "administrador" &&
-    PAGINAS_RESTRITAS_A_ADMINISTRADOR.includes(paginaAtual)
+    !permissoesUsuario?.includes("GERENCIAR_USUARIOS") &&
+    PAGINAS_RESTRITAS_A_GERENCIAR_USUARIOS.includes(paginaAtual)
   ) {
     window.location.replace("gerenciamentoServidor.html");
   }

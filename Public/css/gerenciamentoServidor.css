@@ -51,6 +51,7 @@
   cursor: pointer;
   user-select: none;
   text-decoration: none;
+  color: white;
   transition: background-color 0.2s ease, transform 0.15s ease;
 }
 

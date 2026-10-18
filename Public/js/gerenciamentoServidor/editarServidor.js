@@ -379,10 +379,17 @@ async function atualizarServidor() {
             );
             return;
         }
-        if (status.length != 0 && status != 1) {
+        if (status != 0 && status != 1) {
             mensagemErro(
                 'Erro no campo statusServidor',
                 `O status deve ser ativo ou desativado`
+            );
+            return;
+        }
+        if(itemAdicionados.length < 1) {
+            mensagemErro(
+                'Sem componentes',
+                `Selecione no mínimo um componente para atualizar o servidor`
             );
             return;
         }

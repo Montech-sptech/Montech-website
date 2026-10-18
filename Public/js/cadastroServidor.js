@@ -282,6 +282,13 @@ async function cadastrarServidor() {
         );
         return;
     }
+    if(itemAdicionados.length < 1) {
+        mensagemErro(
+            'Sem componentes',
+            `Selecione no mínimo um componente para cadastrar o servidor`
+        );
+        return;
+    }
 
     try {
         const resposta = await fetch("/gerServidores/cadastrarServidor", {

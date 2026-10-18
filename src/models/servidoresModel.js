@@ -22,7 +22,6 @@ function pegarServidoresPorAeroporto(idAeroporto) {
             idServidor,
             token,
             nomeServidor,
-            hostname,
             sistemaOperacional,
             intervaloColeta,
             statusAtividade,

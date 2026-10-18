@@ -89,8 +89,7 @@ function pegarUsuariosPeloAeroporto(idAeroporto) {
             u.statusAtividade AS status,
             c.nome AS nomeCargo,
             s.idServidor,
-            s.nomeServidor,
-            s.hostname
+            s.nomeServidor
         FROM usuario u
         LEFT JOIN visualizacao v ON v.fkUsuario = u.idUsuario
         LEFT JOIN servidor s ON s.idServidor = v.fkServidor

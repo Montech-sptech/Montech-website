@@ -129,8 +129,7 @@ async function pegarUsuariosPeloAdministrador(req, res) {
     if (linha.idServidor) {
       Usuarios[idAtual].servidores.push({
         idServidor: linha.idServidor,
-        nomeServidor: linha.nomeServidor,
-        hostName: linha.hostName,
+        nomeServidor: linha.nomeServidor
       });
     }
   }

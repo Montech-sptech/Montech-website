@@ -233,67 +233,107 @@ function lerValoresDosInputs() {
 
 const btnSalvar = document.getElementById('btn-salvar-edit');
 
+const popupError = document.getElementById('popup-Error');
+const tituloError = document.getElementById('titulo-Error');
+const descricaoError = document.getElementById('descricao-Error');
+function mensagemErro(titulo, descricao) {
+    tituloError.innerHTML = "";    
+    descricaoError.innerHTML = "";    
+
+
+    popupError.style.display = 'flex';
+    tituloError.innerHTML = titulo;    
+    descricaoError.innerHTML = descricao;    
+}
+
+
+
 btnSalvar.addEventListener('click', async function () {
     btnSalvar.disabled = true;
 
     try {
         lerValoresDosInputs();
 
-        let popUpDebug = document.getElementById("popup-debug")
-        let tituloDebug = document.getElementById("debug-titulo")
-        let AvisoDebug = document.getElementById("debug-aviso")
-
         for (const item of itemAdicionados) {
-            if (parseFloat(item.limiteAtencao) > parseFloat(item.limiteCritico)) {
-                popUpDebug.style.display = 'flex';
-                tituloDebug.innerHTML = `"${item.nomeComponente}" com erro`;
-                AvisoDebug.innerHTML = 'O limite atenção não pode ser maior que o limite crítico';
+            const valorAtencao = parseFloat(item.limiteAtencao);
+            const valorCritico = parseFloat(item.limiteCritico);
+
+            if (valorAtencao < 0 || valorAtencao > 100) {
+                mensagemErro(
+                    `"${item.nomeComponente}" com erro no Limite de Atenção`,
+                    `O limite de atenção deve estar entre 0 e 100 (valor informado: ${valorAtencao}).`
+                );
+                return;
+            }
+
+            if (valorCritico < 0 || valorCritico > 100) {
+                mensagemErro(
+                    `"${item.nomeComponente}" com erro no Limite Crítico`,
+                    `O limite crítico deve estar entre 0 e 100 (valor informado: ${valorCritico}).`
+                );
+                return;
+            }
+
+            if (valorAtencao > valorCritico) {
+                mensagemErro(
+                    `"${item.nomeComponente}" com erro nos limites`,
+                    'O limite de atenção não pode ser maior que o limite crítico.'
+                );
                 return;
             }
         }
 
         const okServidor = await atualizarServidor();
         if (!okServidor) {
-            popUpDebug.style.display = 'flex';
-            tituloDebug.innerHTML = 'Erro ao atualizar';
-            AvisoDebug.innerHTML = 'Revise as alterações feitas e tente novamente';
-            return;   
-        };
+            if(popupError.style.display != 'flex') {                
+                mensagemErro(
+                    'Erro ao atualizar o servidor',
+                    'Revise as alterações feitas e tente novamente.'
+                );
+            }
+            return;
+        }
 
         const okRemocao = await removerComponentesServidor();
         if (!okRemocao) {
-            popUpDebug.style.display = 'flex';
-            tituloDebug.innerHTML = 'Erro ao remover componentes';
-            AvisoDebug.innerHTML = 'Revise as alterações feitas e tente novamente';
+            if(popupError.style.display != 'flex') {                
+                mensagemErro(
+                    'Erro ao remover componentes',
+                    'Revise as alterações feitas e tente novamente.'
+                );
+            }
             return;
-        };
+        }
 
         const okComponentes = await atualizarDadosComponentesServidor();
         if (!okComponentes) {
-            popUpDebug.style.display = 'flex';
-            tituloDebug.innerHTML = 'Erro ao atualizar componentes';
-            AvisoDebug.innerHTML = 'Revise as alterações feitas e tente novamente';
-            return;            
-        };
+            if(popupError.style.display != 'flex') {                
+                mensagemErro(
+                    'Erro ao atualizar componentes',
+                    'Revise as alterações feitas e tente novamente.'
+                );
+            }
+            return;
+        }
 
         idsOriginais = itemAdicionados.map(item => item.idComponente);
 
-
-        let PopUp = document.getElementById('popup-concluido');
-        PopUp.style.display = 'flex';
+        const popUp = document.getElementById('popup-concluido');
+        popUp.style.display = 'flex';
 
         const botaoVisualizar = document.getElementById('visualizar_servidor');
-
-
         botaoVisualizar.dataset.servidor = idServidor;
 
-        botaoVisualizar.addEventListener('click', function() {
+        botaoVisualizar.onclick = function () {
             window.location.href = './visualizarServidor.html?id=' + encodeURIComponent(botaoVisualizar.dataset.servidor);
-        });
-
+        };
 
     } catch (erro) {
         console.log(erro);
+        mensagemErro(
+            'Erro inesperado',
+            'Ocorreu um erro ao salvar as alterações. Tente novamente.'
+        );
     } finally {
         btnSalvar.disabled = false;
     }
@@ -305,6 +345,54 @@ async function atualizarServidor() {
         const nomeServidor = document.getElementById('nome-servidor');
         const selectSistemaOperacional = document.getElementById('sistema-operacional');
         const selectStatusServidor = document.getElementById('status-servidor');
+
+        const nome = nomeServidor.value.trim();
+        const sistema = selectSistemaOperacional.value.trim().toLowerCase();
+        const status = selectStatusServidor.value.trim();
+
+        if (nome.length === 0) {
+            mensagemErro(
+                'Erro no campo Nome do Servidor',
+                'O nome não pode estar vazio nem conter apenas espaços em branco.'
+            );
+            return;
+        }
+
+        if (nome.length < 3) {
+            mensagemErro(
+                'Erro no campo Nome do Servidor',
+                'O nome deve ter no mínimo 3 caracteres.'
+            );
+            return;
+        }
+        if (nome.length > 30) {
+            mensagemErro(
+                'Erro no campo Nome do Servidor',
+                'O nome deve ter no máximo 30 caracteres.'
+            );
+            return;
+        }
+        if (sistema !== 'linux' && sistema !== 'windows') {
+            mensagemErro(
+                'Erro no campo Sistema Operacional',
+                'O sistema operacional deve ser "linux" ou "windows".'
+            );
+            return;
+        }
+        if (status != 0 && status != 1) {
+            mensagemErro(
+                'Erro no campo statusServidor',
+                `O status deve ser ativo ou desativado`
+            );
+            return;
+        }
+        if(itemAdicionados.length < 1) {
+            mensagemErro(
+                'Sem componentes',
+                `Selecione no mínimo um componente para atualizar o servidor`
+            );
+            return;
+        }
 
         const resposta = await fetch("/gerServidores/atualizarDadosServidor", {
             method: "PUT",

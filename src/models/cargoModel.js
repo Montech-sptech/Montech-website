@@ -109,6 +109,17 @@ function listarPermissoesDoCargo(idCargo) {
   return database.executar(instrucaoSql);
 }
 
+function listarNomesPermissoesDoCargo(idCargo) {
+  var instrucaoSql = `
+    SELECT p.nome
+    FROM cargopermissao cp
+    JOIN permissao p ON p.idPermissao = cp.fkPermissao
+    WHERE cp.fkCargo = ${Number(idCargo)};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 function vincularPermissoes(idCargo, idsPermissao) {
   var valores = idsPermissao
     .map(function (idPermissao) {
@@ -168,6 +179,7 @@ module.exports = {
   atualizarCargo,
   contarPermissoesExistentes,
   listarPermissoesDoCargo,
+  listarNomesPermissoesDoCargo,
   vincularPermissoes,
   removerPermissoes,
   contarUsuariosDoCargo,

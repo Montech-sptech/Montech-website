@@ -174,9 +174,9 @@
         </a>
         <a
           class="sbItem"
-          href="cadastroDeServidor.html"
-          data-cargos="Administrador"
-          data-titulo="Cadastrar Servidores"
+          href="gerenciamentoServidor.html"
+          data-cargos="Administrador,Analista"
+          data-titulo="Gerenciar Servidores"
         >
           <span class="sbIcone">
             <svg
@@ -265,7 +265,7 @@
                   <label for="status-servidor">Status do servidor</label>
                   <select id="status-servidor" name="status-servidor">
                       <option value="1">Ativado</option>
-                      <option value="2">Desativado</option>
+                      <option value="0">Desativado</option>
                   </select>
               </div>
           </div>
@@ -344,16 +344,16 @@
           </div>
       </div>
 
-      <div class="popup-overlay" id="popup-debug">
+      <div class="popup-overlay" id="popup-Error">
           <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
 
               <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
               <img src="../img/Servidores/LetraXicon.svg" alt="">
               </button>
 
-              <h2 class="popup-titulo" id="debug-titulo">
+              <h2 class="popup-titulo" id="titulo-Error">
               </h2>
-              <p class="debug-aviso" id="debug-aviso"></p>
+              <p class="popup-aviso" id="descricao-Error"></p>
           </div>
       </div>
     </main>

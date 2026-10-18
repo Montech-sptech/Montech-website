@@ -201,23 +201,32 @@ function logar() {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
+                    if (!Array.isArray(dados.permissoes)) {
+                        console.error("O servidor não retornou as permissões do cargo.");
+                        alert("Não foi possível carregar as permissões do cargo. Tente novamente.");
+                        return;
+                    }
+                    var permissoesUsuario = dados.permissoes.map(function (permissao) {
+                        return String(permissao).trim().toUpperCase();
+                    });
+
                     sessionStorage.setItem("ID", dados.id);
                     sessionStorage.setItem("EMAIL", dados.email);
                     sessionStorage.setItem("NOME", dados.nome);
                     sessionStorage.setItem("CARGO", dados.cargo);
                     sessionStorage.setItem("EMPRESA_ID", dados.empresaId);
-                    sessionStorage.setItem("FOTO_PERFIL", dados.fotoPerfil);
+                    sessionStorage.setItem(
+                        "PERMISSOES",
+                        JSON.stringify(permissoesUsuario)
+                    );
+                    sessionStorage.removeItem("FOTO_PERFIL");
 
                     validar();
 
-                    if (dados.cargo === "TI") {
-                        window.location.href = "/telas/inicioCadastroEmpresa.html";
-                    } else if (dados.cargo === "Administrador") {
-                        window.location.href = "/telas/gerenciamentoDeUsuarios.html";
-                    } else if (dados.cargo === "Analista") {
-                        window.location.href = "/telas/relatorios.html";
+                    if (permissoesUsuario.includes("GERENCIAR_USUARIOS")) {
+                        window.location.href = "/pages/gerenciamentoDeUsuarios.html";
                     } else {
-                        window.location.href = "/telas/gerenciamentoDeUsuarios.html";
+                        window.location.href = "/pages/gerenciamentoServidor.html";
                     }
                 });
             } else {
@@ -225,6 +234,7 @@ function logar() {
                     alert(mensagem);
                 });
             }
+
         })
 
         .catch(function (erro) {

@@ -336,9 +336,138 @@ function renderizarTabela() {
   });
 }
 
+/**/
+
 function abrirModalNovoUsuario() {
-  alert("Cadastro de novo usuário ainda não implementado.");
+  document.getElementById("telaCadastroUser").classList.remove("escondido");
+  carregarAeroportoDoAdministrador();
+  carregarCargos();
 }
+
+function cadastrarUsuario(){
+  const mensagemCadastro = document.getElementById("mensagemCadastroUser");
+  mensagemCadastro.textContent = "";
+  let nome = document.getElementById("nomeCadastroUser").value;
+  let cpf = document.getElementById("cpfCadastroUser").value;
+  let email = document.getElementById("emailCadastroUser").value;
+  let telefone = document.getElementById("telefoneCadastroUser").value;
+  let senha = document.getElementById("senhaCadastroUser").value;
+  let status = document.getElementById("statusCadastroUser").value;
+  let cargo = document.getElementById("cargoCadastroUser").value;
+  let aeroporto = document.getElementById("aeroportoCadastroUser").value;
+
+  if (nome == "" || cpf == "" || email == "" || senha == "" || status == "" || cargo == "" || aeroporto == "") {
+    mensagemCadastro.textContent = "Preencha todos os campos obrigatórios.";
+    return
+  }
+
+  fetch("/usuarios/cadastrar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nome: nome,
+      cpf: cpf,
+      email: email,
+      telefone: telefone,
+      senha: senha,
+      statusAtividade: status,
+      fkCargo: cargo,
+      fkAeroporto: aeroporto,
+    }),
+  })
+    .then(async (resposta) => {
+  if (!resposta.ok) {
+    const erro = await resposta.text();
+
+    throw new Error(
+      erro || "Não foi possível cadastrar o usuário."
+    );
+  }
+
+  return resposta.json();
+})
+.then(() => {
+  mensagemCadastro.textContent = "Usuário cadastrado com sucesso.";
+
+  pegarUsuariosPeloAdministrador();
+
+  document.getElementById("formCadastroUser").reset();
+
+  setTimeout(() => {
+    document.getElementById("telaCadastroUser")
+      .classList.add("escondido");
+    mensagemCadastro.textContent = "";
+  }, 1000);
+})
+    .catch((erro) => {
+      console.error("Erro ao cadastrar usuário:", erro);
+
+      mensagemCadastro.textContent = erro.message;
+    });
+
+}
+
+
+function carregarAeroportoDoAdministrador() {
+    var aeroportoId = sessionStorage.getItem("AEROPORTO_ID");
+    var selectAeroporto = document.getElementById("aeroportoCadastroUser");
+
+    if (!aeroportoId || !selectAeroporto) {
+        console.error("ID do aeroporto não encontrado ou campo inexistente.");
+        return;
+    }
+
+    selectAeroporto.innerHTML = "";
+
+    var opcao = document.createElement("option");
+    opcao.value = aeroportoId;
+    opcao.textContent = "Aeroporto do administrador";
+    opcao.selected = true;
+
+    selectAeroporto.appendChild(opcao);
+    selectAeroporto.disabled = true;
+}
+
+
+function carregarCargos() {
+    var empresaId = sessionStorage.getItem("EMPRESA_ID");
+
+    if (!empresaId) {
+        console.error("ID da empresa não encontrado.");
+        return;
+    }
+
+    var selectCargo = document.getElementById("cargoCadastroUser");
+
+    fetch(`/usuarios/cargos?empresaId=${empresaId}`)
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                throw new Error("Erro ao buscar cargos.");
+            }
+
+            return resposta.json();
+        })
+        .then(function (cargos) {
+            console.log("Cargos recebidos:", cargos);
+
+            selectCargo.innerHTML = '<option value="">Selecione o cargo</option>';
+
+            cargos.forEach(function (cargo) {
+                var opcao = document.createElement("option");
+
+                opcao.value = cargo.idCargo;
+                opcao.textContent = cargo.nome;
+
+                selectCargo.appendChild(opcao);
+            });
+        })
+        .catch(function (erro) {
+            console.error("Erro ao carregar cargos:", erro);
+        });
+}
+
 
 let idUsuarioExcluindo = null;
 
@@ -612,3 +741,23 @@ function salvarEdicaoUsuario() {
     fecharModalEdicao();
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  pegarUsuariosPeloAdministrador();
+  carregarServidoresDoAeroporto();
+
+  const telaCadastroUser = document.getElementById("telaCadastroUser");
+  const formCadastroUser = document.getElementById("formCadastroUser");
+  const fecharCadastroUser = () => telaCadastroUser.classList.add("escondido");
+
+  document
+    .getElementById("fecharCadastroUser")
+    .addEventListener("click", fecharCadastroUser);
+  document
+    .getElementById("cancelarCadastroUser")
+    .addEventListener("click", fecharCadastroUser);
+  formCadastroUser.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    cadastrarUsuario();
+  });
+});

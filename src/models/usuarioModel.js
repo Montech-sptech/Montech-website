@@ -9,13 +9,14 @@ function autenticar(email, senha) {
   );
   var instrucaoSql = `
         SELECT 
-            u.idUsuario,
+            u.idUsuario AS id,
+            u.idUsuario AS idUsuario,
             u.nome,
             u.email,
-            u.senha,
             u.fkAeroporto,
-            a.fkEmpresa,
-            c.nome AS cargoNome
+            u.fkCargo,
+            a.fkEmpresa AS empresaId,
+            c.nome AS cargo
         FROM usuario u
         JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
         JOIN cargo c ON c.idCargo = u.fkCargo
@@ -25,19 +26,35 @@ function autenticar(email, senha) {
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome, email, senha, fkAeroporto, fkCargo) {
+function cadastrar(nome, cpf, email, telefone, senha, statusAtividade, fkAeroporto, fkCargo) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
+    cpf,
     email,
+    telefone,
     senha,
+    statusAtividade,
     fkAeroporto,
     fkCargo,
   );
 
+  var telefoneInserir = "NULL";
+
+  if (telefone != null && telefone !== "") {
+    telefoneInserir = mysql.escape(telefone);
+  }
+
   var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fkAeroporto, fkCargo) 
-        VALUES ('${nome}', '${email}', '${senha}', '${fkAeroporto}', '${fkCargo}');
+        INSERT INTO usuario (nome, cpf, email, telefone, senha, statusAtividade, fkAeroporto, fkCargo) 
+        VALUES (${mysql.escape(nome)},
+         ${mysql.escape(cpf)},
+          ${mysql.escape(email)},
+           ${telefoneInserir},
+            ${mysql.escape(senha)},
+            ${Number(statusAtividade)},
+             ${Number(fkAeroporto)},
+              ${Number(fkCargo)});
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -72,8 +89,7 @@ function pegarUsuariosPeloAeroporto(idAeroporto) {
             u.statusAtividade AS status,
             c.nome AS nomeCargo,
             s.idServidor,
-            s.nomeServidor,
-            s.hostname
+            s.nomeServidor
         FROM usuario u
         LEFT JOIN visualizacao v ON v.fkUsuario = u.idUsuario
         LEFT JOIN servidor s ON s.idServidor = v.fkServidor
@@ -120,6 +136,19 @@ function ativarUsuario(idUsuario) {
   return database.executar(instrucaoSql);
 }
 
+function listarCargosPorEmpresa(empresaId) {
+  var instrucaoSql = `
+    SELECT idCargo, nome
+    FROM cargo
+    WHERE empresa_idEmpresa = ${Number(empresaId)}
+      AND statusAtividade = 1
+    ORDER BY nome;
+  `;
+
+  return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -128,4 +157,5 @@ module.exports = {
   editarUsuario,
   ativarUsuario,
   inativarUsuario,
+  listarCargosPorEmpresa
 };

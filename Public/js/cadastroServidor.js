@@ -313,6 +313,7 @@ async function cadastrarServidor() {
                     'Erro no campo Limite de Atenção',
                     `O limite de atenção deve estar entre 0 e 100 (valor informado: ${valorAtencao}).`
                 );
+                deleteServer(idServidor)
                 return;
             }
 
@@ -321,6 +322,7 @@ async function cadastrarServidor() {
                     'Erro no campo Limite Crítico',
                     `O limite crítico deve estar entre 0 e 100 (valor informado: ${valorCritico}).`
                 );
+                deleteServer(idServidor)
                 return;
             }
             if (valorCritico < valorAtencao) {
@@ -328,6 +330,7 @@ async function cadastrarServidor() {
                     'Erro no valor critico e atenca',
                     `O limite crítico deve ser maior que o de atencao (valor informado: ${valorCritico} < ${valorAtencao}).`
                 );
+                deleteServer(idServidor)
                 return;
             }
         }
@@ -346,6 +349,7 @@ async function cadastrarServidor() {
 
         if (!respostaComp.ok) {
             console.log("Erro componentes");
+            deleteServer(idServidor)
             alert("erro")
             return false;
         }
@@ -365,4 +369,20 @@ async function cadastrarServidor() {
         alert("erro")
         return false;
     }
+}
+
+async function deleteServer(idServidor) {
+        const resposta = await fetch("/gerServidores/deletarServidor", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idServidorServer: idServidor
+            })
+        });
+
+        if (!resposta.ok) {
+            console.log("Houve um erro ao tentar realizar o delete de servidor!");
+            alert("erro")
+            return false;
+        }
 }

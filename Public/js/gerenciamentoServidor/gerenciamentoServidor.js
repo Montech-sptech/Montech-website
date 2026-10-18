@@ -53,8 +53,7 @@ async function CarregarInfos() {
                     
                             <button type="button" class="btn-visualizar" data-servidor="${idServidor}">Visualizar</button>
                             ${podeGerenciar ? `<div class="card-acoes">
-                            <button type="button" class="btn-editar" aria-label="Editar servidor">
-
+                            <button type="button" class="btn-editar" aria-label="Editar servidor" data-servidor="${idServidor}">
                                 <img src="../img/GerenciamentoServidores/EditIcon.svg" alt="">
                             </button>
                             <button type="button" class="btn-excluir" data-servidor="${idServidor}" aria-label="Excluir servidor">

@@ -42,8 +42,8 @@ async function CarregarComponentes() {
                         "idComponente": idComponente,
                         "nomeComponente": nomeComponente,
                         "unidadeMedida": unidadeMedida,
-                        "atencao": 0,
-                        "critico": 0,
+                        "limiteAtencao": 0,
+                        "limiteCritico": 0,
                         "icone": "../img/Servidores/cpuIcon.svg"
                     });
                 }
@@ -106,6 +106,17 @@ function renderizarListaComponentes(dados) {
             </button>
         `;
 
+        const inputAtencao = divItem.querySelector(`#${CSS.escape(item.idComponente + '-atencao')}`);
+        const inputCritico = divItem.querySelector(`#${CSS.escape(item.idComponente + '-critico')}`);
+
+        inputAtencao.addEventListener('input', function () {
+            item.limiteAtencao = lerNumero(inputAtencao.value);
+        });
+
+        inputCritico.addEventListener('input', function () {
+            item.limiteCritico = lerNumero(inputCritico.value);
+        });
+
         const btnExcluir = divItem.querySelector('.btn-excluir');
         btnExcluir.addEventListener('click', function() {
             const indice = itemAdicionados.findIndex(elemento => elemento.id === item.id);
@@ -123,6 +134,26 @@ function renderizarListaComponentes(dados) {
         container.appendChild(divItem);
     });
 }
+
+function lerNumero(valor) {
+    const numero = parseFloat(valor);
+    return isNaN(numero) ? 0 : numero;
+}
+
+function lerValoresDosInputs() {
+    itemAdicionados.forEach(item => {
+        const inputAtencao = document.getElementById(`${item.idComponente}-atencao`);
+        const inputCritico = document.getElementById(`${item.idComponente}-critico`);
+
+        if (inputAtencao) {
+            item.limiteAtencao = lerNumero(inputAtencao.value);
+        }
+        if (inputCritico) {
+            item.limiteCritico = lerNumero(inputCritico.value);
+        }
+    });
+}
+
 
 function renderizarPopupList() {
     const popupContainer = document.querySelector('.popup__lista');
@@ -174,16 +205,34 @@ function renderizarPopupList() {
 
 
 const btnSalvar = document.getElementById('btn-salvar');
-const popUpFechar = document.getElementById('popup-fechar');
-const popUp = document.getElementById('popup-excluir');
+const popUpFechar = document.querySelectorAll('.popup-fechar');
+const popup = document.querySelectorAll('.popup-overlay');
+const popUpConcluido = document.getElementById('popUpConcluido');
 
-popUpFechar.addEventListener('click', function() {
-    popUp.style.display = 'none'; 
-})
+popUpFechar.forEach(row => {
+  row.addEventListener('click', function() {
+    popup.forEach(item => {
+      item.style.display = 'none';
+    });
+  });
+});
 
 btnSalvar.addEventListener('click', function() {
     cadastrarServidor();
 })
+
+function mensagemErro(titulo, descricao) {
+    const popupError = document.getElementById('popup-Error');
+    const tituloError = document.getElementById('titulo-Error');
+    const descricaoError = document.getElementById('descricao-Error');
+    tituloError.innerHTML = "";    
+    descricaoError.innerHTML = "";    
+
+
+    popupError.style.display = 'flex';
+    tituloError.innerHTML = titulo;    
+    descricaoError.innerHTML = descricao;    
+}
 
 
 async function cadastrarServidor() {
@@ -191,6 +240,48 @@ async function cadastrarServidor() {
     const sistemaOperacional = document.getElementById('sistema-operacional');
     const tokenUnico = document.getElementById('token-unico');
     const idAeroporto = sessionStorage.AEROPORTO_ID;
+    lerValoresDosInputs();
+
+    const nome = nomeServidor.value.trim();
+    const sistema = sistemaOperacional.value.trim().toLowerCase();
+    const token = tokenUnico.value.trim();
+
+    if (nome.length === 0) {
+        mensagemErro(
+            'Erro no campo Nome do Servidor',
+            'O nome não pode estar vazio nem conter apenas espaços em branco.'
+        );
+        return;
+    }
+
+    if (nome.length < 3) {
+        mensagemErro(
+            'Erro no campo Nome do Servidor',
+            'O nome deve ter no mínimo 3 caracteres.'
+        );
+        return;
+    }
+    if (nome.length > 30) {
+        mensagemErro(
+            'Erro no campo Nome do Servidor',
+            'O nome deve ter no máximo 30 caracteres.'
+        );
+        return;
+    }
+    if (sistema !== 'linux' && sistema !== 'windows') {
+        mensagemErro(
+            'Erro no campo Sistema Operacional',
+            'O sistema operacional deve ser "linux" ou "windows".'
+        );
+        return;
+    }
+    if (token.length !== 32) {
+        mensagemErro(
+            'Erro no campo Token Único',
+            `O token deve ter exatamente 32 caracteres (atualmente tem ${token.length}).`
+        );
+        return;
+    }
 
     try {
         const resposta = await fetch("/gerServidores/cadastrarServidor", {
@@ -213,10 +304,41 @@ async function cadastrarServidor() {
         const json = await resposta.json();
         const idServidor = json.insertId;
 
-        const componentes = itemAdicionados.map(({ idComponente, atencao, critico }) => ({
+        for (const { limiteAtencao, limiteCritico } of itemAdicionados) {
+            const valorAtencao = parseFloat(limiteAtencao);
+            const valorCritico = parseFloat(limiteCritico);
+
+            if (valorAtencao < 0 || valorAtencao > 100) {
+                mensagemErro(
+                    'Erro no campo Limite de Atenção',
+                    `O limite de atenção deve estar entre 0 e 100 (valor informado: ${valorAtencao}).`
+                );
+                deleteServer(idServidor)
+                return;
+            }
+
+            if (valorCritico < 0 || valorCritico > 100) {
+                mensagemErro(
+                    'Erro no campo Limite Crítico',
+                    `O limite crítico deve estar entre 0 e 100 (valor informado: ${valorCritico}).`
+                );
+                deleteServer(idServidor)
+                return;
+            }
+            if (valorCritico < valorAtencao) {
+                mensagemErro(
+                    'Erro no valor critico e atenca',
+                    `O limite crítico deve ser maior que o de atencao (valor informado: ${valorCritico} < ${valorAtencao}).`
+                );
+                deleteServer(idServidor)
+                return;
+            }
+        }
+
+        const componentes = itemAdicionados.map(({ idComponente, limiteAtencao, limiteCritico }) => ({
             fkComponente: idComponente,
-            limiteAtencao: atencao,
-            limiteCritico: critico
+            limiteAtencao: limiteAtencao,
+            limiteCritico: limiteCritico
         }));
 
         const respostaComp = await fetch("/gerServidores/cadastrarComponenteServidor", {
@@ -227,6 +349,7 @@ async function cadastrarServidor() {
 
         if (!respostaComp.ok) {
             console.log("Erro componentes");
+            deleteServer(idServidor)
             alert("erro")
             return false;
         }
@@ -238,7 +361,7 @@ async function cadastrarServidor() {
             window.location.href = './visualizarServidor.html?id=' + encodeURIComponent(botaoVisualizar.dataset.servidor);
         });
 
-        popUp.style.display = 'flex';
+        popUpConcluido.style.display = 'flex';
         console.log("Tudo certo");
         return true;
     } catch (erro) {
@@ -246,4 +369,20 @@ async function cadastrarServidor() {
         alert("erro")
         return false;
     }
+}
+
+async function deleteServer(idServidor) {
+        const resposta = await fetch("/gerServidores/deletarServidor", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idServidorServer: idServidor
+            })
+        });
+
+        if (!resposta.ok) {
+            console.log("Houve um erro ao tentar realizar o delete de servidor!");
+            alert("erro")
+            return false;
+        }
 }

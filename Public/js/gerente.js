@@ -12,7 +12,7 @@ var historicoRecursos = {
         AIS: {
             minimo: [38, 41, 44, 48],
             media: [62, 65, 68, 72],
-            maximo: [86, 89, 92, 96]
+            maximo: [86, 89, 92, 76]
         },
 
         SDV: {
@@ -386,11 +386,11 @@ function atualizarResolucaoPorTurno(severidadeSelecionada) {
 // Ponto de início da dashboard
 if (verificarChartJs()) {
     criarGrafico("grafico-incidentes", "bar", semanasMes, [
-        criarSerie("Incidentes críticos", [1, 2, 2, 3], "#3b6bff")
+        criarSerie("Incidentes críticos", [1, 2, 3, 1], "#3b6bff")
     ]);
 
     criarGrafico("grafico-dias-alertas", "bar", semanasMes, [
-        criarSerie("Dias com alerta", [1, 2, 2, 4], "#ffad1f")
+        criarSerie("Dias com alerta", [1, 2, 2, 1], "#ffad1f")
     ]);
 
     criarGrafico(

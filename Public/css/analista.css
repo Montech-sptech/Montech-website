@@ -1,17 +1,76 @@
-* {
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ==================================================
+   1. VARIÁVEIS GLOBAIS
+   ================================================== */
+
+:root {
+    --largura-sidebar: max(10vw, 150px);
+
+    --gu-fundo: #080c26;
+    --gu-card: rgba(7, 11, 37, 0.75);
+    --gu-superficie: #0b1033;
+    --gu-superficie-hover: #151c4a;
+
+    --gu-borda: #1f2a63;
+    --gu-borda-suave: #151c4a;
+    --gu-borda-campo: #27337a;
+
+    --gu-texto: #ffffff;
+    --gu-texto-suave: #c9ccf5;
+    --gu-lavanda: #9aa0f0;
+
+    --gu-primaria: linear-gradient(135deg, #4a3dff, #3d5bff);
+    --gu-primaria-hover: linear-gradient(135deg, #5c51ff, #536eff);
+
+    --gu-sucesso: #34d77a;
+    --gu-sucesso-fundo: rgba(34, 197, 94, 0.12);
+
+    --gu-atencao: #ffcd71;
+    --gu-atencao-fundo: rgba(255, 173, 31, 0.12);
+
+    --gu-critico: #ff6b7a;
+    --gu-critico-fundo: rgba(255, 77, 106, 0.13);
+
+    --gu-destaque: #8b8dff;
+
+    --gu-raio-sm: 6px;
+    --gu-raio-md: 10px;
+    --gu-raio-lg: 16px;
+
+    --gu-espaco: 12px;
+
+    --gu-transicao: 0.2s ease;
+}
+
+/* ==================================================
+   2. RESET E CONFIGURAÇÕES GERAIS
+   ================================================== */
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
-/* Fonte e cores principais do projeto. */
+html {
+    min-width: 320px;
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-    background-color: #050b1f;
-    color: #ffffff;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--gu-fundo);
+    color: var(--gu-texto);
+    -webkit-font-smoothing: antialiased;
 }
 
 button,
-select {
+select,
+input,
+textarea {
     font: inherit;
 }
 
@@ -19,14 +78,33 @@ button {
     cursor: pointer;
 }
 
+button:disabled {
+    cursor: not-allowed;
+}
+
 button:focus-visible,
 a:focus-visible,
-select:focus-visible {
-    outline: 2px solid #4fa3ff;
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #8fb0ff;
     outline-offset: 3px;
 }
 
-/* Divide a página entre navegação e conteúdo. */
+img,
+svg,
+canvas {
+    max-width: 100%;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ==================================================
+   3. ESTRUTURA DA PÁGINA
+   ================================================== */
+
 .estrutura-pagina {
     display: block;
     min-height: 100vh;
@@ -36,46 +114,49 @@ select:focus-visible {
     min-width: 0;
     min-height: 100vh;
     margin-left: var(--largura-sidebar);
-    padding: 24px 32px 55px;
-    background: radial-gradient(
-        circle at 76% 5%,
-        #141b3d 0%,
-        #0a1128 37%,
-        #050b1f 74%
-    );
+    padding: clamp(20px, 3vw, 32px) clamp(16px, 3vw, 40px) 55px;
 }
 
 .limite-conteudo {
+    width: 100%;
     max-width: 1450px;
-    margin: auto;
+    margin-inline: auto;
 }
+
+/* ==================================================
+   4. CABEÇALHOS
+   ================================================== */
 
 .cabecalho-pagina {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 18px;
-    margin-bottom: 22px;
+    gap: 20px;
+    margin-bottom: 24px;
 }
 
 .cabecalho-pagina h1 {
     margin: 0;
-    font-size: 2rem;
-    letter-spacing: -0.04em;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 2.6vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .informacoes-aeroporto {
-    padding: 10px 13px;
-    border: 1px solid #262f5c;
-    border-radius: 6px;
-    background-color: #0a1128;
-    color: #b8c1d9;
+    padding: 12px 16px;
+    border: 1px solid var(--gu-borda);
+    border-radius: var(--gu-raio-md);
+    background: var(--gu-card);
+    color: var(--gu-texto-suave);
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .informacoes-aeroporto b {
-    color: #ffffff;
+    color: var(--gu-texto);
+    font-weight: 600;
 }
 
 .titulo-secao {
@@ -83,88 +164,117 @@ select:focus-visible {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    margin: 23px 0 10px;
+    margin: 28px 0 14px;
 }
 
 .titulo-secao h2 {
     margin: 0;
-    font-size: 16px;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    font-weight: 600;
 }
 
 .titulo-secao small,
 .cabecalho-painel small {
-    color: #b8c1d9;
+    color: var(--gu-texto-suave);
     font-size: 12px;
+    line-height: 1.5;
 }
 
-/* kpi. */
+/* ==================================================
+   5. INDICADORES PRINCIPAIS
+   ================================================== */
+
 .lista-indicadores {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+    gap: var(--gu-espaco);
 }
 
 .indicador,
 .painel,
 .servidor {
     min-width: 0;
-    background-color: #141b3d;
-    border: 1px solid #262f5c;
-    border-radius: 5px;
+    border: 1px solid var(--gu-borda);
+    border-radius: var(--gu-raio-lg);
+    background: var(--gu-card);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
 }
 
 .indicador {
-    min-height: 200px;
-    padding: 14px;
+    min-height: 190px;
+    padding: 20px;
+    transition:
+        border-color var(--gu-transicao),
+        background-color var(--gu-transicao),
+        transform var(--gu-transicao);
+}
+
+.indicador:hover {
+    border-color: #3b49a0;
+    transform: translateY(-2px);
 }
 
 .titulo-indicador {
-    min-height: 33px;
+    min-height: 36px;
     margin: 0;
-    color: #b8c1d9;
+    color: var(--gu-texto-suave);
     font-size: 12px;
-    line-height: 1.4;
+    font-weight: 500;
+    line-height: 1.5;
 }
 
 .valor-indicador {
     display: block;
-    margin: 4px 0;
-    font-size: 29px;
-    font-weight: 800;
+    margin: 8px 0;
+    color: var(--gu-texto);
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(1.5rem, 2vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    overflow-wrap: anywhere;
 }
 
 .detalhes-indicador {
     display: grid;
-    gap: 7px;
-    margin-top: 10px;
-    color: #b8c1d9;
+    gap: 8px;
+    margin-top: 12px;
+    color: var(--gu-texto-suave);
     font-size: 13px;
     line-height: 1.5;
 }
 
 .detalhes-indicador b {
-    color: #ffffff;
+    color: var(--gu-texto);
     font-weight: 600;
 }
 
+/* ==================================================
+   6. CORES DE ESTADO
+   ================================================== */
+
 .texto-critico {
-    color: #ff5361;
+    color: var(--gu-critico);
 }
 
 .texto-atencao {
-    color: #ffad1f;
+    color: var(--gu-atencao);
 }
 
 .texto-normal {
-    color: #60d98d;
+    color: var(--gu-sucesso);
 }
 
 .texto-destaque {
-    color: #4fa3ff;
+    color: var(--gu-destaque);
 }
 
+/* ==================================================
+   7. PAINÉIS
+   ================================================== */
+
 .painel {
-    padding: 15px;
+    padding: 20px;
 }
 
 .cabecalho-painel {
@@ -172,119 +282,167 @@ select:focus-visible {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    margin-bottom: 13px;
+    margin-bottom: 16px;
 }
 
 .cabecalho-painel h3 {
     margin: 0;
-    font-size: 14px;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
-/* Identificação visual dos estados. */
+.cabecalho-painel small {
+    font-weight: 400;
+}
+
+/* ==================================================
+   8. ETIQUETAS DE ESTADO
+   ================================================== */
+
 .etiqueta-estado {
-    display: inline-block;
-    padding: 4px 7px;
-    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
+    line-height: 1.4;
     white-space: nowrap;
 }
 
 .estado-normal {
-    background-color: #19492d;
-    color: #81e68a;
+    border-color: rgba(34, 197, 94, 0.2);
+    background: var(--gu-sucesso-fundo);
+    color: var(--gu-sucesso);
 }
 
 .estado-atencao {
-    background-color: #6a431c;
-    color: #ffcd71;
+    border-color: rgba(255, 173, 31, 0.22);
+    background: var(--gu-atencao-fundo);
+    color: var(--gu-atencao);
 }
 
 .estado-critico {
-    background-color: #681e31;
-    color: #ff8993;
+    border-color: rgba(255, 77, 106, 0.22);
+    background: var(--gu-critico-fundo);
+    color: var(--gu-critico);
 }
 
-/* Resumo dos três servidores. */
+/* ==================================================
+   9. SERVIDORES
+   ================================================== */
+
 .lista-servidores {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    gap: var(--gu-espaco);
 }
 
 .servidor {
-    padding: 14px;
+    padding: 18px;
+    transition: border-color var(--gu-transicao);
+}
+
+.servidor:hover {
+    border-color: #3b49a0;
 }
 
 .cabecalho-servidor {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    font-weight: 700;
+    gap: 10px;
+    color: var(--gu-texto);
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .descricao-servidor {
     min-height: 38px;
-    margin: 11px 0;
-    color: #c3cbe3;
+    margin: 12px 0;
+    color: var(--gu-texto-suave);
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
 .resumo-recursos {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
 }
 
 .resumo-recursos span {
-    color: #b8c1d9;
+    color: var(--gu-texto-suave);
     font-size: 12px;
+    line-height: 1.5;
 }
 
 .resumo-recursos b {
     display: block;
-    margin-top: 3px;
+    margin-top: 5px;
+    color: var(--gu-texto);
     font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
 }
 
+/* ==================================================
+   10. BARRAS DE UTILIZAÇÃO
+   ================================================== */
+
 .barra-uso {
-    height: 4px;
-    margin-top: 5px;
+    height: 6px;
+    margin-top: 8px;
     overflow: hidden;
-    background-color: #262f5c;
-    border-radius: 5px;
+    border-radius: 999px;
+    background: var(--gu-borda-suave);
 }
 
 .barra-uso i {
     display: block;
+    width: 0;
     height: 100%;
-    background-color: #60d98d;
+    border-radius: inherit;
+    background: var(--gu-sucesso);
+    transition: width 0.35s ease;
 }
 
 .barra-uso .barra-atencao {
-    background-color: #ffad1f;
+    background: var(--gu-atencao);
 }
 
 .barra-uso .barra-critica {
-    background-color: #ff5361;
+    background: var(--gu-critico);
 }
 
 .informacoes-coleta {
-    margin-top: 13px;
-    color: #b8c1d9;
+    margin-top: 16px;
+    color: var(--gu-texto-suave);
     font-size: 12px;
+    line-height: 1.6;
 }
 
 .informacoes-coleta span {
     display: block;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* Permite rolar a tabela em telas menores */
+/* ==================================================
+   11. TABELAS
+   ================================================== */
+
 .tabela-responsiva {
+    width: 100%;
     overflow-x: auto;
+    border: 1px solid var(--gu-borda);
+    border-radius: var(--gu-raio-md);
+    background: rgba(8, 12, 43, 0.65);
+    scrollbar-width: thin;
+    scrollbar-color: #4a5cae var(--gu-superficie);
 }
 
 table {
@@ -295,90 +453,146 @@ table {
 
 th,
 td {
-    padding: 11px 9px;
-    border-bottom: 1px solid #262f5c;
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--gu-borda-suave);
     text-align: left;
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 th {
-    color: #b8c1d9;
-    font-weight: 700;
+    background: rgba(11, 16, 51, 0.8);
+    color: var(--gu-texto-suave);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+td {
+    color: #e4e6ff;
+}
+
+tbody tr {
+    transition: background-color var(--gu-transicao);
+}
+
+tbody tr:hover {
+    background: rgba(91, 91, 255, 0.06);
 }
 
 tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Botões e histórico da ocorrência selecionada */
+/* ==================================================
+   12. BOTÕES DE AÇÃO
+   ================================================== */
+
 .botao-analisar {
-    padding: 7px 12px;
-    border: 1px solid #293b8f;
-    border-radius: 5px;
-    background-color: #0a1128;
-    color: #4fa3ff;
+    padding: 8px 14px;
+    border: 1px solid var(--gu-borda-campo);
+    border-radius: var(--gu-raio-sm);
+    background: var(--gu-superficie);
+    color: var(--gu-lavanda);
     font-size: 13px;
+    font-weight: 500;
+    transition:
+        background-color var(--gu-transicao),
+        border-color var(--gu-transicao),
+        color var(--gu-transicao);
 }
 
 .botao-analisar:hover,
 .botao-analisar[aria-expanded="true"] {
-    background-color: #2b3990;
-    color: #ffffff;
-}
-
-.painel-ocorrencia {
-    width: 100%;
-    margin-top: 12px;
-    padding-top: 18px;
-    border-top: 1px solid #262f5c;
-}
-
-.painel-ocorrencia[hidden] {
-    display: none;
+    border-color: #4b5bd4;
+    background: var(--gu-primaria);
+    color: var(--gu-texto);
 }
 
 .botao-fechar {
-    border: none;
-    background: none;
-    color: #4fa3ff;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: var(--gu-raio-sm);
+    background: transparent;
+    color: var(--gu-lavanda);
     font-size: 13px;
+    transition:
+        background-color var(--gu-transicao),
+        color var(--gu-transicao);
 }
 
-/* Seletores de servidor e visualização do disco*/
+.botao-fechar:hover {
+    background: rgba(91, 91, 255, 0.12);
+    color: var(--gu-texto);
+}
+
+/* ==================================================
+   13. DETALHES DA OCORRÊNCIA
+   ================================================== */
+
+.painel-ocorrencia {
+    width: 100%;
+    margin-top: 16px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gu-borda);
+}
+
+.painel-ocorrencia[hidden] {
+    display: none !important;
+}
+
+/* ==================================================
+   14. SELETORES DE SERVIDOR E DISCO
+   ================================================== */
+
 .seletor-servidor,
 .seletor-disco {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 12px 0;
+    margin: 14px 0;
 }
 
 .seletor-servidor button,
 .seletor-disco button {
-    padding: 8px 12px;
-    border: 1px solid #293b8f;
-    border-radius: 5px;
-    background-color: #0a1128;
-    color: #c3cbe3;
+    padding: 9px 14px;
+    border: 1px solid var(--gu-borda-campo);
+    border-radius: 8px;
+    background: var(--gu-superficie);
+    color: var(--gu-texto-suave);
     font-size: 13px;
+    font-weight: 500;
+    transition:
+        background-color var(--gu-transicao),
+        border-color var(--gu-transicao),
+        color var(--gu-transicao);
+}
+
+.seletor-servidor button:hover,
+.seletor-disco button:hover {
+    border-color: #5964d8;
+    background: var(--gu-superficie-hover);
+    color: var(--gu-texto);
 }
 
 .seletor-servidor button.selecionado,
 .seletor-disco button.selecionado {
-    background-color: #2b3990;
-    color: #ffffff;
+    border-color: #4a3dff;
+    background: var(--gu-primaria);
+    color: var(--gu-texto);
 }
 
-/* Organiza os quatro componentes em duas colunas */
+/* ==================================================
+   15. GRADE DE RECURSOS
+   ================================================== */
+
 .grade-recursos {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: 18px;
 }
 
 .painel-recurso {
-    padding: 20px;
+    padding: clamp(16px, 2vw, 24px);
 }
 
 .painel-recurso .cabecalho-painel h3 {
@@ -393,32 +607,40 @@ tbody tr:last-child td {
 }
 
 .indicadores-recurso > div {
-    flex: 1;
-    min-width: 120px;
+    flex: 1 1 120px;
+    min-width: 0;
 }
 
 .indicadores-recurso span {
     display: block;
-    margin-bottom: 7px;
-    color: #b8c1d9;
+    margin-bottom: 8px;
+    color: var(--gu-texto-suave);
     font-size: 12px;
+    line-height: 1.5;
 }
 
 .indicadores-recurso strong {
     display: block;
+    color: var(--gu-texto);
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-size: 21px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
 }
 
-/* Define o espaço ocupado pelo Chart.js */
+/* ==================================================
+   16. GRÁFICOS
+   ================================================== */
+
 .area-grafico {
     position: relative;
     width: 100%;
     height: 230px;
-    margin-top: 12px;
+    margin-top: 16px;
 }
 
 .painel-recurso .area-grafico {
-    margin-top: 18px;
+    margin-top: 20px;
 }
 
 .area-grafico canvas {
@@ -426,16 +648,22 @@ tbody tr:last-child td {
 }
 
 .erro-graficos {
-    padding: 12px;
-    border: 1px solid #ffad1f;
-    border-radius: 5px;
-    background-color: #0a1128;
-    color: #ffcd71;
+    padding: 14px;
+    border: 1px solid rgba(255, 173, 31, 0.35);
+    border-radius: var(--gu-raio-md);
+    background: var(--gu-atencao-fundo);
+    color: var(--gu-atencao);
+    font-size: 13px;
+    line-height: 1.6;
 }
 
 .erro-graficos[hidden] {
-    display: none;
+    display: none !important;
 }
+
+/* ==================================================
+   17. RESPONSIVIDADE — TABLETS E TELAS MÉDIAS
+   ================================================== */
 
 @media (max-width: 1150px) {
     .lista-indicadores {
@@ -445,41 +673,146 @@ tbody tr:last-child td {
 
 @media (max-width: 1000px) {
     .grade-recursos {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
 @media (max-width: 800px) {
     .conteudo-principal {
-        padding: 20px 15px 42px;
+        padding: 20px 16px 42px;
     }
 
     .cabecalho-pagina {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .informacoes-aeroporto {
+        width: fit-content;
+        max-width: 100%;
     }
 
     .lista-servidores {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .indicador {
+        min-height: 0;
+    }
+
+    .painel {
+        padding: 16px;
     }
 }
 
+/* ==================================================
+   18. RESPONSIVIDADE — CELULARES
+   ================================================== */
+
 @media (max-width: 650px) {
+    :root {
+        --largura-sidebar: clamp(80px, 60px + 8dvw, 150px);
+    }
+
+    .conteudo-principal {
+        padding: 18px 12px 32px;
+    }
+
     .titulo-secao {
         flex-direction: column;
         align-items: flex-start;
+        gap: 8px;
     }
 
     .cabecalho-painel {
         flex-wrap: wrap;
     }
+
+    .lista-indicadores {
+        gap: 10px;
+    }
+
+    .grade-recursos {
+        gap: 12px;
+    }
+
+    .painel-recurso {
+        padding: 16px;
+    }
+
+    .area-grafico {
+        height: 210px;
+    }
+
+    .tabela-responsiva {
+        border-radius: 8px;
+    }
+
+    th,
+    td {
+        padding: 11px 10px;
+    }
 }
+
+/* ==================================================
+   19. RESPONSIVIDADE — CELULARES PEQUENOS
+   ================================================== */
 
 @media (max-width: 470px) {
     .lista-indicadores {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .titulo-indicador {
         min-height: 0;
+    }
+
+    .valor-indicador {
+        font-size: 1.7rem;
+    }
+
+    .resumo-recursos {
+        gap: 8px;
+    }
+
+    .resumo-recursos span {
+        font-size: 11px;
+    }
+
+    .resumo-recursos b {
+        font-size: 13px;
+    }
+
+    .indicadores-recurso {
+        gap: 14px;
+    }
+
+    .indicadores-recurso > div {
+        flex-basis: 100px;
+    }
+
+    .seletor-servidor button,
+    .seletor-disco button {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .area-grafico {
+        height: 190px;
+    }
+}
+
+/* ==================================================
+   20. ACESSIBILIDADE
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

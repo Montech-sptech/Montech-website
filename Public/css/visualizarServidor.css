@@ -1,28 +1,28 @@
 :root {
-    --bg-pagina: #0a0f1f;
-    --bg-card: #121936;
-    --bg-card-borda: #2b3463;
-    --bg-item: #262c4a;
-    --bg-input: #1e2442;
-    --borda-input: #3a4272;
-    --texto: #ffffff;
-    --texto-suave: #aab0cc;
-    --texto-placeholder: #7d84a8;
-    --primaria: #6573e6;
-    --primaria-hover: #7784f0;
-    --perigo: #ff1a1a;
-    --raio: 6px;
+    /* Tudo aponta para as variáveis do global.css (carregue-o antes). */
+    --bg-pagina: var(--gu-fundo);
+    --bg-card: var(--gu-card);
+    --bg-card-borda: var(--gu-borda);
+    --bg-item: var(--gu-superficie);
+    --bg-input: var(--gu-campo);
+    --borda-input: var(--gu-borda-campo);
+    --texto: var(--gu-texto);
+    --texto-suave: var(--gu-texto-suave);
+    --texto-placeholder: var(--gu-placeholder);
+    --primaria: var(--gu-primaria-solida);
+    --primaria-hover: #4a40d8;
+    --perigo: var(--gu-perigo);
+    --raio: var(--gu-raio-botao);
     --espaco: clamp(12px, 2vw, 24px);
-    --popup-bg-topo: #121a3f;
-    --popup-bg-base: #0b1230;
-    --popup-borda: #2b3a78;
-    --painel-bg: #0d1534;
-    --painel-borda: #26346c;
-    --item-bg: #2d3557;
-    --item-bg-hover: #38426b;
-    --item-borda: #4b5683;
-    --texto: #ffffff;
-    --foco: #8fb0ff;
+    --popup-bg-topo: var(--gu-superficie);
+    --popup-bg-base: var(--gu-superficie);
+    --popup-borda: var(--gu-borda);
+    --painel-bg: var(--gu-campo);
+    --painel-borda: var(--gu-borda);
+    --item-bg: var(--gu-icone-fundo);
+    --item-bg-hover: rgba(91, 91, 255, 0.25);
+    --item-borda: var(--gu-icone-borda);
+    --foco: var(--gu-foco);
     --scroll-track: #0a1029;
     --scroll-thumb: #4a5cae;
     --scroll-thumb-hover: #6c80d4;
@@ -39,27 +39,30 @@ button {
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-    outline: 2px solid var(--primaria-hover);
+    outline: 2px solid var(--gu-foco);
     outline-offset: 2px;
 }
  
 label {
     display: block;
-    font-size: 0.75rem;
-    color: var(--texto-suave);
+    font-size: var(--fs-rotulo);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--gu-rotulo);
 }
  
 input,
 select {
     width: 100%;
-    height: 32px;
+    height: 44px;
     padding: 0 12px;
     background: var(--bg-input);
     color: var(--texto);
     border: 1px solid var(--borda-input);
-    border-radius: var(--raio);
+    border-radius: var(--gu-raio-campo);
     font-family: inherit;
-    font-size: 0.75rem;
+    font-size: 14px;
 }
  
 input::placeholder {
@@ -115,14 +118,15 @@ select {
  
 .cabecalho-titulos h1 {
     margin: 0;
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: var(--fs-titulo-pagina);
     font-weight: 700;
-    line-height: 1.2;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
 }
  
 .cabecalho-titulos p {
-    margin: 2px 0 0;
-    font-size: 0.8rem;
+    margin: 4px 0 0;
+    font-size: var(--fs-pequeno);
     color: var(--texto-suave);
 }
  
@@ -138,12 +142,13 @@ select {
     padding: 14px 18px 18px;
     background: var(--bg-card);
     border: 1px solid var(--bg-card-borda);
-    border-radius: 8px;
+    border-radius: var(--gu-raio-cartao);
+    box-shadow: var(--gu-sombra-cartao);
 }
  
 .card h2 {
     margin: 0 0 14px;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 600;
 }
  
@@ -215,7 +220,8 @@ select {
     padding: clamp(16px, 3vw, 40px);
     background: var(--bg-card);
     border: 1px solid var(--bg-card-borda);
-    border-radius: 4px;
+    border-radius: var(--gu-raio-cartao);
+    box-shadow: var(--gu-sombra-cartao);
     min-height: 300px;
 }
  
@@ -230,7 +236,7 @@ select {
 .componentes-topo h2 {
     margin: 0;
     max-width: 420px;
-    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    font-size: var(--fs-titulo-secao);
     font-weight: 600;
     line-height: 1.25;
 }
@@ -299,8 +305,8 @@ select {
     column-gap: clamp(12px, 2vw, 28px);
     padding: 12px 24px 12px 20px;
     background: var(--bg-item);
-    border: 1px solid #343b5e;
-    border-radius: 4px;
+    border: 1px solid var(--gu-borda-campo);
+    border-radius: var(--gu-raio-botao);
 }
  
 .componente-nome {
@@ -325,19 +331,21 @@ select {
  
 .componente-campo label {
     flex-shrink: 0;
-    font-size: 0.72rem;
+    font-size: var(--fs-rotulo);
     font-weight: 600;
-    color: var(--texto-suave);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--gu-rotulo);
 }
  
 .componente-campo input {
     flex: 1;
     min-width: 0;
-    height: 28px;
-    padding: 0 8px;
-    background: #2d3454;
-    border: 1px solid #454d7a;
-    font-size: 0.72rem;
+    height: 36px;
+    padding: 0 10px;
+    background: var(--gu-campo);
+    border: 1px solid var(--gu-borda-campo);
+    font-size: 13px;
 }
  
 .btn-excluir {
@@ -492,10 +500,10 @@ select {
   align-self: center;
   justify-self: center;
   border: 1px solid var(--popup-borda);
-  border-radius: 16px;
-  background: linear-gradient(180deg, var(--popup-bg-topo), var(--popup-bg-base));
+  border-radius: 12px;
+  background: var(--popup-bg-topo);
   color: var(--texto);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  box-shadow: var(--gu-sombra-modal);
 }
  
 .popup::backdrop {
@@ -654,3 +662,12 @@ select {
   outline-offset: 2px;
 }
  
+
+/* Cancelar com o visual secundário padrão */
+.btn-cancelar {
+    background: var(--gu-secundario);
+}
+
+.btn-cancelar:hover {
+    background: var(--gu-secundario-hover);
+}

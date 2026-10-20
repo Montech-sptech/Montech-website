@@ -7,6 +7,24 @@ let idsOriginais = [];
 
 const ICONE_PADRAO = "../img/Servidores/cpuIcon.svg";
 
+// Valores com que o componente bloqueado volta à lista se for removido e readicionado.
+// Ajuste aqui se quiser outro padrão para "Leitura e escrita de disco".
+const LIMITES_FIXOS_BLOQUEADOS = {
+    limiteAtencao: 0,
+    limiteCritico: 0
+};
+
+// Retorna true para componentes cujos limites não podem ser editados
+function componenteBloqueado(nomeComponente) {
+    const nome = String(nomeComponente)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+
+    // Bloqueia "Leitura de disco" e "Escrita de disco" (componentes separados)
+    return nome.includes('disco') && (nome.includes('leitura') || nome.includes('escrita'));
+}
+
 
 const popUpFechar = document.querySelectorAll('.popup-fechar');
 const popup = document.querySelectorAll('.popup-overlay');
@@ -95,6 +113,11 @@ function carregarListaComponentes() {
     `;
 
     itemAdicionados.forEach(item => {
+        const bloqueado = componenteBloqueado(item.nomeComponente);
+        const atributosBloqueio = bloqueado
+            ? 'readonly class="campo-bloqueado" title="Este componente não permite edição dos limites"'
+            : '';
+
         const divItem = document.createElement('div');
         divItem.className = 'componente-item';
 
@@ -111,12 +134,12 @@ function carregarListaComponentes() {
 
             <div class="componente-campo">
                 <label for="${item.idComponente}-atencao">Atenção</label>
-                <input type="number" id="${item.idComponente}-atencao" value="${item.limiteAtencao}">
+                <input type="number" id="${item.idComponente}-atencao" value="${item.limiteAtencao}" ${atributosBloqueio}>
             </div>
 
             <div class="componente-campo">
                 <label for="${item.idComponente}-critico">Crítico</label>
-                <input type="number" id="${item.idComponente}-critico" value="${item.limiteCritico}">
+                <input type="number" id="${item.idComponente}-critico" value="${item.limiteCritico}" ${atributosBloqueio}>
             </div>
 
             <button type="button" class="btn-excluir">
@@ -183,6 +206,13 @@ function renderizarPopupList() {
 
                 if (indiceOpcao !== -1) {
                     const [itemEncontrado] = OpcoesDisponiveis.splice(indiceOpcao, 1);
+
+                    // Componente bloqueado volta sempre com os limites fixos
+                    if (componenteBloqueado(itemEncontrado.nomeComponente)) {
+                        itemEncontrado.limiteAtencao = LIMITES_FIXOS_BLOQUEADOS.limiteAtencao;
+                        itemEncontrado.limiteCritico = LIMITES_FIXOS_BLOQUEADOS.limiteCritico;
+                    }
+
                     itemAdicionados.push(itemEncontrado);
                     carregarListaComponentes();
                     renderizarPopupList();

@@ -67,6 +67,23 @@ window.addEventListener('DOMContentLoaded', function() {
 const itemAdicionados = [];
 const OpcoesDisponiveis = [];
 
+// Valores fixos (e não editáveis) dos limites do componente bloqueado.
+// Ajuste aqui se quiser outro padrão para "Leitura e escrita de disco".
+const LIMITES_FIXOS_BLOQUEADOS = {
+    limiteAtencao: 0,
+    limiteCritico: 0
+};
+
+// Retorna true para componentes cujos limites não podem ser editados
+function componenteBloqueado(nomeComponente) {
+    const nome = String(nomeComponente)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+
+    // Bloqueia "Leitura de disco" e "Escrita de disco" (componentes separados)
+    return nome.includes('disco') && (nome.includes('leitura') || nome.includes('escrita'));
+}
 
 
 function renderizarListaComponentes(dados) {
@@ -77,6 +94,11 @@ function renderizarListaComponentes(dados) {
     `;
 
     dados.forEach(item => {
+        const bloqueado = componenteBloqueado(item.nomeComponente);
+        const atributosBloqueio = bloqueado
+            ? 'readonly class="campo-bloqueado" title="Este componente não permite edição dos limites"'
+            : '';
+
         const divItem = document.createElement('div');
         divItem.className = 'componente-item';
 
@@ -93,12 +115,12 @@ function renderizarListaComponentes(dados) {
 
             <div class="componente-campo">
                 <label for="${item.idComponente}-atencao">Atenção</label>
-                <input type="number" id="${item.idComponente}-atencao" value="${item.atencao}">
+                <input type="number" id="${item.idComponente}-atencao" value="${item.limiteAtencao}" ${atributosBloqueio}>
             </div>
 
             <div class="componente-campo">
                 <label for="${item.idComponente}-critico">Crítico</label>
-                <input type="number" id="${item.idComponente}-critico" value="${item.critico}">
+                <input type="number" id="${item.idComponente}-critico" value="${item.limiteCritico}" ${atributosBloqueio}>
             </div>
 
             <button type="button" class="btn-excluir">
@@ -119,16 +141,21 @@ function renderizarListaComponentes(dados) {
 
         const btnExcluir = divItem.querySelector('.btn-excluir');
         btnExcluir.addEventListener('click', function() {
-            const indice = itemAdicionados.findIndex(elemento => elemento.id === item.id);
-            
-            OpcoesDisponiveis.push(itemAdicionados[indice])
+            const indice = itemAdicionados.findIndex(elemento => elemento.idComponente === item.idComponente);
 
-            if (indice !== -1) {
-                itemAdicionados.splice(indice, 1);
-                console.log('Item removido do array. Lista atual:', itemAdicionados);
+            if (indice === -1) {
+                return;
             }
 
+            const [removido] = itemAdicionados.splice(indice, 1);
+            removido.limiteAtencao = 0;
+            removido.limiteCritico = 0;
+
+            OpcoesDisponiveis.push(removido);
+            console.log('Item removido do array. Lista atual:', itemAdicionados);
+
             divItem.remove();
+            renderizarPopupList();
         });
 
         container.appendChild(divItem);
@@ -179,10 +206,16 @@ function renderizarPopupList() {
                 
                 if (indiceOpcao !== -1) {
                     const [itemEncontrado] = OpcoesDisponiveis.splice(indiceOpcao, 1);
+
+                    // Componente bloqueado entra sempre com os limites fixos
+                    if (componenteBloqueado(itemEncontrado.nomeComponente)) {
+                        itemEncontrado.limiteAtencao = LIMITES_FIXOS_BLOQUEADOS.limiteAtencao;
+                        itemEncontrado.limiteCritico = LIMITES_FIXOS_BLOQUEADOS.limiteCritico;
+                    }
+
                     itemAdicionados.push(itemEncontrado);
                     renderizarListaComponentes(itemAdicionados);                
                     renderizarPopupList();
-                    console.log(itemAdicionados)
                     console.log('Item movido com sucesso para os adicionados:', itemAdicionados);
                 }
                 ListaComponenteAdicionar.style.display = 'none';

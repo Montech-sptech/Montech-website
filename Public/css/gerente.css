@@ -1,13 +1,62 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ==============================
+   Variáveis do projeto
+   Compartilhadas com o CSS de referência
+   ============================== */
+
+:root {
+    --largura-sidebar: max(10vw, 150px);
+
+    --gu-fundo: #080c26;
+    --gu-card: rgba(7, 11, 37, 0.75);
+    --gu-superficie: #0b1033;
+    --gu-borda: #1f2a63;
+    --gu-borda-suave: #151c4a;
+    --gu-borda-campo: #27337a;
+    --gu-texto: #ffffff;
+    --gu-texto-suave: #c9ccf5;
+    --gu-lavanda: #9aa0f0;
+    --gu-primaria: linear-gradient(135deg, #4a3dff, #3d5bff);
+
+    /* Cores semânticas para indicadores */
+    --cor-critica: #ff4d6a;
+    --cor-atencao: #ffbd69;
+    --cor-normal: #34d77a;
+    --cor-info: #7b7cff;
+
+    --cor-critica-fundo: rgba(255, 77, 106, 0.13);
+    --cor-atencao-fundo: rgba(255, 189, 105, 0.13);
+    --cor-normal-fundo: rgba(34, 197, 94, 0.12);
+
+    --raio-pequeno: 6px;
+    --raio-medio: 10px;
+    --raio-grande: 16px;
+
+    --sombra-painel: 0 20px 60px rgba(0, 0, 0, 0.35);
+    --transicao-padrao: 0.15s ease;
+}
+
+/* ==============================
+   Estilos globais
+   ============================== */
+
 * {
     box-sizing: border-box;
 }
 
-/* Fonte e cores principais do projeto. */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-    background-color: #050b1f;
-    color: #ffffff;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--gu-fundo);
+    color: var(--gu-texto);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -22,11 +71,14 @@ button {
 button:focus-visible,
 a:focus-visible,
 select:focus-visible {
-    outline: 2px solid #4fa3ff;
+    outline: 2px solid var(--cor-info);
     outline-offset: 3px;
 }
 
-/* Divide a página entre navegação e conteúdo. */
+/* ==============================
+   Estrutura da página
+   ============================== */
+
 .estrutura-pagina {
     display: block;
     min-height: 100vh;
@@ -36,19 +88,18 @@ select:focus-visible {
     min-width: 0;
     min-height: 100vh;
     margin-left: var(--largura-sidebar);
-    padding: 24px 32px 55px;
-    background: radial-gradient(
-        circle at 76% 5%,
-        #141b3d 0%,
-        #0a1128 37%,
-        #050b1f 74%
-    );
+    padding: 28px 32px 55px;
 }
 
 .limite-conteudo {
+    width: 100%;
     max-width: 1450px;
-    margin: auto;
+    margin-inline: auto;
 }
+
+/* ==============================
+   Cabeçalho
+   ============================== */
 
 .cabecalho-pagina {
     display: flex;
@@ -60,22 +111,26 @@ select:focus-visible {
 
 .cabecalho-pagina h1 {
     margin: 0;
-    font-size: 2rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    font-weight: 700;
     letter-spacing: -0.04em;
+    line-height: 1.2;
 }
 
 .informacoes-aeroporto {
     padding: 10px 13px;
-    border: 1px solid #262f5c;
-    border-radius: 6px;
-    background-color: #0a1128;
-    color: #b8c1d9;
+    border: 1px solid var(--gu-borda);
+    border-radius: var(--raio-medio);
+    background: var(--gu-card);
+    color: var(--gu-texto-suave);
     font-size: 13px;
     line-height: 1.5;
 }
 
 .informacoes-aeroporto b {
-    color: #ffffff;
+    color: var(--gu-texto);
+    font-weight: 600;
 }
 
 .titulo-secao {
@@ -83,21 +138,26 @@ select:focus-visible {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    margin: 23px 0 10px;
+    margin: 23px 0 12px;
 }
 
 .titulo-secao h2 {
     margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 16px;
+    font-weight: 600;
 }
 
 .titulo-secao small,
 .cabecalho-painel small {
-    color: #b8c1d9;
+    color: var(--gu-lavanda);
     font-size: 12px;
 }
 
-/* kpi */
+/* ==============================
+   Indicadores (KPI)
+   ============================== */
+
 .lista-indicadores {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -107,63 +167,86 @@ select:focus-visible {
 .indicador,
 .painel {
     min-width: 0;
-    background-color: #141b3d;
-    border: 1px solid #262f5c;
-    border-radius: 5px;
+    border: 1px solid var(--gu-borda);
+    border-radius: var(--raio-medio);
+    background: var(--gu-card);
+    box-shadow: var(--sombra-painel);
 }
 
 .indicador {
     min-height: 200px;
-    padding: 14px;
+    padding: 16px;
+    transition:
+        background var(--transicao-padrao),
+        border-color var(--transicao-padrao);
+}
+
+.indicador:hover {
+    background: rgba(11, 16, 51, 0.9);
+    border-color: var(--gu-borda-campo);
 }
 
 .titulo-indicador {
     min-height: 33px;
     margin: 0;
-    color: #b8c1d9;
+    color: var(--gu-texto-suave);
     font-size: 12px;
-    line-height: 1.4;
+    font-weight: 500;
+    line-height: 1.5;
 }
 
 .valor-indicador {
     display: block;
-    margin: 4px 0;
+    margin: 5px 0;
+    color: var(--gu-texto);
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 29px;
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
 }
 
 .detalhes-indicador {
     display: grid;
     gap: 7px;
     margin-top: 10px;
-    color: #b8c1d9;
+    color: var(--gu-texto-suave);
     font-size: 13px;
     line-height: 1.5;
 }
 
 .detalhes-indicador b {
-    color: #ffffff;
+    color: var(--gu-texto);
     font-weight: 600;
 }
 
+/* ==============================
+   Cores dos indicadores
+   ============================== */
+
 .texto-critico {
-    color: #ff5361;
+    color: var(--cor-critica);
 }
 
 .texto-atencao {
-    color: #ffad1f;
+    color: var(--cor-atencao);
 }
 
 .texto-normal {
-    color: #60d98d;
+    color: var(--cor-normal);
 }
 
 .texto-destaque {
-    color: #4fa3ff;
+    color: var(--cor-info);
 }
 
+/* ==============================
+   Painéis
+   ============================== */
+
 .painel {
-    padding: 15px;
+    padding: 16px;
 }
 
 .cabecalho-painel {
@@ -176,13 +259,19 @@ select:focus-visible {
 
 .cabecalho-painel h3 {
     margin: 0;
+    color: var(--gu-texto);
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 14px;
+    font-weight: 600;
 }
 
-/* Distribuição dos painéis */
+/* ==============================
+   Organização dos painéis
+   ============================== */
+
 .grade-duas-colunas {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     gap: 13px;
 }
 
@@ -196,9 +285,16 @@ select:focus-visible {
     align-items: flex-start;
 }
 
-/* Tabela de concentração das ocorrências */
+/* ==============================
+   Tabela de ocorrências
+   ============================== */
+
 .tabela-responsiva {
+    width: 100%;
     overflow-x: auto;
+    border: 1px solid var(--gu-borda-suave);
+    border-radius: var(--raio-medio);
+    background: rgba(7, 11, 37, 0.45);
 }
 
 table {
@@ -210,46 +306,70 @@ table {
 th,
 td {
     padding: 11px 9px;
-    border-bottom: 1px solid #262f5c;
+    border-bottom: 1px solid var(--gu-borda-suave);
     text-align: left;
     font-size: 13px;
     line-height: 1.5;
 }
 
 th {
-    color: #b8c1d9;
-    font-weight: 700;
+    background: rgba(11, 16, 51, 0.8);
+    color: var(--gu-texto-suave);
+    font-weight: 600;
+}
+
+td {
+    color: var(--gu-texto);
+}
+
+tbody tr {
+    transition: background var(--transicao-padrao);
+}
+
+tbody tr:hover {
+    background: rgba(74, 61, 255, 0.08);
 }
 
 tbody tr:last-child td {
     border-bottom: none;
 }
 
+/* ==============================
+   Etiquetas de estado
+   ============================== */
+
 .etiqueta-estado {
     display: inline-block;
-    padding: 4px 7px;
-    border-radius: 4px;
+    padding: 4px 9px;
+    border: 1px solid transparent;
+    border-radius: 999px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     white-space: nowrap;
 }
 
 .estado-normal {
-    background-color: #19492d;
-    color: #81e68a;
+    background: var(--cor-normal-fundo);
+    border-color: rgba(34, 197, 94, 0.2);
+    color: var(--cor-normal);
 }
 
 .estado-atencao {
-    background-color: #6a431c;
-    color: #ffcd71;
+    background: var(--cor-atencao-fundo);
+    border-color: rgba(255, 189, 105, 0.22);
+    color: var(--cor-atencao);
 }
 
 .estado-critico {
-    background-color: #681e31;
-    color: #ff8993;
+    background: var(--cor-critica-fundo);
+    border-color: rgba(255, 77, 106, 0.22);
+    color: var(--cor-critica);
 }
 
-/* Escolha do componente comparado */
+/* ==============================
+   Seletor de recurso
+   ============================== */
+
 .seletor-recurso {
     display: flex;
     flex-wrap: wrap;
@@ -259,19 +379,32 @@ tbody tr:last-child td {
 
 .seletor-recurso button {
     padding: 8px 18px;
-    border: 1px solid #293b8f;
-    border-radius: 5px;
-    background-color: #0a1128;
-    color: #c3cbe3;
+    border: 1px solid var(--gu-borda-campo);
+    border-radius: var(--raio-pequeno);
+    background: var(--gu-superficie);
+    color: var(--gu-texto-suave);
     font-size: 14px;
+    transition:
+        background var(--transicao-padrao),
+        border-color var(--transicao-padrao),
+        color var(--transicao-padrao);
+}
+
+.seletor-recurso button:hover {
+    border-color: var(--cor-info);
+    color: var(--gu-texto);
 }
 
 .seletor-recurso button[aria-pressed="true"] {
-    background-color: #2b3990;
-    color: #ffffff;
+    background: var(--gu-primaria);
+    border-color: transparent;
+    color: var(--gu-texto);
 }
 
-/* Filtro do gráfico de resolução */
+/* ==============================
+   Filtro de severidade
+   ============================== */
+
 .filtro-severidade {
     display: flex;
     flex-wrap: wrap;
@@ -279,18 +412,27 @@ tbody tr:last-child td {
     align-items: center;
     gap: 8px;
     margin: 12px 0;
-    color: #c3cbe3;
+    color: var(--gu-texto-suave);
     font-size: 14px;
 }
 
 .filtro-severidade select {
     max-width: 100%;
-    padding: 7px;
-    border: 1px solid #262f5c;
-    border-radius: 5px;
-    background-color: #0a1128;
-    color: #ffffff;
+    padding: 7px 10px;
+    border: 1px solid var(--gu-borda-campo);
+    border-radius: var(--raio-pequeno);
+    background: var(--gu-superficie);
+    color: var(--gu-texto);
 }
+
+.filtro-severidade select:focus {
+    border-color: var(--cor-info);
+    outline: none;
+}
+
+/* ==============================
+   Quantidade por turno
+   ============================== */
 
 .quantidade-por-turno {
     display: grid;
@@ -302,16 +444,20 @@ tbody tr:last-child td {
 .quantidade-por-turno div {
     display: grid;
     gap: 4px;
-    color: #b8c1d9;
+    color: var(--gu-lavanda);
     font-size: 12px;
 }
 
 .quantidade-por-turno strong {
-    color: #ffffff;
+    color: var(--gu-texto);
     font-size: 13px;
+    font-weight: 600;
 }
 
-/* Define o espaço ocupado pelo Chart.js */
+/* ==============================
+   Gráficos Chart.js
+   ============================== */
+
 .area-grafico {
     position: relative;
     width: 100%;
@@ -325,15 +471,20 @@ tbody tr:last-child td {
 
 .erro-graficos {
     padding: 12px;
-    border: 1px solid #ffad1f;
-    border-radius: 5px;
-    background-color: #0a1128;
-    color: #ffcd71;
+    border: 1px solid rgba(255, 189, 105, 0.35);
+    border-radius: var(--raio-pequeno);
+    background: var(--cor-atencao-fundo);
+    color: var(--cor-atencao);
+    font-size: 13px;
 }
 
 .erro-graficos[hidden] {
     display: none;
 }
+
+/* ==============================
+   Responsividade
+   ============================== */
 
 @media (max-width: 1150px) {
     .lista-indicadores {
@@ -341,7 +492,7 @@ tbody tr:last-child td {
     }
 
     .grade-duas-colunas {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
@@ -355,7 +506,11 @@ tbody tr:last-child td {
     }
 
     .grade-tres-colunas {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .informacoes-aeroporto {
+        max-width: 100%;
     }
 }
 
@@ -376,10 +531,37 @@ tbody tr:last-child td {
 
 @media (max-width: 470px) {
     .lista-indicadores {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .titulo-indicador {
         min-height: 0;
+    }
+
+    .indicador {
+        min-height: auto;
+    }
+
+    .valor-indicador {
+        font-size: 26px;
+    }
+
+    .area-grafico {
+        height: 210px;
+    }
+}
+
+/* ==============================
+   Acessibilidade
+   ============================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

@@ -15,8 +15,8 @@ var horariosOcorrencias = [
 // A primeira taxa é null porque não há intervalo anterior
 var dadosServidores = {
     AIS: {
-        cpu: [85, 96, 87, 89, 90, 92],
-        ram: [76, 77, 78, 79, 80, 81],
+        cpu: [90, 96, 95, 95, 97, 92],
+        ram: [86, 87, 88, 89, 80, 81],
         disco: [70, 70.2, 70.4, 70.6, 70.8, 71],
 
         leituraDisco: [null, 0.35, 0.42, 0.55, 0.51, 0.48],
@@ -34,8 +34,8 @@ var dadosServidores = {
         leituraDisco: [null, 0.25, 0.30, 0.40, 0.32, 0.36],
         escritaDisco: [null, 0.42, 0.48, 0.62, 0.58, 0.64],
 
-        entradaSwap: [null, 0, 0, 0, 0, 0],
-        saidaSwap: [null, 0, 0, 0, 0, 0]
+        entradaSwap: [null, 0, 0.1, 0.3, 0.2, 0.1],
+        saidaSwap: [null, 0.1, 0.2, 0.4, 0.3, 0.2]
     },
 
     SPA: {
@@ -46,8 +46,8 @@ var dadosServidores = {
         leituraDisco: [null, 0.12, 0.15, 0.21, 0.16, 0.18],
         escritaDisco: [null, 0.09, 0.10, 0.18, 0.12, 0.14],
 
-        entradaSwap: [null, 0, 0, 0, 0, 0],
-        saidaSwap: [null, 0, 0, 0, 0, 0]
+        entradaSwap: [null, 0.1, 0.3, 0.2, 0.1, 0.3],
+        saidaSwap: [null, 0.2, 0.4, 0.3, 0.2, 0.4]
     }
 };
 

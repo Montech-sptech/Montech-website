@@ -260,7 +260,7 @@ function montarLinhaUsuario(usuario) {
                 <span class="usuarioEmail">${escaparHtml(usuario.email)}</span>
             </div>
             <div class="col colCargo">
-                <span class="cargo ${classeDoCargo}">${iconeDoCargo}${escaparHtml(textoCargo)}</span>
+                <span class="cargo ${classeDoCargo}" title="${escaparHtml(textoCargo)}">${iconeDoCargo}<span class="cargoTexto">${escaparHtml(textoCargo)}</span></span>
             </div>
             <div class="col colStatus">
                 <span class="status ${classeStatus}">${textoStatus}</span>

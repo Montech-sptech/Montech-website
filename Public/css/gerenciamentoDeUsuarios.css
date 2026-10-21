@@ -167,7 +167,6 @@
         minmax(0, 2.3fr)
         minmax(230px, 1.8fr)
         120px
-        minmax(150px, 1.5fr)
         100px;
 }
 
@@ -281,8 +280,7 @@
     white-space: nowrap;
 }
 
-.usuarioEmail,
-.ultimoAcesso {
+.usuarioEmail {
     display: block;
     color: var(--gu-texto-suave);
     overflow: hidden;
@@ -693,9 +691,6 @@
             100px;
     }
 
-    .colUltimoAcesso {
-        display: none;
-    }
 }
 
 @media (max-width: 980px) {
@@ -762,8 +757,7 @@
         grid-template-columns: minmax(0, 1fr) auto;
         grid-template-areas:
             "usuario acoes"
-            "cargo   status"
-            "acesso  acesso";
+            "cargo   status";
         gap: 14px 12px;
         min-height: 0;
         padding: 16px;
@@ -795,18 +789,6 @@
     .colStatus {
         grid-area: status;
         justify-self: end;
-    }
-
-    .colUltimoAcesso {
-        display: block;
-        grid-area: acesso;
-        padding-top: 12px;
-        border-top: 1px solid var(--gu-borda-suave);
-    }
-
-    .colUltimoAcesso .ultimoAcesso::before {
-        content: "Último acesso: ";
-        color: var(--gu-lavanda);
     }
 
     .colCargo {
@@ -877,20 +859,11 @@
         grid-template-areas:
             "usuario usuario"
             "cargo   status"
-            "acesso  acesso"
             "acoes   acoes";
     }
 
     .colStatus {
         justify-self: start;
-    }
-
-    .colUltimoAcesso {
-        padding-bottom: 2px;
-    }
-
-    .colUltimoAcesso .ultimoAcesso {
-        white-space: normal;
     }
 
     .colAcoes .acoesLinha {
@@ -915,7 +888,6 @@
             "usuario"
             "cargo"
             "status"
-            "acesso"
             "acoes";
     }
 }

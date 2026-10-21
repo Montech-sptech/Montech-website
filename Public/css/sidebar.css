@@ -63,6 +63,8 @@
 .sbLogo .sbLogoCurta {
     display: none;
     width: 68px;
+    height: auto;
+    object-fit: contain;
 }
 
 /* ---------- Navegação ---------- */

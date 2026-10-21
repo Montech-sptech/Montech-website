@@ -4,6 +4,62 @@
     ==============
 */
 
+.navBar.navBarIndex,
+.navBarIndex * {
+    font-family: 'Inter', sans-serif;
+}
+
+.navBar.navBarIndex {
+    min-height: 88px;
+    background: #080c26;
+    border-bottom: 1px solid #5b5bff;
+}
+
+.navBarIndex .navLinks a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: 10px;
+    color: #c4c8e2;
+    font-size: 14.5px;
+    font-weight: 500;
+}
+
+.navBarIndex .navLinks a:hover,
+.navBarIndex .navLinks a:focus-visible {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.navBarIndex a.navEntrar {
+    height: 44px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4a3dff, #3d5bff);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.navBarIndex a.navEntrar:hover {
+    background: linear-gradient(135deg, #554aff, #4966ff);
+    letter-spacing: 0;
+}
+
+.navBarIndex .menuToggle {
+    color: #c4c8e2;
+}
+
+@media (max-width: 900px) {
+    .navBarIndex .navMobileContent {
+        background: #080c26;
+        border-bottom: 1px solid #5b5bff;
+        box-shadow: none;
+    }
+}
+
 .banner {
     width: 100%;
     min-height: 90vh;

@@ -126,6 +126,10 @@
     text-decoration: none;
 }
 
+.sbRotuloDashboardCompacto {
+    display: none;
+}
+
 .sbSubitemDashboard:hover,
 .sbSubitemDashboard:focus-visible {
     background: rgba(255, 255, 255, 0.05);
@@ -276,6 +280,28 @@
 
     .sbRotulo {
         display: none;
+    }
+
+    .sbSubmenuDashboard {
+        align-self: center;
+        gap: 2px;
+        margin: 0 0 4px;
+        padding: 0;
+        border: 0;
+    }
+
+    .sbSubitemDashboard {
+        padding: 8px 4px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .sbSubitemDashboard > span:first-child {
+        display: none;
+    }
+
+    .sbRotuloDashboardCompacto {
+        display: inline;
     }
 
     .sbRodape {

@@ -53,13 +53,26 @@ function configurarAcessoDashboard(permissoesUsuario) {
       submenu.hidden = true;
 
       [
-        { pagina: "analista.html", rotulo: "Painel do analista" },
-        { pagina: "gerente.html", rotulo: "Painel do gestor" },
+        {
+          pagina: "analista.html",
+          rotulo: "Painel do analista",
+          rotuloCompacto: "Analista",
+        },
+        {
+          pagina: "gerente.html",
+          rotulo: "Painel do gestor",
+          rotuloCompacto: "Gerente",
+        },
       ].forEach((opcao) => {
         const link = document.createElement("a");
+        const rotulo = document.createElement("span");
+        const rotuloCompacto = document.createElement("span");
         link.className = "sbSubitemDashboard";
         link.href = opcao.pagina;
-        link.textContent = opcao.rotulo;
+        rotulo.textContent = opcao.rotulo;
+        rotuloCompacto.className = "sbRotuloDashboardCompacto";
+        rotuloCompacto.textContent = opcao.rotuloCompacto;
+        link.append(rotulo, rotuloCompacto);
         submenu.appendChild(link);
       });
 

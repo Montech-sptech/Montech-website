@@ -62,18 +62,6 @@ function iniciais(nome) {
   return (primeira + ultima).toUpperCase();
 }
 
-function formatarUltimoAcesso(valor) {
-  if (!valor) return "—";
-  const data = new Date(valor);
-  if (isNaN(data)) return "—";
-  const dia = data.toLocaleDateString("pt-BR");
-  const hora = data.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  return `${dia} - ${hora}`;
-}
-
 function normalizarUsuario(u) {
   const statusBruto = u.status !== undefined ? u.status : u.statusAtividade;
 
@@ -87,7 +75,6 @@ function normalizarUsuario(u) {
       statusBruto === 0 ||
       statusBruto === "0"
     ),
-    ultimoAcesso: u.ultimoAcesso || null,
     servidores: u.servidores || [],
   };
 }
@@ -139,10 +126,6 @@ function valorParaOrdenar(usuario, campo) {
       return usuario.cargo;
     case "status":
       return usuario.status ? 1 : 0;
-    case "ultimoAcesso":
-      return usuario.ultimoAcesso
-        ? new Date(usuario.ultimoAcesso).getTime()
-        : 0;
     default:
       return "";
   }
@@ -264,9 +247,6 @@ function montarLinhaUsuario(usuario) {
             </div>
             <div class="col colStatus">
                 <span class="status ${classeStatus}">${textoStatus}</span>
-            </div>
-            <div class="col colUltimoAcesso">
-                <span class="ultimoAcesso">${formatarUltimoAcesso(usuario.ultimoAcesso)}</span>
             </div>
             <div class="col colAcoes">
                 <div class="acoesLinha">

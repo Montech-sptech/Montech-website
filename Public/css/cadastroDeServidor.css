@@ -491,34 +491,32 @@ select {
     }
 }
 
-/* .popup {
+.popup {
     position: fixed;
     inset: 0;
     z-index: 1000;
     padding: 16px;
     display: none;
-    align-self: center;
-    justify-self: center;
-    border: 1px solid var(--popup-borda);
-    border-radius: 12px;
-    background: linear-gradient(180deg, var(--popup-bg-topo), var(--popup-bg-base));
-    color: var(--texto);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
-} */
-
-.popup::backdrop {
+    align-items: center;
+    justify-content: center;
     background: rgba(6, 9, 25, 0.75);
+    color: var(--texto);
     backdrop-filter: blur(3px);
 }
 
 .popup__conteudo {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    width: min(560px, 100%);
     max-height: 90dvh;
     padding: clamp(1.75rem, 6vw, 2.5rem) clamp(1rem, 5vw, 1.5rem) clamp(1rem, 5vw, 1.5rem);
     overflow-y: auto;
-    border-radius: inherit;
+    border: 1px solid var(--popup-borda);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--popup-bg-topo), var(--popup-bg-base));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
 }
 
 .popup__fechar {

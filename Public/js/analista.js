@@ -57,21 +57,21 @@ var dadosOcorrencias = {
         titulo: "CPU do AIS: alerta crítico",
         nome: "CPU",
         limite: 90,
-        valores: [48, 50, 54, 62, 71, 80, 85, 92]
+        valores: [70, 80, 84, 91, 94, 91, 95, 92]
     },
 
     ram: {
         titulo: "RAM do AIS: alerta de atenção",
         nome: "RAM",
         limite: 80,
-        valores: [54, 56, 59, 64, 70, 74, 76, 81]
+        valores: [54, 56, 59, 64, 75, 84, 86, 81]
     },
 
     disco: {
         titulo: "Disco do SDV: alerta de atenção",
         nome: "Disco",
         limite: 80,
-        valores: [51, 55, 59, 64, 70, 76, 80, 82]
+        valores: [51, 55, 59, 64, 75, 81, 83, 82]
     }
 };
 
@@ -280,7 +280,60 @@ function criarLinhaLimite(
     return serieLimite;
 }
 
+
+// Ignora valores que não representam uma leitura válida
+function valoresValidos(valores) {
+    return valores.filter(function (valor) {
+        return typeof valor === "number" && Number.isFinite(valor);
+    });
+}
+
+// Soma a entrada e a saída de cada intervalo
+function somarTransferencias(entradas, saidas) {
+    return entradas.map(function (entrada, indice) {
+        var saida = saidas[indice];
+
+        if (entrada === null || saida === null) {
+            return null;
+        }
+
+        return entrada + saida;
+    });
+}
+
+// Cria os quatro indicadores de cada gráfico
+function montarResumoRecurso(valores, unidade, limiteAtencao) {
+    var leituras = valoresValidos(valores);
+
+    var valorAtual = leituras[leituras.length - 1];
+    var media = calcularMedia(leituras);
+    var pico = buscarMaiorValor(leituras);
+
+    var limite = limiteAtencao === null
+        ? "Não definido"
+        : formatarNumero(limiteAtencao) + unidade;
+
+    return montarIndicador(
+        "Uso atual",
+        formatarNumero(valorAtual) + unidade
+    )
+        + montarIndicador(
+            "Média em 5 minutos",
+            formatarNumero(media) + unidade
+        )
+        + montarIndicador(
+            "Pico em 5 minutos",
+            formatarNumero(pico) + unidade
+        )
+        + montarIndicador(
+            "Limite de atenção",
+            limite
+        );
+}
+
+
 // Executada ao clicar em AIS, SDV ou SPA
+
 function selecionarServidor(siglaServidor, botaoClicado) {
     servidorSelecionado = siglaServidor;
 
@@ -289,11 +342,7 @@ function selecionarServidor(siglaServidor, botaoClicado) {
             ".seletor-servidor button"
         );
 
-        for (
-            var indiceBotao = 0;
-            indiceBotao < botoesServidores.length;
-            indiceBotao++
-        ) {
+        for (var indiceBotao = 0; indiceBotao < botoesServidores.length; indiceBotao++) {
             botoesServidores[indiceBotao].classList.remove("selecionado");
         }
 
@@ -302,11 +351,10 @@ function selecionarServidor(siglaServidor, botaoClicado) {
 
     var dadosServidor = dadosServidores[siglaServidor];
 
-    // A última posição contém a leitura mais recente
-    var indiceUltimaLeitura = dadosServidor.cpu.length - 1;
+    var limiteCpu = siglaServidor === "AIS" ? 90 : null;
 
-    document.getElementById("titulo-cpu").textContent =
-        "CPU do " + siglaServidor;
+    document.getElementById("indicadores-cpu").innerHTML =
+        montarResumoRecurso(dadosServidor.cpu, "%", limiteCpu);
 
     document.getElementById("titulo-ram").textContent =
         "RAM do " + siglaServidor;
@@ -317,55 +365,36 @@ function selecionarServidor(siglaServidor, botaoClicado) {
     document.getElementById("titulo-swap").textContent =
         "Swap do " + siglaServidor;
 
+    // Indicadores da CPU
     document.getElementById("indicadores-cpu").innerHTML =
-        montarIndicador(
-            "Uso atual",
-            dadosServidor.cpu[indiceUltimaLeitura] + "%"
-        )
-        + montarIndicador(
-            "Média em 5 minutos",
-            formatarNumero(calcularMedia(dadosServidor.cpu)) + "%"
-        )
-        + montarIndicador(
-            "Pico em 5 minutos",
-            buscarMaiorValor(dadosServidor.cpu) + "%"
-        );
+        montarResumoRecurso(dadosServidor.cpu, "%", 90);
 
+    // Indicadores da RAM
     document.getElementById("indicadores-ram").innerHTML =
-        montarIndicador(
-            "Uso atual",
-            dadosServidor.ram[indiceUltimaLeitura] + "%"
-        )
-        + montarIndicador(
-            "Média em 5 minutos",
-            formatarNumero(calcularMedia(dadosServidor.ram)) + "%"
-        )
-        + montarIndicador("Limite de atenção", "80%");
+        montarResumoRecurso(dadosServidor.ram, "%", 80);
+
+    // Indicadores do Swap
+    var trafegoSwap = somarTransferencias(
+        dadosServidor.entradaSwap,
+        dadosServidor.saidaSwap
+    );
 
     document.getElementById("indicadores-swap").innerHTML =
-        montarIndicador(
-            "Entrada no último intervalo",
-            formatarNumero(
-                dadosServidor.entradaSwap[indiceUltimaLeitura]
-            ) + " MB/s"
-        )
-        + montarIndicador(
-            "Saída no último intervalo",
-            formatarNumero(
-                dadosServidor.saidaSwap[indiceUltimaLeitura]
-            ) + " MB/s"
-        );
+        montarResumoRecurso(trafegoSwap, " MB/s", 1);
 
+    // Gráfico da CPU
     criarGrafico("grafico-cpu", "line", horariosColeta, [
         criarSerie("Uso de CPU", dadosServidor.cpu, "#4fa3ff"),
-        criarLinhaLimite("Limite crítico", 90, 6)
+        criarLinhaLimite("Limite crítico", 90, horariosColeta.length)
     ], "%");
 
+    // Gráfico da RAM
     criarGrafico("grafico-ram", "line", horariosColeta, [
         criarSerie("Uso de RAM", dadosServidor.ram, "#60d98d"),
-        criarLinhaLimite("Limite de atenção", 80, 6)
+        criarLinhaLimite("Limite de atenção", 80, horariosColeta.length)
     ], "%");
 
+    // Gráfico do Swap
     criarGrafico("grafico-swap", "line", horariosColeta, [
         criarSerie("Entrada", dadosServidor.entradaSwap, "#4fa3ff"),
         criarSerie("Saída", dadosServidor.saidaSwap, "#ffad1f")
@@ -373,6 +402,7 @@ function selecionarServidor(siglaServidor, botaoClicado) {
 
     atualizarDisco();
 }
+
 
 // Executada pelos dois botões de visualização do disco
 function selecionarVisualizacaoDisco(visualizacao, botaoClicado) {
@@ -395,43 +425,32 @@ function selecionarVisualizacaoDisco(visualizacao, botaoClicado) {
     atualizarDisco();
 }
 
+
 function atualizarDisco() {
     var dadosServidor = dadosServidores[servidorSelecionado];
-    var indiceUltimaLeitura = dadosServidor.disco.length - 1;
 
     if (visualizacaoDisco === "ocupacao") {
+
+        // Indicadores de ocupação
         document.getElementById("indicadores-disco").innerHTML =
-            montarIndicador(
-                "Disco ocupado",
-                dadosServidor.disco[indiceUltimaLeitura] + "%"
-            )
-            + montarIndicador(
-                "Espaço livre",
-                formatarNumero(
-                    100 - dadosServidor.disco[indiceUltimaLeitura]
-                ) + "%"
-            )
-            + montarIndicador("Limite de atenção", "80%");
+            montarResumoRecurso(dadosServidor.disco, "%", 80);
 
         criarGrafico("grafico-disco", "line", horariosColeta, [
             criarSerie("Ocupação", dadosServidor.disco, "#4fa3ff"),
-            criarLinhaLimite("Limite de atenção", 80, 6)
+            criarLinhaLimite("Limite de atenção", 80, horariosColeta.length)
         ], "%");
 
     } else {
+
+        // Soma das taxas de leitura e escrita
+        var transferenciasDisco = somarTransferencias(
+            dadosServidor.leituraDisco,
+            dadosServidor.escritaDisco
+        );
+
+        // Indicadores de transferência
         document.getElementById("indicadores-disco").innerHTML =
-            montarIndicador(
-                "Leitura no último intervalo",
-                formatarNumero(
-                    dadosServidor.leituraDisco[indiceUltimaLeitura]
-                ) + " MB/s"
-            )
-            + montarIndicador(
-                "Escrita no último intervalo",
-                formatarNumero(
-                    dadosServidor.escritaDisco[indiceUltimaLeitura]
-                ) + " MB/s"
-            );
+            montarResumoRecurso(transferenciasDisco, " MB/s", null);
 
         criarGrafico("grafico-disco", "line", horariosColeta, [
             criarSerie(
@@ -447,6 +466,7 @@ function atualizarDisco() {
         ], " MB/s");
     }
 }
+
 
 // Executada ao clicar em Analisar
 function abrirGraficoOcorrencia(recursoSelecionado, botaoClicado) {

@@ -268,14 +268,16 @@ function mensagemErro(titulo, descricao) {
 }
 
 
-async function cadastrarServidor() {
+// Valida os campos do servidor. Retorna os valores já tratados ou null se houver erro.
+function validarDadosServidor() {
     const nomeServidor = document.getElementById('nome-servidor');
     const sistemaOperacional = document.getElementById('sistema-operacional');
     const tokenUnico = document.getElementById('token-unico');
-    const idAeroporto = sessionStorage.AEROPORTO_ID;
-    lerValoresDosInputs();
 
+    // Remove espaços antes e depois e já reflete isso no campo
     const nome = nomeServidor.value.trim();
+    nomeServidor.value = nome;
+
     const sistema = sistemaOperacional.value.trim().toLowerCase();
     const token = tokenUnico.value.trim();
 
@@ -284,37 +286,50 @@ async function cadastrarServidor() {
             'Erro no campo Nome do Servidor',
             'O nome não pode estar vazio nem conter apenas espaços em branco.'
         );
-        return;
+        return null;
     }
-
     if (nome.length < 3) {
         mensagemErro(
             'Erro no campo Nome do Servidor',
             'O nome deve ter no mínimo 3 caracteres.'
         );
-        return;
+        return null;
     }
     if (nome.length > 30) {
         mensagemErro(
             'Erro no campo Nome do Servidor',
             'O nome deve ter no máximo 30 caracteres.'
         );
-        return;
+        return null;
     }
     if (sistema !== 'linux' && sistema !== 'windows') {
         mensagemErro(
             'Erro no campo Sistema Operacional',
             'O sistema operacional deve ser "linux" ou "windows".'
         );
-        return;
+        return null;
     }
     if (token.length !== 32) {
         mensagemErro(
             'Erro no campo Token Único',
             `O token deve ter exatamente 32 caracteres (atualmente tem ${token.length}).`
         );
+        return null;
+    }
+
+    return { nome, sistema, token };
+}
+
+
+async function cadastrarServidor() {
+    const idAeroporto = sessionStorage.AEROPORTO_ID;
+    lerValoresDosInputs();
+
+    const dadosServidor = validarDadosServidor();
+    if (!dadosServidor) {
         return;
     }
+
     if(itemAdicionados.length < 1) {
         mensagemErro(
             'Sem componentes',
@@ -328,9 +343,9 @@ async function cadastrarServidor() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                tokenServer: tokenUnico.value,
-                nomeServidorServer: nomeServidor.value,
-                sistemaOperacionalServer: sistemaOperacional.value,
+                tokenServer: dadosServidor.token,
+                nomeServidorServer: dadosServidor.nome,
+                sistemaOperacionalServer: dadosServidor.sistema,
                 fkAeroportoServer: idAeroporto
             })
         });

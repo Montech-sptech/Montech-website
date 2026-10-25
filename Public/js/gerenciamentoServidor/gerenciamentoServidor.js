@@ -86,6 +86,7 @@ async function CarregarInfos() {
             popUp.style.display = 'none'; 
             popUpAviso.style.display = 'none'; 
             sessionStorage.ID_SERVIDOR_EXCLUIR = undefined;
+            iptConfirmarExclusao.value = "";
         });
     });
 
@@ -120,8 +121,10 @@ const iptConfirmarExclusao = document.getElementById('input-confirmar-exclusao')
 btnConfirmarExclusao.addEventListener('click', function() {
     if(iptConfirmarExclusao.value == 'excluir') {
         DeletarServidor(sessionStorage.ID_SERVIDOR_EXCLUIR)
+        iptConfirmarExclusao.value = "";
     } else {
         alert("Erro")
+        iptConfirmarExclusao.value = "";
     }
 })
 

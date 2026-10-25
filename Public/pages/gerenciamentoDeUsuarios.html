@@ -17,7 +17,6 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="../css/headerPosLogin.css" />
   <link rel="stylesheet" href="../css/sidebar.css" />
-  <script src="../js/fotoPerfil.js" defer></script>
   <script src="../js/gerenciamentoDeUsuarios.js" defer></script>
   <script src="../js/sidebar.js" defer></script>
   <title>MonTech - gerenciamento de usuários</title>
@@ -261,6 +260,7 @@
           CANCELAR
         </button>
       </div>
+      <p id="mensagemEditarUser" class="mensagemCadastroUser erro" role="alert" aria-live="assertive"></p>
     </div>
   </div>
   <div id="modalExclusao" class="escondido">
@@ -275,36 +275,13 @@
       <p id="textoConfirmacaoExclusao"></p>
 
       <div class="containerAcoesModal">
-        <button id="botaoConfirmarExclusao" onclick="confirmarExclusaoUsuario()">
-          EXCLUIR
-        </button>
+        <button id="botaoConfirmarExclusao" onclick="confirmarExclusaoUsuario(document.getElementById('modalExclusao').dataset.id)">EXCLUIR</button>
         <button id="botaoCancelarExclusao" onclick="fecharModalExclusao()">
           CANCELAR
         </button>
       </div>
     </div>
   </div>
-
-  <div id="modalFotoPerfil" class="escondido">
-    <div id="modalEscolherFoto">
-      <svg id="iconeFecharModalFoto" onclick="fecharModalFotoPerfil()" xmlns="http://www.w3.org/2000/svg" width="24"
-        height="24" fill="#6f6d82" viewBox="0 0 16 16">
-        <path
-          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-      </svg>
-      <h2>Escolher foto de perfil</h2>
-      <div id="gridFotosPerfil"></div>
-      <div class="containerAcoesModal">
-        <button id="botaoSalvarFotoPerfil" onclick="salvarFotoPerfil()">
-          SALVAR
-        </button>
-        <button id="botaoCancelarFotoPerfil" onclick="fecharModalFotoPerfil()">
-          CANCELAR
-        </button>
-      </div>
-    </div>
-  </div>
-
 
 
   <div class="telaCadastroUser escondido" id="telaCadastroUser">

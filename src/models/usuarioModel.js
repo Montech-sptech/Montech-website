@@ -166,7 +166,6 @@ function listarCargosPorEmpresa(empresaId) {
   return database.executar(instrucaoSql);
 }
 
-
 module.exports = {
   autenticar,
   cadastrar,

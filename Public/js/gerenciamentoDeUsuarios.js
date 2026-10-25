@@ -644,7 +644,7 @@ function fecharModalExclusao() {
   document.getElementById("modalExclusao").classList.add("escondido");
 }
 
-async function confirmarExclusaoUsuario(idUsuarioClicado) {
+function confirmarExclusaoUsuario(idUsuarioClicado) {
   const modal = document.getElementById("modalExclusao");
   const idUsuarioExcluido = idUsuarioClicado ?? modal.dataset.id;
 
@@ -653,10 +653,10 @@ async function confirmarExclusaoUsuario(idUsuarioClicado) {
     return;
   }
 
-  await fetch(`/usuarios/excluirUsuario`, {
+  fetch(`/usuarios/excluirUsuario/${idUsuarioExcluido}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ usuarioId: idUsuarioExcluido }),
+    body: JSON.stringify({ idUsuario: idUsuarioExcluido }),
   })
     .then((response) => {
       if (!response.ok) {

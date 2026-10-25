@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/PopUp.css">
     <script src="../js/script.js" defer></script>
     <script src="../js/acessoGeral.js"></script>
     <title>MonTech - página institucional</title>
@@ -24,8 +25,7 @@
                 <li><a href="#containerSobre">Sobre</a></li>
                 <li><a href="#containerValores">Valores</a></li>
                 <li><a href="#containerContato">Contato</a></li>
-                <li class="navLinksMobile"><a class="navEntrar botaoEntrar" href="/pages/login.html">Entrar</a></li>
-            </ul>
+                <li class="navLinksMobile"><a class="navEntrar botaoEntrar" href="/pages/login.html">Entrar</a></li>            </ul>
 
             <div class="navActions">
                 <a class="navEntrar botaoEntrar" href="/pages/login.html">ENTRAR</a>
@@ -38,11 +38,10 @@
       <div class="container">
         <div class="titulo">
           <h1>Infraestrutura que mantém o céu seguro.</h1>
-          <p>Monitoramento contínuo dos servidores SPA, SDV e AIS nos centros de controle de tráfego aéreo.</p>
+          <p>Monitoramento contínuo de servidores nos centros de controle de tráfego aéreo.</p>
         </div>
         <div class="bannerlinks">
-            <button>Ver a plataforma</button>
-            <a href="">Como funciona -></a>
+            <a href="#containerValores">Como funciona -></a>
         </div>
       </div>
     </section>
@@ -111,29 +110,29 @@
         <div class="dados_quartaSecao">
             <div class="dados_quartaSecao_box">
                 <div class="janela">
-                    <h1>R$ 300 mil+</h1>
-                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
+                    <h1>R$ 1 bilhão</h1>
+                    <p>Custos anuais judiciais anuais das companhias aéreas brasileiras relacionados a problemas no transporte aéreo.</p>
                 </div>
             </div>
 
             <div class="dados_quartaSecao_box">
                 <div class="janela">
-                    <h1>$94/min</h1>
-                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
+                    <h1>$98/min</h1>
+                    <p>É custo médio operacional direto por minuto de operação de uma aeronave nos Estados Unidos.</p>
                 </div>
             </div>
 
             <div class="dados_quartaSecao_box">
                 <div class="janela">
-                    <h1>R$47/hora</h1>
-                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
+                    <h1>R$ 6.700</h1>
+                    <p>Valor médio estimado de indenizações pagas pelas companhias aéreas brasileiras por passageiros.</p>
                 </div>
             </div>
 
             <div class="dados_quartaSecao_box">
                 <div class="janela">
                     <h1>4 horas</h1>
-                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
+                    <p>Atrasos acima desse período podem gerar despesas adicionais com assistência aos passageiros.</p>
                 </div>
             </div>
         </div>
@@ -188,20 +187,39 @@
         <div class="background">
             <div class="sextaSecaoTextos">
                 <h1>Monitore antes que uma falha pare a operação.</h1>
-                <p>A MONTECH acompanha continuamente CPU, memória e armazenamento dos servidores SPA, SDV e AIS.</p>
+                <p>A MONTECH acompanha continuamente os componentes dos servidores SPA, SDV e AIS.</p>
             </div>
             <div class="sextaSecaoBotoes">
                 <a class="botaoEntrar" href="/pages/login.html">Entrar</a>
-                <a href="#">Contate nossa equipe</a>
+                <a id="AbrirContatos">Contate nossa equipe</a>
             </div>
         </div>
     </section>
+
+    <div class="popup-overlay" id="popup-aviso">
+        <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
+
+            <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
+              <img src="../img/Servidores/LetraXicon.svg" alt="">
+            </button>
+
+            <h2 class="popup-titulo" id="popup-titulo-contato">Entre em contato com a gente!</h2>
+                <div class="contato">
+                    <span>Email</span>
+                    <p>equipeMontech@sptech.school</p>
+                    <span>Telefone</span>
+                    <p>(11) 95432-2312</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <footer class="footerSite">
         <div class="footerTopo">
             <div class="footerLogo">
                 <a class="navLogo" href="index.html">
-                    <img src="../img/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
+                    <img src="../img/logoEscuraMontech.png" class="footerLogoImg" alt="MonTech">
                 </a>
                 <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO
                     (Sistema Avançado de Gerenciamento de Informações de Tráfego Aéreo e Relatório de Interesse
@@ -212,10 +230,10 @@
             <div class="footerColuna">
                 <h4>MONTECH</h4>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#containerSecaoDois">Sobre</a></li>
-                    <li><a href="#containerSecaoQuatro">Valores</a></li>
-                    <li><a href="/pages/contato.html">Contatos</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#containerSobre">Sobre</a></li>
+                    <li><a href="#containerValores">Valores</a></li>
+                    <li><a href="#containerContato">Contato</a></li>
                 </ul>
             </div>
 

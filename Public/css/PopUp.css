@@ -126,6 +126,10 @@
   transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
 }
 
+#popup-titulo-contato {
+  color: white;
+}
+
 .btn-confirmar-exclusao:hover:not(:disabled) {
   background-color: #121a3f;
   transform: translateY(-1px);

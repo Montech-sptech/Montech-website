@@ -324,22 +324,154 @@ function abrirModalNovoUsuario() {
   carregarCargos();
 }
 
+// ===== Validações e máscaras do cadastro de usuário =====
+// Limites alinhados com a tabela `usuario` (nome 100, email 200, senha 45, cpf 11, telefone 20)
+const LIMITES_CADASTRO = {
+  nome: { min: 3, max: 100 },
+  email: { min: 5, max: 200 },
+  senha: { min: 8, max: 45 },
+};
+
+function somenteDigitos(texto) {
+  return String(texto).replace(/\D/g, "");
+}
+
+function mascararCpf(valor) {
+  const d = somenteDigitos(valor).slice(0, 11);
+  return d
+    .replace(/^(\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1-$2");
+}
+
+function mascararTelefone(valor) {
+  const d = somenteDigitos(valor).slice(0, 11);
+  if (d.length === 0) return "";
+  if (d.length <= 2) return `(${d}`;
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+}
+
+// Retorna a mensagem de erro, ou "" quando tudo estiver válido
+function validarCadastroUsuario(d) {
+  const obrigatorios = [d.nome, d.cpf, d.email, d.senha, d.status, d.cargo, d.aeroporto];
+  if (obrigatorios.some((v) => String(v).trim() === "")) {
+    return "Preencha todos os campos obrigatórios.";
+  }
+
+  const camposTexto = [
+    ["Nome", d.nome],
+    ["CPF", d.cpf],
+    ["E-mail", d.email],
+    ["Telefone", d.telefone],
+    ["Senha", d.senha],
+  ];
+  for (const [rotulo, valor] of camposTexto) {
+    if (valor !== valor.trim()) {
+      return `${rotulo} não pode começar nem terminar com espaços.`;
+    }
+  }
+
+  const { nome, email, senha } = LIMITES_CADASTRO;
+
+  if (d.nome.length < nome.min || d.nome.length > nome.max) {
+    return `O nome deve ter entre ${nome.min} e ${nome.max} caracteres.`;
+  }
+
+  if (somenteDigitos(d.cpf).length !== 11) {
+    return "O CPF deve ter 11 dígitos.";
+  }
+
+  if (d.email.length < email.min || d.email.length > email.max) {
+    return `O e-mail deve ter entre ${email.min} e ${email.max} caracteres.`;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) {
+    return "Digite um e-mail válido.";
+  }
+
+  // Telefone é opcional, mas se preenchido precisa ter DDD + 8 ou 9 dígitos
+  if (d.telefone !== "") {
+    const digitos = somenteDigitos(d.telefone).length;
+    if (digitos < 10 || digitos > 11) {
+      return "O telefone deve ter DDD + 8 ou 9 dígitos.";
+    }
+  }
+
+  if (d.senha.length < senha.min || d.senha.length > senha.max) {
+    return `A senha deve ter entre ${senha.min} e ${senha.max} caracteres.`;
+  }
+
+  return "";
+}
+
+// Aplica máscaras, limites de tamanho e bloqueio de espaços nas pontas
+function configurarCamposCadastro() {
+  const campo = (id) => document.getElementById(id);
+  const nome = campo("nomeCadastroUser");
+  const cpf = campo("cpfCadastroUser");
+  const email = campo("emailCadastroUser");
+  const telefone = campo("telefoneCadastroUser");
+  const senha = campo("senhaCadastroUser");
+
+  nome.maxLength = LIMITES_CADASTRO.nome.max;
+  email.maxLength = LIMITES_CADASTRO.email.max;
+  senha.maxLength = LIMITES_CADASTRO.senha.max;
+  cpf.maxLength = 14;
+  telefone.maxLength = 15;
+  cpf.inputMode = "numeric";
+  telefone.inputMode = "tel";
+
+  // Não permite espaço no começo enquanto digita
+  [nome, senha].forEach((el) => {
+    el.addEventListener("input", () => {
+      el.value = el.value.replace(/^\s+/, "");
+    });
+  });
+
+  // E-mail não tem espaços em nenhuma posição
+  email.addEventListener("input", () => {
+    email.value = email.value.replace(/\s/g, "");
+  });
+
+  cpf.addEventListener("input", () => {
+    cpf.value = mascararCpf(cpf.value);
+  });
+  telefone.addEventListener("input", () => {
+    telefone.value = mascararTelefone(telefone.value);
+  });
+
+  // Remove espaços sobrando no final ao sair do campo (senha não é alterada)
+  [nome, email].forEach((el) => {
+    el.addEventListener("blur", () => {
+      el.value = el.value.trim();
+    });
+  });
+}
+
 function cadastrarUsuario(){
   const mensagemCadastro = document.getElementById("mensagemCadastroUser");
   mensagemCadastro.textContent = "";
-  let nome = document.getElementById("nomeCadastroUser").value;
-  let cpf = document.getElementById("cpfCadastroUser").value;
-  let email = document.getElementById("emailCadastroUser").value;
-  let telefone = document.getElementById("telefoneCadastroUser").value;
-  let senha = document.getElementById("senhaCadastroUser").value;
-  let status = document.getElementById("statusCadastroUser").value;
-  let cargo = document.getElementById("cargoCadastroUser").value;
-  let aeroporto = document.getElementById("aeroportoCadastroUser").value;
+  const dados = {
+    nome: document.getElementById("nomeCadastroUser").value,
+    cpf: document.getElementById("cpfCadastroUser").value,
+    email: document.getElementById("emailCadastroUser").value,
+    telefone: document.getElementById("telefoneCadastroUser").value,
+    senha: document.getElementById("senhaCadastroUser").value,
+    status: document.getElementById("statusCadastroUser").value,
+    cargo: document.getElementById("cargoCadastroUser").value,
+    aeroporto: document.getElementById("aeroportoCadastroUser").value,
+  };
 
-  if (nome == "" || cpf == "" || email == "" || senha == "" || status == "" || cargo == "" || aeroporto == "") {
-    mensagemCadastro.textContent = "Preencha todos os campos obrigatórios.";
-    return
+  const erroValidacao = validarCadastroUsuario(dados);
+  if (erroValidacao) {
+    mensagemCadastro.textContent = erroValidacao;
+    return;
   }
+
+  // CPF vai só com números (CHAR(11)); o telefone vai com a máscara
+  const { nome, email, telefone, senha, status, cargo, aeroporto } = dados;
+  const cpf = somenteDigitos(dados.cpf);
 
   fetch("/usuarios/cadastrar", {
     method: "POST",
@@ -585,7 +717,10 @@ function alternarVisualCheckbox(input) {
 }
 
 function salvarEdicaoUsuario() {
+  let mensagemEditar = document.getElementById("mensagemEditarUser");
+  mensagemEditar.textContent = "";
   const idAdministrador = sessionStorage.ID;
+
 
   let usuarioOriginal = null;
   for (let i = 0; i < listaUsuariosGlobais.length; i++) {
@@ -598,7 +733,7 @@ function salvarEdicaoUsuario() {
   }
 
   if (!usuarioOriginal) {
-    alert("Não foi possível encontrar o usuário selecionado.");
+    mensagemEditar.textContent = "Não foi possível encontrar o usuário selecionado.";
     return;
   }
 
@@ -608,9 +743,14 @@ function salvarEdicaoUsuario() {
   const novoEmail = document.getElementById("inputEmailModal").value.trim();
   const novoStatus = document.getElementById("selectStatusModal").value;
 
-  if (!novoNome || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novoEmail)) {
-    alert("Informe um nome e um email válidos.");
+  if (!novoNome) {
+    mensagemEditar.textContent = "Informe o nome do usuário.";
     return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novoEmail)) {
+    mensagemEditar.textContent = "Informe um e-mail válido.";
+    return
   }
 
   requisicoesPendentes.push(
@@ -703,11 +843,12 @@ function salvarEdicaoUsuario() {
 
   if (requisicoesPendentes.length > 0) {
     Promise.all(requisicoesPendentes)
-      .then((respostas) => {
+      .then(async (respostas) => {
         const respostaComErro = respostas.find((resposta) => !resposta.ok);
         if (respostaComErro) {
+          const textoErro = await respostaComErro.text();
           throw new Error(
-            `Erro ${respostaComErro.status} ao salvar alterações`,
+            textoErro || `Erro ${respostaComErro.status} ao salvar as alterações.`,
           );
         }
         fecharModalEdicao();
@@ -715,7 +856,8 @@ function salvarEdicaoUsuario() {
       })
       .catch((erro) => {
         console.error("Erro ao salvar edições:", erro);
-        alert("Houve um erro ao processar as alterações.");
+        mensagemEditar.textContent =
+          erro.message || "Houve um erro ao processar as alterações.";
       });
   } else {
     fecharModalEdicao();
@@ -736,6 +878,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("cancelarCadastroUser")
     .addEventListener("click", fecharCadastroUser);
+  configurarCamposCadastro();
   formCadastroUser.addEventListener("submit", (evento) => {
     evento.preventDefault();
     cadastrarUsuario();

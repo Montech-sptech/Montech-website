@@ -418,17 +418,20 @@
 }
 
 
-.BolaAzul:nth-of-type(4) {
+.BolaAzul:nth-child(2),
+.BolaAzul:nth-child(6) {
     animation-delay: 0s;
 }
 
 
-.BolaAzul:nth-of-type(2) {
+.BolaAzul:nth-child(3),
+.BolaAzul:nth-child(7) {
     animation-delay: 0.4s;
 
 }
 
-.BolaAzul:nth-of-type(3) {
+.BolaAzul:nth-child(4),
+.BolaAzul:nth-child(8) {
     animation-delay: 0.7s;
 
 }

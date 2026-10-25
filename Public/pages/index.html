@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/PopUp.css">
     <script src="../js/script.js" defer></script>
     <script src="../js/acessoGeral.js"></script>
     <title>MonTech - página institucional</title>
@@ -25,7 +24,8 @@
                 <li><a href="#containerSobre">Sobre</a></li>
                 <li><a href="#containerValores">Valores</a></li>
                 <li><a href="#containerContato">Contato</a></li>
-                <li class="navLinksMobile"><a class="navEntrar botaoEntrar" href="/pages/login.html">Entrar</a></li>            </ul>
+                <li class="navLinksMobile"><a class="navEntrar botaoEntrar" href="/pages/login.html">Entrar</a></li>
+            </ul>
 
             <div class="navActions">
                 <a class="navEntrar botaoEntrar" href="/pages/login.html">ENTRAR</a>
@@ -38,10 +38,11 @@
       <div class="container">
         <div class="titulo">
           <h1>Infraestrutura que mantém o céu seguro.</h1>
-          <p>Monitoramento contínuo de servidores nos centros de controle de tráfego aéreo.</p>
+          <p>Monitoramento contínuo dos servidores SPA, SDV e AIS nos centros de controle de tráfego aéreo.</p>
         </div>
         <div class="bannerlinks">
-            <a href="#containerValores">Como funciona -></a>
+            <button>Ver a plataforma</button>
+            <a href="">Como funciona -></a>
         </div>
       </div>
     </section>
@@ -69,25 +70,35 @@
     <section class="terceiraSecao" id="containerSobre">
         <div class="titulo_terceiraSecao">
             <h1>Monitoramento <span class="destaque">24 horas por dia</span> dos seus <span class="destaque">servidores</span> para manter sua <span class="destaque">operação funcionando.</span></h1>
-            <p>O ARTAS fornece a posição das aeronaves em tempo real, enquanto o FDPS processa os dados dos planos de voo. Juntos, eles integram informações essenciais para a visualização e o gerenciamento do tráfego aéreo.</p>
+            <p>O SPA calcula dados dos planos de voo, o SDV calcula dados da posição das aeronaves e o AIS cuida das informações aeronáuticas. Juntos, esses servidores apoiam a visualização e o gerenciamento do tráfego aéreo.</p>
         </div>
         <div class="TerceiraLayout_cards">
             <div class="terceiraSecao_card">
                 <div class="titulo_layout">
-                    <h1>ARTAS</h1>
-                    <p>ATC Surveillance Tracker and Server</p>
+                    <h1>SPA</h1>
+                    <p>Planos de voo</p>
                 </div>
-                <p>Sistema de rastreamento de aeronaves que consolida dados de múltiplos radares e gera uma imagem de tráfego aéreo em tempo real. Opera em duas estações redundantes A e B.</p>
+                <p>Servidor utilizado para calcular dados dos planos de voo e apoiar o acompanhamento das informações de rota e horários das aeronaves.</p>
             </div>
             <div class="BolaAzul"></div>
             <div class="BolaAzul"></div>
             <div class="BolaAzul"></div>
             <div class="terceiraSecao_card">
                 <div class="titulo_layout">
-                    <h1>FDPS</h1>
-                    <p>Flight Data Processing System</p>
+                    <h1>SDV</h1>
+                    <p>Posição das aeronaves</p>
                 </div>
-                <p>Sistema de processamento de planos de voo que correlaciona intenções declaradas pelas aeronaves com as trilhas de radar do ARTAS, dando  ao controlador uma visão integrada de tráfego, horários e rota.</p>
+                <p>Servidor utilizado para calcular os dados de posição das aeronaves e apoiar o acompanhamento do tráfego aéreo.</p>
+            </div>
+            <div class="BolaAzul"></div>
+            <div class="BolaAzul"></div>
+            <div class="BolaAzul"></div>
+            <div class="terceiraSecao_card">
+                <div class="titulo_layout">
+                    <h1>AIS</h1>
+                    <p>Serviço de Informação Aeronáutica</p>
+                </div>
+                <p>Servidor responsável pelas informações aeronáuticas, essenciais para apoiar a operação e a segurança da navegação aérea.</p>
             </div>
         </div>
     </section>
@@ -100,29 +111,29 @@
         <div class="dados_quartaSecao">
             <div class="dados_quartaSecao_box">
                 <div class="janela">
-                    <h1>R$ 1 bilhão</h1>
-                    <p>Custos anuais judiciais anuais das companhias aéreas brasileiras relacionados a problemas no transporte aéreo.</p>
+                    <h1>R$ 300 mil+</h1>
+                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
                 </div>
             </div>
 
             <div class="dados_quartaSecao_box">
                 <div class="janela">
-                    <h1>$98/min</h1>
-                    <p>É custo médio operacional direto por minuto de operação de uma aeronave nos Estados Unidos.</p>
+                    <h1>$94/min</h1>
+                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
                 </div>
             </div>
 
             <div class="dados_quartaSecao_box">
                 <div class="janela">
-                    <h1>R$ 6.700</h1>
-                    <p>Valor médio estimado de indenizações pagas pelas companhias aéreas brasileiras por passageiros.</p>
+                    <h1>R$47/hora</h1>
+                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
                 </div>
             </div>
 
             <div class="dados_quartaSecao_box">
                 <div class="janela">
                     <h1>4 horas</h1>
-                    <p>Atrasos acima desse período podem gerar despesas adicionais com assistência aos passageiros.</p>
+                    <p>Prejuízo minimo estimado em indenizações no cancelamento de um único voo com 100 passageiros.</p>
                 </div>
             </div>
         </div>
@@ -177,39 +188,20 @@
         <div class="background">
             <div class="sextaSecaoTextos">
                 <h1>Monitore antes que uma falha pare a operação.</h1>
-                <p>A MONTECH acompanha continuamente os componentes dos servidores ARTAS e FDPS.</p>
+                <p>A MONTECH acompanha continuamente CPU, memória e armazenamento dos servidores SPA, SDV e AIS.</p>
             </div>
             <div class="sextaSecaoBotoes">
                 <a class="botaoEntrar" href="/pages/login.html">Entrar</a>
-                <a id="AbrirContatos">Contate nossa equipe</a>
+                <a href="#">Contate nossa equipe</a>
             </div>
         </div>
     </section>
-
-    <div class="popup-overlay" id="popup-aviso">
-        <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
-
-            <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
-              <img src="../img/Servidores/LetraXicon.svg" alt="">
-            </button>
-
-            <h2 class="popup-titulo" id="popup-titulo-contato">Entre em contato com a gente!</h2>
-                <div class="contato">
-                    <span>Email</span>
-                    <p>equipeMontech@sptech.school</p>
-                    <span>Telefone</span>
-                    <p>(11) 95432-2312</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     <footer class="footerSite">
         <div class="footerTopo">
             <div class="footerLogo">
                 <a class="navLogo" href="index.html">
-                    <img src="../img/logoEscuraMontech.png" class="footerLogoImg" alt="MonTech">
+                    <img src="../img/longLigthLogo.svg" class="footerLogoImg" alt="MonTech">
                 </a>
                 <p class="footerDescricao">Monitoramento contínuo dos servidores SAGITARIO
                     (Sistema Avançado de Gerenciamento de Informações de Tráfego Aéreo e Relatório de Interesse
@@ -220,10 +212,10 @@
             <div class="footerColuna">
                 <h4>MONTECH</h4>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#containerSobre">Sobre</a></li>
-                    <li><a href="#containerValores">Valores</a></li>
-                    <li><a href="#containerContato">Contato</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#containerSecaoDois">Sobre</a></li>
+                    <li><a href="#containerSecaoQuatro">Valores</a></li>
+                    <li><a href="/pages/contato.html">Contatos</a></li>
                 </ul>
             </div>
 

@@ -170,8 +170,9 @@ canvas {
 .titulo-secao h2 {
     margin: 0;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: clamp(1rem, 1.6vw, 1.25rem);
-    font-weight: 600;
+    font-size: clamp(19px, 1.7vw, 22px);
+    font-weight: 700;
+    line-height: 1.3;
 }
 
 .titulo-secao small,
@@ -217,35 +218,40 @@ canvas {
 
 .titulo-indicador {
     min-height: 36px;
-    margin: 0;
-    color: var(--gu-texto-suave);
-    font-size: 12px;
-    font-weight: 500;
+    margin: 0 0 12px;
+    color: #e4e6ff;
+    font-size: 15px;
+    font-weight: 600;
     line-height: 1.5;
 }
 
 .valor-indicador {
     display: block;
-    margin: 8px 0;
+    margin: 12px 0 16px;
     color: var(--gu-texto);
     font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: clamp(1.5rem, 2vw, 1.9rem);
+    font-size: clamp(27px, 2.3vw, 32px);
     font-weight: 700;
     letter-spacing: -0.03em;
+    line-height: 1.2;
     overflow-wrap: anywhere;
 }
 
 .detalhes-indicador {
     display: grid;
-    gap: 8px;
-    margin-top: 12px;
+    gap: 7px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--gu-borda-suave);
     color: var(--gu-texto-suave);
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
 }
 
 .detalhes-indicador b {
     color: var(--gu-texto);
+    font-size: 13px;
     font-weight: 600;
 }
 
@@ -288,7 +294,7 @@ canvas {
 .cabecalho-painel h3 {
     margin: 0;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
     line-height: 1.4;
 }
@@ -596,18 +602,23 @@ tbody tr:last-child td {
 }
 
 .painel-recurso .cabecalho-painel h3 {
-    font-size: 17px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .indicadores-recurso {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    min-height: 62px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 12px;
+    width: 100%;
+    min-height: 0;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
 }
 
 .indicadores-recurso > div {
-    flex: 1 1 120px;
+    width: 100%;
     min-width: 0;
 }
 
@@ -616,6 +627,7 @@ tbody tr:last-child td {
     margin-bottom: 8px;
     color: var(--gu-texto-suave);
     font-size: 12px;
+    font-weight: 500;
     line-height: 1.5;
 }
 
@@ -623,8 +635,8 @@ tbody tr:last-child td {
     display: block;
     color: var(--gu-texto);
     font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: 21px;
-    font-weight: 600;
+    font-size: clamp(16px, 1.4vw, 21px);
+    font-weight: 700;
     overflow-wrap: anywhere;
 }
 
@@ -710,6 +722,14 @@ tbody tr:last-child td {
    ================================================== */
 
 @media (max-width: 650px) {
+    .titulo-secao h2 {
+        font-size: 19px;
+    }
+
+    .titulo-indicador {
+        font-size: 14px;
+    }
+
     :root {
         --largura-sidebar: clamp(80px, 60px + 8dvw, 150px);
     }
@@ -768,7 +788,7 @@ tbody tr:last-child td {
     }
 
     .valor-indicador {
-        font-size: 1.7rem;
+        font-size: 27px;
     }
 
     .resumo-recursos {
@@ -787,8 +807,8 @@ tbody tr:last-child td {
         gap: 14px;
     }
 
-    .indicadores-recurso > div {
-        flex-basis: 100px;
+    .indicadores-recurso strong {
+        font-size: 18px;
     }
 
     .seletor-servidor button,
@@ -815,35 +835,4 @@ tbody tr:last-child td {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-}
-
-
-.indicadores-recurso {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    width: 100%;
-    min-height: 0;
-    justify-items: center;
-    align-items: center;
-    text-align: center;
-}
-
-.indicadores-recurso > div {
-    width: 100%;
-    min-width: 0;
-}
-
-.indicadores-recurso span {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--gu-texto-suave);
-    font-size: 12px;
-}
-
-.indicadores-recurso strong {
-    display: block;
-    color: var(--gu-texto);
-    font-size: 21px;
-    font-weight: 600;
 }

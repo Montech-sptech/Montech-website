@@ -143,9 +143,10 @@ select:focus-visible {
 
 .titulo-secao h2 {
     margin: 0;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
 }
 
 .titulo-secao small,
@@ -187,37 +188,41 @@ select:focus-visible {
 }
 
 .titulo-indicador {
-    min-height: 33px;
-    margin: 0;
-    color: var(--gu-texto-suave);
-    font-size: 12px;
-    font-weight: 500;
+    min-height: 44px;
+    margin: 0 0 12px;
+    color: #e4e6ff;
+    font-size: 15px;
+    font-weight: 600;
     line-height: 1.5;
 }
 
 .valor-indicador {
     display: block;
-    margin: 5px 0;
+    margin: 12px 0 16px;
     color: var(--gu-texto);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 29px;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 32px;
     font-weight: 700;
     letter-spacing: -0.03em;
-    line-height: 1.3;
+    line-height: 1.2;
     overflow-wrap: anywhere;
 }
 
 .detalhes-indicador {
     display: grid;
     gap: 7px;
-    margin-top: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--gu-borda-suave);
     color: var(--gu-texto-suave);
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
 }
 
 .detalhes-indicador b {
     color: var(--gu-texto);
+    font-size: 13px;
     font-weight: 600;
 }
 
@@ -260,9 +265,17 @@ select:focus-visible {
 .cabecalho-painel h3 {
     margin: 0;
     color: var(--gu-texto);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 17px;
     font-weight: 600;
+    line-height: 1.4;
+}
+
+.cabecalho-painel small {
+    color: var(--gu-texto-suave);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
 }
 
 /* ==============================
@@ -548,6 +561,25 @@ tbody tr:last-child td {
 
     .area-grafico {
         height: 210px;
+    }
+}
+
+/* Tipografia responsiva para títulos e indicadores */
+@media (max-width: 650px) {
+    .titulo-secao h2 {
+        font-size: 19px;
+    }
+
+    .titulo-indicador {
+        font-size: 14px;
+    }
+
+    .valor-indicador {
+        font-size: 27px;
+    }
+
+    .cabecalho-painel h3 {
+        font-size: 16px;
     }
 }
 

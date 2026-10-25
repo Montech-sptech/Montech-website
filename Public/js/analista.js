@@ -281,7 +281,7 @@ function criarLinhaLimite(
 }
 
 
- // Ignora valores que não representam uma leitura válida
+// Ignora valores que não representam uma leitura válida
 function valoresValidos(valores) {
     return valores.filter(function (valor) {
         return typeof valor === "number" && Number.isFinite(valor);
@@ -317,18 +317,18 @@ function montarResumoRecurso(valores, unidade, limiteAtencao) {
         "Uso atual",
         formatarNumero(valorAtual) + unidade
     )
-    + montarIndicador(
-        "Média em 5 minutos",
-        formatarNumero(media) + unidade
-    )
-    + montarIndicador(
-        "Pico em 5 minutos",
-        formatarNumero(pico) + unidade
-    )
-    + montarIndicador(
-        "Limite de atenção",
-        limite
-    );
+        + montarIndicador(
+            "Média em 5 minutos",
+            formatarNumero(media) + unidade
+        )
+        + montarIndicador(
+            "Pico em 5 minutos",
+            formatarNumero(pico) + unidade
+        )
+        + montarIndicador(
+            "Limite de atenção",
+            limite
+        );
 }
 
 
@@ -351,8 +351,10 @@ function selecionarServidor(siglaServidor, botaoClicado) {
 
     var dadosServidor = dadosServidores[siglaServidor];
 
-    document.getElementById("titulo-cpu").textContent =
-        "CPU do " + siglaServidor;
+    var limiteCpu = siglaServidor === "AIS" ? 90 : null;
+
+    document.getElementById("indicadores-cpu").innerHTML =
+        montarResumoRecurso(dadosServidor.cpu, "%", limiteCpu);
 
     document.getElementById("titulo-ram").textContent =
         "RAM do " + siglaServidor;
@@ -365,7 +367,7 @@ function selecionarServidor(siglaServidor, botaoClicado) {
 
     // Indicadores da CPU
     document.getElementById("indicadores-cpu").innerHTML =
-        montarResumoRecurso(dadosServidor.cpu, "%", null);
+        montarResumoRecurso(dadosServidor.cpu, "%", 90);
 
     // Indicadores da RAM
     document.getElementById("indicadores-ram").innerHTML =
@@ -378,7 +380,7 @@ function selecionarServidor(siglaServidor, botaoClicado) {
     );
 
     document.getElementById("indicadores-swap").innerHTML =
-        montarResumoRecurso(trafegoSwap, " MB/s", null);
+        montarResumoRecurso(trafegoSwap, " MB/s", 1);
 
     // Gráfico da CPU
     criarGrafico("grafico-cpu", "line", horariosColeta, [

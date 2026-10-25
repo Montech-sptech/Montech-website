@@ -173,6 +173,27 @@ function editarUsuario(req, res) {
     });
 }
 
+function excluirUsuario(req, res) {
+  var usuarioId = Number(req.body.usuarioId);
+
+  if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
+    return res.status(400).json({ mensagem: "ID de usuário inválido." });
+  }
+  usuarioModel
+    .excluirUsuario(usuarioId)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao editar o usuário! Erro:",
+        erro.sqlMessage,
+      );
+      res.status(500).json({ mensagem: "Não foi possível editar o usuário." });
+    });
+}
+
 function inativarUsuario(req, res) {
   var usuarioId = req.body.idUsuario;
 
@@ -238,5 +259,6 @@ module.exports = {
   pegarUsuariosPeloAdministrador,
   inativarUsuario,
   ativarUsuario,
-  listarCargos
+  listarCargos,
+  excluirUsuario
 };

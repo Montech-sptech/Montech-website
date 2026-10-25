@@ -275,9 +275,7 @@
       <p id="textoConfirmacaoExclusao"></p>
 
       <div class="containerAcoesModal">
-        <button id="botaoConfirmarExclusao" onclick="confirmarExclusaoUsuario()">
-          EXCLUIR
-        </button>
+        <button id="botaoConfirmarExclusao" onclick="confirmarExclusaoUsuario(document.getElementById('modalExclusao').dataset.id)">EXCLUIR</button>
         <button id="botaoCancelarExclusao" onclick="fecharModalExclusao()">
           CANCELAR
         </button>

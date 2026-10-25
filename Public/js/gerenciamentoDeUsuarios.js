@@ -251,7 +251,7 @@ function montarLinhaUsuario(usuario) {
             <div class="col colAcoes">
                 <div class="acoesLinha">
                     <button class="btnIcone" type="button" title="Editar usuário" aria-label="Editar ${escaparHtml(usuario.nomeUsuario)}" onclick="abrirModalEdicao(${usuario.idUsuario})">${ICONES.editar}</button>
-                    <button class="btnIcone perigo" type="button" title="${ehUsuarioLogado ? "Você não pode excluir a si mesmo" : "Excluir usuário"}" aria-label="Excluir ${escaparHtml(usuario.nomeUsuario)}" ${ehUsuarioLogado ? "disabled" : ""} onclick="abrirModalExclusao(${usuario.idUsuario})">${ICONES.lixeira}</button>
+                    <button class="btnIcone perigo" type="button" data-id="${usuario.idUsuario}" title="${ehUsuarioLogado ? "Você não pode excluir a si mesmo" : "Excluir usuário"}" aria-label="Excluir ${escaparHtml(usuario.nomeUsuario)}" ${ehUsuarioLogado ? "disabled" : ""} onclick="abrirModalExclusao(this.dataset.id)">${ICONES.lixeira}</button>
                 </div>
             </div>
         </div>`;
@@ -353,6 +353,26 @@ function mascararTelefone(valor) {
   return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
 }
 
+// Validadores compartilhados entre cadastro e edição (retornam a mensagem de erro ou "")
+function validarNome(nome) {
+  const { min, max } = LIMITES_CADASTRO.nome;
+  if (nome.length < min || nome.length > max) {
+    return `O nome deve ter entre ${min} e ${max} caracteres.`;
+  }
+  return "";
+}
+
+function validarEmail(email) {
+  const { min, max } = LIMITES_CADASTRO.email;
+  if (email.length < min || email.length > max) {
+    return `O e-mail deve ter entre ${min} e ${max} caracteres.`;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{3,}$/.test(email)) {
+    return "Digite um e-mail válido.";
+  }
+  return "";
+}
+
 // Retorna a mensagem de erro, ou "" quando tudo estiver válido
 function validarCadastroUsuario(d) {
   const obrigatorios = [d.nome, d.cpf, d.email, d.senha, d.status, d.cargo, d.aeroporto];
@@ -373,22 +393,17 @@ function validarCadastroUsuario(d) {
     }
   }
 
-  const { nome, email, senha } = LIMITES_CADASTRO;
+  const { senha } = LIMITES_CADASTRO;
 
-  if (d.nome.length < nome.min || d.nome.length > nome.max) {
-    return `O nome deve ter entre ${nome.min} e ${nome.max} caracteres.`;
-  }
+  const erroNome = validarNome(d.nome);
+  if (erroNome) return erroNome;
 
   if (somenteDigitos(d.cpf).length !== 11) {
     return "O CPF deve ter 11 dígitos.";
   }
 
-  if (d.email.length < email.min || d.email.length > email.max) {
-    return `O e-mail deve ter entre ${email.min} e ${email.max} caracteres.`;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) {
-    return "Digite um e-mail válido.";
-  }
+  const erroEmail = validarEmail(d.email);
+  if (erroEmail) return erroEmail;
 
   // Telefone é opcional, mas se preenchido precisa ter DDD + 8 ou 9 dígitos
   if (d.telefone !== "") {
@@ -442,6 +457,29 @@ function configurarCamposCadastro() {
   });
 
   // Remove espaços sobrando no final ao sair do campo (senha não é alterada)
+  [nome, email].forEach((el) => {
+    el.addEventListener("blur", () => {
+      el.value = el.value.trim();
+    });
+  });
+}
+
+// Mesmas regras de digitação do cadastro, aplicadas aos campos do modal de edição
+function configurarCamposEdicao() {
+  const nome = document.getElementById("inputNomeModal");
+  const email = document.getElementById("inputEmailModal");
+
+  nome.maxLength = LIMITES_CADASTRO.nome.max;
+  email.maxLength = LIMITES_CADASTRO.email.max;
+
+  nome.addEventListener("input", () => {
+    nome.value = nome.value.replace(/^\s+/, "");
+  });
+
+  email.addEventListener("input", () => {
+    email.value = email.value.replace(/\s/g, "");
+  });
+
   [nome, email].forEach((el) => {
     el.addEventListener("blur", () => {
       el.value = el.value.trim();
@@ -581,42 +619,50 @@ function carregarCargos() {
 }
 
 
-let idUsuarioExcluindo = null;
-
 function abrirModalExclusao(idUsuarioClicado) {
-  idUsuarioExcluindo = idUsuarioClicado;
-
+  // O id vem de this.dataset.id (string), então a comparação é feita como texto
   let usuarioSelecionado = null;
   for (let i = 0; i < listaUsuariosGlobais.length; i++) {
-    if (listaUsuariosGlobais[i].idUsuario === idUsuarioClicado) {
+    if (String(listaUsuariosGlobais[i].idUsuario) === String(idUsuarioClicado)) {
       usuarioSelecionado = listaUsuariosGlobais[i];
       break;
     }
   }
   if (!usuarioSelecionado) return;
 
+  const modal = document.getElementById("modalExclusao");
+  // Guarda o id no modal para o botão de confirmar usar
+  modal.dataset.id = idUsuarioClicado;
+
   document.getElementById("textoConfirmacaoExclusao").innerHTML =
     `Tem certeza que deseja excluir <strong>${escaparHtml(usuarioSelecionado.nomeUsuario)}</strong>? Essa ação não pode ser desfeita.`;
 
-  document.getElementById("modalExclusao").classList.remove("escondido");
+  modal.classList.remove("escondido");
 }
 
 function fecharModalExclusao() {
   document.getElementById("modalExclusao").classList.add("escondido");
 }
 
-function confirmarExclusaoUsuario() {
-  const idAdministrador = sessionStorage.ID;
+async function confirmarExclusaoUsuario(idUsuarioClicado) {
+  const modal = document.getElementById("modalExclusao");
+  const idUsuarioExcluido = idUsuarioClicado ?? modal.dataset.id;
 
-  fetch(`/usuarios/excluirUsuario/${idAdministrador}`, {
+  if (!idUsuarioExcluido) {
+    alert("Não foi possível identificar o usuário a ser excluído.");
+    return;
+  }
+
+  await fetch(`/usuarios/excluirUsuario`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ idUsuario: idUsuarioExcluindo }),
+    body: JSON.stringify({ usuarioId: idUsuarioExcluido }),
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Erro ${response.status} ao excluir usuário`);
       }
+      delete modal.dataset.id;
       fecharModalExclusao();
       pegarUsuariosPeloAdministrador();
     })
@@ -648,6 +694,7 @@ let idUsuarioEditando = null;
 
 function abrirModalEdicao(idUsuarioClicado) {
   idUsuarioEditando = idUsuarioClicado;
+  document.getElementById("mensagemEditarUser").textContent = "";
 
   let usuarioSelecionado = {};
 
@@ -739,18 +786,35 @@ function salvarEdicaoUsuario() {
 
   let requisicoesPendentes = [];
 
-  const novoNome = document.getElementById("inputNomeModal").value.trim();
-  const novoEmail = document.getElementById("inputEmailModal").value.trim();
+  const novoNome = document.getElementById("inputNomeModal").value;
+  const novoEmail = document.getElementById("inputEmailModal").value;
   const novoStatus = document.getElementById("selectStatusModal").value;
 
-  if (!novoNome) {
-    mensagemEditar.textContent = "Informe o nome do usuário.";
+  if (novoNome.trim() === "" || novoEmail.trim() === "" || novoStatus === "") {
+    mensagemEditar.textContent = "Preencha todos os campos obrigatórios.";
     return;
   }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novoEmail)) {
-    mensagemEditar.textContent = "Informe um e-mail válido.";
-    return
+  if (novoNome !== novoNome.trim()) {
+    mensagemEditar.textContent = "Nome não pode começar nem terminar com espaços.";
+    return;
+  }
+
+  if (novoEmail !== novoEmail.trim()) {
+    mensagemEditar.textContent = "E-mail não pode começar nem terminar com espaços.";
+    return;
+  }
+
+  const erroNome = validarNome(novoNome);
+  if (erroNome) {
+    mensagemEditar.textContent = erroNome;
+    return;
+  }
+
+  const erroEmail = validarEmail(novoEmail);
+  if (erroEmail) {
+    mensagemEditar.textContent = erroEmail;
+    return;
   }
 
   requisicoesPendentes.push(
@@ -879,6 +943,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("cancelarCadastroUser")
     .addEventListener("click", fecharCadastroUser);
   configurarCamposCadastro();
+  configurarCamposEdicao();
   formCadastroUser.addEventListener("submit", (evento) => {
     evento.preventDefault();
     cadastrarUsuario();

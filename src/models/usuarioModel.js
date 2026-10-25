@@ -148,6 +148,21 @@ function listarCargosPorEmpresa(empresaId) {
   return database.executar(instrucaoSql);
 }
 
+function excluirUsuario(idUsuario) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function encontrarPorId():",
+    idUsuario,
+  );
+
+  var instrucaoSql = `
+        DELETE
+        FROM usuario 
+        WHERE idUsuario = ${idUsuario};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
   autenticar,
@@ -157,5 +172,6 @@ module.exports = {
   editarUsuario,
   ativarUsuario,
   inativarUsuario,
-  listarCargosPorEmpresa
+  listarCargosPorEmpresa,
+  excluirUsuario
 };

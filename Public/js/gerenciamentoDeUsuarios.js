@@ -1,5 +1,17 @@
 const USUARIOS_POR_PAGINA = 8;
 
+// Limites usados nas validações (ajuste aqui se o banco/regra for diferente)
+const NOME_MIN = 3;
+const NOME_MAX = 100;
+const EMAIL_MAX = 100;
+const SENHA_MIN = 8;
+const SENHA_MAX = 64;
+const BUSCA_MAX = 100;
+const CAMPOS_ORDENAVEIS = ["nome", "email", "cargo", "status"];
+const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Termina em .com ou .com.xx (ex.: .com, .com.br)
+const REGEX_DOMINIO_COM = /\.com(\.[a-z]{2})?$/i;
+
 let listaUsuariosGlobais = [];
 let usuariosFiltrados = [];
 let termoBusca = "";
@@ -63,6 +75,8 @@ function iniciais(nome) {
 }
 
 function normalizarUsuario(u) {
+  if (!u || typeof u !== "object") return null;
+
   const statusBruto = u.status !== undefined ? u.status : u.statusAtividade;
 
   return {
@@ -75,21 +89,27 @@ function normalizarUsuario(u) {
       statusBruto === 0 ||
       statusBruto === "0"
     ),
-    servidores: u.servidores || [],
+    servidores: Array.isArray(u.servidores) ? u.servidores : [],
   };
 }
 
 function pegarUsuariosPeloAdministrador() {
-  if (!document.getElementById("listaUsuarios")) {
+  const listaUsuarios = document.getElementById("listaUsuarios");
+  if (!listaUsuarios) {
     console.error(
       "gerenciamentoDeUsuarios.html está desatualizado: falta o elemento #listaUsuarios. Substitua o HTML pela versão nova e recarregue com Ctrl+F5.",
     );
     return;
   }
 
-  let idUsuario = sessionStorage.ID;
+  const idUsuario = sessionStorage.ID;
+  if (!idUsuario) {
+    console.error("ID do administrador não encontrado na sessão.");
+    listaUsuarios.innerHTML = `<div class="estadoVazio">Sessão não encontrada. Faça login novamente.</div>`;
+    return;
+  }
 
-  fetch(`/usuarios/pegarUsuariosPeloAdministrador/${idUsuario}`, {
+  fetch(`/usuarios/pegarUsuariosPeloAdministrador/${encodeURIComponent(idUsuario)}`, {
     method: "GET",
   })
     .then((response) => {
@@ -102,17 +122,20 @@ function pegarUsuariosPeloAdministrador() {
       console.log(data);
 
       listaUsuariosGlobais = Array.isArray(data)
-        ? data.map(normalizarUsuario)
+        ? data.map(normalizarUsuario).filter(Boolean)
         : [];
 
       atualizarTabela();
     })
     .catch((error) => {
       console.error("Error:", error);
-      document.getElementById("listaUsuarios").innerHTML =
+      listaUsuarios.innerHTML =
         `<div class="estadoVazio">Não foi possível carregar os usuários.</div>`;
-      document.getElementById("infoPaginacao").textContent = "";
-      document.getElementById("paginacao").innerHTML = "";
+
+      const info = document.getElementById("infoPaginacao");
+      const paginacao = document.getElementById("paginacao");
+      if (info) info.textContent = "";
+      if (paginacao) paginacao.innerHTML = "";
     });
 }
 
@@ -165,12 +188,14 @@ function atualizarTabela() {
 }
 
 function buscarUsuarios(valor) {
-  termoBusca = valor;
+  termoBusca = String(valor ?? "").slice(0, BUSCA_MAX);
   paginaAtual = 1;
   atualizarTabela();
 }
 
 function ordenarUsuarios(campo) {
+  if (!CAMPOS_ORDENAVEIS.includes(campo)) return;
+
   if (campoOrdenacao == campo) {
     direcaoOrdenacao = direcaoOrdenacao == "asc" ? "desc" : "asc";
   } else {
@@ -183,11 +208,22 @@ function ordenarUsuarios(campo) {
 }
 
 function irParaPagina(pagina) {
-  paginaAtual = pagina;
+  const numero = Number(pagina);
+  if (!Number.isInteger(numero)) return;
+
+  const totalPaginas = Math.max(
+    1,
+    Math.ceil(usuariosFiltrados.length / USUARIOS_POR_PAGINA),
+  );
+  if (numero < 1 || numero > totalPaginas) return;
+
+  paginaAtual = numero;
   renderizarTabela();
 }
 
 function gerarListaPaginas(atual, total) {
+  if (!Number.isInteger(total) || total < 1) return [];
+
   if (total <= 5) {
     return Array.from({ length: total }, (_, i) => i + 1);
   }
@@ -227,6 +263,7 @@ function montarLinhaUsuario(usuario) {
 
   const ehUsuarioLogado =
     String(usuario.idUsuario) === String(sessionStorage.ID);
+  const idSeguro = Number(usuario.idUsuario);
 
   return `
         <div class="linhaUsuario">
@@ -250,8 +287,8 @@ function montarLinhaUsuario(usuario) {
             </div>
             <div class="col colAcoes">
                 <div class="acoesLinha">
-                    <button class="btnIcone" type="button" title="Editar usuário" aria-label="Editar ${escaparHtml(usuario.nomeUsuario)}" onclick="abrirModalEdicao(${usuario.idUsuario})">${ICONES.editar}</button>
-                    <button class="btnIcone perigo" type="button" title="${ehUsuarioLogado ? "Você não pode excluir a si mesmo" : "Excluir usuário"}" aria-label="Excluir ${escaparHtml(usuario.nomeUsuario)}" ${ehUsuarioLogado ? "disabled" : ""} onclick="abrirModalExclusao(${usuario.idUsuario})">${ICONES.lixeira}</button>
+                    <button class="btnIcone" type="button" title="Editar usuário" aria-label="Editar ${escaparHtml(usuario.nomeUsuario)}" onclick="abrirModalEdicao(${idSeguro})">${ICONES.editar}</button>
+                    <button class="btnIcone perigo" type="button" title="${ehUsuarioLogado ? "Você não pode excluir a si mesmo" : "Excluir usuário"}" aria-label="Excluir ${escaparHtml(usuario.nomeUsuario)}" ${ehUsuarioLogado ? "disabled" : ""} onclick="abrirModalExclusao(${idSeguro})">${ICONES.lixeira}</button>
                 </div>
             </div>
         </div>`;
@@ -319,27 +356,190 @@ function renderizarTabela() {
 /**/
 
 function abrirModalNovoUsuario() {
-  document.getElementById("telaCadastroUser").classList.remove("escondido");
+  const tela = document.getElementById("telaCadastroUser");
+  if (!tela) return;
+
+  const mensagemCadastro = document.getElementById("mensagemCadastroUser");
+  if (mensagemCadastro) mensagemCadastro.textContent = "";
+
+  tela.classList.remove("escondido");
   carregarAeroportoDoAdministrador();
   carregarCargos();
 }
 
-function cadastrarUsuario(){
-  const mensagemCadastro = document.getElementById("mensagemCadastroUser");
-  mensagemCadastro.textContent = "";
-  let nome = document.getElementById("nomeCadastroUser").value;
-  let cpf = document.getElementById("cpfCadastroUser").value;
-  let email = document.getElementById("emailCadastroUser").value;
-  let telefone = document.getElementById("telefoneCadastroUser").value;
-  let senha = document.getElementById("senhaCadastroUser").value;
-  let status = document.getElementById("statusCadastroUser").value;
-  let cargo = document.getElementById("cargoCadastroUser").value;
-  let aeroporto = document.getElementById("aeroportoCadastroUser").value;
 
-  if (nome == "" || cpf == "" || email == "" || senha == "" || status == "" || cargo == "" || aeroporto == "") {
-    mensagemCadastro.textContent = "Preencha todos os campos obrigatórios.";
-    return
+/* ===== Validações e máscaras compartilhadas ===== */
+
+function somenteDigitos(texto) {
+  return String(texto ?? "").replace(/\D/g, "");
+}
+
+// 000.000.000-00
+function mascararCpf(valor) {
+  const d = somenteDigitos(valor).slice(0, 11);
+  let r = d.slice(0, 3);
+  if (d.length > 3) r += "." + d.slice(3, 6);
+  if (d.length > 6) r += "." + d.slice(6, 9);
+  if (d.length > 9) r += "-" + d.slice(9, 11);
+  return r;
+}
+
+// (00) 0000-0000 ou (00) 00000-0000
+function mascararTelefone(valor) {
+  const d = somenteDigitos(valor).slice(0, 11);
+  if (d.length === 0) return "";
+  if (d.length < 3) return `(${d}`;
+
+  const ddd = d.slice(0, 2);
+  const resto = d.slice(2);
+
+  if (resto.length <= 4) return `(${ddd}) ${resto}`;
+  if (d.length <= 10) return `(${ddd}) ${resto.slice(0, 4)}-${resto.slice(4)}`;
+  return `(${ddd}) ${resto.slice(0, 5)}-${resto.slice(5)}`;
+}
+
+function aplicarMascaraCampo(idCampo, funcaoMascara, tamanhoMaximo, tipoTeclado) {
+  const campo = document.getElementById(idCampo);
+  if (!campo) return;
+
+  campo.maxLength = tamanhoMaximo;
+  campo.inputMode = tipoTeclado;
+  campo.value = funcaoMascara(campo.value);
+
+  campo.addEventListener("input", () => {
+    const mascarado = funcaoMascara(campo.value);
+    if (campo.value !== mascarado) campo.value = mascarado;
+  });
+}
+
+// Cada validador retorna a mensagem de erro ou null se estiver válido
+
+function validarNomeUsuario(nome) {
+  if (nome.length === 0) {
+    return "O nome não pode estar vazio nem conter apenas espaços em branco.";
   }
+  if (nome.length < NOME_MIN) {
+    return `O nome deve ter no mínimo ${NOME_MIN} caracteres.`;
+  }
+  if (nome.length > NOME_MAX) {
+    return `O nome deve ter no máximo ${NOME_MAX} caracteres.`;
+  }
+  return null;
+}
+
+function validarCpfUsuario(cpf) {
+  if (cpf.length === 0) return "O CPF não pode estar vazio.";
+  if (cpf.length !== 11) return "O CPF deve ter 11 dígitos.";
+  return null;
+}
+
+function validarEmailUsuario(email) {
+  if (email.length === 0) return "O email não pode estar vazio.";
+  if (email.length > EMAIL_MAX) {
+    return `O email deve ter no máximo ${EMAIL_MAX} caracteres.`;
+  }
+  if (!email.includes("@")) return "O email deve conter o @.";
+  if (email.split("@").length !== 2 || !REGEX_EMAIL.test(email)) {
+    return "Informe um email válido.";
+  }
+  if (!REGEX_DOMINIO_COM.test(email)) {
+    return "O email deve terminar com .com (ex.: usuario@dominio.com).";
+  }
+  return null;
+}
+
+// Telefone é opcional: só valida se foi preenchido
+function validarTelefoneUsuario(telefone) {
+  if (telefone.length === 0) return null;
+  if (telefone.length !== 10 && telefone.length !== 11) {
+    return "O telefone deve ter 10 ou 11 dígitos (com DDD).";
+  }
+  const ddd = Number(telefone.slice(0, 2));
+  if (ddd < 11 || ddd > 99) return "DDD do telefone inválido.";
+  if (telefone.length === 11 && telefone[2] !== "9") {
+    return "Celular deve começar com 9 após o DDD.";
+  }
+  return null;
+}
+
+// A senha não recebe trim: espaços no meio ou nas pontas fazem parte dela
+function validarSenhaUsuario(senha) {
+  if (senha.trim().length === 0) return "A senha não pode estar vazia.";
+  if (senha.length < SENHA_MIN) {
+    return `A senha deve ter no mínimo ${SENHA_MIN} caracteres.`;
+  }
+  if (senha.length > SENHA_MAX) {
+    return `A senha deve ter no máximo ${SENHA_MAX} caracteres.`;
+  }
+  return null;
+}
+
+// Garante que o valor de um <select> é uma das opções reais dele (e não o placeholder vazio)
+function valorEstaNasOpcoes(select) {
+  if (!select || select.value === "") return false;
+  return Array.from(select.options).some((opcao) => opcao.value === select.value);
+}
+
+
+function cadastrarUsuario() {
+  const mensagemCadastro = document.getElementById("mensagemCadastroUser");
+  const formCadastro = document.getElementById("formCadastroUser");
+  const botaoEnviar = formCadastro
+    ? formCadastro.querySelector('[type="submit"]')
+    : null;
+
+  if (!mensagemCadastro || !formCadastro) {
+    console.error("Formulário de cadastro não encontrado no HTML.");
+    return;
+  }
+  mensagemCadastro.textContent = "";
+
+  const inputNome = document.getElementById("nomeCadastroUser");
+  const inputCpf = document.getElementById("cpfCadastroUser");
+  const inputEmail = document.getElementById("emailCadastroUser");
+  const inputTelefone = document.getElementById("telefoneCadastroUser");
+  const inputSenha = document.getElementById("senhaCadastroUser");
+  const selectStatus = document.getElementById("statusCadastroUser");
+  const selectCargo = document.getElementById("cargoCadastroUser");
+  const selectAeroporto = document.getElementById("aeroportoCadastroUser");
+
+  // Remove espaços antes e depois e já reflete isso nos campos
+  const nome = inputNome.value.trim();
+  inputNome.value = nome;
+  const email = inputEmail.value.trim();
+  inputEmail.value = email;
+
+  // CPF e telefone seguem para o backend só com dígitos
+  inputCpf.value = mascararCpf(inputCpf.value);
+  inputTelefone.value = mascararTelefone(inputTelefone.value);
+  const cpf = somenteDigitos(inputCpf.value);
+  const telefone = somenteDigitos(inputTelefone.value);
+
+  const senha = inputSenha.value;
+  const status = selectStatus.value;
+  const cargo = selectCargo.value;
+  const aeroporto = selectAeroporto.value;
+
+  const erro =
+    validarNomeUsuario(nome) ||
+    validarCpfUsuario(cpf) ||
+    validarEmailUsuario(email) ||
+    validarTelefoneUsuario(telefone) ||
+    validarSenhaUsuario(senha) ||
+    (!valorEstaNasOpcoes(selectStatus) ? "Selecione um status válido." : null) ||
+    (!valorEstaNasOpcoes(selectCargo) ? "Selecione um cargo válido." : null) ||
+    // O aeroporto é travado (select desabilitado) e deve ser sempre o do administrador
+    (aeroporto === "" ||
+    String(aeroporto) !== String(sessionStorage.getItem("AEROPORTO_ID"))
+      ? "Aeroporto inválido. Recarregue a página e tente novamente."
+      : null);
+
+  if (erro) {
+    mensagemCadastro.textContent = erro;
+    return;
+  }
+
+  if (botaoEnviar) botaoEnviar.disabled = true;
 
   fetch("/usuarios/cadastrar", {
     method: "POST",
@@ -358,35 +558,34 @@ function cadastrarUsuario(){
     }),
   })
     .then(async (resposta) => {
-  if (!resposta.ok) {
-    const erro = await resposta.text();
+      if (!resposta.ok) {
+        const erroServidor = await resposta.text();
 
-    throw new Error(
-      erro || "Não foi possível cadastrar o usuário."
-    );
-  }
+        throw new Error(erroServidor || "Não foi possível cadastrar o usuário.");
+      }
 
-  return resposta.json();
-})
-.then(() => {
-  mensagemCadastro.textContent = "Usuário cadastrado com sucesso.";
+      return resposta.json();
+    })
+    .then(() => {
+      mensagemCadastro.textContent = "Usuário cadastrado com sucesso.";
 
-  pegarUsuariosPeloAdministrador();
+      pegarUsuariosPeloAdministrador();
 
-  document.getElementById("formCadastroUser").reset();
+      formCadastro.reset();
 
-  setTimeout(() => {
-    document.getElementById("telaCadastroUser")
-      .classList.add("escondido");
-    mensagemCadastro.textContent = "";
-  }, 1000);
-})
+      setTimeout(() => {
+        document.getElementById("telaCadastroUser").classList.add("escondido");
+        mensagemCadastro.textContent = "";
+      }, 1000);
+    })
     .catch((erro) => {
       console.error("Erro ao cadastrar usuário:", erro);
 
       mensagemCadastro.textContent = erro.message;
+    })
+    .finally(() => {
+      if (botaoEnviar) botaoEnviar.disabled = false;
     });
-
 }
 
 
@@ -421,7 +620,12 @@ function carregarCargos() {
 
     var selectCargo = document.getElementById("cargoCadastroUser");
 
-    fetch(`/usuarios/cargos?empresaId=${empresaId}`)
+    if (!selectCargo) {
+        console.error("Campo de cargo não encontrado no HTML.");
+        return;
+    }
+
+    fetch(`/usuarios/cargos?empresaId=${encodeURIComponent(empresaId)}`)
         .then(function (resposta) {
             if (!resposta.ok) {
                 throw new Error("Erro ao buscar cargos.");
@@ -432,9 +636,15 @@ function carregarCargos() {
         .then(function (cargos) {
             console.log("Cargos recebidos:", cargos);
 
+            if (!Array.isArray(cargos)) {
+                throw new Error("Resposta de cargos em formato inesperado.");
+            }
+
             selectCargo.innerHTML = '<option value="">Selecione o cargo</option>';
 
             cargos.forEach(function (cargo) {
+                if (!cargo || cargo.idCargo === undefined) return;
+
                 var opcao = document.createElement("option");
 
                 opcao.value = cargo.idCargo;
@@ -452,31 +662,56 @@ function carregarCargos() {
 let idUsuarioExcluindo = null;
 
 function abrirModalExclusao(idUsuarioClicado) {
-  idUsuarioExcluindo = idUsuarioClicado;
+  if (idUsuarioClicado === undefined || idUsuarioClicado === null) return;
 
-  let usuarioSelecionado = null;
-  for (let i = 0; i < listaUsuariosGlobais.length; i++) {
-    if (listaUsuariosGlobais[i].idUsuario === idUsuarioClicado) {
-      usuarioSelecionado = listaUsuariosGlobais[i];
-      break;
-    }
-  }
+  // Ninguém exclui a si mesmo (o botão já vem desabilitado, aqui é a garantia)
+  if (String(idUsuarioClicado) === String(sessionStorage.ID)) return;
+
+  const usuarioSelecionado = listaUsuariosGlobais.find(
+    (u) => String(u.idUsuario) === String(idUsuarioClicado),
+  );
   if (!usuarioSelecionado) return;
 
-  document.getElementById("textoConfirmacaoExclusao").innerHTML =
+  const texto = document.getElementById("textoConfirmacaoExclusao");
+  const modal = document.getElementById("modalExclusao");
+  if (!texto || !modal) return;
+
+  idUsuarioExcluindo = usuarioSelecionado.idUsuario;
+
+  texto.innerHTML =
     `Tem certeza que deseja excluir <strong>${escaparHtml(usuarioSelecionado.nomeUsuario)}</strong>? Essa ação não pode ser desfeita.`;
 
-  document.getElementById("modalExclusao").classList.remove("escondido");
+  modal.classList.remove("escondido");
 }
 
 function fecharModalExclusao() {
-  document.getElementById("modalExclusao").classList.add("escondido");
+  const modal = document.getElementById("modalExclusao");
+  if (modal) modal.classList.add("escondido");
 }
 
+let excluindoUsuario = false;
+
 function confirmarExclusaoUsuario() {
+  if (excluindoUsuario) return;
+
   const idAdministrador = sessionStorage.ID;
 
-  fetch(`/usuarios/excluirUsuario/${idAdministrador}`, {
+  if (!idAdministrador) {
+    alert("Sessão não encontrada. Faça login novamente.");
+    return;
+  }
+  if (idUsuarioExcluindo === null || idUsuarioExcluindo === undefined) {
+    alert("Nenhum usuário selecionado para exclusão.");
+    return;
+  }
+  if (String(idUsuarioExcluindo) === String(idAdministrador)) {
+    alert("Você não pode excluir a si mesmo.");
+    return;
+  }
+
+  excluindoUsuario = true;
+
+  fetch(`/usuarios/excluirUsuario/${encodeURIComponent(idAdministrador)}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ idUsuario: idUsuarioExcluindo }),
@@ -485,26 +720,40 @@ function confirmarExclusaoUsuario() {
       if (!response.ok) {
         throw new Error(`Erro ${response.status} ao excluir usuário`);
       }
+      idUsuarioExcluindo = null;
       fecharModalExclusao();
       pegarUsuariosPeloAdministrador();
     })
     .catch((erro) => {
       console.error("Erro ao excluir usuário:", erro);
       alert("Não foi possível excluir o usuário.");
+    })
+    .finally(() => {
+      excluindoUsuario = false;
     });
 }
 
 let servidoresDisponiveis = [];
 
 function carregarServidoresDoAeroporto() {
-  let idAdministrador = sessionStorage.ID;
+  const idAdministrador = sessionStorage.ID;
 
-  fetch(`/servidores/pegarServidoresPorAeroporto/${idAdministrador}`, {
+  if (!idAdministrador) {
+    console.error("ID do administrador não encontrado na sessão.");
+    return;
+  }
+
+  fetch(`/servidores/pegarServidoresPorAeroporto/${encodeURIComponent(idAdministrador)}`, {
     method: "GET",
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status} ao buscar servidores`);
+      }
+      return response.json();
+    })
     .then((data) => {
-      servidoresDisponiveis = data;
+      servidoresDisponiveis = Array.isArray(data) ? data : [];
       console.log("Servidores carregados:", servidoresDisponiveis);
     })
     .catch((error) => {
@@ -515,67 +764,69 @@ function carregarServidoresDoAeroporto() {
 let idUsuarioEditando = null;
 
 function abrirModalEdicao(idUsuarioClicado) {
-  idUsuarioEditando = idUsuarioClicado;
+  const usuarioSelecionado = listaUsuariosGlobais.find(
+    (u) => String(u.idUsuario) === String(idUsuarioClicado),
+  );
 
-  let usuarioSelecionado = {};
-
-  for (let i = 0; i < listaUsuariosGlobais.length; i++) {
-    if (listaUsuariosGlobais[i].idUsuario === idUsuarioClicado) {
-      usuarioSelecionado = listaUsuariosGlobais[i];
-      break;
-    }
+  if (!usuarioSelecionado) {
+    alert("Não foi possível encontrar o usuário selecionado.");
+    return;
   }
 
-  inputNomeModal.value = usuarioSelecionado.nomeUsuario;
-  inputEmailModal.value = usuarioSelecionado.email;
+  const campoNome = document.getElementById("inputNomeModal");
+  const campoEmail = document.getElementById("inputEmailModal");
+  const selectStatus = document.getElementById("selectStatusModal");
+  const containerServidores = document.querySelector(".gridServidoresModal");
+  const modal = document.getElementById("modalEdicao");
 
-  if (usuarioSelecionado.status == false) {
-    document.getElementById("selectStatusModal").value = "inativo";
-  } else {
-    document.getElementById("selectStatusModal").value = "ativo";
+  if (!campoNome || !campoEmail || !selectStatus || !containerServidores || !modal) {
+    console.error("Elementos do modal de edição não encontrados no HTML.");
+    return;
   }
 
-  let idsServidoresUsuario = [];
-  for (let i = 0; i < usuarioSelecionado.servidores.length; i++) {
-    idsServidoresUsuario.push(usuarioSelecionado.servidores[i].idServidor);
-  }
+  idUsuarioEditando = usuarioSelecionado.idUsuario;
 
-  let containerServidores = document.querySelector(".gridServidoresModal");
+  campoNome.value = usuarioSelecionado.nomeUsuario;
+  campoEmail.value = usuarioSelecionado.email;
+  selectStatus.value = usuarioSelecionado.status === false ? "inativo" : "ativo";
+
+  const idsServidoresUsuario = usuarioSelecionado.servidores.map((s) =>
+    String(s.idServidor),
+  );
+
+  const lista = Array.isArray(servidoresDisponiveis) ? servidoresDisponiveis : [];
   let htmlCheckboxes = "";
 
-  for (let i = 0; i < servidoresDisponiveis.length; i++) {
-    let servidor = servidoresDisponiveis[i];
+  for (let i = 0; i < lista.length; i++) {
+    const servidor = lista[i];
+    if (!servidor) continue;
 
-    let estaMarcado = "";
-    let classeAtiva = "";
-
-    for (let j = 0; j < idsServidoresUsuario.length; j++) {
-      if (idsServidoresUsuario[j] === servidor.idServidor) {
-        estaMarcado = "checked";
-        classeAtiva = "ativo";
-        break;
-      }
-    }
+    const marcado = idsServidoresUsuario.includes(String(servidor.idServidor));
+    const estaMarcado = marcado ? "checked" : "";
+    const classeAtiva = marcado ? "ativo" : "";
 
     htmlCheckboxes += `
             <label class="checkboxServidor ${classeAtiva}">
-                <input type="checkbox" value="${servidor.idServidor}" class="inputServidorCheckbox" ${estaMarcado} onchange="alternarVisualCheckbox(this)">
-                <span class="nomeServidorModal">${servidor.nomeServidor}</span>
+                <input type="checkbox" value="${escaparHtml(servidor.idServidor)}" class="inputServidorCheckbox" ${estaMarcado} onchange="alternarVisualCheckbox(this)">
+                <span class="nomeServidorModal">${escaparHtml(servidor.nomeServidor)}</span>
             </label>
         `;
   }
 
   containerServidores.innerHTML = htmlCheckboxes;
 
-  document.getElementById("modalEdicao").classList.remove("escondido");
+  modal.classList.remove("escondido");
 }
 
 function fecharModalEdicao() {
-  modalEdicao.classList.add("escondido");
+  const modal = document.getElementById("modalEdicao");
+  if (modal) modal.classList.add("escondido");
 }
 
 function alternarVisualCheckbox(input) {
-  let labelPai = input.parentElement;
+  if (!input || !input.parentElement) return;
+
+  const labelPai = input.parentElement;
 
   if (input.checked) {
     labelPai.classList.add("ativo");
@@ -584,37 +835,98 @@ function alternarVisualCheckbox(input) {
   }
 }
 
+let salvandoEdicao = false;
+
 function salvarEdicaoUsuario() {
+  if (salvandoEdicao) return;
+
   const idAdministrador = sessionStorage.ID;
 
-  let usuarioOriginal = null;
-  for (let i = 0; i < listaUsuariosGlobais.length; i++) {
-    if (
-      String(listaUsuariosGlobais[i].idUsuario) === String(idUsuarioEditando)
-    ) {
-      usuarioOriginal = listaUsuariosGlobais[i];
-      break;
-    }
+  if (!idAdministrador) {
+    alert("Sessão não encontrada. Faça login novamente.");
+    return;
   }
+  if (idUsuarioEditando === null || idUsuarioEditando === undefined) {
+    alert("Nenhum usuário selecionado para edição.");
+    return;
+  }
+
+  const usuarioOriginal = listaUsuariosGlobais.find(
+    (u) => String(u.idUsuario) === String(idUsuarioEditando),
+  );
 
   if (!usuarioOriginal) {
     alert("Não foi possível encontrar o usuário selecionado.");
     return;
   }
 
-  let requisicoesPendentes = [];
+  const campoNome = document.getElementById("inputNomeModal");
+  const campoEmail = document.getElementById("inputEmailModal");
+  const selectStatus = document.getElementById("selectStatusModal");
 
-  const novoNome = document.getElementById("inputNomeModal").value.trim();
-  const novoEmail = document.getElementById("inputEmailModal").value.trim();
-  const novoStatus = document.getElementById("selectStatusModal").value;
-
-  if (!novoNome || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novoEmail)) {
-    alert("Informe um nome e um email válidos.");
+  if (!campoNome || !campoEmail || !selectStatus) {
+    console.error("Elementos do modal de edição não encontrados no HTML.");
     return;
   }
 
+  // Remove espaços antes e depois e já reflete isso nos campos
+  const novoNome = campoNome.value.trim();
+  campoNome.value = novoNome;
+  const novoEmail = campoEmail.value.trim();
+  campoEmail.value = novoEmail;
+  const novoStatus = selectStatus.value;
+
+  const erro =
+    validarNomeUsuario(novoNome) ||
+    validarEmailUsuario(novoEmail) ||
+    (novoStatus !== "ativo" && novoStatus !== "inativo"
+      ? "O status deve ser ativo ou inativo."
+      : null) ||
+    (String(usuarioOriginal.idUsuario) === String(idAdministrador) &&
+    novoStatus === "inativo"
+      ? "Você não pode desativar a sua própria conta."
+      : null);
+
+  if (erro) {
+    alert(erro);
+    return;
+  }
+
+  const servidoresSelecionados = Array.from(
+    document.querySelectorAll(".inputServidorCheckbox"),
+  )
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => Number(checkbox.value));
+
+  // Só podem ser vinculados servidores do aeroporto do administrador
+  const idsPermitidos = (Array.isArray(servidoresDisponiveis) ? servidoresDisponiveis : [])
+    .map((servidor) => Number(servidor.idServidor));
+
+  const servidorInvalido = servidoresSelecionados.some(
+    (id) => !Number.isInteger(id) || !idsPermitidos.includes(id),
+  );
+  if (servidorInvalido) {
+    alert("Há servidores inválidos selecionados. Recarregue a página e tente novamente.");
+    return;
+  }
+
+  const servidoresOriginais = usuarioOriginal.servidores.map((s) =>
+    Number(s.idServidor),
+  );
+
+  const servidoresParaAdicionar = servidoresSelecionados.filter(
+    (id) => !servidoresOriginais.includes(id),
+  );
+  const servidoresParaRemover = servidoresOriginais.filter(
+    (id) => !servidoresSelecionados.includes(id),
+  );
+
+  salvandoEdicao = true;
+
+  const requisicoesPendentes = [];
+
   requisicoesPendentes.push(
-    fetch(`/usuarios/editarUsuario/${idUsuarioEditando}`, {
+    fetch(`/usuarios/editarUsuario/${encodeURIComponent(idUsuarioEditando)}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -625,119 +937,73 @@ function salvarEdicaoUsuario() {
     }),
   );
 
-  const checkboxes = document.querySelectorAll(".inputServidorCheckbox");
-
-  let servidoresSelecionados = [];
-  for (let i = 0; i < checkboxes.length; i++) {
-    if (checkboxes[i].checked) {
-      servidoresSelecionados.push(Number(checkboxes[i].value));
-    }
-  }
-
-  let servidoresOriginais = [];
-  for (let i = 0; i < usuarioOriginal.servidores.length; i++) {
-    servidoresOriginais.push(usuarioOriginal.servidores[i].idServidor);
-  }
-
-  let servidoresParaAdicionar = [];
-  for (let i = 0; i < servidoresSelecionados.length; i++) {
-    let idSelecionado = servidoresSelecionados[i];
-    let encontrado = false;
-    for (let j = 0; j < servidoresOriginais.length; j++) {
-      if (servidoresOriginais[j] === idSelecionado) {
-        encontrado = true;
-        break;
-      }
-    }
-    if (!encontrado) {
-      servidoresParaAdicionar.push(idSelecionado);
-    }
-  }
-
-  let servidoresParaRemover = [];
-  for (let i = 0; i < servidoresOriginais.length; i++) {
-    let idOriginal = servidoresOriginais[i];
-    let encontrado = false;
-    for (let j = 0; j < servidoresSelecionados.length; j++) {
-      if (servidoresSelecionados[j] === idOriginal) {
-        encontrado = true;
-        break;
-      }
-    }
-    if (!encontrado) {
-      servidoresParaRemover.push(idOriginal);
-    }
-  }
-
   for (let i = 0; i < servidoresParaAdicionar.length; i++) {
-    let idServidor = servidoresParaAdicionar[i];
-    const reqAdd = fetch(
-      `/servidores/adicionarServidoresUsuario/${idAdministrador}`,
-      {
+    requisicoesPendentes.push(
+      fetch(`/servidores/adicionarServidoresUsuario/${encodeURIComponent(idAdministrador)}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           idUsuario: idUsuarioEditando,
-          idServidor: idServidor,
+          idServidor: servidoresParaAdicionar[i],
         }),
-      },
+      }),
     );
-    requisicoesPendentes.push(reqAdd);
   }
 
   for (let i = 0; i < servidoresParaRemover.length; i++) {
-    let idServidor = servidoresParaRemover[i];
-    const reqRem = fetch(
-      `/servidores/removerServidorUsuario/${idAdministrador}`,
-      {
+    requisicoesPendentes.push(
+      fetch(`/servidores/removerServidorUsuario/${encodeURIComponent(idAdministrador)}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           idUsuario: idUsuarioEditando,
-          idServidor: idServidor,
+          idServidor: servidoresParaRemover[i],
         }),
-      },
+      }),
     );
-    requisicoesPendentes.push(reqRem);
   }
 
-  if (requisicoesPendentes.length > 0) {
-    Promise.all(requisicoesPendentes)
-      .then((respostas) => {
-        const respostaComErro = respostas.find((resposta) => !resposta.ok);
-        if (respostaComErro) {
-          throw new Error(
-            `Erro ${respostaComErro.status} ao salvar alterações`,
-          );
-        }
-        fecharModalEdicao();
-        pegarUsuariosPeloAdministrador();
-      })
-      .catch((erro) => {
-        console.error("Erro ao salvar edições:", erro);
-        alert("Houve um erro ao processar as alterações.");
-      });
-  } else {
-    fecharModalEdicao();
-  }
+  Promise.all(requisicoesPendentes)
+    .then((respostas) => {
+      const respostaComErro = respostas.find((resposta) => !resposta.ok);
+      if (respostaComErro) {
+        throw new Error(`Erro ${respostaComErro.status} ao salvar alterações`);
+      }
+      fecharModalEdicao();
+      pegarUsuariosPeloAdministrador();
+    })
+    .catch((erro) => {
+      console.error("Erro ao salvar edições:", erro);
+      alert("Houve um erro ao processar as alterações.");
+    })
+    .finally(() => {
+      salvandoEdicao = false;
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   pegarUsuariosPeloAdministrador();
   carregarServidoresDoAeroporto();
 
+  aplicarMascaraCampo("cpfCadastroUser", mascararCpf, 14, "numeric");
+  aplicarMascaraCampo("telefoneCadastroUser", mascararTelefone, 15, "tel");
+
   const telaCadastroUser = document.getElementById("telaCadastroUser");
   const formCadastroUser = document.getElementById("formCadastroUser");
-  const fecharCadastroUser = () => telaCadastroUser.classList.add("escondido");
+  const botaoFechar = document.getElementById("fecharCadastroUser");
+  const botaoCancelar = document.getElementById("cancelarCadastroUser");
 
-  document
-    .getElementById("fecharCadastroUser")
-    .addEventListener("click", fecharCadastroUser);
-  document
-    .getElementById("cancelarCadastroUser")
-    .addEventListener("click", fecharCadastroUser);
-  formCadastroUser.addEventListener("submit", (evento) => {
-    evento.preventDefault();
-    cadastrarUsuario();
-  });
+  const fecharCadastroUser = () => {
+    if (telaCadastroUser) telaCadastroUser.classList.add("escondido");
+  };
+
+  if (botaoFechar) botaoFechar.addEventListener("click", fecharCadastroUser);
+  if (botaoCancelar) botaoCancelar.addEventListener("click", fecharCadastroUser);
+
+  if (formCadastroUser) {
+    formCadastroUser.addEventListener("submit", (evento) => {
+      evento.preventDefault();
+      cadastrarUsuario();
+    });
+  }
 });

@@ -277,12 +277,71 @@ function mensagemErro(titulo, descricao) {
 }
 
 
+// Valida os campos do servidor. Retorna os valores já tratados ou null se houver erro.
+// O token é somente leitura e não é enviado na edição, então não entra aqui.
+function validarDadosServidor() {
+    const nomeServidor = document.getElementById('nome-servidor');
+    const selectSistemaOperacional = document.getElementById('sistema-operacional');
+    const selectStatusServidor = document.getElementById('status-servidor');
+
+    // Remove espaços antes e depois e já reflete isso no campo
+    const nome = nomeServidor.value.trim();
+    nomeServidor.value = nome;
+
+    const sistema = selectSistemaOperacional.value.trim().toLowerCase();
+    const status = selectStatusServidor.value.trim();
+
+    if (nome.length === 0) {
+        mensagemErro(
+            'Erro no campo Nome do Servidor',
+            'O nome não pode estar vazio nem conter apenas espaços em branco.'
+        );
+        return null;
+    }
+    if (nome.length < 3) {
+        mensagemErro(
+            'Erro no campo Nome do Servidor',
+            'O nome deve ter no mínimo 3 caracteres.'
+        );
+        return null;
+    }
+    if (nome.length > 30) {
+        mensagemErro(
+            'Erro no campo Nome do Servidor',
+            'O nome deve ter no máximo 30 caracteres.'
+        );
+        return null;
+    }
+    if (sistema !== 'linux' && sistema !== 'windows') {
+        mensagemErro(
+            'Erro no campo Sistema Operacional',
+            'O sistema operacional deve ser "linux" ou "windows".'
+        );
+        return null;
+    }
+    if (status !== '0' && status !== '1') {
+        mensagemErro(
+            'Erro no campo Status do Servidor',
+            'O status deve ser ativado ou desativado.'
+        );
+        return null;
+    }
+
+    return { nome, sistema, status };
+}
+
+
 
 btnSalvar.addEventListener('click', async function () {
     btnSalvar.disabled = true;
 
     try {
         lerValoresDosInputs();
+
+        const dadosServidor = validarDadosServidor();
+        if (!dadosServidor) {
+            return;
+        }
 
         for (const item of itemAdicionados) {
             const valorAtencao = parseFloat(item.limiteAtencao);
@@ -313,7 +372,7 @@ btnSalvar.addEventListener('click', async function () {
             }
         }
 
-        const okServidor = await atualizarServidor();
+        const okServidor = await atualizarServidor(dadosServidor);
         if (!okServidor) {
             if(popupError.style.display != 'flex') {                
                 mensagemErro(
@@ -370,58 +429,14 @@ btnSalvar.addEventListener('click', async function () {
 });
 
 
-async function atualizarServidor() {
+async function atualizarServidor(dadosServidor) {
     try {
-        const nomeServidor = document.getElementById('nome-servidor');
-        const selectSistemaOperacional = document.getElementById('sistema-operacional');
-        const selectStatusServidor = document.getElementById('status-servidor');
-
-        const nome = nomeServidor.value.trim();
-        const sistema = selectSistemaOperacional.value.trim().toLowerCase();
-        const status = selectStatusServidor.value.trim();
-
-        if (nome.length === 0) {
-            mensagemErro(
-                'Erro no campo Nome do Servidor',
-                'O nome não pode estar vazio nem conter apenas espaços em branco.'
-            );
-            return;
-        }
-
-        if (nome.length < 3) {
-            mensagemErro(
-                'Erro no campo Nome do Servidor',
-                'O nome deve ter no mínimo 3 caracteres.'
-            );
-            return;
-        }
-        if (nome.length > 30) {
-            mensagemErro(
-                'Erro no campo Nome do Servidor',
-                'O nome deve ter no máximo 30 caracteres.'
-            );
-            return;
-        }
-        if (sistema !== 'linux' && sistema !== 'windows') {
-            mensagemErro(
-                'Erro no campo Sistema Operacional',
-                'O sistema operacional deve ser "linux" ou "windows".'
-            );
-            return;
-        }
-        if (status != 0 && status != 1) {
-            mensagemErro(
-                'Erro no campo statusServidor',
-                `O status deve ser ativo ou desativado`
-            );
-            return;
-        }
-        if(itemAdicionados.length < 1) {
+        if (itemAdicionados.length < 1) {
             mensagemErro(
                 'Sem componentes',
-                `Selecione no mínimo um componente para atualizar o servidor`
+                'Selecione no mínimo um componente para atualizar o servidor'
             );
-            return;
+            return false;
         }
 
         const resposta = await fetch("/gerServidores/atualizarDadosServidor", {
@@ -429,9 +444,9 @@ async function atualizarServidor() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 idServidorServer: idServidor,
-                nomeServidorServer: nomeServidor.value,
-                sistemaOperacionalServer: selectSistemaOperacional.value,
-                statusAtividadeServer: selectStatusServidor.value
+                nomeServidorServer: dadosServidor.nome,
+                sistemaOperacionalServer: dadosServidor.sistema,
+                statusAtividadeServer: dadosServidor.status
             })
         });
 

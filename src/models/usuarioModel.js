@@ -68,9 +68,11 @@ function encontrarUsuarioPorId(idUsuario) {
 
   var instrucaoSql = `
         SELECT 
-            * 
-        FROM usuario 
-        WHERE idUsuario = ${idUsuario};
+            u.*,
+            c.nome AS cargo
+        FROM usuario u
+        JOIN cargo c ON c.idCargo = u.fkCargo
+        WHERE u.idUsuario = ${Number(idUsuario)};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -136,6 +138,22 @@ function ativarUsuario(idUsuario) {
   return database.executar(instrucaoSql);
 }
 
+function excluirUsuario(idUsuario) {
+  var usuarioId = Number(idUsuario);
+  var instrucaoExcluirVisualizacoes = `
+        DELETE FROM visualizacao WHERE fkUsuario = ${usuarioId};
+    `;
+  var instrucaoExcluirUsuario = `
+        DELETE FROM usuario WHERE idUsuario = ${usuarioId};
+    `;
+
+  return database
+    .executar(instrucaoExcluirVisualizacoes)
+    .then(function () {
+      return database.executar(instrucaoExcluirUsuario);
+    });
+}
+
 function listarCargosPorEmpresa(empresaId) {
   var instrucaoSql = `
     SELECT idCargo, nome
@@ -148,7 +166,6 @@ function listarCargosPorEmpresa(empresaId) {
   return database.executar(instrucaoSql);
 }
 
-
 module.exports = {
   autenticar,
   cadastrar,
@@ -157,5 +174,6 @@ module.exports = {
   editarUsuario,
   ativarUsuario,
   inativarUsuario,
+  excluirUsuario,
   listarCargosPorEmpresa
 };

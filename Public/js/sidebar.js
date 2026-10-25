@@ -36,7 +36,7 @@ function pegarPermissoesUsuario() {
 function configurarAcessoDashboard(permissoesUsuario) {
   const podeVerAnalista =
     permissoesUsuario?.includes("VISUALIZAR_DASHBOARD") || false;
-  const podeVerGestor =
+  const podeVerGerente =
     permissoesUsuario?.includes("VISUALIZAR_DASHBOARD_GESTOR") || false;
   const itemDashboard = pegarItensSidebar().find(
     (item) => item.querySelector(".sbRotulo")?.textContent.trim() === "Dashboard",
@@ -45,7 +45,7 @@ function configurarAcessoDashboard(permissoesUsuario) {
   if (itemDashboard) {
     itemDashboard.dataset.dashboardNav = "true";
 
-    if (podeVerAnalista && podeVerGestor) {
+    if (podeVerAnalista && podeVerGerente) {
       const idSubmenu = "opcoesDashboardSidebar";
       const submenu = document.createElement("div");
       submenu.id = idSubmenu;
@@ -60,7 +60,7 @@ function configurarAcessoDashboard(permissoesUsuario) {
         },
         {
           pagina: "gerente.html",
-          rotulo: "Painel do gestor",
+          rotulo: "Painel do gerente",
           rotuloCompacto: "Gerente",
         },
       ].forEach((opcao) => {
@@ -86,7 +86,7 @@ function configurarAcessoDashboard(permissoesUsuario) {
         itemDashboard.setAttribute("aria-expanded", String(!expandido));
         submenu.hidden = expandido;
       });
-    } else if (podeVerAnalista || podeVerGestor) {
+    } else if (podeVerAnalista || podeVerGerente) {
       itemDashboard.href = podeVerAnalista ? "analista.html" : "gerente.html";
     }
   }
@@ -95,12 +95,12 @@ function configurarAcessoDashboard(permissoesUsuario) {
   const paginasDashboard = ["gerente.html", "analista.html"];
   if (paginasDashboard.includes(paginaAtual)) {
     const podeAcessarPagina =
-      paginaAtual === "analista.html" ? podeVerAnalista : podeVerGestor;
+      paginaAtual === "analista.html" ? podeVerAnalista : podeVerGerente;
 
     if (!podeAcessarPagina) {
       const paginaPermitida = podeVerAnalista
         ? "analista.html"
-        : podeVerGestor
+        : podeVerGerente
           ? "gerente.html"
           : "gerenciamentoServidor.html";
       window.location.replace(paginaPermitida);

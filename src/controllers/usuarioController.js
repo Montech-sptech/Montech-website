@@ -173,27 +173,6 @@ function editarUsuario(req, res) {
     });
 }
 
-function excluirUsuario(req, res) {
-  var usuarioId = Number(req.body.usuarioId);
-
-  if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
-    return res.status(400).json({ mensagem: "ID de usuário inválido." });
-  }
-  usuarioModel
-    .excluirUsuario(usuarioId)
-    .then(function (resultado) {
-      res.json(resultado);
-    })
-    .catch(function (erro) {
-      console.log(erro);
-      console.log(
-        "\nHouve um erro ao editar o usuário! Erro:",
-        erro.sqlMessage,
-      );
-      res.status(500).json({ mensagem: "Não foi possível editar o usuário." });
-    });
-}
-
 function inativarUsuario(req, res) {
   var usuarioId = req.body.idUsuario;
 
@@ -230,6 +209,40 @@ function ativarUsuario(req, res) {
     });
 }
 
+async function excluirUsuario(req, res) {
+  var administradorId = Number(req.params.id);
+  var usuarioId = Number(req.body.idUsuario);
+
+  if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
+    return res.status(400).json({ mensagem: "ID de usuário inválido." });
+  }
+  if (administradorId === usuarioId) {
+    return res.status(400).json({ mensagem: "Não é possível excluir sua própria conta." });
+  }
+
+  try {
+    var administrador = req.usuarioLogado[0];
+    var usuario = await usuarioModel.encontrarUsuarioPorId(usuarioId);
+
+    if (
+      !usuario[0] ||
+      Number(usuario[0].fkAeroporto) !== Number(administrador.fkAeroporto)
+    ) {
+      return res.status(404).json({ mensagem: "Usuário não encontrado." });
+    }
+
+    var resultado = await usuarioModel.excluirUsuario(usuarioId);
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensagem: "Usuário não encontrado." });
+    }
+
+    return res.json({ mensagem: "Usuário excluído com sucesso." });
+  } catch (erro) {
+    console.error("Erro ao excluir usuário:", erro);
+    return res.status(500).json({ mensagem: "Não foi possível excluir o usuário." });
+  }
+}
+
 function listarCargos(req, res) {
   var empresaId = Number(req.query.empresaId);
 
@@ -259,6 +272,6 @@ module.exports = {
   pegarUsuariosPeloAdministrador,
   inativarUsuario,
   ativarUsuario,
-  listarCargos,
-  excluirUsuario
+  excluirUsuario,
+  listarCargos
 };

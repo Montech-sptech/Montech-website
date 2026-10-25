@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/PopUp.css">
     <script src="../js/script.js" defer></script>
     <script src="../js/acessoGeral.js"></script>
     <title>MonTech - página institucional</title>
@@ -180,10 +181,29 @@
             </div>
             <div class="sextaSecaoBotoes">
                 <a class="botaoEntrar" href="/pages/login.html">Entrar</a>
-                <a href="#">Contate nossa equipe</a>
+                <a id="AbrirContatos">Contate nossa equipe</a>
             </div>
         </div>
     </section>
+
+    <div class="popup-overlay" id="popup-aviso">
+        <div class="popup-excluir" role="dialog" aria-modal="true" aria-labelledby="popup-titulo">
+
+            <button type="button" class="popup-fechar" id="popup-fechar" aria-label="Fechar popup">
+              <img src="../img/Servidores/LetraXicon.svg" alt="">
+            </button>
+
+            <h2 class="popup-titulo" id="popup-titulo">Entre em contato com a gente!</h2>
+                <div class="contato">
+                    <span>Email</span>
+                    <p>equipeMontech@sptech.school</p>
+                    <span>Telefone</span>
+                    <p>(11) 95432-2312</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <footer class="footerSite">
         <div class="footerTopo">

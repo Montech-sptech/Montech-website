@@ -34,6 +34,14 @@ router.delete("/deletarComponenteServidor", function (req, res) {
     gerServidorController.deletarComponenteServidor(req, res);
 });
 
+router.delete("/excluirVisualizao", function (req, res) {
+    gerServidorController.excluirVisualizao(req, res);
+});
+
+router.delete("/deletarVisualicaoServidor", function (req, res) {
+    gerServidorController.deletarComponenteServidor(req, res);
+});
+
 router.post("/cadastrarComponenteServidor", function (req, res) {
     gerServidorController.cadastrarComponenteServidor(req, res);
 });

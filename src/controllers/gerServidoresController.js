@@ -117,6 +117,30 @@ function deletarServidor(req, res) {
     }
 }
 
+function excluirVisualizao(req, res) {
+    var idServidor = req.body.idServidorServer;
+
+    if (idServidor == undefined) {
+        res.status(400).send("Seu idServidor está undefined!");
+    } else {
+        gerServidorModel.excluirVisualizao(idServidor)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o delete da visualizacao! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
 function deletarComponenteServidor(req, res) {
     var idServidor = req.body.idServidorServer;
 
@@ -243,5 +267,6 @@ module.exports = {
   buscarComponentesServidorSemServidor,
   atualizarDadosServidor,
   removerComponentesServidor,
-  atualizarDadosComponentesServidor
+  atualizarDadosComponentesServidor,
+  excluirVisualizao
 };

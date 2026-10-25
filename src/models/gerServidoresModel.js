@@ -163,6 +163,16 @@ function atualizarDadosComponentesServidor(idServidor, componentes) {
     return database.executar(instrucaoSql);
 }
 
+function excluirVisualizao(idServidor) {
+  var idServidor = Number(idServidor);
+  var instrucaoSql = `
+        DELETE FROM visualizacao WHERE fkServidor = ${idServidor};
+    `;
+    console.log("Executando a instrução SQL Dinâmica: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql);
+}
+
 
 
 
@@ -178,5 +188,6 @@ module.exports = {
   buscarComponentesServidorSemServidor,
   atualizarDadosServidor,
   removerComponentesServidor,
-  atualizarDadosComponentesServidor
+  atualizarDadosComponentesServidor,
+  excluirVisualizao
 };

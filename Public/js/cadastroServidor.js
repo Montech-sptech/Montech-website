@@ -67,14 +67,12 @@ window.addEventListener('DOMContentLoaded', function() {
 const itemAdicionados = [];
 const OpcoesDisponiveis = [];
 
-// Valores fixos (e não editáveis) dos limites do componente bloqueado.
-// Ajuste aqui se quiser outro padrão para "Leitura e escrita de disco".
+
 const LIMITES_FIXOS_BLOQUEADOS = {
     limiteAtencao: 0,
     limiteCritico: 0
 };
 
-// Retorna true para componentes cujos limites não podem ser editados
 function componenteBloqueado(nomeComponente) {
     const nome = String(nomeComponente)
         .normalize('NFD')
@@ -359,34 +357,56 @@ async function cadastrarServidor() {
         const json = await resposta.json();
         const idServidor = json.insertId;
 
-        for (const { limiteAtencao, limiteCritico } of itemAdicionados) {
+        for (const { limiteAtencao, limiteCritico, idComponente, nomeComponente } of itemAdicionados) {
             const valorAtencao = parseFloat(limiteAtencao);
             const valorCritico = parseFloat(limiteCritico);
 
-            if (valorAtencao < 0 || valorAtencao > 100) {
-                mensagemErro(
-                    'Erro no campo Limite de Atenção',
-                    `O limite de atenção deve estar entre 0 e 100 (valor informado: ${valorAtencao}).`
-                );
-                deleteServer(idServidor)
-                return;
-            }
 
-            if (valorCritico < 0 || valorCritico > 100) {
-                mensagemErro(
-                    'Erro no campo Limite Crítico',
-                    `O limite crítico deve estar entre 0 e 100 (valor informado: ${valorCritico}).`
-                );
-                deleteServer(idServidor)
-                return;
-            }
-            if (valorCritico < valorAtencao) {
-                mensagemErro(
-                    'Erro no valor critico e atenca',
-                    `O limite crítico deve ser maior que o de atencao (valor informado: ${valorCritico} < ${valorAtencao}).`
-                );
-                deleteServer(idServidor)
-                return;
+            if(idComponente == 10) {
+                if(valorAtencao < 0 || valorCritico < 0) {
+                    mensagemErro(
+                        `Erro no valor critico ou atenção de ${nomeComponente}`
+                        `O limite crítico e atenção deve ser maior que 0 (valor informado: ${valorCritico} e ${valorAtencao}).`
+                    );
+                    deleteServer(idServidor)
+                    return;
+                }
+
+
+                if (valorCritico < valorAtencao) {
+                    mensagemErro(
+                        `Erro no valor critico e atenção de ${nomeComponente}`,
+                        `O limite crítico deve ser maior que o de atencao (valor informado: ${valorCritico} < ${valorAtencao}).`
+                    );
+                    deleteServer(idServidor)
+                    return;
+                }
+            } else {
+                if (valorAtencao < 0 || valorAtencao > 100) {
+                    mensagemErro(
+                        `Erro no campo Limite de Atenção de ${nomeComponente}`,
+                        `O limite de atenção deve estar entre 0 e 100 (valor informado: ${valorAtencao}).`
+                    );
+                    deleteServer(idServidor)
+                    return;
+                }
+    
+                if (valorCritico < 0 || valorCritico > 100) {
+                    mensagemErro(
+                        `Erro no campo Limite Crítico de ${nomeComponente}`,
+                        `O limite crítico deve estar entre 0 e 100 (valor informado: ${valorCritico}).`
+                    );
+                    deleteServer(idServidor)
+                    return;
+                }
+                if (valorCritico < valorAtencao) {
+                    mensagemErro(
+                        `Erro no valor critico e atenção de ${nomeComponente}`,
+                        `O limite crítico deve ser maior que o de atencao (valor informado: ${valorCritico} < ${valorAtencao}).`
+                    );
+                    deleteServer(idServidor)
+                    return;
+                }
             }
         }
 

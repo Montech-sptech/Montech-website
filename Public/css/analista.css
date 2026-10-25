@@ -816,3 +816,34 @@ tbody tr:last-child td {
         transition-duration: 0.01ms !important;
     }
 }
+
+
+.indicadores-recurso {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    min-height: 0;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.indicadores-recurso > div {
+    width: 100%;
+    min-width: 0;
+}
+
+.indicadores-recurso span {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gu-texto-suave);
+    font-size: 12px;
+}
+
+.indicadores-recurso strong {
+    display: block;
+    color: var(--gu-texto);
+    font-size: 21px;
+    font-weight: 600;
+}

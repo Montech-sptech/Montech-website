@@ -144,6 +144,20 @@ async function DeletarServidor(idServidor) {
             return false;
         }
 
+        const respostaVisua = await fetch("/gerServidores/excluirVisualizao", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idServidorServer: idServidor
+            })
+        });
+        
+        if (!respostaVisua.ok) {
+            console.log("Houve um erro ao tentar realizar o delete de servidor!");
+            alert("erro")
+        return false;
+        }
+
         const respostaComp = await fetch("/gerServidores/deletarServidor", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },

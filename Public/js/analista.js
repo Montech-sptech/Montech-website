@@ -57,21 +57,21 @@ var dadosOcorrencias = {
         titulo: "CPU do AIS: alerta crítico",
         nome: "CPU",
         limite: 90,
-        valores: [48, 50, 54, 62, 71, 80, 85, 92]
+        valores: [70, 80, 84, 91, 94, 91, 95, 92]
     },
 
     ram: {
         titulo: "RAM do AIS: alerta de atenção",
         nome: "RAM",
         limite: 80,
-        valores: [54, 56, 59, 64, 70, 74, 76, 81]
+        valores: [54, 56, 59, 64, 75, 84, 86, 81]
     },
 
     disco: {
         titulo: "Disco do SDV: alerta de atenção",
         nome: "Disco",
         limite: 80,
-        valores: [51, 55, 59, 64, 70, 76, 80, 82]
+        valores: [51, 55, 59, 64, 75, 81, 83, 82]
     }
 };
 

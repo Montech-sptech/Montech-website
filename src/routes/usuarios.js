@@ -34,6 +34,12 @@ router.put("/ativarUsuario/:id", function (req, res) {
 });
 //});
 
+router.delete("/excluirUsuario/:id", function (req, res) {
+  autorizacaoCargo.verificarAdministrador(req, res, () => {
+    usuarioController.excluirUsuario(req, res);
+  });
+});
+
 router.get("/cargos", function (req, res) {
   usuarioController.listarCargos(req, res);
 });

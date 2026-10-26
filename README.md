@@ -33,6 +33,37 @@ A ausência de visibilidade em tempo real sobre variáveis de infraestrutura e p
 
 ---
 
+## Modelo `.env`
+```bash
+AMBIENTE_PROCESSO=producao
+
+# Configurações de conexão com o banco de dados
+DB_HOST='32.199.169.17'
+DB_DATABASE='montech'
+DB_USER='montech'
+DB_PASSWORD='urubu100'
+DB_PORT='3306'
+
+# Configurações do servidor de aplicação
+APP_PORT=8080
+APP_HOST=localhost
+```
+## Modelo `.env.dev`
+```bash
+AMBIENTE_PROCESSO=desenvolvimento
+
+# Configurações de conexão com o banco de dados
+DB_HOST='localhost'
+DB_DATABASE='montech'
+DB_USER='root'
+DB_PASSWORD='hdmiTOrca33@'
+DB_PORT='3306'
+
+# Configurações do servidor de aplicação
+APP_PORT=3333
+APP_HOST=localhost
+```
+
 ## 👥 Contribuição
 
 * **Organização:** Montech - Sptech

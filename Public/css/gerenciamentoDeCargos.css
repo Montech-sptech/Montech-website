@@ -1,6 +1,6 @@
 :root {
   --gu-fundo: #080c26;  
-  --gu-card: rgba(7, 11, 37, 0.75);
+  --gu-card: rgb(7, 11, 37);
   --gu-superficie: #0b1033;
   --gu-borda: #1f2a63;
   --gu-borda-suave: #151c4a;
@@ -8,7 +8,10 @@
   --gu-texto: #ffffff;
   --gu-texto-suave: #c9ccf5;
   --gu-lavanda: #9aa0f0;
-  --gu-primaria: linear-gradient(135deg, #4a3dff, #3d5bff);
+  --gu-primaria: linear-gradient(135deg, #2a3fc4, #3d5bff);
+  --gu-azul-selecionado: #14226b;
+  --gu-azul-selecionado-borda: #3d5bff;
+  --gu-hover-linha: #111a40;
   --gu-erro: #ff7d92;
 }
 
@@ -37,7 +40,7 @@
   flex: none;
   width: clamp(28px, 3vw, 40px);
   height: clamp(28px, 3vw, 40px);
-  color: #7b7cff;
+  color: #8fb0ff;
 }
 
 #containerGerenciamentoCargosTitulo h1 {
@@ -53,7 +56,7 @@
   border: 1px solid var(--gu-borda);
   border-radius: 16px;
   background: var(--gu-card);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 60px rgb(0, 0, 0);
 }
 
 .barraFerramentas {
@@ -135,8 +138,8 @@
 .campoBusca input:focus,
 .campoFiltro:focus {
   outline: none;
-  border-color: #5b5bff;
-  box-shadow: 0 0 0 3px rgba(91, 91, 255, 0.22);
+  border-color: #3d5bff;
+  box-shadow: 0 0 0 3px rgba(61, 91, 255, 0.3);
 }
 
 .btnNovoCargo {
@@ -229,7 +232,7 @@
 }
 
 .linhaCargo:hover {
-  background: rgba(91, 91, 255, 0.06);
+  background: var(--gu-hover-linha);
 }
 
 .col {
@@ -252,9 +255,9 @@
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: rgba(91, 91, 255, 0.16);
-  border: 1px solid rgba(120, 130, 255, 0.25);
-  color: #a9afff;
+  background: #16226b;
+  border: 1px solid #3d5bff;
+  color: #c9d6ff;
 }
 
 .iconeCargo svg {
@@ -298,9 +301,9 @@
   max-width: 100%;
   padding: 5px 10px;
   border-radius: 999px;
-  background: rgba(91, 91, 255, 0.14);
-  border: 1px solid rgba(120, 130, 255, 0.22);
-  color: #cfd3ff;
+  background: #16226b;
+  border: 1px solid #34479f;
+  color: #e4e9ff;
   font-size: 12.5px;
   font-weight: 500;
   white-space: nowrap;
@@ -357,15 +360,23 @@
 }
 
 .status.ativo {
-  color: #34d77a;
-  background: rgba(34, 197, 94, 0.12);
-  border-color: rgba(34, 197, 94, 0.2);
+  color: #ffffff;
+  background: #176b3a;
+  border-color: rgb(34, 197, 94);
+}
+
+.status.ativo::before {
+  background: #ffffff;
 }
 
 .status.inativo {
-  color: #ff4d6a;
-  background: rgba(255, 77, 106, 0.13);
-  border-color: rgba(255, 77, 106, 0.22);
+  color: #ffffff;
+  background: #8a1f33;
+  border-color: #ff4d6a;
+}
+
+.status.inativo::before {
+  background: #ffffff;
 }
 
 
@@ -394,12 +405,13 @@
 }
 
 .btnIcone:hover {
-  background: rgba(91, 91, 255, 0.25);
+  background: #1a2566;
+  border-color: #5b7bff;
   color: #fff;
 }
 
 .btnIcone.perigo:hover {
-  background: rgba(255, 77, 106, 0.18);
+  background: rgba(255, 77, 106, 0.15);
   border-color: #ff4d6a;
   color: #ff8da0;
 }
@@ -407,6 +419,7 @@
 .btnIcone:disabled {
   opacity: 0.35;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 .btnIcone:disabled:hover {
@@ -440,7 +453,7 @@
   justify-content: center;
   align-items: center;
   padding: 16px;
-  background: rgba(5, 8, 24, 0.85);
+  background: rgb(5, 8, 24);
   backdrop-filter: blur(3px);
 }
 
@@ -461,7 +474,7 @@
   background: #0b1033;
   border: 1px solid var(--gu-borda);
   border-radius: 12px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 30px rgb(0, 0, 0);
   font-family: "Inter", sans-serif;
   color: var(--gu-texto);
 }
@@ -477,14 +490,28 @@
 #iconeFecharModalCargo,
 #iconeFecharModalExclusaoCargo {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 8px;
+  fill: #aebfff;
   cursor: pointer;
+  transition: background 0.15s ease, fill 0.15s ease;
 }
 
 #iconeFecharModalCargo:hover,
 #iconeFecharModalExclusaoCargo:hover {
-  fill: #eceaf5;
+  background: rgba(143, 176, 255, 0.14);
+  fill: #ffffff;
+}
+
+#iconeFecharModalCargo:focus-visible,
+#iconeFecharModalExclusaoCargo:focus-visible {
+  outline: 2px solid #8fb0ff;
+  outline-offset: 1px;
 }
 
 #modalCargoConteudo h2,
@@ -514,6 +541,22 @@
   min-height: 0;
   overflow-y: auto;
   padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #34479f #0a1029;
+}
+
+.formModal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.formModal::-webkit-scrollbar-track {
+  background: #0a1029;
+  border-radius: 999px;
+}
+
+.formModal::-webkit-scrollbar-thumb {
+  background: #34479f;
+  border-radius: 999px;
 }
 
 .campoModal {
@@ -579,7 +622,7 @@
 .campoModal select:focus,
 .campoModal textarea:focus {
   outline: none;
-  border-color: #5b5bff;
+  border-color: #3d5bff;
 }
 
 .campoModal input:disabled,
@@ -660,7 +703,7 @@
 }
 
 .checkboxPermissao:focus-within {
-  box-shadow: 0 0 0 3px rgba(91, 91, 255, 0.28);
+  box-shadow: 0 0 0 3px rgba(61, 91, 255, 0.3);
 }
 
 .marcadorPermissao {
@@ -697,19 +740,23 @@
 }
 
 .permissaoDescricao {
-  color: #8e94d8;
+  color: #a3a8e6;
   font-size: 12px;
   line-height: 1.35;
 }
 
 .checkboxPermissao.ativo {
-  background: rgba(91, 91, 255, 0.13);
-  border-color: #5b5bff;
+  background: var(--gu-azul-selecionado);
+  border-color: var(--gu-azul-selecionado-borda);
+}
+
+.checkboxPermissao.ativo:hover {
+  border-color: #6f8cff;
 }
 
 .checkboxPermissao.ativo .marcadorPermissao {
-  background: #4a4cf5;
-  border-color: #4a4cf5;
+  background: #3d5bff;
+  border-color: #3d5bff;
 }
 
 .checkboxPermissao.ativo .marcadorPermissao svg {
@@ -717,7 +764,11 @@
 }
 
 .checkboxPermissao.ativo .permissaoNome {
-  color: #fff;
+  color: #ffffff;
+}
+
+.checkboxPermissao.ativo .permissaoDescricao {
+  color: #ffffff;
 }
 
 .semPermissoesDisponiveis {
@@ -730,9 +781,9 @@
 
 .erroModal {
   padding: 10px 14px;
-  border: 1px solid rgba(255, 77, 106, 0.35);
+  border: 1px solid rgba(255, 77, 106, 0.6);
   border-radius: 8px;
-  background: rgba(255, 77, 106, 0.1);
+  background: rgba(255, 77, 106, 0.12);
   color: var(--gu-erro);
   font-size: 14px;
   line-height: 1.4;
@@ -758,7 +809,7 @@
 }
 
 #botaoSalvarCargo {
-  background: #3b32c8;
+  background: #2f45d1;
   color: #fff;
 }
 

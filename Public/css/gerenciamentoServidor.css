@@ -5,7 +5,7 @@
 
   /* Paleta padronizada do sistema */
   --gu-fundo: #080c26;
-  --gu-card: rgba(7, 11, 37, 0.75);
+  --gu-card: rgb(7, 11, 37);
   --gu-superficie: #0b1033;
   --gu-borda: #1f2a63;
   --gu-borda-suave: #151c4a;
@@ -16,9 +16,9 @@
   --gu-primaria: linear-gradient(135deg, #4a3dff, #3d5bff);
 
   --cor-ativo: #34d77a;
-  --cor-ativo-fundo: rgba(34, 197, 94, 0.12);
+  --cor-ativo-fundo: rgb(34, 197, 94);
   --cor-inativo: #ff4d6a;
-  --cor-inativo-fundo: rgba(255, 77, 106, 0.13);
+  --cor-inativo-fundo: rgb(255, 77, 106);
   --raio-cartao: 16px;
   --raio-controle: 10px;
   --transicao-padrao: 0.2s ease;
@@ -167,14 +167,14 @@
   border: 1px solid var(--gu-borda);
   border-radius: var(--raio-cartao);
   background: var(--gu-card);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 20px 45px rgb(18, 24, 58);
   transition: transform var(--transicao-padrao), border-color var(--transicao-padrao), box-shadow var(--transicao-padrao);
 }
 
 .card-servidor:hover {
   transform: translateY(-3px);
   border-color: var(--gu-borda-campo);
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 22px 48px rgb(30, 40, 90);
 }
 
 .status {
@@ -234,7 +234,7 @@
 
 .btn-visualizar:hover {
   border-color: #5b5bff;
-  background: rgba(91, 91, 255, 0.16);
+  background: rgb(91, 91, 255);
   color: var(--gu-texto);
 }
 
@@ -270,7 +270,7 @@
 
 .btn-editar:hover {
   border-color: #5b5bff;
-  background: rgba(91, 91, 255, 0.22);
+  background: rgb(91, 91, 255);
   color: var(--gu-texto);
 }
 
@@ -397,7 +397,7 @@
 @media (hover: none) {
   .card-servidor:hover {
     transform: none;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 20px 45px rgb(18, 24, 58);
   }
 
   .btn-acao:hover {
@@ -408,7 +408,7 @@
 .containerGerenciamentoServidor .popup-overlay {
   z-index: 1100;
   padding: 20px;
-  background: rgba(4, 7, 25, 0.78);
+  background: rgb(4, 7, 25);
   backdrop-filter: blur(5px);
 }
 
@@ -420,7 +420,7 @@
   border: 1px solid var(--gu-borda);
   border-radius: var(--raio-cartao);
   background: linear-gradient(180deg, #0d143d, #090e2d);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 24px 64px rgb(0, 0, 0);
   color: var(--gu-texto);
   font-family: 'Inter', sans-serif;
 }
@@ -430,9 +430,8 @@
   right: 14px;
   width: 34px;
   height: 34px;
-  border: 1px solid var(--gu-borda);
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.04);
+  border: 0;
+  background: transparent;
 }
 
 .containerGerenciamentoServidor .popup-fechar img {
@@ -442,8 +441,7 @@
 }
 
 .containerGerenciamentoServidor .popup-fechar:hover {
-  border-color: var(--gu-borda-campo);
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
   opacity: 1;
   transform: none;
 }
@@ -460,17 +458,17 @@
 .containerGerenciamentoServidor .popup-aviso {
   margin-top: 0;
   padding: 10px 12px;
-  border: 1px solid rgba(255, 77, 106, 0.28);
+  border: 1px solid #ff4d6a;
   border-radius: var(--raio-controle);
-  background: var(--cor-inativo-fundo);
-  color: #ff9aaa;
+  background: #b4233d;
+  color: #ffffff;
   font-size: 0.85rem;
   font-weight: 500;
   line-height: 1.45;
 }
 
 .containerGerenciamentoServidor #popup-aviso .popup-aviso {
-  border-color: rgba(52, 215, 122, 0.28);
+  border-color: rgb(52, 215, 122);
   background: var(--cor-ativo-fundo);
   color: #77e6a5;
 }

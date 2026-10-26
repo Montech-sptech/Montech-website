@@ -19,7 +19,7 @@ header {
     display: flex;
     flex-direction: column;
     padding: 20px 15px;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgb(255, 255, 255);
     position: fixed;
 }
 
@@ -65,7 +65,7 @@ header hr {
 }
 
 .opcao:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgb(255, 255, 255);
 }
 
 .opcao svg {
@@ -164,7 +164,7 @@ header hr {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0, 0, 0);
     color: #eceaf5;
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -177,7 +177,7 @@ header hr {
 #modalFotoPerfil {
     position: fixed;
     inset: 0;
-    background: rgba(18, 17, 28, 0.85);
+    background: rgb(18, 17, 28);
     backdrop-filter: blur(3px);
     display: flex;
     justify-content: center;
@@ -200,7 +200,7 @@ header hr {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 30px rgb(0, 0, 0);
     font-family: 'Inter', sans-serif;
 }
 

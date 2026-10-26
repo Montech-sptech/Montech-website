@@ -5,15 +5,18 @@
     --largura-sidebar: max(10vw, 150px);
 
     --gu-fundo: #080c26;
-    --gu-card: rgba(7, 11, 37, 0.75);
+    --gu-card: rgb(7, 11, 37);
     --gu-superficie: #0b1033;
     --gu-borda: #1f2a63;
     --gu-borda-suave: #151c4a;
     --gu-borda-campo: #27337a;
     --gu-texto: #ffffff;
     --gu-texto-suave: #c9ccf5;
-    --gu-lavanda: #9aa0f0;
-    --gu-primaria: linear-gradient(135deg, #4a3dff, #3d5bff);
+    --gu-lavanda: #aebfff;
+    --gu-primaria: linear-gradient(135deg, #2a3fc4, #3d5bff);
+    --gu-azul-selecionado: #14226b;
+    --gu-azul-selecionado-borda: #3d5bff;
+    --gu-hover-linha: #111a40;
 }
 
 
@@ -42,7 +45,7 @@
     flex: none;
     width: clamp(28px, 3vw, 40px);
     height: clamp(28px, 3vw, 40px);
-    color: #7b7cff;
+    color: #8fb0ff;
 }
 
 #containerGerenciamentoUsuariosTitulo h1 {
@@ -57,7 +60,7 @@
     border-radius: 16px;
     background: var(--gu-card);
     padding: clamp(14px, 2vw, 24px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 20px 60px rgb(0, 0, 0);
     min-width: 0;
 }
 
@@ -119,8 +122,8 @@
 
 .campoBusca input:focus {
     outline: none;
-    border-color: #5b5bff;
-    box-shadow: 0 0 0 3px rgba(91, 91, 255, 0.22);
+    border-color: #8fb0ff;
+    box-shadow: 0 0 0 3px rgba(61, 91, 255, 0.3);
 }
 
 .btnNovoUsuario {
@@ -198,7 +201,7 @@
 }
 
 .linhaUsuario:hover {
-    background: rgba(91, 91, 255, 0.06);
+    background: var(--gu-hover-linha);
 }
 
 .col {
@@ -226,7 +229,7 @@
 }
 
 .btnOrdenar.ativo svg {
-    color: #8b8dff;
+    color: #8fb0ff;
     opacity: 1;
 }
 
@@ -249,8 +252,8 @@
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #352b9c, #4b3dc4);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--gu-primaria);
+    border: 1px solid #5b7bff;
     color: #fff;
     font-size: 15px;
     font-weight: 700;
@@ -296,8 +299,9 @@
     max-width: 100%;
     padding: 9px 14px;
     border-radius: 8px;
-    background: linear-gradient(135deg, #2f6bff, #2347f0);
-    color: #fff;
+    background: #16226b;
+    border: 1px solid #34479f;
+    color: #e4e9ff;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
@@ -317,12 +321,12 @@
 }
 
 .cargo.administrador {
-    background: linear-gradient(135deg, #4338ff, #5f46f2);
+    background: #16226b;
 }
 
 .cargo.analista,
 .cargo.analista-junior {
-    background: linear-gradient(135deg, #2f6bff, #2347f0);
+    background: #16226b;
 }
 
 .cargo.tecnico {
@@ -331,7 +335,7 @@
 }
 
 .cargo.operador {
-    background: linear-gradient(135deg, #a855f7, #9340f0);
+    background: #16226b;
 }
 
 .cargo.ti {
@@ -358,15 +362,23 @@
 }
 
 .status.ativo {
-    color: #34d77a;
-    background: rgba(34, 197, 94, 0.12);
-    border-color: rgba(34, 197, 94, 0.2);
+    color: #ffffff;
+    background: #176b3a;
+    border-color: rgb(34, 197, 94);
+}
+
+.status.ativo::before {
+    background: #ffffff;
 }
 
 .status.inativo {
-    color: #ff4d6a;
-    background: rgba(255, 77, 106, 0.13);
-    border-color: rgba(255, 77, 106, 0.22);
+    color: #ffffff;
+    background: #8a1f33;
+    border-color: #ff4d6a;
+}
+
+.status.inativo::before {
+    background: #ffffff;
 }
 
 .acoesLinha {
@@ -381,9 +393,9 @@
     height: 38px;
     padding: 0;
     background: #0e1546;
-    border: 1px solid #3b49c9;
+    border: 1px solid #3d5bff;
     border-radius: 8px;
-    color: #aeb4ff;
+    color: #c9d6ff;
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
@@ -394,12 +406,13 @@
 }
 
 .btnIcone:hover {
-    background: rgba(91, 91, 255, 0.25);
+    background: #1a2566;
+    border-color: #5b7bff;
     color: #fff;
 }
 
 .btnIcone.perigo:hover {
-    background: rgba(255, 77, 106, 0.18);
+    background: rgba(255, 77, 106, 0.15);
     border-color: #ff4d6a;
     color: #ff8da0;
 }
@@ -460,12 +473,13 @@
 }
 
 .btnPagina:hover:not(:disabled):not(.ativo) {
-    background: rgba(91, 91, 255, 0.2);
+    background: #1a2566;
+    border-color: #5b7bff;
 }
 
 .btnPagina.ativo {
-    background: #2c4bff;
-    border-color: #2c4bff;
+    background: #2f45d1;
+    border-color: #3d5bff;
     color: #fff;
     font-weight: 600;
     cursor: default;
@@ -489,7 +503,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(5, 8, 24, 0.85);
+    background: rgb(5, 8, 24);
     backdrop-filter: blur(3px);
 }
 
@@ -511,8 +525,24 @@
     background: #0b1033;
     border: 1px solid var(--gu-borda);
     border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 30px rgb(0, 0, 0);
     font-family: 'Inter', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #34479f #0a1029;
+}
+
+#modalEditarUsuario::-webkit-scrollbar {
+    width: 8px;
+}
+
+#modalEditarUsuario::-webkit-scrollbar-track {
+    background: #0a1029;
+    border-radius: 999px;
+}
+
+#modalEditarUsuario::-webkit-scrollbar-thumb {
+    background: #34479f;
+    border-radius: 999px;
 }
 
 #modalEditarUsuario {
@@ -526,19 +556,34 @@
 #iconeFecharModal,
 #iconeFecharModalExclusao {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 16px;
+    right: 16px;
+    box-sizing: border-box;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    border-radius: 8px;
+    fill: #aebfff;
     cursor: pointer;
+    transition: background 0.15s ease, fill 0.15s ease;
 }
 
 #iconeFecharModal:hover,
 #iconeFecharModalExclusao:hover {
-    fill: #eceaf5;
+    background: rgba(143, 176, 255, 0.14);
+    fill: #ffffff;
+}
+
+#iconeFecharModal:focus-visible,
+#iconeFecharModalExclusao:focus-visible {
+    outline: 2px solid #8fb0ff;
+    outline-offset: 1px;
 }
 
 #modalEditarUsuario h2,
 #modalExcluirUsuario h2 {
     margin: 0;
+    padding-right: 40px;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 24px;
     color: #fff;
@@ -567,7 +612,7 @@
 }
 
 .campoModal label {
-    color: #7e84c9;
+    color: #aebfff;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -589,7 +634,7 @@
 .campoModal input:focus,
 .campoModal select:focus {
     outline: none;
-    border-color: #5b5bff;
+    border-color: #8fb0ff;
 }
 
 .campoModal select {
@@ -614,6 +659,11 @@
     border: 1px solid var(--gu-borda-campo);
     border-radius: 8px;
     cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.checkboxServidor:hover {
+    border-color: #4655c4;
 }
 
 .checkboxServidor input[type="checkbox"] {
@@ -621,18 +671,22 @@
 }
 
 .nomeServidorModal {
-    color: #7e84c9;
+    color: #aebfff;
     font-size: 13px;
     font-weight: 500;
 }
 
 .checkboxServidor.ativo {
-    background: #06270e;
-    border-color: rgba(34, 197, 94, 0.3);
+    background: var(--gu-azul-selecionado);
+    border-color: var(--gu-azul-selecionado-borda);
+}
+
+.checkboxServidor.ativo:hover {
+    border-color: #6f8cff;
 }
 
 .checkboxServidor.ativo .nomeServidorModal {
-    color: #62dd3c;
+    color: #ffffff;
 }
 
 .containerAcoesModal {
@@ -656,7 +710,7 @@
 }
 
 #botaoSalvarModal {
-    background: #3b32c8;
+    background: #2f45d1;
     color: #fff;
 }
 
@@ -906,7 +960,7 @@
     padding: 16px;
     box-sizing: border-box;
 
-    background: rgba(4, 8, 24, 0.72);
+    background: rgb(4, 8, 24);
     backdrop-filter: blur(3px);
 }
 
@@ -940,7 +994,7 @@
     border: 1px solid #2b3a78;
     border-radius: 16px;
 
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 24px 60px rgb(0, 0, 0);
 
     font-family: inherit;
 
@@ -1018,17 +1072,18 @@
     border-radius: 10px;
 
     background: transparent;
-    color: #ffffff;
+    color: #aebfff;
 
     font-size: 36px;
     line-height: 1;
 
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 
 .fecharCadastroUser:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(143, 176, 255, 0.14);
+    color: #ffffff;
 }
 
 .fecharCadastroUser:focus-visible {
@@ -1088,10 +1143,10 @@
     box-sizing: border-box;
     padding: 0 12px;
 
-    background: #1e2442;
+    background: #080c2b;
     color: #ffffff;
 
-    border: 1px solid #3a4272;
+    border: 1px solid var(--gu-borda-campo);
     border-radius: 6px;
 
     font-family: inherit;
@@ -1108,7 +1163,7 @@
 .conteudoCadastroUser .campoCadastroUser input:focus,
 .conteudoCadastroUser .campoCadastroUser select:focus {
     border-color: #8fb0ff;
-    box-shadow: 0 0 0 2px rgba(143, 176, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(61, 91, 255, 0.3);
 }
 
 .conteudoCadastroUser .campoCadastroUser select {
@@ -1177,21 +1232,21 @@
 }
 
 .botaoCancelarCadastroUser:hover {
-    background: #262c4a;
+    background: #1a2150;
 }
 
 /* cadastrar */
 
 .botaoSalvarCadastroUser {
-    background: #6573e6;
+    background: #2f45d1;
     color: #ffffff;
 
-    border: 1px solid #6573e6;
+    border: 1px solid #2f45d1;
 }
 
 .botaoSalvarCadastroUser:hover {
-    background: #7784f0;
-    border-color: #7784f0;
+    background: #3d5bff;
+    border-color: #3d5bff;
 }
 
 .botaoSalvarCadastroUser:disabled {

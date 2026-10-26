@@ -598,12 +598,12 @@ select {
   .popup__painel::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
     border-radius: 999px;
-    background: linear-gradient(180deg, #5d70c4, var(--scroll-thumb));
+    background: #5d70c4;
     background-clip: padding-box;
   }
  
   .popup__painel::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #8397e6, var(--scroll-thumb-hover));
+    background: #8397e6;
     background-clip: padding-box;
   }
  

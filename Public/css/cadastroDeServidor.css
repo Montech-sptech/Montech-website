@@ -1,10 +1,10 @@
 :root {
     --bg-pagina: #060919;
-    --bg-card: #080d27;
+    --bg-card: #101735;
     --bg-card-borda: #161f48;
     --bg-item: #0c1236;
-    --bg-input: #0a0f2d;
-    --borda-input: #1b2658;
+    --bg-input: #1e2442;
+    --borda-input: #3a4272;
     --texto: #ffffff;
     --texto-suave: #9ea8d8;
     --texto-placeholder: #5c689e;
@@ -13,8 +13,8 @@
     --perigo: #ff4d6a;
     --raio: 8px;
     --espaco: clamp(12px, 2vw, 24px);
-    --popup-bg-topo: #0d133a;
-    --popup-bg-base: #080d27;
+    --popup-bg-topo: #101735;
+    --popup-bg-base: #0e1430;
     --popup-borda: #1e2a63;
     --painel-bg: #080d27;
     --painel-borda: #161f48;
@@ -27,8 +27,8 @@
     --scroll-thumb-hover: #3b4ea3;
     --bg-start: #060919;
     --bg-end: #060919;
-    --card-bg-top: #080d27;
-    --card-bg-bottom: #080d27;
+    --card-bg-top: #101735;
+    --card-bg-bottom: #0e1430;
     --card-border: #161f48;
     --azul-icone: #4f52ff;
     --btn-novo-bg: #4f52ff;
@@ -42,7 +42,7 @@ button {
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-    outline: 2px solid var(--primaria-hover);
+    outline: 2px solid #8fb0ff;
     outline-offset: 2px;
 }
 
@@ -63,6 +63,16 @@ select {
     border-radius: var(--raio);
     font-family: inherit;
     font-size: 0.8rem;
+}
+
+input:focus,
+select:focus {
+    border-color: #8fb0ff;
+}
+
+select option {
+    background: #121a3f;
+    color: var(--texto);
 }
 
 input::placeholder {
@@ -107,7 +117,7 @@ select {
 }
 
 .btn-voltar:hover {
-    box-shadow: 0px 0px 15px rgba(79, 82, 255, 0.4);
+    box-shadow: 0px 0px 15px rgb(79, 82, 255);
 }
 
 .btn-voltar img {
@@ -138,7 +148,7 @@ select {
 
 .card {
     padding: 20px 24px;
-    background: var(--bg-card);
+    background: var(--card-bg-top);
     border: 1px solid var(--bg-card-borda);
     border-radius: 12px;
 }
@@ -216,7 +226,7 @@ select {
 
 .componentes {
     padding: clamp(20px, 3vw, 36px);
-    background: var(--bg-card);
+    background: var(--card-bg-top);
     border: 1px solid var(--bg-card-borda);
     border-radius: 12px;
     min-height: 300px;
@@ -499,7 +509,7 @@ select {
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(6, 9, 25, 0.75);
+    background: rgb(6, 9, 25);
     color: var(--texto);
     backdrop-filter: blur(3px);
 }
@@ -515,8 +525,8 @@ select {
     overflow-y: auto;
     border: 1px solid var(--popup-borda);
     border-radius: 12px;
-    background: linear-gradient(180deg, var(--popup-bg-topo), var(--popup-bg-base));
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    background: var(--popup-bg-topo);
+    box-shadow: 0 24px 60px rgb(0, 0, 0);
 }
 
 .popup__fechar {
@@ -543,7 +553,7 @@ select {
 }
 
 .popup__fechar:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255, 255, 255);
 }
 
 .popup__cabecalho {

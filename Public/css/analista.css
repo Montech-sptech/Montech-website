@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 /* ==================================================
@@ -9,7 +8,8 @@
     --largura-sidebar: max(10vw, 150px);
 
     --gu-fundo: #080c26;
-    --gu-card: rgba(7, 11, 37, 0.75);
+    --gu-card: #0d1342;
+    --gu-card-hover: #121a52;
     --gu-superficie: #0b1033;
     --gu-superficie-hover: #151c4a;
 
@@ -21,17 +21,17 @@
     --gu-texto-suave: #c9ccf5;
     --gu-lavanda: #9aa0f0;
 
-    --gu-primaria: linear-gradient(135deg, #4a3dff, #3d5bff);
-    --gu-primaria-hover: linear-gradient(135deg, #5c51ff, #536eff);
+    --gu-primaria: linear-gradient(135deg, #2a3fc4, #3d5bff);
+    --gu-primaria-hover: linear-gradient(135deg, #3350dc, #4f6bff);
 
     --gu-sucesso: #34d77a;
-    --gu-sucesso-fundo: rgba(34, 197, 94, 0.12);
+    --gu-sucesso-fundo: rgb(34, 197, 94);
 
     --gu-atencao: #ffcd71;
-    --gu-atencao-fundo: rgba(255, 173, 31, 0.12);
+    --gu-atencao-fundo: rgb(255, 173, 31);
 
     --gu-critico: #ff6b7a;
-    --gu-critico-fundo: rgba(255, 77, 106, 0.13);
+    --gu-critico-fundo: rgb(255, 77, 106);
 
     --gu-destaque: #8b8dff;
 
@@ -199,7 +199,7 @@ canvas {
     border: 1px solid var(--gu-borda);
     border-radius: var(--gu-raio-lg);
     background: var(--gu-card);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 1px 0 rgba(143, 176, 255, 0.05) inset, 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .indicador {
@@ -212,7 +212,8 @@ canvas {
 }
 
 .indicador:hover {
-    border-color: #3b49a0;
+    background: var(--gu-card-hover);
+    border-color: #34479f;
     transform: translateY(-2px);
 }
 
@@ -321,21 +322,21 @@ canvas {
 }
 
 .estado-normal {
-    border-color: rgba(34, 197, 94, 0.2);
-    background: var(--gu-sucesso-fundo);
-    color: var(--gu-sucesso);
+    border-color: rgb(34, 197, 94);
+    background: #176b3a;
+    color: #ffffff;
 }
 
 .estado-atencao {
-    border-color: rgba(255, 173, 31, 0.22);
-    background: var(--gu-atencao-fundo);
-    color: var(--gu-atencao);
+    border-color: rgb(255, 173, 31);
+    background: #7a5200;
+    color: #ffffff;
 }
 
 .estado-critico {
-    border-color: rgba(255, 77, 106, 0.22);
-    background: var(--gu-critico-fundo);
-    color: var(--gu-critico);
+    border-color: rgb(255, 77, 106);
+    background: #8a1f33;
+    color: #ffffff;
 }
 
 /* ==================================================
@@ -350,11 +351,14 @@ canvas {
 
 .servidor {
     padding: 18px;
-    transition: border-color var(--gu-transicao);
+    transition:
+        border-color var(--gu-transicao),
+        background-color var(--gu-transicao);
 }
 
 .servidor:hover {
-    border-color: #3b49a0;
+    background: var(--gu-card-hover);
+    border-color: #34479f;
 }
 
 .cabecalho-servidor {
@@ -405,7 +409,7 @@ canvas {
     margin-top: 8px;
     overflow: hidden;
     border-radius: 999px;
-    background: var(--gu-borda-suave);
+    background: #1a2358;
 }
 
 .barra-uso i {
@@ -446,7 +450,7 @@ canvas {
     overflow-x: auto;
     border: 1px solid var(--gu-borda);
     border-radius: var(--gu-raio-md);
-    background: rgba(8, 12, 43, 0.65);
+    background: #080c2b;
     scrollbar-width: thin;
     scrollbar-color: #4a5cae var(--gu-superficie);
 }
@@ -467,7 +471,7 @@ td {
 }
 
 th {
-    background: rgba(11, 16, 51, 0.8);
+    background: rgb(11, 16, 51);
     color: var(--gu-texto-suave);
     font-weight: 600;
     white-space: nowrap;
@@ -482,7 +486,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-    background: rgba(91, 91, 255, 0.06);
+    background: #111a40;
 }
 
 tbody tr:last-child td {
@@ -509,8 +513,8 @@ tbody tr:last-child td {
 
 .botao-analisar:hover,
 .botao-analisar[aria-expanded="true"] {
-    border-color: #4b5bd4;
-    background: var(--gu-primaria);
+    border-color: #5b7bff;
+    background: #1a2566;
     color: var(--gu-texto);
 }
 
@@ -527,7 +531,7 @@ tbody tr:last-child td {
 }
 
 .botao-fechar:hover {
-    background: rgba(91, 91, 255, 0.12);
+    background: rgba(143, 176, 255, 0.14);
     color: var(--gu-texto);
 }
 
@@ -582,7 +586,7 @@ tbody tr:last-child td {
 
 .seletor-servidor button.selecionado,
 .seletor-disco button.selecionado {
-    border-color: #4a3dff;
+    border-color: #3d5bff;
     background: var(--gu-primaria);
     color: var(--gu-texto);
 }
@@ -661,10 +665,10 @@ tbody tr:last-child td {
 
 .erro-graficos {
     padding: 14px;
-    border: 1px solid rgba(255, 173, 31, 0.35);
+    border: 1px solid rgba(255, 173, 31, 0.6);
     border-radius: var(--gu-raio-md);
-    background: var(--gu-atencao-fundo);
-    color: var(--gu-atencao);
+    background: rgba(255, 173, 31, 0.12);
+    color: #ffd9a0;
     font-size: 13px;
     line-height: 1.6;
 }

@@ -4,6 +4,7 @@ function buscarContextoDoUsuario(idUsuario) {
   var instrucaoSql = `
     SELECT
       a.fkEmpresa AS idEmpresa,
+      u.fkAeroporto AS idAeroporto,
       c.nome AS nomeCargo
     FROM usuario u
     JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
@@ -14,14 +15,17 @@ function buscarContextoDoUsuario(idUsuario) {
   return database.executar(instrucaoSql);
 }
 
-function listarCargos(idEmpresa) {
+function listarCargos(idEmpresa, idAeroporto) {
   var instrucaoSql = `
     SELECT
       c.idCargo,
       c.nome,
       c.descricao,
       c.statusAtividade,
-      (SELECT COUNT(*) FROM usuario u WHERE u.fkCargo = c.idCargo) AS totalUsuarios,
+      (SELECT COUNT(*) FROM usuario u
+        WHERE u.fkCargo = c.idCargo
+          AND u.fkAeroporto = ${Number(idAeroporto)}) AS totalUsuarios,
+      (SELECT COUNT(*) FROM usuario u WHERE u.fkCargo = c.idCargo) AS totalUsuariosEmpresa,
       p.idPermissao,
       p.nome AS nomePermissao
     FROM cargo c

@@ -178,7 +178,9 @@ function montarLinhaCargo(cargo) {
   if (cargo.protegido) {
     motivoSemExcluir = "O cargo Administrador não pode ser excluído";
   } else if (cargo.totalUsuarios > 0) {
-    motivoSemExcluir = `Existem ${cargo.totalUsuarios} usuário(s) com este cargo`;
+    motivoSemExcluir = `Existem ${cargo.totalUsuarios} usuário(s) com este cargo neste aeroporto`;
+  } else if (cargo.totalUsuariosEmpresa > 0) {
+    motivoSemExcluir = `Existem ${cargo.totalUsuariosEmpresa} usuário(s) com este cargo em outros aeroportos`;
   }
 
   return `
@@ -196,7 +198,7 @@ function montarLinhaCargo(cargo) {
         <div class="chipsPermissoes">${montarChipsPermissoes(cargo.permissoes)}</div>
       </div>
       <div class="col colUsuarios">
-        <span class="contagemUsuarios" title="Usuários com este cargo">${ICONES.usuarios}${cargo.totalUsuarios}</span>
+        <span class="contagemUsuarios" title="Usuários com este cargo neste aeroporto">${ICONES.usuarios}${cargo.totalUsuarios}</span>
       </div>
       <div class="col colStatus">
         <span class="status ${classeStatus}">${textoStatus}</span>

@@ -63,7 +63,10 @@ async function listar(req, res) {
     var contexto = await exigirAdministrador(req, res);
     if (!contexto) return;
 
-    var linhas = await cargoModel.listarCargos(contexto.idEmpresa);
+    var linhas = await cargoModel.listarCargos(
+      contexto.idEmpresa,
+      contexto.idAeroporto,
+    );
 
     var cargos = [];
     var porId = {};
@@ -78,6 +81,7 @@ async function listar(req, res) {
           descricao: linha.descricao || "",
           status: linha.statusAtividade ? true : false,
           totalUsuarios: Number(linha.totalUsuarios),
+          totalUsuariosEmpresa: Number(linha.totalUsuariosEmpresa),
           protegido: ehProtegido(linha.nome),
           permissoes: [],
         };

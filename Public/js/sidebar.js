@@ -45,25 +45,37 @@ function configurarAcessoDashboard(permissoesUsuario) {
   if (itemDashboard) {
     itemDashboard.dataset.dashboardNav = "true";
 
-    if (podeVerAnalista && podeVerGerente) {
-      const idSubmenu = "opcoesDashboardSidebar";
-      const submenu = document.createElement("div");
-      submenu.id = idSubmenu;
-      submenu.className = "sbSubmenuDashboard";
-      submenu.hidden = true;
-
-      [
+    const opcoesDashboard = [];
+    if (podeVerAnalista) {
+      opcoesDashboard.push(
         {
           pagina: "analista.html",
           rotulo: "Painel do analista",
           rotuloCompacto: "Analista",
         },
         {
-          pagina: "gerente.html",
-          rotulo: "Painel do gerente",
-          rotuloCompacto: "Gerente",
+          pagina: "monitoramentoGeral.html",
+          rotulo: "Monitoramento geral (analista)",
+          rotuloCompacto: "Geral",
         },
-      ].forEach((opcao) => {
+      );
+    }
+    if (podeVerGerente) {
+      opcoesDashboard.push({
+        pagina: "gerente.html",
+        rotulo: "Painel do gerente",
+        rotuloCompacto: "Gerente",
+      });
+    }
+
+    if (opcoesDashboard.length > 1) {
+      const idSubmenu = "opcoesDashboardSidebar";
+      const submenu = document.createElement("div");
+      submenu.id = idSubmenu;
+      submenu.className = "sbSubmenuDashboard";
+      submenu.hidden = true;
+
+      opcoesDashboard.forEach((opcao) => {
         const link = document.createElement("a");
         const rotulo = document.createElement("span");
         const rotuloCompacto = document.createElement("span");
@@ -92,10 +104,10 @@ function configurarAcessoDashboard(permissoesUsuario) {
   }
 
   const paginaAtual = window.location.pathname.split("/").pop();
-  const paginasDashboard = ["gerente.html", "analista.html"];
+  const paginasDashboard = ["gerente.html", "analista.html", "monitoramentoGeral.html"];
   if (paginasDashboard.includes(paginaAtual)) {
     const podeAcessarPagina =
-      paginaAtual === "analista.html" ? podeVerAnalista : podeVerGerente;
+      paginaAtual === "gerente.html" ? podeVerGerente : podeVerAnalista;
 
     if (!podeAcessarPagina) {
       const paginaPermitida = podeVerAnalista
@@ -166,7 +178,7 @@ function marcarItemAtivoSidebar() {
       destino !== "" && destino !== "#" && destino === paginaAtual;
     const ehDashboardAtual =
       item.querySelector(".sbRotulo")?.textContent.trim() === "Dashboard" &&
-      ["gerente.html", "analista.html"].includes(paginaAtual);
+      ["gerente.html", "analista.html", "monitoramentoGeral.html"].includes(paginaAtual);
 
     item.classList.toggle("ativo", ehPaginaAtual || ehDashboardAtual);
 

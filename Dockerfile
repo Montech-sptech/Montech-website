@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copia só os manifests primeiro para aproveitar o cache de camadas
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 
 # Copia o restante do projeto (app.js, src/, Public/)
 COPY . .

@@ -3,8 +3,13 @@ services:
     build: .
     container_name: montech-app
     restart: unless-stopped
-    # As variáveis (DB_HOST, DB_USER, APP_PORT...) vêm do .env da VM
     env_file:
       - .env
     ports:
       - "${APP_PORT:-8080}:${APP_PORT:-8080}"
+    networks:
+      - montech-net
+
+networks:
+  montech-net:
+    external: true

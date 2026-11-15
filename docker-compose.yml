@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    container_name: montech-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${APP_PORT:-8080}:${APP_PORT:-8080}"
+    networks:
+      - montech-net
+
+networks:
+  montech-net:
+    external: true

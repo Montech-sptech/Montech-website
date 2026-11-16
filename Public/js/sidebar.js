@@ -16,6 +16,12 @@ const PERMISSOES_POR_ITEM_SIDEBAR = {
 
 const OPCOES_DASHBOARD = [
   {
+    pagina: "monitoramentoGeral.html",
+    rotulo: "Monitoramento Geral",
+    rotuloCompacto: "Geral",
+    permissao: "VISUALIZAR_DASHBOARD",
+  },
+  {
     pagina: "monitoramento_continuo.html",
     rotulo: "Monitoramento contínuo",
     rotuloCompacto: "Monit.",

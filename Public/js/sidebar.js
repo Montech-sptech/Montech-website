@@ -14,6 +14,39 @@ const PERMISSOES_POR_ITEM_SIDEBAR = {
   Servidores: ["GERENCIAR_SERVIDORES"],
 };
 
+const OPCOES_DASHBOARD = [
+  {
+    pagina: "monitoramento_continuo.html",
+    rotulo: "Monitoramento contínuo",
+    rotuloCompacto: "Monit.",
+    permissao: "VISUALIZAR_DASHBOARD",
+  },
+  {
+    pagina: "diagnostico_tecnico.html",
+    rotulo: "Diagnóstico técnico",
+    rotuloCompacto: "Diagnóstico",
+    permissao: "VISUALIZAR_DASHBOARD",
+  },
+  {
+    pagina: "saude_tendencia.html",
+    rotulo: "Saúde e tendência",
+    rotuloCompacto: "Saúde",
+    permissao: "VISUALIZAR_DASHBOARD",
+  },
+  {
+    pagina: "analise_alerta.html",
+    rotulo: "Análise de alerta",
+    rotuloCompacto: "Alertas",
+    permissao: "VISUALIZAR_DASHBOARD_GESTOR",
+  },
+  {
+    pagina: "resposta_incidentes.html",
+    rotulo: "Resposta a incidentes",
+    rotuloCompacto: "Resposta",
+    permissao: "VISUALIZAR_DASHBOARD_GESTOR",
+  },
+];
+
 function pegarItensSidebar() {
   return Array.from(document.querySelectorAll("#sidebar .sbItem"));
 }
@@ -34,79 +67,62 @@ function pegarPermissoesUsuario() {
 }
 
 function configurarAcessoDashboard(permissoesUsuario) {
-  const podeVerAnalista =
-    permissoesUsuario?.includes("VISUALIZAR_DASHBOARD") || false;
-  const podeVerGerente =
-    permissoesUsuario?.includes("VISUALIZAR_DASHBOARD_GESTOR") || false;
+  const permissoes = permissoesUsuario || [];
+  const opcoesPermitidas = OPCOES_DASHBOARD.filter((opcao) =>
+    permissoes.includes(opcao.permissao),
+  );
   const itemDashboard = pegarItensSidebar().find(
     (item) => item.querySelector(".sbRotulo")?.textContent.trim() === "Dashboard",
   );
 
-  if (itemDashboard) {
+  if (itemDashboard && opcoesPermitidas.length) {
     itemDashboard.dataset.dashboardNav = "true";
 
-    if (podeVerAnalista && podeVerGerente) {
-      const idSubmenu = "opcoesDashboardSidebar";
-      const submenu = document.createElement("div");
-      submenu.id = idSubmenu;
-      submenu.className = "sbSubmenuDashboard";
-      submenu.hidden = true;
+    const idSubmenu = "opcoesDashboardSidebar";
+    const paginaAtual = window.location.pathname.split("/").pop();
+    const submenu = document.createElement("div");
+    submenu.id = idSubmenu;
+    submenu.className = "sbSubmenuDashboard";
+    submenu.hidden = !opcoesPermitidas.some(
+      (opcao) => opcao.pagina === paginaAtual,
+    );
 
-      [
-        {
-          pagina: "analista.html",
-          rotulo: "Painel do analista",
-          rotuloCompacto: "Analista",
-        },
-        {
-          pagina: "gerente.html",
-          rotulo: "Painel do gerente",
-          rotuloCompacto: "Gerente",
-        },
-      ].forEach((opcao) => {
-        const link = document.createElement("a");
-        const rotulo = document.createElement("span");
-        const rotuloCompacto = document.createElement("span");
-        link.className = "sbSubitemDashboard";
-        link.href = opcao.pagina;
-        rotulo.textContent = opcao.rotulo;
-        rotuloCompacto.className = "sbRotuloDashboardCompacto";
-        rotuloCompacto.textContent = opcao.rotuloCompacto;
-        link.append(rotulo, rotuloCompacto);
-        submenu.appendChild(link);
-      });
+    opcoesPermitidas.forEach((opcao) => {
+      const link = document.createElement("a");
+      const rotulo = document.createElement("span");
+      const rotuloCompacto = document.createElement("span");
+      link.className = "sbSubitemDashboard";
+      link.href = opcao.pagina;
+      rotulo.textContent = opcao.rotulo;
+      rotuloCompacto.className = "sbRotuloDashboardCompacto";
+      rotuloCompacto.textContent = opcao.rotuloCompacto;
+      link.append(rotulo, rotuloCompacto);
+      submenu.appendChild(link);
+    });
 
-      itemDashboard.href = "#";
-      itemDashboard.setAttribute("aria-expanded", "false");
-      itemDashboard.setAttribute("aria-controls", idSubmenu);
-      itemDashboard.insertAdjacentElement("afterend", submenu);
-      itemDashboard.addEventListener("click", (evento) => {
-        evento.preventDefault();
-        const expandido = itemDashboard.getAttribute("aria-expanded") === "true";
-        itemDashboard.setAttribute("aria-expanded", String(!expandido));
-        submenu.hidden = expandido;
-      });
-    } else if (podeVerAnalista || podeVerGerente) {
-      itemDashboard.href = podeVerAnalista ? "analista.html" : "gerente.html";
-    }
+    itemDashboard.href = "#";
+    itemDashboard.setAttribute(
+      "aria-expanded",
+      String(!submenu.hidden),
+    );
+    itemDashboard.setAttribute("aria-controls", idSubmenu);
+    itemDashboard.insertAdjacentElement("afterend", submenu);
+    itemDashboard.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      const expandido = itemDashboard.getAttribute("aria-expanded") === "true";
+      itemDashboard.setAttribute("aria-expanded", String(!expandido));
+      submenu.hidden = expandido;
+    });
   }
 
   const paginaAtual = window.location.pathname.split("/").pop();
-  const paginasDashboard = ["gerente.html", "analista.html"];
-  if (paginasDashboard.includes(paginaAtual)) {
-    const podeAcessarPagina =
-      paginaAtual === "analista.html" ? podeVerAnalista : podeVerGerente;
-
-    if (!podeAcessarPagina) {
-      const paginaPermitida = podeVerAnalista
-        ? "analista.html"
-        : podeVerGerente
-          ? "gerente.html"
-          : "gerenciamentoServidor.html";
-      window.location.replace(paginaPermitida);
-      return;
-    }
-
+  const opcaoAtual = OPCOES_DASHBOARD.find(
+    (opcao) => opcao.pagina === paginaAtual,
+  );
+  if (opcaoAtual && !permissoes.includes(opcaoAtual.permissao)) {
+    const paginaPermitida =
+      opcoesPermitidas[0]?.pagina || "gerenciamentoServidor.html";
+    window.location.replace(paginaPermitida);
   }
 }
 
@@ -166,7 +182,7 @@ function marcarItemAtivoSidebar() {
       destino !== "" && destino !== "#" && destino === paginaAtual;
     const ehDashboardAtual =
       item.querySelector(".sbRotulo")?.textContent.trim() === "Dashboard" &&
-      ["gerente.html", "analista.html"].includes(paginaAtual);
+      OPCOES_DASHBOARD.some((opcao) => opcao.pagina === paginaAtual);
 
     item.classList.toggle("ativo", ehPaginaAtual || ehDashboardAtual);
 
@@ -174,6 +190,16 @@ function marcarItemAtivoSidebar() {
       item.setAttribute("aria-current", "page");
     } else {
       item.removeAttribute("aria-current");
+    }
+  });
+
+  document.querySelectorAll(".sbSubitemDashboard").forEach((link) => {
+    const ehPaginaAtual = link.getAttribute("href") === paginaAtual;
+    link.classList.toggle("ativo", ehPaginaAtual);
+    if (ehPaginaAtual) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
     }
   });
 }

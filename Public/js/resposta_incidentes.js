@@ -284,6 +284,23 @@ function desenharGrafico(idCanvas, configuracao) {
     configuracao,
   );
 }
+function criarPadraoListrado(corBase) {
+  var canvasPadrao = document.createElement("canvas");
+  canvasPadrao.width = 17;
+  canvasPadrao.height = 17;
+  var contextoPadrao = canvasPadrao.getContext("2d");
+  contextoPadrao.fillStyle = corBase;
+  contextoPadrao.fillRect(0, 0, canvasPadrao.width, canvasPadrao.height);
+  contextoPadrao.strokeStyle = "#0d1233";
+  contextoPadrao.lineWidth = 3;
+  for (var deslocamento = -17; deslocamento <= 17; deslocamento += 8.5) {
+    contextoPadrao.beginPath();
+    contextoPadrao.moveTo(-17, deslocamento - 17);
+    contextoPadrao.lineTo(34, deslocamento + 34);
+    contextoPadrao.stroke();
+  }
+  return contextoPadrao.createPattern(canvasPadrao, "repeat");
+}
 
 // Linha pontilhada que separa o histórico do período do filtro
 var pluginDivisorDoHistorico = {
@@ -473,10 +490,14 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
   var tamanhoDoBloco = semanas === 4 ? 1 : 4; // semana a semana no último mês; blocos de 4 semanas nos períodos maiores
   var quantidadeDeBlocos = semanas / tamanhoDoBloco;
   var rotulos = [],
-    primeiras = [],
-    reincidentes = [],
-    anteriores = [],
-    reincidentesAnteriores = [],
+    criticosAtuais = [],
+    criticosReincidentesAtuais = [],
+    atencaoAtuais = [],
+    atencaoReincidentesAtuais = [],
+    criticosAnteriores = [],
+    criticosReincidentesAnteriores = [],
+    atencaoAnteriores = [],
+    atencaoReincidentesAnteriores = [],
     intervalosAtuais = [],
     intervalosAnteriores = [];
   for (var bloco = 0; bloco < quantidadeDeBlocos; bloco++) {
@@ -487,7 +508,16 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
       tamanhoDoBloco,
       severidade,
     );
-    var reincidentesDoBloco = doBloco.filter(function (i) {
+    var criticosDoBloco = doBloco.filter(function (i) {
+      return i.severidade === "critico";
+    });
+    var atencaoDoBloco = doBloco.filter(function (i) {
+      return i.severidade === "atencao";
+    });
+    var criticosReincidentesDoBloco = criticosDoBloco.filter(function (i) {
+      return i.reincidente;
+    }).length;
+    var atencaoReincidentesDoBloco = atencaoDoBloco.filter(function (i) {
       return i.reincidente;
     }).length;
     // Rótulo por posição: o período anterior é comparado "semana 1 contra semana 1"
@@ -499,18 +529,39 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
             "–" +
             (bloco + 1) * tamanhoDoBloco,
     );
-    primeiras.push(doBloco.length - reincidentesDoBloco);
-    reincidentes.push(reincidentesDoBloco);
+    criticosAtuais.push(criticosDoBloco.length - criticosReincidentesDoBloco);
+    criticosReincidentesAtuais.push(criticosReincidentesDoBloco);
+    atencaoAtuais.push(atencaoDoBloco.length - atencaoReincidentesDoBloco);
+    atencaoReincidentesAtuais.push(atencaoReincidentesDoBloco);
     var doBlocoAnterior = selecionarIncidentes(
       semanaMaisRecente + semanas,
       tamanhoDoBloco,
       severidade,
     );
-    var reincidentesDoBlocoAnterior = doBlocoAnterior.filter(function (i) {
-      return i.reincidente;
-    }).length;
-    anteriores.push(doBlocoAnterior.length - reincidentesDoBlocoAnterior);
-    reincidentesAnteriores.push(reincidentesDoBlocoAnterior);
+    var criticosDoBlocoAnterior = doBlocoAnterior.filter(function (i) {
+      return i.severidade === "critico";
+    });
+    var atencaoDoBlocoAnterior = doBlocoAnterior.filter(function (i) {
+      return i.severidade === "atencao";
+    });
+    var criticosReincidentesDoBlocoAnterior = criticosDoBlocoAnterior.filter(
+      function (i) {
+        return i.reincidente;
+      },
+    ).length;
+    var atencaoReincidentesDoBlocoAnterior = atencaoDoBlocoAnterior.filter(
+      function (i) {
+        return i.reincidente;
+      },
+    ).length;
+    criticosAnteriores.push(
+      criticosDoBlocoAnterior.length - criticosReincidentesDoBlocoAnterior,
+    );
+    criticosReincidentesAnteriores.push(criticosReincidentesDoBlocoAnterior);
+    atencaoAnteriores.push(
+      atencaoDoBlocoAnterior.length - atencaoReincidentesDoBlocoAnterior,
+    );
+    atencaoReincidentesAnteriores.push(atencaoReincidentesDoBlocoAnterior);
     intervalosAtuais.push(
       formatarIntervalo(semanaMaisAntiga, semanaMaisRecente),
     );
@@ -530,7 +581,7 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
   }
   document.getElementById("descricaoIncidentes").textContent =
     (semanas === 4 ? "Por semana" : "Por bloco de 4 semanas") +
-    ", separando primeira ocorrência de reincidente, comparando ao período anterior";
+    ", por severidade e tipo de ocorrência, comparando ao período anterior";
   document.getElementById("periodosComparados").textContent =
     formatarIntervalo(semanas - 1, 0) +
     " contra " +
@@ -546,6 +597,23 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
       "percentual",
     ).html +
     "</span>";
+  var legendaSeveridade = [];
+  if (severidade !== "atencao") {
+    legendaSeveridade.push(
+      '<span><i class="marcadorSeveridade critico"></i>Crítico</span>',
+    );
+  }
+  if (severidade !== "critico") {
+    legendaSeveridade.push(
+      '<span><i class="marcadorSeveridade atencao"></i>Atenção</span>',
+    );
+  }
+  legendaSeveridade.push(
+    '<span><i class="marcadorSeveridade periodoAnterior"></i>Período anterior</span>',
+    '<span class="notaLegendaSeveridade">listrado = reincidente</span>',
+  );
+  document.getElementById("legendaSeveridade").innerHTML =
+    legendaSeveridade.join("");
 
   desenharGrafico("graficoIncidentes", {
     type: "bar",
@@ -553,31 +621,59 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
       labels: rotulos,
       datasets: [
         {
-          label: "Primeira ocorrência",
-          data: primeiras,
-          backgroundColor: COR_AZUL_FORTE,
-          stack: "atual",
+          label: "Crítico · atual · primeira ocorrência",
+          data: criticosAtuais,
+          backgroundColor: COR_VERMELHO,
+          stack: "atual-critico",
           borderRadius: 3,
         },
         {
-          label: "Reincidente",
-          data: reincidentes,
-          backgroundColor: "#062669",
-          stack: "atual",
+          label: "Crítico · atual · reincidente",
+          data: criticosReincidentesAtuais,
+          backgroundColor: criarPadraoListrado(COR_VERMELHO),
+          stack: "atual-critico",
           borderRadius: 3,
         },
         {
-          label: "Período anterior",
-          data: anteriores,
-          backgroundColor: "#858da6",
-          stack: "anterior",
+          label: "Atenção · atual · primeira ocorrência",
+          data: atencaoAtuais,
+          backgroundColor: COR_AMARELO,
+          stack: "atual-atencao",
           borderRadius: 3,
         },
         {
-          label: "Reincidente (período anterior)",
-          data: reincidentesAnteriores,
-          backgroundColor: "#50596f",
-          stack: "anterior",
+          label: "Atenção · atual · reincidente",
+          data: atencaoReincidentesAtuais,
+          backgroundColor: criarPadraoListrado(COR_AMARELO),
+          stack: "atual-atencao",
+          borderRadius: 3,
+        },
+        {
+          label: "Crítico · período anterior · primeira ocorrência",
+          data: criticosAnteriores,
+          backgroundColor: "#b86f7b",
+          stack: "anterior-critico",
+          borderRadius: 3,
+        },
+        {
+          label: "Crítico · período anterior · reincidente",
+          data: criticosReincidentesAnteriores,
+          backgroundColor: criarPadraoListrado("#b86f7b"),
+          stack: "anterior-critico",
+          borderRadius: 3,
+        },
+        {
+          label: "Atenção · período anterior · primeira ocorrência",
+          data: atencaoAnteriores,
+          backgroundColor: "#c39a54",
+          stack: "anterior-atencao",
+          borderRadius: 3,
+        },
+        {
+          label: "Atenção · período anterior · reincidente",
+          data: atencaoReincidentesAnteriores,
+          backgroundColor: criarPadraoListrado("#c39a54"),
+          stack: "anterior-atencao",
           borderRadius: 3,
         },
       ],
@@ -585,7 +681,7 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
     options: {
       interaction: { mode: "index", intersect: false },
       plugins: {
-        legend: { labels: { boxWidth: 10, boxHeight: 10 } },
+        legend: { display: false },
         tooltip: {
           callbacks: {
             title: function (itens) {
@@ -596,11 +692,22 @@ function desenharGraficoDeIncidentes(semanas, severidade) {
               ];
             },
           },
+          filter: function (item) {
+            return item.raw > 0;
+          },
         },
       },
       scales: {
-        x: { stacked: true, grid: { display: false } },
-        y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } },
+        x: {
+          stacked: true,
+          grid: { display: false, color: COR_GRADE },
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          ticks: { precision: 0 },
+          grid: { color: COR_GRADE },
+        },
       },
     },
   });
@@ -882,10 +989,11 @@ function renderizarKpis(semanas, severidade) {
       valor: formatarDuracao(atual.mediana),
       variacao: montarVariacao(atual.mediana, anterior.mediana, "minutos"),
       detalhe:
-        "9 em 10 incidentes encerram em até " +
+        "P90: " +
         formatarDuracao(
           atual.p90 === null ? null : Math.round(atual.p90 / 10) * 10,
-        ),
+        ) +
+        ' <span class="iconeInfo" tabindex="0" aria-describedby="dicaP90">i<span class="dicaInfo" id="dicaP90" role="tooltip">9 em cada 10 incidentes são encerrados em até esse tempo. Mostra os casos mais lentos, que a mediana não vê.</span></span>',
     },
     {
       rotulo: "Horas em estado crítico",

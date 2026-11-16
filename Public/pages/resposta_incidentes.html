@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../img/shortLigthLogo.svg"
+      type="image/x-icon"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <link rel="stylesheet" href="../css/resposta_incidentes.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"
+      defer
+    ></script>
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/resposta_incidentes.js" defer></script>
+    <title>MonTech - Resposta aos incidentes</title>
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="sbLogo">
+        <img
+          class="sbLogoLonga"
+          src="../img/logoEscuraMontech.png"
+          alt="MonTech"
+        />
+        <img class="sbLogoCurta" src="../img/logoTipo.png" alt="MonTech" />
+      </div>
+
+      <nav class="sbNav" aria-label="Menu principal">
+        <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+          <span class="sbIcone">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+              <path
+                d="m3 10 8-7a2 2 0 0 1 2 0l8 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              />
+            </svg>
+          </span>
+          <span class="sbRotulo">Dashboard</span>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoDeUsuarios.html"
+          data-cargos="Administrador"
+        >
+          <span class="sbIcone">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Usuários</span>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoDeCargos.html"
+          data-cargos="Administrador"
+        >
+          <span class="sbIcone">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+              />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Cargos</span>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoServidor.html"
+          data-cargos="Administrador,Analista"
+          data-titulo="Gerenciar Servidores"
+        >
+          <span class="sbIcone">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Servidores</span>
+        </a>
+      </nav>
+
+      <div class="sbRodape">
+        <button class="sbSair" id="sbSair" type="button">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <path d="m16 17 5-5-5-5M21 12H9" />
+          </svg>
+          <span class="sbRotulo">Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="barraFiltros">
+        <div class="grupoFiltros">
+          <label class="filtroPilula"
+            >Período
+            <select id="filtroPeriodo">
+              <option value="4">Último mês</option>
+              <option value="12">3 meses</option>
+              <option value="24">6 meses</option>
+            </select>
+          </label>
+          <label class="filtroPilula"
+            >Severidade
+            <select id="filtroSeveridade">
+              <option value="todas">Todas</option>
+              <option value="critico">Críticos</option>
+              <option value="atencao">Atenção</option>
+            </select>
+          </label>
+        </div>
+        <div class="grupoAcoes">
+          <span class="seloDadosExemplo"><i></i>Dados de exemplo</span>
+          <button type="button" class="botaoPrimario" id="botaoExportar">
+            Exportar relatórios
+          </button>
+        </div>
+      </div>
+
+      <section class="cabecalhoPagina">
+        <div class="tituloPagina">
+          <h1>Resposta aos incidentes</h1>
+          <span class="seloServidores">3 servidores</span>
+        </div>
+        <p class="subtituloPagina" id="subtituloPagina"></p>
+      </section>
+
+      <section class="gradeKpis" id="gradeKpis"></section>
+
+      <section class="cartaoGrafico">
+        <div class="cabecalhoGrafico">
+          <div>
+            <h2 class="tituloGrafico">Desempenho dentro do padrão</h2>
+            <p class="descricaoGrafico">
+              Tempo mediano de resolução, por semana
+            </p>
+          </div>
+          <span class="seloEstado" id="seloControle"></span>
+        </div>
+        <div class="areaGrafico"><canvas id="graficoControle"></canvas></div>
+        <div class="legendaGrafico">
+          <span><i style="background: #4fa3ff"></i>Mediana da semana</span>
+          <span>
+            <i style="background: rgba(96, 217, 141, 0.4)"></i>Faixa normal
+            <span
+              class="iconeInfo"
+              tabindex="0"
+              aria-describedby="dicaFaixaNormal"
+              >i
+              <span class="dicaInfo" id="dicaFaixaNormal" role="tooltip"
+                >A faixa verde mostra o que é normal para a operação, calculado
+                nas 12 semanas anteriores ao período escolhido. Um ponto fora
+                dela indica mudança real de comportamento; dentro dela, é
+                oscilação do dia a dia.</span
+              >
+            </span>
+          </span>
+          <span><i style="background: #ff6b6b"></i>Pior que o normal</span>
+          <span><i style="background: #60d98d"></i>Melhor que o normal</span>
+        </div>
+      </section>
+
+      <section class="gradeGraficosInferiores">
+        <div class="cartaoGrafico">
+          <div class="cabecalhoGrafico">
+            <div>
+              <h2 class="tituloGrafico">Incidentes no período</h2>
+              <p class="descricaoGrafico" id="descricaoIncidentes"></p>
+              <p class="descricaoGrafico" id="periodosComparados"></p>
+            </div>
+            <div class="grupoChips" id="chipsIncidentes"></div>
+          </div>
+          <div class="areaGrafico">
+            <canvas id="graficoIncidentes"></canvas>
+          </div>
+        </div>
+
+        <div class="cartaoGrafico">
+          <div class="cabecalhoGrafico">
+            <div>
+              <h2 class="tituloGrafico" id="tituloTurnos">
+                Tempo médio por turno de abertura
+              </h2>
+              <p class="descricaoGrafico" id="descricaoTurnos">
+                Quando a resposta é mais lenta ou mais rápida
+              </p>
+            </div>
+            <div class="controlesTurnos">
+              <div
+                class="abasGrafico"
+                role="tablist"
+                aria-label="Visualização dos incidentes por turno"
+              >
+                <button
+                  type="button"
+                  id="abaTurnos"
+                  class="abaGrafico ativa"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="painelTurnos"
+                  tabindex="0"
+                >
+                  Por turno
+                </button>
+                <button
+                  type="button"
+                  id="abaMapaCalor"
+                  class="abaGrafico"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="painelMapaCalor"
+                  tabindex="-1"
+                >
+                  Mapa de calor
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="painelAba"
+            id="painelTurnos"
+            role="tabpanel"
+            aria-labelledby="abaTurnos"
+            tabindex="0"
+          >
+            <div class="areaGrafico">
+              <canvas id="graficoTurnos"></canvas>
+            </div>
+            <div class="resumoTurnos" id="resumoTurnos"></div>
+          </div>
+          <div
+            class="painelAba"
+            id="painelMapaCalor"
+            role="tabpanel"
+            aria-labelledby="abaMapaCalor"
+            tabindex="0"
+            hidden
+          >
+            <div
+              class="mapaCalor"
+              id="mapaCalor"
+              role="grid"
+              aria-label="Quantidade de incidentes por dia da semana e turno de abertura"
+            ></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="fundoModal" id="modalExportar" hidden>
+      <div
+        class="janelaModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloModal"
+      >
+        <h2 id="tituloModal">Exportar relatório</h2>
+        <p class="descricaoGrafico">
+          Escolha um mês ou defina as datas de início e fim.
+        </p>
+        <div class="atalhosMes" id="atalhosMes"></div>
+        <div class="camposData">
+          <label
+            >Data inicial<input
+              type="date"
+              id="dataInicial"
+              min="2025-11-03"
+              max="2026-10-31"
+          /></label>
+          <label
+            >Data final<input
+              type="date"
+              id="dataFinal"
+              min="2025-11-03"
+              max="2026-10-31"
+          /></label>
+        </div>
+        <p class="avisoModal" id="avisoModal"></p>
+        <div class="rodapeModal">
+          <button type="button" class="botaoSecundario" id="botaoCancelar">
+            Cancelar
+          </button>
+          <button type="button" class="botaoPrimario" id="botaoBaixar">
+            Baixar PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

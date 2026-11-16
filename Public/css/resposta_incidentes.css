@@ -1,0 +1,158 @@
+/* ===== Base compartilhada (a mesma enviada pelo grupo; pode remover se já estiver em outro CSS) ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --fundoCartao: #0d1233;
+    --bordaCartao: #262f5c;
+    --textoSuave: #a8b0d3;
+    --azulClaro: #4fa3ff;
+    --azulForte: #3b6bff;
+    --verde: #60d98d;
+    --amarelo: #ffad1f;
+    --vermelho: #ff6b6b;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+    min-height: 100vh;
+    margin-left: var(--largura-sidebar);
+    width: calc(100% - var(--largura-sidebar));
+    padding: clamp(20px, 3vw, 40px) clamp(16px, 3vw, 40px);
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    background:
+        radial-gradient(700px 500px at 0% 100%, rgba(67, 56, 255, 0.12), transparent 60%),
+        #080c26;
+}
+
+/* ===== Filtros e ações ===== */
+.barraFiltros, .grupoFiltros, .grupoAcoes { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.barraFiltros { justify-content: space-between; }
+.filtroPilula {
+    display: flex; gap: 8px; align-items: center;
+    background: var(--fundoCartao); border: 1px solid var(--bordaCartao); border-radius: 8px;
+    padding: 6px 10px; color: var(--textoSuave); font-size: 12px;
+}
+.filtroPilula select { background: transparent; border: 0; color: #fff; font: 600 13px 'Inter', sans-serif; outline: 0; cursor: pointer; }
+.filtroPilula select option { background: #0d1233; }
+.seloDadosExemplo { display: flex; gap: 6px; align-items: center; color: var(--textoSuave); font-size: 12px; }
+.seloDadosExemplo i { width: 7px; height: 7px; border-radius: 50%; background: var(--verde); }
+.botaoPrimario, .botaoSecundario { border-radius: 8px; padding: 8px 14px; font: 600 13px 'Inter', sans-serif; cursor: pointer; color: #fff; }
+.botaoPrimario { background: var(--azulForte); border: 0; }
+.botaoSecundario { background: transparent; border: 1px solid var(--bordaCartao); }
+.botaoPrimario:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ===== Cabeçalho da página ===== */
+.tituloPagina { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.tituloPagina h1 { font-size: clamp(20px, 2vw, 26px); }
+.seloServidores { background: #141a45; border: 1px solid var(--bordaCartao); border-radius: 6px; padding: 2px 8px; font-size: 11px; color: var(--textoSuave); }
+.subtituloPagina { color: var(--textoSuave); font-size: 12px; margin-top: 6px; }
+
+/* ===== KPIs ===== */
+.gradeKpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.cartaoKpi, .cartaoGrafico { background: var(--fundoCartao); border: 1px solid var(--bordaCartao); border-radius: 10px; padding: 16px; min-width: 0; }
+.cartaoGrafico.foraDoPadrao { border-color: rgba(255, 107, 107, 0.8); }
+.kpiRotulo { color: var(--textoSuave); font-size: 12px; }
+.kpiValor { font-size: clamp(24px, 2.4vw, 32px); font-weight: 700; margin: 8px 0 6px; }
+.kpiDetalhe { color: var(--textoSuave); font-size: 12px; margin-top: 6px; }
+.cartaoKpi.pior { background: rgba(255, 107, 107, 0.08); border-color: rgba(255, 107, 107, 0.45); }
+.cartaoKpi.melhor { background: rgba(96, 217, 141, 0.07); border-color: rgba(96, 217, 141, 0.4); }
+.variacao { font-size: 12px; font-weight: 600; white-space: nowrap; }
+.variacao.pior { color: var(--vermelho); }
+.variacao.melhor { color: var(--verde); }
+.variacao.neutro { color: var(--textoSuave); }
+
+/* ===== Gráficos ===== */
+.gradeGraficosInferiores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
+.gradeGraficosInferiores > .cartaoGrafico { display: flex; flex-direction: column; height: 500px; }
+.gradeGraficosInferiores > .cartaoGrafico > .areaGrafico { flex: 1; height: auto; min-height: 0; }
+.gradeGraficosInferiores > .cartaoGrafico > .painelAba:not([hidden]) { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.gradeGraficosInferiores .painelAba > .areaGrafico { flex: 1; height: auto; min-height: 0; }
+.cabecalhoGrafico { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.tituloGrafico { font-size: clamp(16px, 1.2vw + 8px, 19px); font-weight: 600; }
+.descricaoGrafico { margin-top: 4px; color: var(--textoSuave); font-size: 12px; }
+.grupoChips { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--textoSuave); }
+.areaGrafico { position: relative; height: clamp(240px, 32vh, 320px); }
+.seloEstado { border-radius: 8px; padding: 6px 12px; font-weight: 600; font-size: 13px; border: 1px solid var(--bordaCartao); color: var(--textoSuave); }
+.seloEstado.pior { background: rgba(255, 107, 107, 0.18); border-color: rgba(255, 107, 107, 0.6); color: #ffb3b3; }
+.seloEstado.melhor { background: rgba(96, 217, 141, 0.12); border-color: rgba(96, 217, 141, 0.5); color: var(--verde); }
+
+.legendaGrafico { display: flex; gap: 8px 18px; flex-wrap: wrap; margin-top: 12px; font-size: 12px; color: var(--textoSuave); }
+.legendaGrafico i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+.iconeInfo {
+    position: relative; display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; margin-left: 6px; border-radius: 50%;
+    border: 1px solid var(--textoSuave); font-size: 10px; font-weight: 700; font-style: italic; cursor: help; outline: 0;
+}
+.iconeInfo:hover, .iconeInfo:focus { border-color: var(--azulClaro); color: var(--azulClaro); }
+.dicaInfo {
+    display: none; position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 5;
+    width: min(280px, calc(100vw - 80px)); padding: 10px 12px; border-radius: 8px;
+    background: #141a45; border: 1px solid var(--bordaCartao); color: #fff;
+    font-size: 12px; font-style: normal; font-weight: 400; line-height: 1.45; text-align: left;
+}
+.iconeInfo:hover .dicaInfo, .iconeInfo:focus .dicaInfo { display: block; }
+
+.resumoTurnos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 12px; font-size: 12px; color: var(--textoSuave); text-align: center; }
+.resumoTurnos > div { min-width: 0; overflow-wrap: anywhere; }
+.resumoTurnos b { display: block; color: #fff; }
+.controlesTurnos { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.abasGrafico { display: flex; border: 1px solid var(--bordaCartao); border-radius: 8px; padding: 3px; }
+.abaGrafico { background: transparent; border: 0; border-radius: 6px; color: var(--textoSuave); padding: 6px 10px; font: 600 12px 'Inter', sans-serif; cursor: pointer; white-space: nowrap; }
+.abaGrafico.ativa { background: #141a45; color: #fff; }
+.abaGrafico:focus-visible { outline: 2px solid var(--azulClaro); outline-offset: 2px; }
+.painelAba[hidden] { display: none; }
+.mapaCalor { display: grid; flex: 1; grid-template-rows: repeat(8, minmax(0, 1fr)); gap: 6px; min-height: 0; }
+.linhaMapa { display: grid; grid-template-columns: minmax(84px, 1.15fr) repeat(4, minmax(0, 1fr)); gap: 6px; }
+.cabecalhoMapa { color: var(--textoSuave); font-size: 11px; text-align: center; }
+.cabecalhoMapa > span { display: flex; flex-direction: column; justify-content: flex-end; gap: 3px; min-width: 0; padding: 4px 2px; }
+.cabecalhoMapa b { color: #fff; font-size: 11px; }
+.cabecalhoMapa small { font-size: 10px; }
+.rotuloLinhaMapa { display: flex; align-items: center; color: var(--textoSuave); font-size: 11px; }
+.celulaMapa { display: flex; align-items: center; justify-content: center; min-height: 46px; border: 1px solid rgba(168, 176, 211, 0.12); border-radius: 6px; background: rgba(59, 107, 255, var(--intensidade)); color: #fff; font-size: 13px; font-weight: 600; }
+.celulaMapa.zero { background: #141a45; color: var(--textoSuave); }
+.gradeGraficosInferiores .celulaMapa { min-height: 0; }
+
+/* ===== Modal de exportação ===== */
+.fundoModal { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(4, 6, 20, 0.75); }
+.fundoModal[hidden] { display: none; }
+.janelaModal { width: 100%; max-width: 460px; padding: 22px; border-radius: 12px; background: var(--fundoCartao); border: 1px solid var(--bordaCartao); color: #fff; font-family: 'Inter', sans-serif; }
+.atalhosMes { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.atalhosMes button { background: #141a45; border: 1px solid var(--bordaCartao); color: #fff; border-radius: 999px; padding: 5px 12px; font: 500 12px 'Inter', sans-serif; cursor: pointer; }
+.atalhosMes button.ativo { border-color: var(--azulClaro); color: var(--azulClaro); }
+.camposData { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.camposData label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--textoSuave); }
+.camposData input { background: #080c26; border: 1px solid var(--bordaCartao); border-radius: 8px; color: #fff; padding: 8px; font: 13px 'Inter', sans-serif; color-scheme: dark; min-width: 0; }
+.avisoModal { min-height: 18px; margin: 12px 0; font-size: 12px; color: var(--textoSuave); }
+.rodapeModal { display: flex; justify-content: flex-end; gap: 10px; }
+
+/* ===== Responsividade ===== */
+@media (max-width: 1100px) {
+    .gradeKpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gradeGraficosInferiores { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 650px) {
+    main { gap: 18px; padding-left: 12px; padding-right: 12px; }
+    .grupoFiltros, .grupoAcoes { width: 100%; }
+    .filtroPilula { flex: 1; justify-content: space-between; }
+    .grupoAcoes .botaoPrimario { flex: 1; }
+}
+
+@media (max-width: 520px) {
+    .gradeKpis { grid-template-columns: minmax(0, 1fr); }
+    .cartaoKpi, .cartaoGrafico { padding: 12px; }
+    .areaGrafico { height: 260px; }
+    .camposData { grid-template-columns: minmax(0, 1fr); }
+    .cabecalhoGrafico:has(.controlesTurnos) { gap: 10px; }
+    .controlesTurnos { width: 100%; }
+    .abasGrafico { flex: 1; }
+    .abaGrafico { flex: 1; padding-left: 6px; padding-right: 6px; }
+    .linhaMapa { grid-template-columns: minmax(68px, 1.15fr) repeat(4, minmax(0, 1fr)); gap: 4px; }
+    .cabecalhoMapa b { font-size: 10px; }
+    .cabecalhoMapa small { font-size: 9px; }
+    .celulaMapa { min-height: 42px; }
+}

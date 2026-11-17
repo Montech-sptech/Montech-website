@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MonTech - Monitoramento Geral</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/monitoramentoGeral.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <script src="../js/sidebar.js" defer></script>
+  </head>
+
+  <body>
+    <div class="estrutura-pagina">
+      <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+        <div class="sbLogo">
+          <img
+            class="sbLogoLonga"
+            src="../img/logoEscuraMontech.png"
+            alt="MonTech"
+          />
+          <img class="sbLogoCurta" src="../img/logoTipo.png" alt="MonTech" />
+        </div>
+
+        <nav class="sbNav" aria-label="Menu principal">
+          <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                <path d="m3 10 8-7a2 2 0 0 1 2 0l8 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Dashboard</span>
+          </a>
+          <a
+            class="sbItem"
+            href="gerenciamentoDeUsuarios.html"
+            data-cargos="Administrador"
+          >
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Usuários</span>
+          </a>
+          <a
+            class="sbItem"
+            href="gerenciamentoDeCargos.html"
+            data-cargos="Administrador"
+          >
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Cargos</span>
+          </a>
+          <a
+            class="sbItem"
+            href="gerenciamentoServidor.html"
+            data-cargos="Administrador,Analista"
+            data-titulo="Gerenciar Servidores"
+          >
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Servidores</span>
+          </a>
+        </nav>
+
+        <div class="sbRodape">
+          <button class="sbSair" id="sbSair" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <path d="m16 17 5-5-5-5M21 12H9" />
+            </svg>
+            <span class="sbRotulo">Sair</span>
+          </button>
+        </div>
+      </aside>
+
+
+      <main class="mg">
+<div class="wrap">
+<header>
+  <div>
+    <h1>Monitoramento Geral</h1>
+    <p class="sub">O que está acontecendo agora nos servidores do SAGITARIO</p>
+  </div>
+</header>
+
+<div class="banner" role="status"><b class="wa">Atenção</b><span>GRU-SPA está com RAM acima de 85% há 18 min. Abra o Diagnóstico Técnico para investigar.</span></div>
+
+<section class="grid kpis" aria-label="Indicadores principais">
+  <div class="card kpi"><div class="l">Servidores online</div><div class="v ok">3 / 3</div><div class="d">GRU-SPA, GRU-SDV e GRU-AIS respondendo</div></div>
+  <div class="card kpi"><div class="l">Servidor com mais componentes acima do limite</div><div class="v wa">GRU-SPA</div><div class="d">CPU 74% · RAM 88%</div></div>
+  <div class="card kpi"><div class="l">Servidor com mais componentes críticos</div><div class="v cr">GRU-SDV</div><div class="d">RAM 94%</div></div>
+  <div class="card kpi"><div class="l">Temperatura da CPU (maior entre os servidores)</div><div class="v ok">67 °C</div><div class="d">GRU-SPA</div></div>
+</section>
+
+<section class="grid srv" id="srv" aria-label="Estado por servidor"></section>
+
+<section class="card grid" id="det" style="display:none" aria-live="polite"></section>
+
+<section class="card">
+  <h2 style="margin-bottom:8px">Alertas ativos</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Gravidade</th><th>Servidor</th><th>Métrica</th><th>Valor / limite</th><th>Desde</th><th>Jira</th></tr></thead>
+    <tbody id="al"></tbody>
+  </table></div>
+</section>
+</div>
+      </main>
+    </div>
+
+    <script src="../js/monitoramentoGeral.js"></script>
+  </body>
+</html>

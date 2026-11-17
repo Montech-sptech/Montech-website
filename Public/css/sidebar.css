@@ -131,7 +131,8 @@
 }
 
 .sbSubitemDashboard:hover,
-.sbSubitemDashboard:focus-visible {
+.sbSubitemDashboard:focus-visible,
+.sbSubitemDashboard.ativo {
     background: rgba(255, 255, 255, 0.05);
     color: var(--sb-texto-forte);
 }

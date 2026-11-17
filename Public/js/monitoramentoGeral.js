@@ -37,18 +37,10 @@ function series(base, amp, seed, end) {
 }
 function chart(d, thr, color) {
     var W = 600, H = 220, L = 34, B = 22, Q = 8, x = function (i) { return L + i * (W - L - Q) / 59 }, y = function (v) { return Q + (100 - v) * (H - B - Q) / 100 };
-    var limits = Array.isArray(thr) ? thr : [thr];
     var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gráfico de linha">';
     [0, 25, 50, 75, 100].forEach(function (g) { s += '<line x1="' + L + '" x2="' + (W - Q) + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="var(--line)"/><text x="' + (L - 6) + '" y="' + (y(g) + 4) + '" text-anchor="end" font-size="11" fill="var(--mu)">' + g + '</text>' });
     ["-60 min", "-45", "-30", "-15", "agora"].forEach(function (t, i) { s += '<text x="' + (L + i * (W - L - Q) / 4) + '" y="' + (H - 5) + '" text-anchor="' + (i == 0 ? "start" : i == 4 ? "end" : "middle") + '" font-size="11" fill="var(--mu)">' + t + '</text>' });
-    var close = limits.length > 1 && limits[1] != null && y(limits[0]) - y(limits[1]) < 16;
-    [
-        { v: limits[0], c: "var(--wa)", l: "limite de aviso", dy: close ? 12 : -4 },
-        { v: limits[1], c: "var(--cr)", l: "limite crítico", dy: -4 }
-    ].forEach(function (t) {
-        if (t.v == null) return;
-        s += '<line x1="' + L + '" x2="' + (W - Q) + '" y1="' + y(t.v) + '" y2="' + y(t.v) + '" stroke="' + t.c + '" stroke-dasharray="5 4"/><text x="' + (W - Q) + '" y="' + (y(t.v) + t.dy) + '" text-anchor="end" font-size="11" fill="' + t.c + '">' + t.l + ' ' + t.v + '%</text>';
-    });
+    s += '<line x1="' + L + '" x2="' + (W - Q) + '" y1="' + y(thr) + '" y2="' + y(thr) + '" stroke="var(--wa)" stroke-dasharray="5 4"/><text x="' + (W - Q) + '" y="' + (y(thr) - 4) + '" text-anchor="end" font-size="11" fill="var(--wa)">limite de aviso ' + thr + '%</text>';
     s += '<polyline fill="none" stroke="' + color + '" stroke-width="2" points="' + d.map(function (v, i) { return x(i).toFixed(1) + "," + y(v).toFixed(1) }).join(" ") + '"/></svg>';
     return s;
 }
@@ -58,7 +50,7 @@ function draw() {
     el.style.display = "block";
     var s = S.filter(function (q) { return q.n == cur })[0], i = S.indexOf(s), h;
     if (view == "c") {
-        h = '<div class="dh"><h2>' + s.n + ' · Componentes</h2><button type="button" onclick="go(cur,view)">Fechar</button></div><div class="two"><div><h3 style="font-size:14px">CPU (%) · atual ' + s.c + '%</h3><div class="temp">Temperatura: <b class="' + cls(s.t, T[s.n].t) + '">' + s.t + ' °C</b></div>' + chart(series(s.c - 12, 10, 3 + i * 4, s.c), T[s.n].c, "var(--s1)") + '</div><div><h3 style="font-size:14px">Memória RAM (%) · atual ' + s.r + '%</h3><div class="temp">&nbsp;</div>' + chart(series(s.r - 10, 5, 5 + i * 4, s.r), T[s.n].r, "var(--s2)") + '</div></div>';
+        h = '<div class="dh"><h2>' + s.n + ' · Componentes</h2><button type="button" onclick="go(cur,view)">Fechar</button></div><div class="two"><div><h3 style="font-size:14px">CPU (%) · atual ' + s.c + '%</h3><div class="temp">Temperatura: <b class="' + cls(s.t, T[s.n].t) + '">' + s.t + ' °C</b></div>' + chart(series(s.c - 12, 10, 3 + i * 4, s.c), T[s.n].c[0], "var(--s1)") + '</div><div><h3 style="font-size:14px">Memória RAM (%) · atual ' + s.r + '%</h3><div class="temp">&nbsp;</div>' + chart(series(s.r - 10, 5, 5 + i * 4, s.r), T[s.n].r[0], "var(--s2)") + '</div></div>';
     } else {
         var rows = P[cur].slice().sort(function (a, b) { return sortK == 1 ? (a[1] < b[1] ? -1 : 1) : b[sortK] - a[sortK] }).filter(function (r) { return !onlyC || r[6] });
         h = '<div class="dh"><h2>' + s.n + ' · Processos</h2><div class="btns"><button type="button" aria-pressed="' + onlyC + '" onclick="onlyC=!onlyC;draw()">Só críticos</button><button type="button" onclick="go(cur,view)">Fechar</button></div></div>' +

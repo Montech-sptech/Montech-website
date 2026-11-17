@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MonTech · Predição de capacidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/saude_tendencia.css">
+<link rel="stylesheet" href="../css/sidebar.css">
+<script src="../js/sidebar.js" defer></script>
+<script src="../js/saude_tendencia.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="estrutura-pagina">
+        <div class="estrutura-pagina">
+
+        <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+          <div class="sbLogo">
+            <img
+              class="sbLogoLonga"
+              src="../img/logoEscuraMontech.png"
+              alt="MonTech"
+            />
+            <img class="sbLogoCurta" src="../img/logoTipo.png" alt="MonTech" />
+          </div>
+  
+          <nav class="sbNav" aria-label="Menu principal">
+            <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+              <span class="sbIcone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                  <path d="m3 10 8-7a2 2 0 0 1 2 0l8 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
+              </span>
+              <span class="sbRotulo">Dashboard</span>
+            </a>
+            <a
+              class="sbItem"
+              href="gerenciamentoDeUsuarios.html"
+              data-cargos="Administrador"
+            >
+              <span class="sbIcone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </span>
+              <span class="sbRotulo">Usuários</span>
+            </a>
+            <a
+              class="sbItem"
+              href="gerenciamentoDeCargos.html"
+              data-cargos="Administrador"
+            >
+              <span class="sbIcone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </span>
+              <span class="sbRotulo">Cargos</span>
+            </a>
+            <a
+              class="sbItem"
+              href="gerenciamentoServidor.html"
+              data-cargos="Administrador,Analista"
+              data-titulo="Gerenciar Servidores"
+            >
+              <span class="sbIcone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0" />
+                </svg>
+              </span>
+              <span class="sbRotulo">Servidores</span>
+            </a>
+          </nav>
+  
+          <div class="sbRodape">
+            <button class="sbSair" id="sbSair" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <path d="m16 17 5-5-5-5M21 12H9" />
+              </svg>
+              <span class="sbRotulo">Sair</span>
+            </button>
+          </div>
+        </aside>
+
+        <main class="st">
+        <div class="envoltorio">
+
+        <header class="cabecalho">
+            <h1>Predição de capacidade</h1>
+            <p id="escopoSelecionado"></p>
+        </header>
+
+        <!-- Estado de carregamento / erro ao ler o arquivo JSON -->
+        <section class="painel painel-carregamento" id="painelCarregamento">
+            <h2>Carregando dados…</h2>
+            <p class="descricao" id="mensagemCarregamento">Lendo o arquivo montech-dados.json.</p>
+            <div id="areaSelecaoArquivo" hidden>
+            <p class="descricao">Abra esta página por um servidor local (por exemplo <code>python -m http.server</code>) ou selecione o arquivo de dados manualmente:</p>
+            <input type="file" id="campoArquivoDados" accept=".json,application/json" aria-label="Selecionar arquivo de dados JSON">
+            </div>
+        </section>
+
+        <div id="conteudoPrincipal" hidden>
+
+            <!-- Filtros -->
+            <div class="barra-filtros">
+            <div class="filtro">
+                <label><small>Alcance da previsão</small>
+                <select id="seletorAlcance">
+                    <option value="1">24 horas</option>
+                    <option value="3">3 dias</option>
+                    <option value="7" selected>1 semana · 7 dias</option>
+                    <option value="15">15 dias</option>
+                    <option value="30">30 dias</option>
+                </select>
+                </label>
+            </div>
+            <div class="filtro">
+                <button type="button" data-abrir-modal="servidores" aria-haspopup="dialog"><small>Servidor</small><b id="rotuloServidores"></b></button>
+            </div>
+            <div class="filtro">
+                <button type="button" data-abrir-modal="componentes" aria-haspopup="dialog"><small>Componente</small><b id="rotuloComponentes"></b></button>
+            </div>
+            <label class="alternador-confianca"><input type="checkbox" id="filtroAltaConfianca"> Mostrar apenas alta confiança</label>
+            </div>
+
+            <section class="secao-orientacao" aria-label="Legenda e dica">
+            <div class="legenda-cores" aria-label="Legenda">
+                <b>Legenda</b>
+                <span><i class="legenda-cores__bolinha" style="background:var(--normal)"></i>Azul = normal</span>
+                <span><i class="legenda-cores__bolinha" style="background:var(--atencao)"></i>Amarelo = atenção</span>
+                <span><i class="legenda-cores__bolinha" style="background:var(--critico)"></i>Vermelho = crítico</span>
+                <span><i class="legenda-cores__bolinha" style="background:var(--positivo)"></i>Verde = confiança alta</span>
+                <span><i class="legenda-cores__bolinha" style="background:var(--texto-suave)"></i>Cinza = confiança baixa</span>
+                <span>Borda tracejada = baixa confiança</span>
+            </div>
+
+            </section>
+            <p class="aviso-ocultas" id="avisoPrevisoesOcultas" hidden><span id="textoAvisoOcultas"></span> <button type="button" id="botaoMostrarTodas">Mostrar todas</button></p>
+            <div class="migalha" id="migalhaNavegacao" hidden><button type="button" id="botaoVoltar">← Voltar</button></div>
+
+            <!-- ============ Tela: sem previsões ============ -->
+            <section data-tela="vazia" hidden>
+            <div class="grade-paineis" style="margin-top:14px">
+                <section class="painel col-12">
+                <h2>Sem previsões para exibir</h2>
+                <p class="descricao">Ajuste os filtros ou desligue o filtro de alta confiança.</p>
+                <div class="vazio">Nenhuma previsão com alta confiança neste escopo.</div>
+                </section>
+            </div>
+            </section>
+
+            <!-- ============ Tela: todos os servidores × todos os componentes ============ -->
+            <section data-tela="visaoGeral" hidden>
+            <div class="grade-indicadores">
+                <div class="indicador" id="indicadorServidorMaisCriticos">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Servidor com mais componentes críticos</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorComponenteMaisProximoCritico">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Componente mais próximo do crítico</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorMaiorCrescimentoGeral">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Maior crescimento previsto</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorServidorMaisAtencao">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Servidor com mais componentes acima do limite de atenção</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+            </div>
+
+            <div class="grade-paineis">
+                <section class="painel col-8">
+                <div class="painel__cabecalho">
+                    <div>
+                    <div data-visao-painel="mapaCalor">
+                        <h2>Dias até o limite (Atenção e Crítico)</h2>
+                        <p class="descricao">Quanto menor o número, mais urgente. Clique para ver o detalhe.</p>
+                    </div>
+                    <div data-visao-painel="detalhado" hidden>
+                        <h2>Previsões que exigem ação</h2>
+                        <p class="descricao">Ordenadas por urgência</p>
+                    </div>
+                    </div>
+                    <div class="alternador-visao" role="group" aria-label="Alternar visualização">
+                    <button type="button" data-visao="mapaCalor" title="Mapa de calor" aria-label="Mapa de calor" aria-pressed="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1" opacity=".55"/><rect x="16" y="3" width="5" height="5" rx="1" opacity=".3"/><rect x="3" y="9.5" width="5" height="5" rx="1" opacity=".55"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1" opacity=".55"/><rect x="3" y="16" width="5" height="5" rx="1" opacity=".3"/><rect x="9.5" y="16" width="5" height="5" rx="1" opacity=".55"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>
+                    </button>
+                    <button type="button" data-visao="detalhado" title="Ver detalhadamente" aria-label="Ver detalhadamente" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1" fill="currentColor"/><circle cx="3.5" cy="12" r="1" fill="currentColor"/><circle cx="3.5" cy="18" r="1" fill="currentColor"/></svg>
+                    </button>
+                    </div>
+                </div>
+
+                <div class="rolagem-horizontal" data-visao-painel="mapaCalor">
+                    <div class="mapa-calor" id="mapaCalor"></div>
+                </div>
+
+                <div data-visao-painel="detalhado" hidden>
+                    <div class="rolagem-horizontal">
+                    <table class="tabela">
+                        <thead><tr><th>Servidor</th><th>Componente</th><th>Estado previsto</th><th>Prazo</th><th>Confiança</th></tr></thead>
+                        <tbody id="corpoTabelaAcoes"></tbody>
+                    </table>
+                    </div>
+                    <div class="vazio" id="mensagemSemAlertas" hidden>Nenhum componente deve passar do limite nesta janela.</div>
+                </div>
+                </section>
+
+                <section class="painel col-4">
+                <h2>Maior aceleração de consumo</h2>
+                <p class="descricao">Crescimento previsto em p.p. por dia · a cor indica o estado previsto na janela</p>
+                <div class="area-grafico" id="areaGraficoAceleracao"><canvas id="graficoAceleracao"></canvas></div>
+                <div class="vazio" id="mensagemSemAceleracao" hidden>Nenhum componente com consumo em alta.</div>
+                </section>
+            </div>
+            </section>
+
+            <!-- ============ Tela: vários servidores × um componente ============ -->
+            <section data-tela="componenteUnico" hidden>
+            <div class="grade-indicadores">
+                <div class="indicador" id="indicadorMaiorPicoPrevisto">
+                <div class="indicador__cabecalho"><span class="indicador__titulo"></span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorMaiorCrescimentoComponente">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Maior crescimento</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorMaisProximoAtencaoComponente">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Mais próximo do limite de atenção</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorPrevisoesAltaConfianca">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Previsões de alta confiança</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+            </div>
+
+            <div class="grade-paineis">
+                <section class="painel col-12">
+                <h2>Cores dos servidores</h2>
+                <p class="descricao">Clique em um servidor para mostrar ou ocultar ele nos dois gráficos.</p>
+                <div class="legenda-servidores" id="legendaServidores"></div>
+                </section>
+                <section class="painel col-6">
+                <h2 id="tituloGraficoPorServidor"></h2>
+                <p class="descricao">Barra = valor previsto no fim da janela · marcadores: limite de atenção (amarelo) e crítico (vermelho) de cada servidor</p>
+                <div class="area-grafico"><canvas id="graficoComponentePorServidor"></canvas></div>
+                </section>
+                <section class="painel col-6">
+                <h2>Projeção de consumo</h2>
+                <p class="descricao">Histórico (14 dias) e projeção tracejada · trechos em amarelo ou vermelho indicam atenção ou crítico</p>
+                <div class="area-grafico"><canvas id="graficoProjecaoServidores"></canvas></div>
+                </section>
+            </div>
+            </section>
+
+            <!-- ============ Tela: um servidor × vários componentes ============ -->
+            <section data-tela="servidorUnico" hidden>
+            <div class="grade-indicadores">
+                <div class="indicador" id="indicadorSaudeComponentes">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Projeção da Saúde do servidor</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorMaisProximoAtencaoServidor">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Mais próximo do limite de atenção</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorMaiorCrescimentoServidor">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Maior crescimento</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorPredicoesConfiaveis">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Predições confiáveis</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+            </div>
+
+            <div class="grade-paineis">
+                <section class="painel col-5">
+                <h2>Projeção da saúde do servidor</h2>
+                <p class="descricao">Barra = valor previsto no fim da janela · marcadores: limite de atenção (amarelo) e crítico (vermelho) de cada componente</p>
+                <div class="area-grafico"><canvas id="graficoTempoAteLimites"></canvas></div>
+                </section>
+                <section class="painel col-7">
+                <h2>Ranking de crescimento previsto</h2>
+                <p class="descricao">p.p. por dia (positivo = consumo subindo)</p>
+                <div class="area-grafico"><canvas id="graficoRankingCrescimento"></canvas></div>
+                </section>
+            </div>
+            </section>
+
+            <!-- ============ Tela: um servidor × um componente ============ -->
+            <section data-tela="detalhe" hidden>
+            <div class="grade-indicadores">
+                <div class="indicador" id="indicadorTaxaCrescimento">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Taxa de crescimento</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorPassaLimiteAtencao">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Passa do limite de atenção</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorPicoPrevisto">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Maior pico previsto</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+                <div class="indicador" id="indicadorConfiancaPredicao">
+                <div class="indicador__cabecalho"><span class="indicador__titulo">Confiança da predição</span><span class="selo-confianca" hidden></span></div>
+                <div class="indicador__valor"></div><div class="indicador__subtexto"></div>
+                </div>
+            </div>
+
+            <div class="grade-paineis">
+                <section class="painel col-8">
+                <h2 id="tituloGraficoDetalhe"></h2>
+                <p class="descricao" id="descricaoGraficoDetalhe"></p>
+                <div class="area-grafico"><canvas id="graficoDetalheProjecao"></canvas></div>
+                </section>
+                <section class="painel col-4">
+                <h2>Previsto vs. real</h2>
+                <p class="descricao">Acerto do modelo nos últimos 7 dias</p>
+                <div class="area-grafico"><canvas id="graficoPrevistoVsReal"></canvas></div>
+                </section>
+            </div>
+            </section>
+        </div>
+
+        <!-- ============ Modal de seleção de servidores / componentes ============ -->
+        <div class="sobreposicao" id="modalSelecao" hidden>
+            <div class="dialogo" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+            <div class="dialogo__cabecalho"><h2 id="tituloModal"></h2><button type="button" id="botaoFecharModal" aria-label="Fechar">✕</button></div>
+            <p class="dialogo__ajuda" id="ajudaModal"></p>
+            <input type="search" id="campoBuscaModal" placeholder="Buscar servidor por nome..." aria-label="Buscar servidor por nome" hidden>
+            <div class="dialogo__barra">
+                <label><input type="checkbox" id="modalSelecionarTodos"> Selecionar todos</label>
+                <button type="button" id="modalLimparSelecao">Limpar seleção</button>
+                <span id="modalContagem"></span>
+            </div>
+            <div class="dialogo__lista" id="modalLista"></div>
+            <div class="dialogo__rodape">
+                <button type="button" id="modalCancelar">Cancelar</button>
+                <button type="button" id="modalAplicar" class="botao-primario">Aplicar seleção</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        </main>
+        </div>
+</div>
+</body>
+</html>

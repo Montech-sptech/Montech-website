@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>MonTech | Diagnóstico Técnico</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="/Public/css/diagnostico_tecnico.css">
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.js"
+    defer
+  ></script>
+
+  <script src="/Public/js/diagnostico_tecnico.js" defer></script>
+</head>
+
+<body>
+
+<main class="pagina">
+
+  <!-- =====================================
+       CABEÇALHO
+       ===================================== -->
+
+  <header class="topo">
+
+    <div class="identificacao">
+      <h1>Diagnóstico Técnico</h1>
+
+      <p>
+        Investigue desvios, analise picos e compare
+        os recursos da infraestrutura.
+      </p>
+    </div>
+
+    <div class="aeroporto">
+      <strong>Aeroporto de Congonhas</strong>
+      <span>Frequência de coleta: 10 segundos</span>
+      <small id="ultima-coleta">Última coleta: —</small>
+    </div>
+
+  </header>
+
+
+  <!-- =====================================
+       FILTROS
+       ===================================== -->
+
+  <section class="barra-filtros"
+           aria-label="Filtros de investigação">
+
+    <label for="servidor">
+      Servidor
+
+      <select id="servidor">
+        <option value="AIS">AIS</option>
+        <option value="SPA">SPA</option>
+        <option value="SDV">SDV</option>
+      </select>
+    </label>
+
+    <label for="recurso">
+      Recurso
+
+      <select id="recurso">
+        <option value="cpu">CPU</option>
+        <option value="temperatura">Temperatura CPU</option>
+        <option value="ram">RAM</option>
+        <option value="disco">Disco</option>
+        <option value="swap">Swap</option>
+        <option value="rede">Rede</option>
+      </select>
+    </label>
+
+    <label for="periodo">
+      Período de investigação
+
+      <select id="periodo">
+        <option value="1">Última hora</option>
+        <option value="6">Últimas 6 horas</option>
+        <option value="24" selected>Últimas 24 horas</option>
+        <option value="72">Últimos 3 dias</option>
+        <option value="168">Últimos 7 dias</option>
+        <option value="data">Data específica</option>
+      </select>
+    </label>
+
+    <label for="data-alvo"
+           id="campo-data"
+           hidden>
+      Data para investigar
+
+      <input type="date" id="data-alvo">
+    </label>
+
+  </section>
+
+  <div class="contexto-filtros">
+    <span id="periodo-ativo">Período: —</span>
+    <span id="resolucao">Agrupamento: —</span>
+  </div>
+
+
+  <!-- =====================================
+       KPIs
+       ===================================== -->
+
+  <section id="kpis"
+           class="kpis"
+           aria-label="Indicadores do diagnóstico">
+  </section>
+
+
+  <!-- =====================================
+       COMPARAÇÃO COMPACTA
+       ===================================== -->
+
+  <section class="painel comparacao-painel">
+
+    <div class="cabecalho-secao">
+
+      <div>
+        <h2>Comparação dos seis recursos</h2>
+
+        <p>
+          Curvas de valores máximos por intervalo.
+          Trechos vermelhos indicam ultrapassagens
+          do limite. Clique para investigar.
+        </p>
+      </div>
+
+      <span class="etiqueta">
+        Mesmo servidor e período
+      </span>
+
+    </div>
+
+    <div id="comparacao"
+         class="comparacao"
+         aria-label="Comparar e selecionar recursos">
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       GRÁFICO E TABELA
+       ===================================== -->
+
+  <section class="investigacao-grid">
+
+
+    <!-- GRÁFICO PRINCIPAL -->
+
+    <section class="painel painel-grafico">
+
+      <div class="topo-analise">
+
+        <div class="descricao-analise">
+
+          <h2 id="titulo-grafico">
+            Evolução temporal do recurso
+          </h2>
+
+          <p id="descricao-grafico">
+            Servidor e limite operacional
+          </p>
+
+        </div>
+
+        <div class="acoes-episodio">
+
+          <div class="campo-episodio">
+
+            <div class="rotulo-episodio">
+
+              <label for="episodio">
+                Episódio de desvio
+              </label>
+
+              <button
+                class="ajuda"
+                type="button"
+                data-ajuda="Ocorrência confirmada após 3 coletas consecutivas acima do limite. Encerra após 3 coletas consecutivas de recuperação. Um pico isolado não é um episódio."
+                aria-label="Explicação de episódio de desvio"
+              >?</button>
+
+            </div>
+
+            <select id="episodio">
+              <option value="">Nenhum selecionado</option>
+            </select>
+
+          </div>
+
+          <button id="zoom"
+                  class="botao"
+                  type="button"
+                  disabled>
+            Ampliar
+          </button>
+
+          <button id="voltar"
+                  class="botao"
+                  type="button"
+                  hidden>
+            Voltar
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- LEGENDA -->
+
+      <div class="legenda">
+
+        <span>
+          <i class="linha azul"></i>
+          Mediana (P50)
+
+          <button
+            class="ajuda"
+            type="button"
+            data-ajuda="Valor central da janela: metade das leituras ficou nesse valor ou abaixo."
+            aria-label="O que é a mediana?"
+          >?</button>
+        </span>
+
+        <span>
+          <i class="faixa azul-claro"></i>
+          Faixa P10–P90
+
+          <button
+            class="ajuda"
+            type="button"
+            data-ajuda="Faixa entre o percentil 10 e o percentil 90. Contém aproximadamente 80% das leituras da janela."
+            aria-label="O que são P10 e P90?"
+          >?</button>
+        </span>
+
+        <span>
+          <i class="linha ciano"></i>
+          Máximo
+
+          <button
+            class="ajuda"
+            type="button"
+            data-ajuda="Maior valor registrado entre as leituras válidas da janela."
+            aria-label="O que é o máximo?"
+          >?</button>
+        </span>
+
+        <span>
+          <i class="linha vermelha"></i>
+          Limite operacional
+
+          <button
+            class="ajuda"
+            type="button"
+            data-ajuda="Valor de referência configurado para o recurso. Leituras acima dele podem formar um episódio."
+            aria-label="O que é o limite operacional?"
+          >?</button>
+        </span>
+
+        <span>
+          <i class="faixa roxa"></i>
+          Episódio
+
+          <button
+            class="ajuda"
+            type="button"
+            data-ajuda="Faixa de tempo de um episódio confirmado. O roxo mais forte indica o episódio selecionado."
+            aria-label="O que significa a faixa roxa?"
+          >?</button>
+        </span>
+
+      </div>
+
+
+
+
+
+      <!-- GRÁFICO -->
+
+      <div class="grafico-principal">
+        <canvas
+          id="grafico-temporal"
+          role="img"
+          aria-label="Gráfico de evolução temporal do recurso"
+        ></canvas>
+      </div>
+
+      <p id="texto-grafico" class="texto-grafico">
+        Clique em um ponto para localizar
+        a janela correspondente na tabela.
+      </p>
+
+
+      <!-- RESUMO DO EPISÓDIO -->
+
+      <div id="resumo-episodio"
+           class="resumo-episodio"
+           aria-live="polite">
+
+        Selecione um episódio para consultar
+        seu início, fim, duração e pico.
+
+      </div>
+
+    </section>
+
+
+    <!-- TABELA LATERAL -->
+
+    <aside class="painel painel-tabela">
+
+      <div class="cabecalho-secao">
+
+        <div>
+          <h2>Dados detalhados</h2>
+
+          <p>
+            Mais recentes primeiro.
+            Selecione uma janela para consultar
+            todas as métricas.
+          </p>
+        </div>
+
+        <button
+          class="ajuda"
+          type="button"
+          data-ajuda="A tabela contém as mesmas janelas do gráfico, mas começa pelas mais recentes. Clique em uma linha para destacar o intervalo no gráfico."
+          aria-label="Como funciona a tabela?"
+        >?</button>
+
+      </div>
+
+
+      <!-- BUSCA E FILTRO -->
+
+      <div class="filtros-tabela">
+
+        <label for="busca-tabela"
+               class="label-busca">
+          Buscar data ou horário
+
+          <input
+            type="search"
+            id="busca-tabela"
+            placeholder="Ex.: 17/11 ou 14:30"
+            autocomplete="off"
+          >
+        </label>
+
+        <div class="grupo-filtro-tabela"
+             role="group"
+             aria-label="Filtrar registros">
+
+          <button
+            id="filtro-todas"
+            class="filtro-tabela ativo"
+            type="button"
+            aria-pressed="true"
+          >
+            Todas
+          </button>
+
+          <button
+            id="filtro-acima"
+            class="filtro-tabela"
+            type="button"
+            aria-pressed="false"
+          >
+            Pico acima
+          </button>
+
+          <button
+            class="ajuda"
+            type="button"
+            data-ajuda="Pico acima: mostra somente janelas cujo maior valor ultrapassou o limite. Isso não significa necessariamente um episódio confirmado."
+            aria-label="Explicação do filtro Pico acima"
+          >?</button>
+
+        </div>
+
+      </div>
+
+      <div class="tabela-legenda">
+        <span id="total-registros">— registros</span>
+        <span>Horário ↓ mais recente primeiro</span>
+      </div>
+
+
+      <!-- TABELA ROLÁVEL -->
+
+      <div class="tabela-scroll"
+           id="tabela-scroll">
+
+        <table id="tabela-dados">
+
+          <thead id="cabecalho-tabela">
+          </thead>
+
+          <tbody id="corpo-tabela">
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- PAGINAÇÃO -->
+
+      <div class="paginacao">
+
+        <button
+          id="pagina-anterior"
+          class="botao botao-pequeno"
+          type="button"
+          disabled
+        >
+          Anterior
+        </button>
+
+        <span id="pagina-atual"
+              aria-live="polite">
+          Página 1 de 1
+        </span>
+
+        <button
+          id="proxima-pagina"
+          class="botao botao-pequeno"
+          type="button"
+        >
+          Próxima
+        </button>
+
+      </div>
+
+
+      <!-- DETALHES DA JANELA -->
+
+      <div id="detalhes-janela"
+           class="detalhes-janela"
+           aria-live="polite">
+
+        <div class="detalhes-vazio">
+          Selecione uma linha para ver
+          P10, P90, máximo e quantidade
+          de leituras.
+        </div>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+
+  <!-- ORIENTAÇÃO FINAL -->
+
+  <footer class="rodape-ajuda">
+    <strong>Como investigar:</strong>
+    selecione o servidor, recurso e período.
+    Escolha um episódio para ampliar e consulte
+    os valores na tabela. Os KPIs consideram todo
+    o período selecionado, mesmo durante o zoom.
+  </footer>
+
+  <p id="erro"
+     class="erro"
+     role="alert"
+     hidden>
+  </p>
+
+</main>
+
+
+<!-- TOOLTIP GLOBAL -->
+
+<div id="ajuda-global"
+     class="tooltip-global"
+     role="tooltip"
+     hidden>
+</div>
+
+</body>
+</html>

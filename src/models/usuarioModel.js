@@ -90,6 +90,7 @@ function pegarUsuariosPeloAeroporto(idAeroporto) {
             u.email,
             u.statusAtividade AS status,
             c.nome AS nomeCargo,
+            c.idCargo AS fkCargo,
             s.idServidor,
             s.nomeServidor
         FROM usuario u
@@ -102,12 +103,27 @@ function pegarUsuariosPeloAeroporto(idAeroporto) {
   return database.executar(instrucaoSql);
 }
 
-function editarUsuario(idUsuario, nome, email, statusAtividade) {
+function cargoDisponivelParaUsuario(idUsuario, idCargo) {
+  var instrucaoSql = `
+        SELECT c.idCargo
+        FROM usuario u
+        JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
+        JOIN cargo c ON c.empresa_idEmpresa = a.fkEmpresa
+        WHERE u.idUsuario = ${Number(idUsuario)}
+          AND c.idCargo = ${Number(idCargo)}
+          AND c.statusAtividade = 1;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function editarUsuario(idUsuario, nome, email, statusAtividade, fkCargo) {
   var instrucaoSql = `
         UPDATE usuario
         SET nome = ${mysql.escape(nome)},
             email = ${mysql.escape(email)},
-            statusAtividade = ${statusAtividade ? 1 : 0}
+            statusAtividade = ${statusAtividade ? 1 : 0},
+            fkCargo = ${Number(fkCargo)}
         WHERE idUsuario = ${Number(idUsuario)};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -171,6 +187,7 @@ module.exports = {
   cadastrar,
   encontrarUsuarioPorId,
   pegarUsuariosPeloAeroporto,
+  cargoDisponivelParaUsuario,
   editarUsuario,
   ativarUsuario,
   inativarUsuario,

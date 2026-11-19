@@ -1,0 +1,1188 @@
+
+/* ==========================================
+   1. IDENTIDADE VISUAL MONTECH
+   ========================================== */
+
+:root {
+  --fundo: #080c26;
+  --card: rgba(7, 11, 37, .95);
+  --superficie: #0b1033;
+  --borda: #1f2a63;
+
+  --texto: #ffffff;
+  --suave: #c9ccf5;
+
+  --destaque: #8b8dff;
+  --azul: #4fa3ff;
+  --ciano: #5fd0ef;
+  --vermelho: #ff6b7a;
+  --roxo: #a78bfa;
+
+  --gradiente: linear-gradient(
+    135deg, #4a3dff, #3d5bff
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font: 14px Inter, Arial, sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+tr:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+.valor-kpi {
+  font-family: "Space Grotesk", Inter, sans-serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+p {
+  margin: 4px 0;
+  color: var(--suave);
+  line-height: 1.45;
+}
+
+.pagina {
+  max-width: 1600px;
+  min-height: 100vh;
+
+  margin: auto;
+  padding: 14px 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.painel,
+.aeroporto,
+.kpi {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+}
+
+
+/* ==========================================
+   2. CABEÇALHO
+   ========================================== */
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.identificacao {
+  min-width: 0;
+}
+
+.identificacao p {
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.aeroporto {
+  min-width: 235px;
+  padding: 10px 13px;
+
+  display: grid;
+  gap: 4px;
+}
+
+.aeroporto strong {
+  font-size: 13px;
+}
+
+.aeroporto span,
+.aeroporto small {
+  color: var(--suave);
+  font-size: 12px;
+}
+
+.aviso-demo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #d8d4ff;
+  font-size: 12px;
+}
+
+.ponto-demo {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+
+  background: var(--roxo);
+  border-radius: 50%;
+}
+
+
+/* ==========================================
+   3. FILTROS GERAIS
+   ========================================== */
+
+.barra-filtros {
+  display: grid;
+
+  grid-template-columns:
+    minmax(100px, .7fr)
+    minmax(155px, 1fr)
+    minmax(185px, 1fr)
+    minmax(150px, .85fr);
+
+  align-items: end;
+  gap: 12px;
+}
+
+.barra-filtros label {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+
+  color: var(--suave);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+select,
+input[type="date"],
+input[type="search"],
+.botao {
+  min-width: 0;
+  min-height: 36px;
+
+  padding: 7px 10px;
+
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid #27337a;
+  border-radius: 7px;
+
+  font-size: 13px;
+}
+
+select,
+input[type="date"],
+input[type="search"] {
+  width: 100%;
+}
+
+input[type="date"] {
+  color-scheme: dark;
+}
+
+input::placeholder {
+  color: #a9add3;
+}
+
+select:hover,
+input:hover,
+.botao:hover:not(:disabled) {
+  border-color: var(--destaque);
+}
+
+.botao {
+  width: auto;
+  color: var(--destaque);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.botao:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.contexto-filtros {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px 15px;
+
+  color: var(--suave);
+  font-size: 12px;
+}
+
+
+/* ==========================================
+   4. KPIs
+   ========================================== */
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(
+    4, minmax(0, 1fr)
+  );
+  gap: 10px;
+}
+
+.kpi {
+  min-width: 0;
+  min-height: 116px;
+
+  padding: 10px 13px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.kpi-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+.kpi-titulo {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.valor-kpi {
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 1.08;
+
+  overflow-wrap: anywhere;
+}
+
+.kpi small {
+  color: var(--suave);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+
+/* ==========================================
+   5. TOOLTIP GLOBAL
+   ========================================== */
+
+.ajuda {
+  display: inline-grid;
+  place-items: center;
+
+  width: 19px;
+  height: 19px;
+  min-width: 19px;
+
+  padding: 0;
+
+  color: #d8d4ff;
+  background: #262b65;
+
+  border: 1px solid #555fb4;
+  border-radius: 50%;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ajuda:hover,
+.ajuda:focus-visible {
+  color: white;
+  background: #4446ab;
+}
+
+.tooltip-global {
+  position: fixed;
+  z-index: 1000;
+
+  width: max-content;
+  max-width: min(320px, calc(100vw - 24px));
+
+  padding: 11px 13px;
+
+  color: #ffffff;
+  background: #202957;
+
+  border: 1px solid #6975c7;
+  border-radius: 9px;
+
+  box-shadow: 0 10px 30px #0009;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  white-space: normal;
+  pointer-events: none;
+}
+
+
+/* ==========================================
+   6. COMPARAÇÃO DOS RECURSOS
+   ========================================== */
+
+.comparacao-painel {
+  padding: 11px 13px;
+}
+
+.cabecalho-secao {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cabecalho-secao p {
+  font-size: 12px;
+}
+
+.etiqueta {
+  flex-shrink: 0;
+
+  padding: 5px 8px;
+
+  color: var(--suave);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+
+  font-size: 11px;
+}
+
+.comparacao {
+  display: grid;
+  grid-template-columns: repeat(
+    6, minmax(0, 1fr)
+  );
+
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.mini {
+  min-width: 0;
+  min-height: 88px;
+
+  display: grid;
+  grid-template-rows: auto 34px auto;
+  gap: 5px;
+
+  padding: 8px 10px;
+
+  color: var(--texto);
+  background: var(--superficie);
+
+  border: 1px solid #293462;
+  border-radius: 9px;
+
+  text-align: left;
+
+  transition:
+    border-color .2s ease,
+    background .2s ease;
+}
+
+.mini:hover {
+  background: #111943;
+  border-color: #6876de;
+}
+
+.mini.ativo {
+  background: rgba(74, 61, 255, .15);
+  border-color: var(--destaque);
+}
+
+.mini-topo,
+.mini-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.mini-nome {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.mini-pico {
+  color: var(--suave);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.mini-pico.alto {
+  color: #ff9eaa;
+}
+
+.mini-chart {
+  display: block;
+  width: 100%;
+  height: 34px;
+}
+
+.mini-limite,
+.mini-status {
+  color: var(--suave);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.mini-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mini-status i {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.mini-status i.alerta {
+  background: var(--vermelho);
+}
+
+.mini-status i.normal {
+  background: var(--ciano);
+}
+
+
+/* ==========================================
+   7. GRID PRINCIPAL
+   ========================================== */
+
+.investigacao-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.7fr)
+    minmax(360px, 1fr);
+
+  gap: 12px;
+
+  min-height: 510px;
+}
+
+.painel-grafico,
+.painel-tabela {
+  min-width: 0;
+  min-height: 0;
+  padding: 13px;
+}
+
+.painel-grafico {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+/* ==========================================
+   8. CABEÇALHO DO GRÁFICO
+   ========================================== */
+
+.topo-analise {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.descricao-analise {
+  min-width: 0;
+}
+
+.descricao-analise p {
+  font-size: 12px;
+}
+
+.acoes-episodio {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.campo-episodio {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.rotulo-episodio {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.rotulo-episodio label {
+  color: var(--suave);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rotulo-episodio .ajuda {
+  width: 17px;
+  height: 17px;
+  min-width: 17px;
+}
+
+.campo-episodio select {
+  width: 170px;
+}
+
+
+/* ==========================================
+   9. LEGENDA DO GRÁFICO
+   ========================================== */
+
+.legenda {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 7px 12px;
+
+  color: var(--suave);
+  font-size: 12px;
+}
+
+.legenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.linha,
+.faixa {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 3px;
+}
+
+.linha.azul {
+  background: var(--azul);
+}
+
+.linha.ciano {
+  background: var(--ciano);
+}
+
+.linha.vermelha {
+  height: 0;
+  border-top: 2px dashed var(--vermelho);
+}
+
+.faixa {
+  height: 9px;
+}
+
+.faixa.azul-claro {
+  background: #4fa3ff55;
+}
+
+.faixa.roxa {
+  background: #a78bfa66;
+}
+
+
+/* ==========================================
+   10. EXPLICAÇÃO DE EPISÓDIO
+   ========================================== */
+
+.explicacao-episodio {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 9px 12px;
+
+  background: rgba(139, 141, 255, .07);
+
+  border-left: 3px solid var(--destaque);
+  border-radius: 6px;
+}
+
+.explicacao-episodio-titulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  color: var(--texto);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.icone-info {
+  display: inline-grid;
+  place-items: center;
+
+  width: 17px;
+  height: 17px;
+
+  color: var(--destaque);
+  border: 1px solid var(--destaque);
+  border-radius: 50%;
+
+  font-size: 11px;
+  font-style: normal;
+}
+
+.explicacao-episodio p {
+  margin: 0;
+  color: var(--suave);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.explicacao-episodio strong {
+  color: var(--texto);
+}
+
+
+/* ==========================================
+   11. GRÁFICO TEMPORAL
+   ========================================== */
+
+.grafico-principal {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 260px;
+}
+
+.grafico-principal canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.texto-grafico {
+  margin: 0;
+  color: var(--suave);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+.resumo-episodio strong {
+  color: var(--texto);
+}
+
+
+/* ==========================================
+   12. TABELA LATERAL
+   ========================================== */
+
+.painel-tabela {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  min-height: 510px;
+}
+
+.filtros-tabela {
+  display: grid;
+  gap: 9px;
+}
+
+.label-busca {
+  display: grid;
+  gap: 5px;
+
+  color: var(--suave);
+  font-size: 12px;
+}
+
+.grupo-filtro-tabela {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filtro-tabela {
+  min-height: 31px;
+  padding: 6px 11px;
+
+  background: var(--superficie);
+  color: var(--suave);
+
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.filtro-tabela.ativo {
+  color: white;
+  background: var(--gradiente);
+  border-color: #5b57ff;
+}
+
+.filtro-tabela:hover:not(.ativo) {
+  border-color: var(--destaque);
+}
+
+.tabela-legenda {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+
+  color: var(--suave);
+  font-size: 11px;
+}
+
+/* Rolagem interna: não aumenta o painel */
+
+.tabela-scroll {
+  flex: 1;
+  min-height: 180px;
+  max-height: 460px;
+
+  overflow-y: auto;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+
+#tabela-dados {
+  width: 100%;
+  border-collapse: collapse;
+
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+#tabela-dados th,
+#tabela-dados td {
+  padding: 10px 9px;
+
+  text-align: left;
+  white-space: nowrap;
+
+  border-bottom: 1px solid #242e5e;
+}
+
+#tabela-dados th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  background: #1a2251;
+  color: var(--texto);
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#tabela-dados td {
+  color: var(--suave);
+}
+
+#tabela-dados tbody tr {
+  cursor: pointer;
+}
+
+#tabela-dados tbody tr:hover,
+#tabela-dados tbody tr.em-foco {
+  background: #182457;
+}
+
+#tabela-dados tbody tr.selecionada {
+  background: #302b69;
+}
+
+#tabela-dados th .ajuda {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin-left: 3px;
+  font-size: 10px;
+}
+
+.valor-alto {
+  color: #ff9eaa !important;
+  font-weight: 600;
+}
+
+.linha-vazia {
+  text-align: center !important;
+  white-space: normal !important;
+  padding: 20px !important;
+}
+
+
+/* ==========================================
+   13. PAGINAÇÃO
+   ========================================== */
+
+.paginacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  color: var(--suave);
+  font-size: 12px;
+}
+
+.botao-pequeno {
+  min-height: 30px;
+  padding: 5px 9px;
+  font-size: 12px;
+}
+
+
+/* ==========================================
+   14. DETALHES DA LINHA
+   ========================================== */
+
+.detalhes-janela {
+  padding: 11px 12px;
+
+  background: #0e153c;
+
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+
+  flex-shrink: 0;
+}
+
+.detalhes-vazio {
+  color: var(--suave);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.detalhes-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 9px;
+}
+
+.detalhes-titulo strong {
+  font-size: 12px;
+}
+
+.detalhes-titulo span {
+  color: var(--suave);
+  font-size: 11px;
+}
+
+.detalhes-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    3, minmax(0, 1fr)
+  );
+  gap: 7px;
+}
+
+.detalhe-item {
+  min-width: 0;
+  padding: 8px;
+
+  background: var(--superficie);
+  border-radius: 6px;
+}
+
+.detalhe-item span {
+  display: block;
+  margin-bottom: 4px;
+
+  color: var(--suave);
+  font-size: 11px;
+}
+
+.detalhe-item strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.detalhe-alerta {
+  margin-top: 9px;
+  color: var(--suave);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+
+/* ==========================================
+   15. RODAPÉ
+   ========================================== */
+
+.rodape-ajuda {
+  color: var(--suave);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.rodape-ajuda strong {
+  color: var(--texto);
+}
+
+.erro {
+  padding: 10px;
+  color: var(--vermelho);
+}
+
+
+/* ==========================================
+   16. NOTEBOOKS MENORES
+   ========================================== */
+
+@media (max-width: 1320px) {
+  .investigacao-grid {
+    grid-template-columns:
+      minmax(0, 1.5fr)
+      minmax(340px, 1fr);
+  }
+
+  .topo-analise {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* ==========================================
+   17. TABLETS
+   ========================================== */
+
+@media (max-width: 1100px) {
+  .investigacao-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparacao {
+    grid-template-columns: repeat(
+      3, minmax(0, 1fr)
+    );
+  }
+
+  .painel-grafico {
+    min-height: 490px;
+  }
+
+  .grafico-principal {
+    min-height: 300px;
+  }
+
+  .painel-tabela {
+    min-height: 490px;
+  }
+
+  .tabela-scroll {
+    max-height: 300px;
+  }
+}
+
+
+/* ==========================================
+   18. CELULARES
+   ========================================== */
+
+@media (max-width: 680px) {
+  .pagina {
+    padding: 12px 10px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .topo {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .aeroporto {
+    min-width: 0;
+  }
+
+  .barra-filtros {
+    grid-template-columns: 1fr;
+  }
+
+  .kpis {
+    grid-template-columns: repeat(
+      2, minmax(0, 1fr)
+    );
+  }
+
+  .kpi {
+    min-height: 116px;
+    padding: 10px;
+  }
+
+  .valor-kpi {
+    font-size: 26px;
+  }
+
+  .comparacao {
+    grid-template-columns: repeat(
+      2, minmax(0, 1fr)
+    );
+  }
+
+  .etiqueta {
+    display: none;
+  }
+
+  .mini {
+    padding: 8px;
+  }
+
+  .mini-topo,
+  .mini-rodape {
+    flex-wrap: wrap;
+  }
+
+  .topo-analise {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes-episodio {
+    flex-wrap: wrap;
+  }
+
+  .campo-episodio {
+    flex: 1 1 160px;
+  }
+
+  .campo-episodio select {
+    width: 100%;
+  }
+
+  .explicacao-episodio {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .painel-grafico {
+    min-height: 540px;
+  }
+
+  .grafico-principal {
+    min-height: 260px;
+  }
+
+  .painel-tabela {
+    min-height: 540px;
+  }
+
+  .detalhes-grid {
+    grid-template-columns: repeat(
+      2, minmax(0, 1fr)
+    );
+  }
+
+  .rodape-ajuda {
+    font-size: 12px;
+  }
+}
+
+
+/* ==========================================
+   19. CELULARES ESTREITOS
+   ========================================== */
+
+@media (max-width: 420px) {
+  .kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi {
+    min-height: 105px;
+  }
+
+  .comparacao {
+    gap: 6px;
+  }
+
+  .acoes-episodio {
+    width: 100%;
+  }
+
+  .campo-episodio {
+    flex-basis: 100%;
+  }
+
+  .detalhes-grid {
+    grid-template-columns: repeat(
+      2, minmax(0, 1fr)
+    );
+  }
+
+  .paginacao {
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .botao-pequeno {
+    padding: 5px 7px;
+  }
+}
+

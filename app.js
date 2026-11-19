@@ -22,6 +22,7 @@ var servidoresRouter = require("./src/routes/servidores");
 var relatorioRouter = require("./src/routes/relatorios");
 var cargoRouter = require("./src/routes/cargos");
 var gerServidoresRouter = require("./src/routes/gerServidores");
+var incidenteRouter = require("./src/routes/incidentes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,7 @@ app.use("/relatorios", relatorioRouter);
 app.use("/servidores", servidoresRouter);
 app.use("/cargos", cargoRouter);
 app.use("/gerServidores", gerServidoresRouter);
+app.use("/incidentes", incidenteRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`

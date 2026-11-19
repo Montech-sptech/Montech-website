@@ -1000,11 +1000,37 @@ function salvarEdicaoUsuario() {
   }
 
   Promise.all(requisicoesPendentes)
-    .then((respostas) => {
+    .then(async (respostas) => {
       const respostaComErro = respostas.find((resposta) => !resposta.ok);
       if (respostaComErro) {
         throw new Error(`Erro ${respostaComErro.status} ao salvar alterações`);
       }
+
+      if (String(idUsuarioEditando) === String(sessionStorage.ID)) {
+        const dadosEdicao = await respostas[0].json();
+        const usuarioAtualizado = dadosEdicao.usuario;
+        if (!usuarioAtualizado) {
+          throw new Error("O servidor não retornou os dados atualizados do usuário.");
+        }
+
+        sessionStorage.setItem("USUARIO_ID", usuarioAtualizado.idUsuario);
+        sessionStorage.setItem("NOME", usuarioAtualizado.nome);
+        sessionStorage.setItem("EMAIL", usuarioAtualizado.email);
+        sessionStorage.setItem("CARGO", usuarioAtualizado.cargo);
+        sessionStorage.setItem("FK_CARGO", usuarioAtualizado.fkCargo);
+        sessionStorage.setItem(
+          "PERMISSOES",
+          JSON.stringify(
+            usuarioAtualizado.permissoes.map((permissao) =>
+              String(permissao).trim().toUpperCase(),
+            ),
+          ),
+        );
+        if (typeof atualizarInterfaceDaSessao === "function") {
+          atualizarInterfaceDaSessao();
+        }
+      }
+
       fecharModalEdicao();
       pegarUsuariosPeloAdministrador();
     })

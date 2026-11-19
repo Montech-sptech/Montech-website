@@ -174,6 +174,7 @@ async function editarUsuario(req, res) {
       });
     }
 
+    var permissoes = await cargoModel.listarNomesPermissoesDoCargo(fkCargo);
     var resultado = await usuarioModel.editarUsuario(
       usuarioId,
       nome,
@@ -181,7 +182,19 @@ async function editarUsuario(req, res) {
       statusAtividade,
       fkCargo,
     );
-    return res.json(resultado);
+    return res.json({
+      ...resultado,
+      usuario: {
+        idUsuario: usuarioId,
+        nome: nome,
+        email: email,
+        fkCargo: fkCargo,
+        cargo: cargoDisponivel[0].nome,
+        permissoes: permissoes.map(function (permissao) {
+          return permissao.nome;
+        }),
+      },
+    });
   } catch (erro) {
     console.log(erro);
     console.log(

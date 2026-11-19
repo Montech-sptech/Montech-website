@@ -105,7 +105,7 @@ function pegarUsuariosPeloAeroporto(idAeroporto) {
 
 function cargoDisponivelParaUsuario(idUsuario, idCargo) {
   var instrucaoSql = `
-        SELECT c.idCargo
+        SELECT c.idCargo, c.nome
         FROM usuario u
         JOIN aeroporto a ON a.idAeroporto = u.fkAeroporto
         JOIN cargo c ON c.empresa_idEmpresa = a.fkEmpresa

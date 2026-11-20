@@ -37,7 +37,7 @@ app.use("/relatorios", relatorioRouter);
 app.use("/servidores", servidoresRouter);
 app.use("/cargos", cargoRouter);
 app.use("/gerServidores", gerServidoresRouter);
-app.use("/incidentes", incidenteRouter);
+// app.use("/incidentes", incidenteRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`

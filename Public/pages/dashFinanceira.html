@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>MonTech · Billing</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="../css/dashFinanceira.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+    <script src="../js/dashFinanceira.js" defer></script>
+    <script src="../js/sidebar.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+        <div class="sbLogo">
+          <img
+            class="sbLogoLonga"
+            src="../img/logoEscuraMontech.png"
+            alt="MonTech"
+          />
+          <img class="sbLogoCurta" src="../img/logoTipo.png" alt="MonTech" />
+        </div>
+
+        <nav class="sbNav" aria-label="Menu principal">
+          <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                <path d="m3 10 8-7a2 2 0 0 1 2 0l8 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Dashboard</span>
+          </a>
+          <a
+            class="sbItem"
+            href="gerenciamentoDeUsuarios.html"
+            data-cargos="Administrador"
+          >
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Usuários</span>
+          </a>
+          <a
+            class="sbItem"
+            href="gerenciamentoDeCargos.html"
+            data-cargos="Administrador"
+          >
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Cargos</span>
+          </a>
+          <a
+            class="sbItem"
+            href="gerenciamentoServidor.html"
+            data-cargos="Administrador,Analista"
+            data-titulo="Gerenciar Servidores"
+          >
+            <span class="sbIcone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0" />
+              </svg>
+            </span>
+            <span class="sbRotulo">Servidores</span>
+          </a>
+        </nav>
+
+        <div class="sbRodape">
+          <button class="sbSair" id="sbSair" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <path d="m16 17 5-5-5-5M21 12H9" />
+            </svg>
+            <span class="sbRotulo">Sair</span>
+          </button>
+        </div>
+      </aside>
+    <main class="mg" id="billing-dashboard">
+        <div id="error-banner" role="alert" hidden></div>
+      <header id="topbar">
+        <div id="topbar-heading">
+          <h1 class="title">MonTech · Billing</h1>
+          <p class="subtitle" id="period-subtitle">
+            Visão financeira de consumo
+          </p>
+        </div>
+        <div id="topbar-controls">
+          <label class="field" id="budget-field">
+            <span class="label">Orçamento mensal</span>
+            <span class="value"
+              >US$
+              <input
+                id="budget-input"
+                type="number"
+                min="1"
+                step="100"
+                value="50000"
+                aria-label="Orçamento mensal"
+                readonly
+            /></span>
+          </label>
+          <div id="topbar-actions">
+            <button class="btn" id="btn-download-report" type="button">
+              ⬇ Baixar relatório do último mês
+            </button>
+            <button class="btn" id="btn-history" type="button">
+              🗂 Histórico de relatórios
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <section id="kpi-grid" aria-label="Indicadores">
+        <article class="card kpi" id="kpi-spent">
+          <span class="label">Gasto acumulado no mês</span>
+          <span class="kpi-value" id="kpi-spent-value">—</span>
+          <div class="kpi-foot">
+            <span class="chip" id="kpi-spent-chip">—</span>
+          </div>
+        </article>
+        <article class="card kpi" id="kpi-projection">
+          <span class="label">Projeção de fechamento do mês</span>
+          <span class="kpi-value" id="kpi-projection-value">—</span>
+          <div class="kpi-foot">
+            <span class="chip" id="kpi-projection-chip">—</span>
+          </div>
+        </article>
+        <article class="card kpi" id="kpi-variation">
+          <span class="label"
+            >Variação do gasto projetado vs. mês anterior</span
+          >
+          <span class="kpi-value" id="kpi-variation-value">—</span>
+          <div class="kpi-foot">
+            <span class="chip" id="kpi-variation-chip">—</span
+            ><span
+              >comparando o fechamento projetado com o total gasto no mês
+              anterior</span
+            >
+          </div>
+        </article>
+        <article class="card kpi" id="kpi-daily">
+          <span class="label">Gasto médio diário</span>
+          <span class="kpi-value" id="kpi-daily-value">—</span>
+          <div class="kpi-foot">
+            <span class="chip" id="kpi-daily-chip">—</span
+            ><span id="kpi-daily-note">vs. média diária do mês anterior</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="card" id="chart-section">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title">Custo acumulado ao longo do mês</h2>
+            <p class="subtitle">Histórico, atual e projeção até o fechamento</p>
+          </div>
+          <div class="legend" id="chart-legend">
+            <span><i class="l-prev"></i>Mês anterior</span>
+            <span><i class="l-cur"></i>Atual (acumulado)</span>
+            <span><i class="l-proj"></i>Projeção</span>
+            <span><i class="l-budget"></i>Orçamento</span>
+          </div>
+        </div>
+        <div id="main-chart-wrap">
+          <canvas id="main-chart" aria-label="Gráfico de custo acumulado" role="img"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <div
+      id="history-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="history-title"
+    >
+      <div id="history-dialog">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title" id="history-title">
+              Histórico de relatórios
+            </h2>
+            <p class="subtitle">Relatórios mensais fechados</p>
+          </div>
+          <button id="history-close" type="button" aria-label="Fechar">
+            ×
+          </button>
+        </div>
+        <ul id="history-list"></ul>
+      </div>
+    </div>
+  </body>
+</html>

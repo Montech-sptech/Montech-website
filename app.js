@@ -22,10 +22,32 @@ var servidoresRouter = require("./src/routes/servidores");
 var relatorioRouter = require("./src/routes/relatorios");
 var cargoRouter = require("./src/routes/cargos");
 var gerServidoresRouter = require("./src/routes/gerServidores");
+var diagnosticoTecnicoRouter = require("./src/routes/diagnosticoTecnico");
+var session = require("express-session");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+if (!process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET não configurado no ambiente.");
+}
+
+app.use(session({
+  name: "montech.sid",
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: ambiente_processo === "producao",
+    maxAge: 8 * 60 * 60 * 1000
+  }
+}));
+
 app.use(express.static(path.join(__dirname, "Public")));
+
 
 app.use(cors());
 
@@ -36,6 +58,7 @@ app.use("/relatorios", relatorioRouter);
 app.use("/servidores", servidoresRouter);
 app.use("/cargos", cargoRouter);
 app.use("/gerServidores", gerServidoresRouter);
+app.use("/diagnosticoTecnico", diagnosticoTecnicoRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`

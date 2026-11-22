@@ -17,27 +17,53 @@ function autenticar(req, res) {
 
         console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
 
+        
         if (resultadoAutenticar.length == 1) {
           var usuario = resultadoAutenticar[0];
-          var permissoesUsuario = await cargoModel.listarNomesPermissoesDoCargo(
-            usuario.fkCargo,
-          );
-          res.json({
-            id: usuario.id,
-            idUsuario: usuario.idUsuario,
-            email: usuario.email,
-            nome: usuario.nome,
-            empresaId: usuario.empresaId,
-            cargo: usuario.cargo,
-            fkCargo: usuario.fkCargo,
-            fkAeroporto: usuario.fkAeroporto,
-            permissoes: permissoesUsuario.map(function (permissao) {
-              return permissao.nome;
-            }),
 
+          var permissoesUsuario =
+            await cargoModel.listarNomesPermissoesDoCargo(
+              usuario.fkCargo
+            );
+
+          // Cria uma nova sessão após o login válido.
+          req.session.regenerate(function (erro) {
+            if (erro) {
+              console.error("Erro ao criar sessão:", erro);
+              return res.status(500).json({
+                mensagem: "Não foi possível iniciar a sessão."
+              });
+            }
+
+            // Guarda a identidade no servidor, não no navegador.
+            req.session.usuarioId = usuario.idUsuario;
+
+            req.session.save(function (erro) {
+              if (erro) {
+                console.error("Erro ao salvar sessão:", erro);
+                return res.status(500).json({
+                  mensagem: "Não foi possível salvar a sessão."
+                });
+              }
+
+              // Mantém a resposta original do login.
+              return res.json({
+                id: usuario.id,
+                idUsuario: usuario.idUsuario,
+                email: usuario.email,
+                nome: usuario.nome,
+                empresaId: usuario.empresaId,
+                cargo: usuario.cargo,
+                fkCargo: usuario.fkCargo,
+                fkAeroporto: usuario.fkAeroporto,
+                permissoes: permissoesUsuario.map(function (permissao) {
+                  return permissao.nome;
+                })
+              });
+            });
           });
-
-        } else if (resultadoAutenticar.length == 0) {
+        }
+        else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");
         } else {
           res.status(403).send("Mais de um usuário com o mesmo login e senha!");
@@ -68,11 +94,11 @@ function cadastrar(req, res) {
 
   if (nome == undefined) {
     return res.status(400).send("Seu nome está undefined!");
-  } else if(cpf == undefined){
+  } else if (cpf == undefined) {
     return res.status(400).send("Seu cpf está undefined!")
   } else if (email == undefined) {
     return res.status(400).send("Seu email está undefined!");
-  } else if(statusAtividade == undefined){
+  } else if (statusAtividade == undefined) {
     return res.status(400).send("Seu statusAtividade está undefined!")
   } else if (senha == undefined) {
     return res.status(400).send("Sua senha está undefined!");

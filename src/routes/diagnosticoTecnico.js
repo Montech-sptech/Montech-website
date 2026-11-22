@@ -6,8 +6,12 @@ const express = require("express");
 const controller = require(
   "../controllers/diagnosticoTecnicoController"
 );
+const { verificarSessao } = require(
+  "../middleware/autenticacaoDiagnostico"
+);
 
 const router = express.Router();
+router.use(verificarSessao);
 
 // Listagem dos servidores de um aeroporto.
 router.get(

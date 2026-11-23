@@ -133,6 +133,7 @@
           <span class="kpi-value" id="kpi-spent-value">—</span>
           <div class="kpi-foot">
             <span class="chip" id="kpi-spent-chip">—</span>
+            <span id="kpi-spent-note"></span>
           </div>
           <div class="kpi-flights" id="kpi-cpf" hidden>
             <div class="kpi-flights-row">
@@ -149,6 +150,7 @@
           <span class="kpi-value" id="kpi-projection-value">—</span>
           <div class="kpi-foot">
             <span class="chip" id="kpi-projection-chip">—</span>
+            <span id="kpi-projection-note"></span>
           </div>
         </article>
         <article class="card kpi" id="kpi-variation">
@@ -183,6 +185,7 @@
         </article>
       </section>
 
+      <div id="charts-row">
       <section class="card" id="chart-section">
         <div class="card-head">
           <div>
@@ -200,6 +203,30 @@
           <canvas id="main-chart" aria-label="Gráfico de custo acumulado" role="img"></canvas>
         </div>
       </section>
+
+      <section class="card" id="pie-section" hidden>
+        <div class="card-head">
+          <div>
+            <h2 class="card-title">O que compõe o custo</h2>
+            <p class="subtitle" id="pie-subtitle">Gasto acumulado no mês por serviço</p>
+          </div>
+          <button
+            class="info-btn"
+            id="pie-info-btn"
+            type="button"
+            aria-haspopup="dialog"
+            aria-label="Ver detalhes da composição do custo"
+            title="Ver detalhes"
+          >
+            i
+          </button>
+        </div>
+        <div id="pie-wrap">
+          <canvas id="pie-chart" aria-label="Composição do custo por serviço" role="img"></canvas>
+        </div>
+        <ul id="pie-legend"></ul>
+      </section>
+      </div>
     </main>
 
     <div
@@ -221,6 +248,28 @@
           </button>
         </div>
         <ul id="history-list"></ul>
+      </div>
+    </div>
+
+    <div
+      id="pie-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pie-modal-title"
+    >
+      <div id="pie-dialog">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title" id="pie-modal-title">
+              Detalhes do custo por serviço
+            </h2>
+            <p class="subtitle" id="pie-modal-subtitle"></p>
+          </div>
+          <button id="pie-modal-close" type="button" aria-label="Fechar">
+            ×
+          </button>
+        </div>
+        <ul id="pie-detalhes"></ul>
       </div>
     </div>
   </body>

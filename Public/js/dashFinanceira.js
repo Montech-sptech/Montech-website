@@ -1,4 +1,4 @@
-/* MonTech · Billing
+/* MonTech · Custos dos serviços (dashboard do cliente)
  * Este script apenas EXIBE dados: todos os cálculos (acumulados, projeção, variações,
  * percentuais, médias, níveis de alerta) já vêm prontos no JSON.
  *
@@ -17,11 +17,21 @@
  *       projecao_acumulada: [ ... ],            // começa no próprio dia
  *       variacao_projetada_pct, variacao_projetada_usd, variacao_projetada_nivel,
  *       media_diaria, media_diaria_mes_anterior,
- *       variacao_media_diaria_pct, variacao_media_diaria_nivel
+ *       variacao_media_diaria_pct, variacao_media_diaria_nivel,
+ *       // dado externo (opcional): voos do aeroporto do cliente
+ *       voos_mes,                 // voos do início do mês até o dia
+ *       voos_mes_anterior,        // voos no mesmo período do mês anterior
+ *       variacao_voos_pct,        // variação já calculada
+ *       custo_por_voo,            // gasto acumulado ÷ voos acumulados (US$)
+ *       custo_por_voo_mes_anterior,
+ *       variacao_custo_por_voo_pct, variacao_custo_por_voo_nivel,  // menor = "good"
+ *       dias_restantes, mes_decorrido_pct, folga_projetada_usd,    // leitura do mês
+ *       custo_por_servico: [ { nome, servico_aws, valor, pct } ]   // 5 maiores + "Outros"
  *     }
  *   }
  * }
- * Níveis aceitos: "good" | "warn" | "bad"
+ * Níveis aceitos: "good" | "warn" | "bad" (voos usam "neutral", pois não é bom nem ruim)
+ * Opcional por mês: resumo.voos_total (usado no relatório em PDF)
  */
 
 /* ========== Utilitários ========== */
@@ -50,7 +60,8 @@ const estado = {
   chavesMeses: [], // ["2025-11", ..., "2026-11"] em ordem
   mesesAtras: 0, // 0 = mês mais recente (fixo)
   dia: 1, // último dia com dados do mês (definido na inicialização)
-  grafico: null, // instância do Chart.js
+  grafico: null, // instância do Chart.js (linhas)
+  graficoPizza: null, // instância do Chart.js (composição do custo)
 };
 
 /* ========== Dados ========== */
@@ -99,13 +110,19 @@ function renderizarKpiOrcamento({ idValor, idChip, valor, porcentagem, nivel }) 
   definirChip(idChip, formatarPorcentagemSimples(porcentagem) + " do orçamento", nivel);
 }
 
-function renderizarKpiVariacao(posicao) {
+function renderizarKpiVariacao(posicao, anterior) {
   obterPorId("kpi-variation-value").textContent = formatarPorcentagem(posicao.variacao_projetada_pct);
   definirChip(
     "kpi-variation-chip",
     formatarUsdComSinal(posicao.variacao_projetada_usd),
     posicao.variacao_projetada_nivel,
   );
+  // mostra os dois valores comparados, para o cliente entender o %
+  if (anterior) {
+    obterPorId("kpi-variation-note").textContent =
+      "fechamento projetado de " + formatarUsd(posicao.projetado) +
+      " vs. " + formatarUsd(anterior.resumo.total) + " gastos em " + anterior.rotulo;
+  }
 }
 
 function renderizarKpiDiario(posicao) {
@@ -119,11 +136,63 @@ function renderizarKpiDiario(posicao) {
     "vs. " + formatarUsd(posicao.media_diaria_mes_anterior) + " / dia no mês anterior";
 }
 
+const formatarInteiro = (valor) => valor.toLocaleString("pt-BR");
+
+// Dado externo: se o JSON não trouxer os voos, o bloco simplesmente fica oculto
+function renderizarKpiVoos(posicao) {
+  const bloco = obterPorId("kpi-flights");
+  if (posicao.voos_mes == null || posicao.voos_mes_anterior == null) {
+    bloco.hidden = true;
+    return;
+  }
+  obterPorId("kpi-flights-value").textContent = formatarInteiro(posicao.voos_mes);
+  definirChip("kpi-flights-chip", formatarPorcentagem(posicao.variacao_voos_pct), "neutral");
+  obterPorId("kpi-flights-note").textContent =
+    "vs. " + formatarInteiro(posicao.voos_mes_anterior) + " no mesmo período do mês anterior";
+  bloco.hidden = false;
+}
+
+function renderizarCustoPorVoo(posicao) {
+  const linha = obterPorId("kpi-cpf");
+  if (posicao.custo_por_voo == null || posicao.custo_por_voo_mes_anterior == null) {
+    linha.hidden = true;
+    return;
+  }
+  obterPorId("kpi-cpf-value").textContent = formatarUsdCentavos(posicao.custo_por_voo);
+  definirChip(
+    "kpi-cpf-chip",
+    formatarPorcentagem(posicao.variacao_custo_por_voo_pct),
+    posicao.variacao_custo_por_voo_nivel,
+  );
+  obterPorId("kpi-cpf-note").textContent =
+    "vs. " + formatarUsdCentavos(posicao.custo_por_voo_mes_anterior) + " no mesmo período do mês anterior";
+  linha.hidden = false;
+}
+
+// Contexto dos cards 1 e 2: ritmo do mês, folga no orçamento e dias restantes
+function renderizarContextoOrcamento(mes, posicao) {
+  const ritmo = obterPorId("kpi-spent-note");
+  ritmo.textContent =
+    posicao.mes_decorrido_pct != null
+      ? `com ${formatarPorcentagemSimples(posicao.mes_decorrido_pct)} do mês decorrido (dia ${estado.dia} de ${mes.dias_no_mes})`
+      : "";
+  const folga = obterPorId("kpi-projection-note");
+  if (posicao.folga_projetada_usd == null) {
+    folga.textContent = "";
+    return;
+  }
+  const textoFolga =
+    posicao.folga_projetada_usd >= 0
+      ? `folga de ${formatarUsd(posicao.folga_projetada_usd)} até o orçamento`
+      : `${formatarUsd(Math.abs(posicao.folga_projetada_usd))} acima do orçamento`;
+  folga.textContent = `${textoFolga} · ${posicao.dias_restantes} dias para o fechamento`;
+}
+
 function renderizarKpis() {
   const mes = obterMes(estado.mesesAtras);
   const posicao = obterPosicao(mes, estado.dia);
 
-  obterPorId("period-subtitle").textContent = `Posição em ${estado.dia} de ${mes.rotulo}`;
+  obterPorId("period-subtitle").textContent = `${estado.dia} de ${mes.rotulo}`;
   renderizarKpiOrcamento({
     idValor: "kpi-spent-value",
     idChip: "kpi-spent-chip",
@@ -138,8 +207,11 @@ function renderizarKpis() {
     porcentagem: posicao.projetado_pct_orcamento,
     nivel: posicao.projetado_nivel,
   });
-  renderizarKpiVariacao(posicao);
+  renderizarKpiVariacao(posicao, obterMes(estado.mesesAtras + 1));
   renderizarKpiDiario(posicao);
+  renderizarKpiVoos(posicao);
+  renderizarCustoPorVoo(posicao);
+  renderizarContextoOrcamento(mes, posicao);
 }
 
 /* ========== Gráfico (Chart.js) ========== */
@@ -209,6 +281,209 @@ function montarDadosGrafico() {
   };
 }
 
+/* Marcações desenhadas sobre o gráfico: linha de "Hoje", fechamento projetado e orçamento */
+const marcacoesGrafico = {
+  id: "marcacoesMonTech",
+  afterDatasetsDraw(grafico) {
+    const { ctx, chartArea: area, scales } = grafico;
+    if (!area || !scales.x) return;
+    const atual = obterMes(estado.mesesAtras);
+    const posicao = obterPosicao(atual, estado.dia);
+    const xHoje = scales.x.getPixelForValue(estado.dia - 1);
+    const xFim = scales.x.getPixelForValue(atual.dias_no_mes - 1);
+    const yProjetado = scales.y.getPixelForValue(posicao.projetado);
+    const yOrcamento = scales.y.getPixelForValue(atual.orcamento);
+
+    ctx.save();
+    ctx.font = "600 12px Inter, system-ui, sans-serif";
+
+    // linha vertical "Hoje"
+    ctx.strokeStyle = "rgba(230,235,244,.35)";
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(xHoje, area.top);
+    ctx.lineTo(xHoje, area.bottom);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#e6ebf4";
+    ctx.textAlign = xHoje > area.right - 90 ? "right" : "left";
+    ctx.fillText(`Hoje · dia ${estado.dia}`, xHoje + (ctx.textAlign === "left" ? 6 : -6), area.bottom - 8);
+
+    // orçamento
+    ctx.fillStyle = "#ef4444";
+    ctx.textAlign = "left";
+    ctx.fillText(`Orçamento ${formatarUsd(atual.orcamento)}`, area.left + 6, yOrcamento + 16);
+
+    // ponto no fim da projeção
+    ctx.fillStyle = "#f59e0b";
+    ctx.beginPath();
+    ctx.arc(xFim, yProjetado, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  },
+};
+
+/* ========== Composição do custo (pizza) ========== */
+const CORES_PIZZA = ["#3b82f6", "#8b5cf6", "#06b6d4", "#ec4899", "#14b8a6", "#64748b"];
+
+function criarPonto(indice) {
+  const ponto = document.createElement("span");
+  ponto.className = "pie-dot";
+  ponto.style.background = CORES_PIZZA[indice % CORES_PIZZA.length];
+  return ponto;
+}
+
+// Legenda do card: apenas cor + nome da fatia
+function renderizarLegendaPizza(fatias) {
+  const lista = obterPorId("pie-legend");
+  lista.innerHTML = "";
+  fatias.forEach((fatia, indice) => {
+    const item = document.createElement("li");
+    item.className = "pie-item";
+    const nome = document.createElement("span");
+    nome.className = "pie-name";
+    nome.textContent = fatia.nome;
+    item.append(criarPonto(indice), nome);
+    lista.appendChild(item);
+  });
+}
+
+// Modal de detalhes: nome, serviço AWS, valor e % de cada fatia + total
+function renderizarDetalhesPizza(fatias, posicao) {
+  obterPorId("pie-modal-subtitle").textContent =
+    "Gasto acumulado no mês até o dia " + estado.dia;
+  const lista = obterPorId("pie-detalhes");
+  lista.innerHTML = "";
+  fatias.forEach((fatia, indice) => {
+    const item = document.createElement("li");
+    item.className = "pie-item";
+
+    const textos = document.createElement("div");
+    const nome = document.createElement("div");
+    nome.className = "pie-name";
+    nome.textContent = fatia.nome;
+    const aws = document.createElement("div");
+    aws.className = "pie-aws";
+    aws.textContent = fatia.servico_aws;
+    textos.append(nome, aws);
+
+    const valor = document.createElement("div");
+    valor.className = "pie-valor";
+    valor.textContent = formatarUsdCentavos(fatia.valor);
+    const pct = document.createElement("span");
+    pct.className = "pie-pct";
+    pct.textContent = formatarPorcentagemSimples(fatia.pct);
+    valor.appendChild(pct);
+
+    item.append(criarPonto(indice), textos, valor);
+    lista.appendChild(item);
+  });
+
+  const total = document.createElement("li");
+  total.className = "pie-item total";
+  const rotulo = document.createElement("span");
+  rotulo.className = "pie-name";
+  rotulo.textContent = "Total gasto no mês";
+  const valorTotal = document.createElement("span");
+  valorTotal.className = "pie-valor";
+  valorTotal.textContent = formatarUsdCentavos(posicao.gasto);
+  total.append(rotulo, valorTotal);
+  lista.appendChild(total);
+}
+
+// Porcentagem desenhada em cima de cada fatia (o valor em US$ aparece no tooltip e nos detalhes)
+const rotulosPizza = {
+  id: 'rotulosPizza',
+  afterDatasetsDraw(grafico) {
+    const fatias = grafico.$fatias;
+    if (!fatias) return;
+    const { ctx } = grafico;
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(0, 0, 0, .55)';
+    ctx.shadowBlur = 3;
+    grafico.getDatasetMeta(0).data.forEach((arco, indice) => {
+      const pct = fatias[indice].pct;
+      const fatiaEstreita = pct < 10;
+      ctx.font = `700 ${fatiaEstreita ? 11 : 14}px Inter, system-ui, sans-serif`;
+      const anguloMedio = (arco.startAngle + arco.endAngle) / 2;
+      const multiplicadorRaio = fatiaEstreita ? 0.78 : 0.68;
+      const distancia = arco.outerRadius * multiplicadorRaio;
+      const x = arco.x + Math.cos(anguloMedio) * distancia;
+      const y = arco.y + Math.sin(anguloMedio) * distancia;
+      ctx.fillText(formatarPorcentagemSimples(pct), x, y);
+    });
+
+    ctx.restore();
+  },
+};
+
+
+function renderizarPizza() {
+  const secao = obterPorId("pie-section");
+  const posicao = obterPosicao(obterMes(estado.mesesAtras), estado.dia);
+  const fatias = posicao.custo_por_servico;
+  if (!fatias || !fatias.length) {
+    secao.hidden = true;
+    return;
+  }
+  secao.hidden = false;
+  obterPorId("pie-subtitle").textContent =
+    "Gasto acumulado no mês: " + formatarUsd(posicao.gasto) + " (dia " + estado.dia + ")";
+  renderizarLegendaPizza(fatias);
+  renderizarDetalhesPizza(fatias, posicao);
+
+  const dados = {
+    labels: fatias.map((fatia) => fatia.nome),
+    datasets: [
+      {
+        data: fatias.map((fatia) => fatia.valor),
+        backgroundColor: fatias.map((_fatia, indice) => CORES_PIZZA[indice % CORES_PIZZA.length]),
+        borderColor: "#101826",
+        borderWidth: 2,
+
+      },
+    ],
+  };
+  if (!estado.graficoPizza) {
+    estado.graficoPizza = new Chart(obterPorId("pie-chart"), {
+      type: "pie",
+      data: dados,
+      plugins: [rotulosPizza],
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 400 },
+        plugins: {
+          legend: { display: false }, // legenda customizada no HTML
+          tooltip: {
+            backgroundColor: "#0b1424",
+            borderColor: "#1e2a40",
+            borderWidth: 1,
+            titleColor: "#e6ebf4",
+            bodyColor: "#e6ebf4",
+            titleFont: { size: 15, weight: "600" },
+            bodyFont: { size: 13 },
+            padding: 50,
+            callbacks: {
+              label: (item) => {
+                const fatia = estado.graficoPizza.$fatias[item.dataIndex];
+                return ` ${formatarUsd(fatia.valor)} (${formatarPorcentagemSimples(fatia.pct)})`;
+              },
+            },
+          },
+        },
+      },
+    });
+  } else {
+    estado.graficoPizza.data = dados;
+  }
+  estado.graficoPizza.$fatias = fatias; // para o tooltip mostrar valor e % prontos do JSON
+  estado.graficoPizza.update();
+}
+
 function montarOpcoesGrafico() {
   return {
     responsive: true,
@@ -263,6 +538,7 @@ function renderizarGrafico() {
       type: "line",
       data: montarDadosGrafico(),
       options: montarOpcoesGrafico(),
+      plugins: [marcacoesGrafico],
     });
     return;
   }
@@ -284,7 +560,7 @@ function desenharCabecalhoRelatorio(documento, rotulo) {
   documento.setTextColor(255, 255, 255);
   documento.setFont("helvetica", "bold");
   documento.setFontSize(18);
-  documento.text("MonTech · Relatório de Billing", 40, 40);
+  documento.text("MonTech · Relatório de Custos dos Serviços", 40, 40);
   documento.setFont("helvetica", "normal");
   documento.setFontSize(11);
   documento.setTextColor(147, 163, 190);
@@ -295,7 +571,7 @@ function desenharCabecalhoRelatorio(documento, rotulo) {
 function desenharResumoRelatorio(documento, { atual, anterior }, posicaoY) {
   const { resumo } = atual;
   const linhas = [
-    ["Total gasto no mês", formatarUsdCentavos(resumo.total)],
+    ["Total gasto com serviços MonTech no mês", formatarUsdCentavos(resumo.total)],
     [
       anterior ? `Total do mês anterior (${anterior.rotulo})` : "Total do mês anterior",
       anterior ? formatarUsdCentavos(anterior.resumo.total) : "-",
@@ -308,6 +584,13 @@ function desenharResumoRelatorio(documento, { atual, anterior }, posicaoY) {
     ["Orçamento consumido", formatarPorcentagemSimples(resumo.orcamento_consumido_pct)],
     ["Gasto médio diário", formatarUsdCentavos(resumo.media_diaria)],
   ];
+  const composicao = atual.posicao_por_dia?.[atual.dias_com_dados]?.custo_por_servico;
+  if (resumo.voos_total != null) {
+    linhas.push(["Voos no aeroporto no mês", formatarInteiro(resumo.voos_total)]);
+    if (anterior?.resumo.voos_total != null) {
+      linhas.push(["Voos no mês anterior", formatarInteiro(anterior.resumo.voos_total)]);
+    }
+  }
   linhas.forEach(([rotulo, valor]) => {
     documento.setFont("helvetica", "normal");
     documento.setFontSize(11);
@@ -316,6 +599,18 @@ function desenharResumoRelatorio(documento, { atual, anterior }, posicaoY) {
     documento.text(valor, 555, posicaoY, { align: "right" });
     posicaoY += 20;
   });
+  if (composicao) {
+    posicaoY += 6;
+    documento.setFont("helvetica", "bold");
+    documento.text("Composição do custo", 40, posicaoY);
+    posicaoY += 18;
+    composicao.forEach((fatia) => {
+      documento.setFont("helvetica", "normal");
+      documento.text(`${fatia.nome} (${formatarPorcentagemSimples(fatia.pct)})`, 40, posicaoY);
+      documento.text(formatarUsdCentavos(fatia.valor), 555, posicaoY, { align: "right" });
+      posicaoY += 18;
+    });
+  }
   return posicaoY;
 }
 
@@ -366,7 +661,7 @@ function montarRelatorioPdf(mesesAtras) {
   let posicaoY = desenharResumoRelatorio(documento, relatorio, 118) + 14;
   posicaoY = desenharCabecalhoTabela(documento, posicaoY);
   desenharLinhasTabela(documento, relatorio, posicaoY);
-  const nomeArquivo = `relatorio-billing-${atual.ano}-${String(atual.mes + 1).padStart(2, "0")}.pdf`;
+  const nomeArquivo = `relatorio-servicos-montech-${atual.ano}-${String(atual.mes + 1).padStart(2, "0")}.pdf`;
   return { nome: nomeArquivo, dados: documento.output("arraybuffer") };
 }
 
@@ -434,11 +729,15 @@ const abrirHistorico = () => {
 };
 const fecharHistorico = () => obterPorId("history-modal").classList.remove("open");
 
+const abrirDetalhesPizza = () => obterPorId("pie-modal").classList.add("open");
+const fecharDetalhesPizza = () => obterPorId("pie-modal").classList.remove("open");
+
 /* ========== Render principal ========== */
 function renderizar() {
   obterPorId("budget-input").value = obterMes(estado.mesesAtras).orcamento;
   renderizarKpis();
   renderizarGrafico();
+  renderizarPizza();
 }
 
 /* ========== Eventos ========== */
@@ -450,6 +749,11 @@ function vincularEventos() {
     if (estado.faturamento) abrirHistorico();
   });
   obterPorId("history-close").addEventListener("click", fecharHistorico);
+  obterPorId("pie-info-btn").addEventListener("click", abrirDetalhesPizza);
+  obterPorId("pie-modal-close").addEventListener("click", fecharDetalhesPizza);
+  obterPorId("pie-modal").addEventListener("click", (evento) => {
+    if (evento.target === obterPorId("pie-modal")) fecharDetalhesPizza();
+  });
   obterPorId("history-modal").addEventListener("click", (evento) => {
     if (evento.target === obterPorId("history-modal")) fecharHistorico();
   });
@@ -458,7 +762,10 @@ function vincularEventos() {
     if (botao) baixarRelatorio(+botao.dataset.back);
   });
   document.addEventListener("keydown", (evento) => {
-    if (evento.key === "Escape") fecharHistorico();
+    if (evento.key === "Escape") {
+      fecharHistorico();
+      fecharDetalhesPizza();
+    }
   });
 }
 

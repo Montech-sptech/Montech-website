@@ -5,7 +5,7 @@ var S = [
 ];
 var T = { "GRU-SPA": { c: [70, 90], r: [85, 92], k: [75, 90], t: [75, 85] }, "GRU-SDV": { c: [75, 92], r: [80, 90], k: [70, 85], t: [72, 82] }, "GRU-AIS": { c: [65, 85], r: [88, 95], k: [72, 88], t: [70, 80] } };
 var P = {
-    "GRU-SPA": [[1204, "teste 123", "teste", 31.2, 24.5, "Rodando", 1], [1311, "teste 1234", "teste", 18.4, 19.8, "Rodando", 1], [1420, "teste 12345", "teste", 12.7, 22.1, "Rodando", 1], [1502, "teste 123456", "teste", 6.1, 8.3, "Rodando", 1], [980, "teste", "montech", 4.9, 9.6, "Rodando", 0], [2210, "teste 7", "montech", 1.2, 1.4, "Rodando", 0], [611, "teste 8", "root", 0.1, 0.2, "Dormindo", 0]],
+    "GRU-SPA": [[1204, "teste 123", "teste", 31.2, 24.5, "Rodando", 1], [1311, "teste 1234", "teste", 18.4, 19.8, "Rodando", 1], [1420, "teste 12345", "teste", 12.7, 22.1, "Rodando", 1], [1502, "teste 123456", "teste", 6.1, 8.3, "Rodando", 1], [980, "teste", "montech", 4.9, 9.6, "Rodando", 0], [2210, "teste 7", "montech", 1.2, 1.4, "Rodando", 0], [611, "teste 8", "root", 0.1, 0.2, "Ocioso", 0]],
     "GRU-SDV": [[1102, "teste 123", "teste", 22.8, 28.4, "Rodando", 1], [1177, "teste 1234", "teste", 9.2, 31.6, "Rodando", 1], [1240, "teste 12345", "teste", 14.3, 12.1, "Rodando", 1], [1388, "teste 123456", "teste", 5.5, 9.9, "Rodando", 1], [2210, "teste", "montech", 1.1, 1.3, "Rodando", 0], [611, "teste 8", "root", 0.1, 0.2, "Dormindo", 0]],
     "GRU-AIS": [[1050, "teste 123", "teste", 9.6, 14.2, "Rodando", 1], [1098, "teste 1234", "teste", 7.2, 11.5, "Rodando", 1], [1160, "teste 12345", "teste", 4.8, 10.4, "Rodando", 1], [1215, "teste 123456", "teste", 3.1, 6.7, "Rodando", 1], [2210, "teste", "montech", 1.0, 1.2, "Rodando", 0], [611, "teste 8", "root", 0.1, 0.2, "Dormindo", 0]]
 };

@@ -62,8 +62,8 @@ function draw() {
     } else {
         var rows = P[cur].slice().sort(function (a, b) { return sortK == 1 ? (a[1] < b[1] ? -1 : 1) : b[sortK] - a[sortK] });
         h = '<div class="dh"><h2>' + s.n + ' · Processos</h2><div class="btns"><button type="button" onclick="go(cur,view)">Fechar</button></div></div>' +
-            '<div class="tw"><table class="pt"><thead><tr><th onclick="sortK=0;draw()">PID</th><th onclick="sortK=1;draw()">Processo</th><th>Usuário</th><th onclick="sortK=3;draw()">CPU% ▾</th><th onclick="sortK=4;draw()">MEM%</th></tr></thead><tbody>' +
-            rows.map(function (r) { return '<tr class="' + (r[6] ? "crit" : "") + '"><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3].toFixed(1) + '</td><td>' + r[4].toFixed(1) + '</td></tr>' }).join("") + '</tbody></table></div>';
+            '<div class="tw"><table class="pt"><thead><tr><th onclick="sortK=0;draw()">PID</th><th onclick="sortK=1;draw()">Processo</th><th onclick="sortK=3;draw()">CPU% ▾</th><th onclick="sortK=4;draw()">MEM%</th><th onclick="sortK=7;draw()">Rede (MB/s)</th><th onclick="sortK=8;draw()">Disco (MB)</th><th>Status</th></tr></thead><tbody>' +
+            rows.map(function (r) { return '<tr class="' + (r[6] ? "crit" : "") + '"><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[3].toFixed(1) + '</td><td>' + r[4].toFixed(1) + '</td><td>' + (r[7] / 1024).toFixed(2) + '</td><td>' + r[8] + '</td><td>' + r[5] + '</td></tr>' }).join("") + '</tbody></table></div>';
     }
     el.innerHTML = h;
 }

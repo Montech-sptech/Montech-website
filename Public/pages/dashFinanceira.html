@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>MonTech · Billing</title>
+    <title>MonTech · Custos dos serviços</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -96,14 +96,14 @@
         <div id="error-banner" role="alert" hidden></div>
       <header id="topbar">
         <div id="topbar-heading">
-          <h1 class="title">MonTech · Billing</h1>
+          <h1 class="title">MonTech · Custos dos serviços</h1>
           <p class="subtitle" id="period-subtitle">
-            Visão financeira de consumo
+            Custo dos serviços de monitoramento MonTech nos servidores do seu aeroporto
           </p>
         </div>
         <div id="topbar-controls">
           <label class="field" id="budget-field">
-            <span class="label">Orçamento mensal</span>
+            <span class="label">Orçamento mensal contratado</span>
             <span class="value"
               >US$
               <input
@@ -112,7 +112,7 @@
                 min="1"
                 step="100"
                 value="50000"
-                aria-label="Orçamento mensal"
+                aria-label="Orçamento mensal contratado"
                 readonly
             /></span>
           </label>
@@ -129,14 +129,23 @@
 
       <section id="kpi-grid" aria-label="Indicadores">
         <article class="card kpi" id="kpi-spent">
-          <span class="label">Gasto acumulado no mês</span>
+          <span class="label">Gasto com serviços MonTech no mês</span>
           <span class="kpi-value" id="kpi-spent-value">—</span>
           <div class="kpi-foot">
             <span class="chip" id="kpi-spent-chip">—</span>
           </div>
+          <div class="kpi-flights" id="kpi-cpf" hidden>
+            <div class="kpi-flights-row">
+              <span class="kpi-flights-main"
+                >💲 <strong id="kpi-cpf-value">—</strong> de custo por voo</span
+              >
+              <span class="chip" id="kpi-cpf-chip">—</span>
+              <span id="kpi-cpf-note">vs. — no mesmo período do mês anterior</span>
+            </div>
+          </div>
         </article>
         <article class="card kpi" id="kpi-projection">
-          <span class="label">Projeção de fechamento do mês</span>
+          <span class="label">Projeção de fechamento da fatura do mês</span>
           <span class="kpi-value" id="kpi-projection-value">—</span>
           <div class="kpi-foot">
             <span class="chip" id="kpi-projection-chip">—</span>
@@ -144,23 +153,32 @@
         </article>
         <article class="card kpi" id="kpi-variation">
           <span class="label"
-            >Variação do gasto projetado vs. mês anterior</span
+            >Variação do custo dos serviços vs. mês anterior</span
           >
           <span class="kpi-value" id="kpi-variation-value">—</span>
           <div class="kpi-foot">
             <span class="chip" id="kpi-variation-chip">—</span
-            ><span
+            ><span id="kpi-variation-note"
               >comparando o fechamento projetado com o total gasto no mês
               anterior</span
             >
           </div>
         </article>
         <article class="card kpi" id="kpi-daily">
-          <span class="label">Gasto médio diário</span>
+          <span class="label">Gasto médio diário com serviços MonTech</span>
           <span class="kpi-value" id="kpi-daily-value">—</span>
           <div class="kpi-foot">
             <span class="chip" id="kpi-daily-chip">—</span
             ><span id="kpi-daily-note">vs. média diária do mês anterior</span>
+          </div>
+          <div class="kpi-flights" id="kpi-flights" hidden>
+            <div class="kpi-flights-row">
+              <span class="kpi-flights-main"
+                >✈ <strong id="kpi-flights-value">—</strong> voos no mês</span
+              >
+              <span class="chip" id="kpi-flights-chip">—</span>
+              <span id="kpi-flights-note">vs. — no mesmo período do mês anterior</span>
+            </div>
           </div>
         </article>
       </section>
@@ -168,7 +186,7 @@
       <section class="card" id="chart-section">
         <div class="card-head">
           <div>
-            <h2 class="card-title">Custo acumulado ao longo do mês</h2>
+            <h2 class="card-title">Custo acumulado dos serviços MonTech ao longo do mês</h2>
             <p class="subtitle">Histórico, atual e projeção até o fechamento</p>
           </div>
           <div class="legend" id="chart-legend">

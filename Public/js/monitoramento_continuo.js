@@ -60,10 +60,10 @@ function draw() {
     if (view == "c") {
         h = '<div class="dh"><h2>' + s.n + ' · Componentes</h2><button type="button" onclick="go(cur,view)">Fechar</button></div><div class="two"><div><h3 style="font-size:14px">CPU (%) · atual ' + s.c + '%</h3><div class="temp">Temperatura: <b class="' + cls(s.t, T[s.n].t) + '">' + s.t + ' °C</b></div>' + chart(series(s.c - 12, 10, 3 + i * 4, s.c), T[s.n].c, "var(--s1)") + '</div><div><h3 style="font-size:14px">Memória RAM (%) · atual ' + s.r + '%</h3><div class="temp">&nbsp;</div>' + chart(series(s.r - 10, 5, 5 + i * 4, s.r), T[s.n].r, "var(--s2)") + '</div></div>';
     } else {
-        var rows = P[cur].slice().sort(function (a, b) { return sortK == 1 ? (a[1] < b[1] ? -1 : 1) : b[sortK] - a[sortK] }).filter(function (r) { return !onlyC || r[6] });
-        h = '<div class="dh"><h2>' + s.n + ' · Processos</h2><div class="btns"><button type="button" aria-pressed="' + onlyC + '" onclick="onlyC=!onlyC;draw()">Só críticos</button><button type="button" onclick="go(cur,view)">Fechar</button></div></div>' +
-            '<div class="hm">' + meter("CPU", s.c, T[s.n].c) + meter("RAM", s.r, T[s.n].r) + meter("Disco", s.k, T[s.n].k) + '</div><div class="tw"><table class="pt"><thead><tr><th onclick="sortK=0;draw()">PID</th><th onclick="sortK=1;draw()">Processo</th><th>Usuário</th><th onclick="sortK=3;draw()">CPU% ▾</th><th onclick="sortK=4;draw()">MEM%</th><th onclick="sortK=7;draw()">Rede (KB/s)</th><th onclick="sortK=8;draw()">Swap (MB)</th><th>Crítico</th></tr></thead><tbody>' +
-            rows.map(function (r) { var stp = r[5] == "Parado"; return '<tr class="' + (r[6] ? "crit" : "") + '"><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3].toFixed(1) + '</td><td>' + r[4].toFixed(1) + '</td><td>' + r[7] + '</td><td>' + r[8] + '</td><td>' + (r[6] ? "Sim" : "Não") + '</td></tr>' }).join("") + '</tbody></table></div>';
+        var rows = P[cur].slice().sort(function (a, b) { return sortK == 1 ? (a[1] < b[1] ? -1 : 1) : b[sortK] - a[sortK] });
+        h = '<div class="dh"><h2>' + s.n + ' · Processos</h2><div class="btns"><button type="button" onclick="go(cur,view)">Fechar</button></div></div>' +
+            '<div class="tw"><table class="pt"><thead><tr><th onclick="sortK=0;draw()">PID</th><th onclick="sortK=1;draw()">Processo</th><th>Usuário</th><th onclick="sortK=3;draw()">CPU% ▾</th><th onclick="sortK=4;draw()">MEM%</th></tr></thead><tbody>' +
+            rows.map(function (r) { return '<tr class="' + (r[6] ? "crit" : "") + '"><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3].toFixed(1) + '</td><td>' + r[4].toFixed(1) + '</td></tr>' }).join("") + '</tbody></table></div>';
     }
     el.innerHTML = h;
 }

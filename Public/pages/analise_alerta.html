@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MonTech | Análise Gerencial de Alertas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/analise_alerta.css">
+
+  <!-- Chart.js: biblioteca utilizada nos dois gráficos da dashboard -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="../js/analise_alerta.js" defer></script>
+</head>
+<body>
+  <!--
+    A sidebar não está implementada aqui.
+    Inclua o HTML da sidebar existente no projeto e carregue o CSS dela.
+    O conteúdo abaixo respeita a variável --largura-sidebar definida no CSS da sidebar.
+  -->
+
+  <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="sbLogo">
+        <img class="sbLogoLonga" src="../img/logoEscuraMontech.png" alt="MonTech" />
+        <img
+          class="sbLogoCurta"
+          src="../img/logoTipo.png"
+          alt="MonTech"
+        />
+      </div>
+
+      <nav class="sbNav">
+        <a class="sbItem" href="#" data-cargos="Administrador,Analista">
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+              <path
+                d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              />
+            </svg>
+          </span>
+          <span class="sbRotulo">Dashboard</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoDeUsuarios.html"
+          data-cargos="Administrador"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Usuários</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoDeCargos.html"
+          data-cargos="Administrador"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+              />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Cargos</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+        <a
+          class="sbItem"
+          href="gerenciamentoServidor.html"
+          data-cargos="Administrador,Analista"
+          data-titulo="Gerenciar Servidores"
+        >
+          <span class="sbIcone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5v14a9 3 0 0 0 18 0V5" />
+              <path d="M3 12a9 3 0 0 0 18 0" />
+            </svg>
+          </span>
+          <span class="sbRotulo">Servidores</span>
+          <svg
+            class="sbSeta"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+      </nav>
+
+      <div class="sbRodape">
+        <div class="sbRodapeFundo"></div>
+        <button class="sbSair" id="sbSair" type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <path d="m16 17 5-5-5-5" />
+            <path d="M21 12H9" />
+          </svg>
+          <span class="sbRotulo">Sair</span>
+        </button>
+      </div>
+    </aside>
+  //
+
+  <main class="dashboard">
+    <header class="page-header">
+      <div class="page-heading">
+        <!-- <p class="eyebrow">MONTECH / INTELIGÊNCIA DE INFRAESTRUTURA</p> -->
+        <h1>Análise Gerencial de Alertas</h1>
+        <p class="page-description">
+          Acompanhamento histórico de alertas, identificação de padrões e direcionamento de prioridades
+        </p>
+      </div>
+
+      <div class="header-status">
+        <span class="environment"><span class="status-dot"></span> Produção demonstrativa</span>
+        <span class="last-update" id="lastUpdate">Atualizado agora</span>
+      </div>
+    </header>
+
+    <section class="filters-panel" aria-label="Filtros da dashboard">
+      <div class="filter-group period-filter">
+        <div class="filter-heading">
+          <label>Período de análise</label>
+          <!-- <span id="periodDescription">Últimos 6 meses</span> -->
+        </div>
+        <div class="segmented-control" id="periodFilters">
+          <button class="segment" data-days="7" type="button">7 dias</button>
+          <button class="segment" data-days="30" type="button">30 dias</button>
+          <button class="segment" data-days="90" type="button">90 dias</button>
+          <button class="segment active" data-days="182" type="button">6 meses</button>
+        </div>
+      </div>
+
+      <div class="filter-group server-filter">
+        <div class="filter-heading">
+          <label>Servidor</label>
+        </div>
+        <div class="segmented-control" id="serverFilters">
+          <button class="segment active" data-server="Todos" type="button">Todos</button>
+          <button class="segment" data-server="SPA" type="button">SPA</button>
+          <button class="segment" data-server="SDV" type="button">SDV</button>
+          <button class="segment" data-server="AIS" type="button">AIS</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block overview-section">
+      <div class="section-heading">
+        <div>
+          <h2>Panorama do ambiente</h2>
+          <p id="overviewDescription">Total de alertas no período selecionado • 6 meses • Todos os servidores</p>
+        </div>
+        <span class="section-tag"><span class="small-dot"></span> Consolidado por filtros ativos</span>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="kpi-card">
+          <h3 id="comparisonTitle">Relação dos alertas aos 6 meses anteriores</h3>
+          <div class="kpi-value-line">
+            <strong class="kpi-value negative" id="comparisonValue">—</strong>
+            <span class="kpi-unit" id="comparisonUnit">de variação</span>
+          </div>
+          <div class="kpi-details">
+            <div><span>Período atual</span><strong id="currentTotal">—</strong></div>
+            <div><span>Período anterior</span><strong id="previousTotal">—</strong></div>
+          </div>
+        </article>
+
+        <article class="kpi-card">
+          <h3>Dias com alertas</h3>
+          <div class="kpi-value-line">
+            <strong class="kpi-value blue" id="daysWithAlerts">—</strong>
+          </div>
+          <div class="kpi-details">
+            <div><span>Do período selecionado</span><strong id="daysPercentage">—</strong></div>
+            <div><span>Período analisado</span><strong id="daysInPeriod">—</strong></div>
+          </div>
+        </article>
+
+        <article class="kpi-card">
+          <h3 id="leaderTitle">Servidor com mais alertas</h3>
+          <div class="leader-value">
+            <span class="server-symbol" aria-hidden="true">▤</span>
+            <strong id="leaderValue">—</strong>
+          </div>
+          <div class="kpi-details">
+            <div><span>Críticos</span><strong class="critical-text" id="leaderCritical">—</strong></div>
+            <div><span>Acompanhamento</span><strong class="warning-text" id="leaderWarning">—</strong></div>
+            <div><span>Alertas totais</span><strong id="leaderTotal">—</strong></div>
+          </div>
+        </article>
+
+        <article class="kpi-card">
+          <h3 id="mainComponentTitle">Principal componente gerador de alertas</h3>
+          <div class="kpi-value-line">
+            <strong class="kpi-value blue" id="mainComponentValue">—</strong>
+            <span class="kpi-unit">ocorrências</span>
+          </div>
+          <div class="component-highlight">
+            <span class="mini-server-icon">▤</span>
+            <span id="mainComponentName">—</span>
+            <span class="component-server" id="mainComponentServer"></span>
+          </div>
+          <div class="kpi-details">
+            <div><span>Críticos</span><strong class="critical-text" id="mainComponentCritical">—</strong></div>
+            <div><span>Acompanhamento</span><strong class="warning-text" id="mainComponentWarning">—</strong></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="ranking-panel">
+      <div class="panel-heading">
+        <h2>Componentes com maior quantidade de alertas</h2>
+        <span class="panel-subtitle" id="rankingContext">Ranking do período selecionado</span>
+      </div>
+      <div class="ranking-grid" id="rankingList">
+        <!-- Os três primeiros componentes são inseridos pelo JavaScript. -->
+      </div>
+    </section>
+
+    <section class="section-block component-section">
+      <div class="section-heading">
+        <div>
+          <h2>Alertas por componente</h2>
+          <p id="componentDescription">Volume histórico de alertas • Todos os servidores</p>
+        </div>
+        <div class="section-total">
+          <strong id="componentTotal">—</strong>
+          <span>ocorrências</span>
+        </div>
+      </div>
+
+      <div class="chart-panel component-chart-panel">
+        <div class="chart-legend">
+          <span><i class="legend-square warning"></i> Acompanhamento <b id="warningLegend">—</b></span>
+          <span><i class="legend-square critical"></i> Crítico <b id="criticalLegend">—</b></span>
+        </div>
+        <div class="component-chart-wrap">
+          <canvas id="componentChart" aria-label="Gráfico de alertas por componente" role="img"></canvas>
+        </div>
+        <p class="chart-note">
+          Uma ocorrência registra um evento no período; não representa necessariamente um alerta ativo agora.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-block history-section">
+      <div class="section-heading">
+        <div>
+          <h2>Evolução histórica de alertas gerados</h2>
+          <p id="historyDescription">Tendências mensais para separar crescimento persistente de episódios pontuais.</p>
+        </div>
+        <span class="section-tag" id="historyTag">6 meses • Todos os servidores</span>
+      </div>
+
+      <div class="chart-panel history-chart-panel">
+        <div class="chart-legend" id="historyLegend">
+          <span><i class="legend-line spa"></i> SPA</span>
+          <span><i class="legend-line sdv"></i> SDV</span>
+          <span><i class="legend-line ais"></i> AIS</span>
+        </div>
+        <div class="history-chart-wrap">
+          <canvas id="historyChart" aria-label="Gráfico de evolução histórica de alertas" role="img"></canvas>
+        </div>
+
+        <div class="threshold-box">
+          <strong>REFERÊNCIAS DE ALERTA POR RECURSO <span>• NÃO SÃO MÉDIAS MENSAIS</span></strong>
+          <div class="threshold-list">
+            <div><b>CPU</b><span>80% acomp.</span><em>95% crítico</em></div>
+            <div><b>RAM</b><span>85% acomp.</span><em>95% crítico</em></div>
+            <div><b>Armazenamento</b><span>85% acomp.</span><em>95% crítico</em></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="demo-footer">
+      Dados fictícios para demonstração de layout e funcionamento dos filtros. Não representam medições reais da infraestrutura.
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-/* Página Monitoramento Geral (analista). Tudo escopado em .mg para não afetar a sidebar. */
+/* Página Monitoramento Contínuo (analista). Tudo escopado em .mg para não afetar a sidebar. */
 :root { --largura-sidebar: 264px; }
 
 body { margin: 0; background: #080c26; font-family: 'Inter', system-ui, sans-serif; }

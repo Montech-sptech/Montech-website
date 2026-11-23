@@ -121,6 +121,7 @@ async function pegarUsuariosPeloAdministrador(req, res) {
         nomeUsuario: linha.nomeUsuario,
         email: linha.email,
         nomeCargo: linha.nomeCargo,
+        fkCargo: linha.fkCargo,
         status: linha.status,
         servidores: [],
       };
@@ -142,14 +143,18 @@ async function pegarUsuariosPeloAdministrador(req, res) {
   return res.json(usuariosAgrupados);
 }
 
-function editarUsuario(req, res) {
+async function editarUsuario(req, res) {
   var usuarioId = Number(req.params.id);
   var nome = typeof req.body.nome === "string" ? req.body.nome.trim() : "";
   var email = typeof req.body.email === "string" ? req.body.email.trim() : "";
   var statusAtividade = req.body.statusAtividade;
+  var fkCargo = Number(req.body.fkCargo);
 
   if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
     return res.status(400).json({ mensagem: "ID de usuário inválido." });
+  }
+  if (!Number.isInteger(fkCargo) || fkCargo <= 0) {
+    return res.status(400).json({ mensagem: "Cargo inválido." });
   }
   if (!nome || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ mensagem: "Nome ou email inválido." });
@@ -158,19 +163,46 @@ function editarUsuario(req, res) {
     return res.status(400).json({ mensagem: "Status de atividade inválido." });
   }
 
-  usuarioModel
-    .editarUsuario(usuarioId, nome, email, statusAtividade)
-    .then(function (resultado) {
-      res.json(resultado);
-    })
-    .catch(function (erro) {
-      console.log(erro);
-      console.log(
-        "\nHouve um erro ao editar o usuário! Erro:",
-        erro.sqlMessage,
-      );
-      res.status(500).json({ mensagem: "Não foi possível editar o usuário." });
+  try {
+    var cargoDisponivel = await usuarioModel.cargoDisponivelParaUsuario(
+      usuarioId,
+      fkCargo,
+    );
+    if (!cargoDisponivel[0]) {
+      return res.status(400).json({
+        mensagem: "O cargo selecionado não está disponível para a empresa do usuário.",
+      });
+    }
+
+    var permissoes = await cargoModel.listarNomesPermissoesDoCargo(fkCargo);
+    var resultado = await usuarioModel.editarUsuario(
+      usuarioId,
+      nome,
+      email,
+      statusAtividade,
+      fkCargo,
+    );
+    return res.json({
+      ...resultado,
+      usuario: {
+        idUsuario: usuarioId,
+        nome: nome,
+        email: email,
+        fkCargo: fkCargo,
+        cargo: cargoDisponivel[0].nome,
+        permissoes: permissoes.map(function (permissao) {
+          return permissao.nome;
+        }),
+      },
     });
+  } catch (erro) {
+    console.log(erro);
+    console.log(
+      "\nHouve um erro ao editar o usuário! Erro:",
+      erro.sqlMessage,
+    );
+    return res.status(500).json({ mensagem: "Não foi possível editar o usuário." });
+  }
 }
 
 function inativarUsuario(req, res) {

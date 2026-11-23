@@ -74,11 +74,29 @@ function configurarAcessoDashboard(permissoesUsuario) {
   const itemDashboard = pegarItensSidebar().find(
     (item) => item.querySelector(".sbRotulo")?.textContent.trim() === "Dashboard",
   );
+  const idSubmenu = "opcoesDashboardSidebar";
+  const submenuAnterior = document.getElementById(idSubmenu);
+  if (submenuAnterior) submenuAnterior.remove();
+
+  if (!itemDashboard) return;
+
+  if (itemDashboard.dataset.dashboardClickConfigured !== "true") {
+    itemDashboard.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      const submenu = document.getElementById(
+        itemDashboard.getAttribute("aria-controls"),
+      );
+      if (!submenu) return;
+      const expandido = itemDashboard.getAttribute("aria-expanded") === "true";
+      itemDashboard.setAttribute("aria-expanded", String(!expandido));
+      submenu.hidden = expandido;
+    });
+    itemDashboard.dataset.dashboardClickConfigured = "true";
+  }
 
   if (itemDashboard && opcoesPermitidas.length) {
     itemDashboard.dataset.dashboardNav = "true";
 
-    const idSubmenu = "opcoesDashboardSidebar";
     const paginaAtual = window.location.pathname.split("/").pop();
     const submenu = document.createElement("div");
     submenu.id = idSubmenu;
@@ -101,18 +119,17 @@ function configurarAcessoDashboard(permissoesUsuario) {
     });
 
     itemDashboard.href = "#";
+    itemDashboard.setAttribute("aria-controls", idSubmenu);
     itemDashboard.setAttribute(
       "aria-expanded",
       String(!submenu.hidden),
     );
-    itemDashboard.setAttribute("aria-controls", idSubmenu);
     itemDashboard.insertAdjacentElement("afterend", submenu);
-    itemDashboard.addEventListener("click", (evento) => {
-      evento.preventDefault();
-      const expandido = itemDashboard.getAttribute("aria-expanded") === "true";
-      itemDashboard.setAttribute("aria-expanded", String(!expandido));
-      submenu.hidden = expandido;
-    });
+  } else {
+    delete itemDashboard.dataset.dashboardNav;
+    itemDashboard.removeAttribute("aria-expanded");
+    itemDashboard.removeAttribute("aria-controls");
+    itemDashboard.href = "#";
   }
 
   const paginaAtual = window.location.pathname.split("/").pop();
@@ -238,6 +255,16 @@ function iniciarSidebar() {
   const botaoSair = document.getElementById("sbSair");
   if (botaoSair) {
     botaoSair.addEventListener("click", sairDoSistema);
+  }
+}
+
+function atualizarInterfaceDaSessao() {
+  aplicarPermissoesSidebar();
+  marcarItemAtivoSidebar();
+  definirTooltipsSidebar();
+
+  if (typeof carregarInformacoes === "function") {
+    carregarInformacoes();
   }
 }
 

@@ -383,6 +383,16 @@ async function salvarCargo() {
 
   const idAdministrador = sessionStorage.ID;
   const editando = idCargoEditando !== null;
+  const cargoAntesDaEdicao = editando
+    ? listaCargos.find(
+        (cargo) => String(cargo.idCargo) === String(idCargoEditando),
+      )
+    : null;
+  const usuarioLogadoTemCargo =
+    editando &&
+    cargoAntesDaEdicao &&
+    normalizarTexto(sessionStorage.getItem("CARGO")) ===
+      normalizarTexto(cargoAntesDaEdicao.nome);
 
   const botao = document.getElementById("botaoSalvarCargo");
   const textoOriginal = botao.textContent;
@@ -414,6 +424,23 @@ async function salvarCargo() {
     const corpo = await resposta.json().catch(() => null);
     if (!resposta.ok) {
       throw new Error((corpo && corpo.mensagem) || `Erro ${resposta.status}`);
+    }
+
+    if (usuarioLogadoTemCargo) {
+      const permissoesDoCargo = permissoesDisponiveis
+        .filter((permissao) =>
+          permissoes.includes(Number(permissao.idPermissao)),
+        )
+        .map((permissao) => String(permissao.nome).trim().toUpperCase());
+      sessionStorage.setItem("FK_CARGO", idCargoEditando);
+      sessionStorage.setItem("CARGO", nome);
+      sessionStorage.setItem(
+        "PERMISSOES",
+        JSON.stringify(permissoesDoCargo),
+      );
+      if (typeof atualizarInterfaceDaSessao === "function") {
+        atualizarInterfaceDaSessao();
+      }
     }
 
     fecharModalCargo();

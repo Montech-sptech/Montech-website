@@ -84,6 +84,7 @@ function normalizarUsuario(u) {
     nomeUsuario: u.nomeUsuario || u.nome || "",
     email: u.email || "",
     cargo: u.nomeCargo || u.cargo || "",
+    fkCargo: u.fkCargo,
     status: !(
       statusBruto === false ||
       statusBruto === 0 ||
@@ -610,52 +611,62 @@ function carregarAeroportoDoAdministrador() {
 }
 
 
+function buscarCargosDaEmpresa() {
+  const empresaId = sessionStorage.getItem("EMPRESA_ID");
+
+  if (!empresaId) {
+    return Promise.reject(new Error("ID da empresa não encontrado."));
+  }
+
+  return fetch(`/usuarios/cargos?empresaId=${encodeURIComponent(empresaId)}`)
+    .then(function (resposta) {
+      if (!resposta.ok) {
+        throw new Error("Erro ao buscar cargos.");
+      }
+
+      return resposta.json();
+    })
+    .then(function (cargos) {
+      if (!Array.isArray(cargos)) {
+        throw new Error("Resposta de cargos em formato inesperado.");
+      }
+      return cargos;
+    });
+}
+
+function preencherSelectCargos(selectCargo, cargos, fkCargoSelecionado) {
+  selectCargo.innerHTML = '<option value="">Selecione o cargo</option>';
+
+  cargos.forEach(function (cargo) {
+    if (!cargo || cargo.idCargo === undefined) return;
+
+    var opcao = document.createElement("option");
+    opcao.value = cargo.idCargo;
+    opcao.textContent = cargo.nome;
+    selectCargo.appendChild(opcao);
+  });
+
+  selectCargo.value =
+    fkCargoSelecionado === undefined || fkCargoSelecionado === null
+      ? ""
+      : String(fkCargoSelecionado);
+}
+
 function carregarCargos() {
-    var empresaId = sessionStorage.getItem("EMPRESA_ID");
+  var selectCargo = document.getElementById("cargoCadastroUser");
 
-    if (!empresaId) {
-        console.error("ID da empresa não encontrado.");
-        return;
-    }
+  if (!selectCargo) {
+    console.error("Campo de cargo não encontrado no HTML.");
+    return;
+  }
 
-    var selectCargo = document.getElementById("cargoCadastroUser");
-
-    if (!selectCargo) {
-        console.error("Campo de cargo não encontrado no HTML.");
-        return;
-    }
-
-    fetch(`/usuarios/cargos?empresaId=${encodeURIComponent(empresaId)}`)
-        .then(function (resposta) {
-            if (!resposta.ok) {
-                throw new Error("Erro ao buscar cargos.");
-            }
-
-            return resposta.json();
-        })
-        .then(function (cargos) {
-            console.log("Cargos recebidos:", cargos);
-
-            if (!Array.isArray(cargos)) {
-                throw new Error("Resposta de cargos em formato inesperado.");
-            }
-
-            selectCargo.innerHTML = '<option value="">Selecione o cargo</option>';
-
-            cargos.forEach(function (cargo) {
-                if (!cargo || cargo.idCargo === undefined) return;
-
-                var opcao = document.createElement("option");
-
-                opcao.value = cargo.idCargo;
-                opcao.textContent = cargo.nome;
-
-                selectCargo.appendChild(opcao);
-            });
-        })
-        .catch(function (erro) {
-            console.error("Erro ao carregar cargos:", erro);
-        });
+  buscarCargosDaEmpresa()
+    .then(function (cargos) {
+      preencherSelectCargos(selectCargo, cargos);
+    })
+    .catch(function (erro) {
+      console.error("Erro ao carregar cargos:", erro);
+    });
 }
 
 
@@ -775,11 +786,12 @@ function abrirModalEdicao(idUsuarioClicado) {
 
   const campoNome = document.getElementById("inputNomeModal");
   const campoEmail = document.getElementById("inputEmailModal");
+  const selectCargo = document.getElementById("selectCargoModal");
   const selectStatus = document.getElementById("selectStatusModal");
   const containerServidores = document.querySelector(".gridServidoresModal");
   const modal = document.getElementById("modalEdicao");
 
-  if (!campoNome || !campoEmail || !selectStatus || !containerServidores || !modal) {
+  if (!campoNome || !campoEmail || !selectCargo || !selectStatus || !containerServidores || !modal) {
     console.error("Elementos do modal de edição não encontrados no HTML.");
     return;
   }
@@ -789,6 +801,11 @@ function abrirModalEdicao(idUsuarioClicado) {
   campoNome.value = usuarioSelecionado.nomeUsuario;
   campoEmail.value = usuarioSelecionado.email;
   selectStatus.value = usuarioSelecionado.status === false ? "inativo" : "ativo";
+  selectCargo.disabled = true;
+  selectCargo.innerHTML = '<option value="">Carregando cargos...</option>';
+
+  const mensagem = document.getElementById("mensagemEditarUser");
+  if (mensagem) mensagem.textContent = "";
 
   const idsServidoresUsuario = usuarioSelecionado.servidores.map((s) =>
     String(s.idServidor),
@@ -816,6 +833,19 @@ function abrirModalEdicao(idUsuarioClicado) {
   containerServidores.innerHTML = htmlCheckboxes;
 
   modal.classList.remove("escondido");
+
+  const idUsuarioCarregado = String(idUsuarioEditando);
+  buscarCargosDaEmpresa()
+    .then((cargos) => {
+      if (String(idUsuarioEditando) !== idUsuarioCarregado) return;
+      preencherSelectCargos(selectCargo, cargos, usuarioSelecionado.fkCargo);
+      selectCargo.disabled = false;
+    })
+    .catch((erro) => {
+      console.error("Erro ao carregar cargos para edição:", erro);
+      if (String(idUsuarioEditando) !== idUsuarioCarregado) return;
+      if (mensagem) mensagem.textContent = "Não foi possível carregar os cargos da empresa.";
+    });
 }
 
 function fecharModalEdicao() {
@@ -862,9 +892,10 @@ function salvarEdicaoUsuario() {
 
   const campoNome = document.getElementById("inputNomeModal");
   const campoEmail = document.getElementById("inputEmailModal");
+  const selectCargo = document.getElementById("selectCargoModal");
   const selectStatus = document.getElementById("selectStatusModal");
 
-  if (!campoNome || !campoEmail || !selectStatus) {
+  if (!campoNome || !campoEmail || !selectCargo || !selectStatus) {
     console.error("Elementos do modal de edição não encontrados no HTML.");
     return;
   }
@@ -874,11 +905,15 @@ function salvarEdicaoUsuario() {
   campoNome.value = novoNome;
   const novoEmail = campoEmail.value.trim();
   campoEmail.value = novoEmail;
+  const novoCargo = selectCargo.value;
   const novoStatus = selectStatus.value;
 
   const erro =
     validarNomeUsuario(novoNome) ||
     validarEmailUsuario(novoEmail) ||
+    (selectCargo.disabled || !novoCargo
+      ? "Selecione um cargo disponível da empresa."
+      : null) ||
     (novoStatus !== "ativo" && novoStatus !== "inativo"
       ? "O status deve ser ativo ou inativo."
       : null) ||
@@ -932,6 +967,7 @@ function salvarEdicaoUsuario() {
       body: JSON.stringify({
         nome: novoNome,
         email: novoEmail,
+        fkCargo: novoCargo,
         statusAtividade: novoStatus === "ativo",
       }),
     }),
@@ -964,11 +1000,37 @@ function salvarEdicaoUsuario() {
   }
 
   Promise.all(requisicoesPendentes)
-    .then((respostas) => {
+    .then(async (respostas) => {
       const respostaComErro = respostas.find((resposta) => !resposta.ok);
       if (respostaComErro) {
         throw new Error(`Erro ${respostaComErro.status} ao salvar alterações`);
       }
+
+      if (String(idUsuarioEditando) === String(sessionStorage.ID)) {
+        const dadosEdicao = await respostas[0].json();
+        const usuarioAtualizado = dadosEdicao.usuario;
+        if (!usuarioAtualizado) {
+          throw new Error("O servidor não retornou os dados atualizados do usuário.");
+        }
+
+        sessionStorage.setItem("USUARIO_ID", usuarioAtualizado.idUsuario);
+        sessionStorage.setItem("NOME", usuarioAtualizado.nome);
+        sessionStorage.setItem("EMAIL", usuarioAtualizado.email);
+        sessionStorage.setItem("CARGO", usuarioAtualizado.cargo);
+        sessionStorage.setItem("FK_CARGO", usuarioAtualizado.fkCargo);
+        sessionStorage.setItem(
+          "PERMISSOES",
+          JSON.stringify(
+            usuarioAtualizado.permissoes.map((permissao) =>
+              String(permissao).trim().toUpperCase(),
+            ),
+          ),
+        );
+        if (typeof atualizarInterfaceDaSessao === "function") {
+          atualizarInterfaceDaSessao();
+        }
+      }
+
       fecharModalEdicao();
       pegarUsuariosPeloAdministrador();
     })

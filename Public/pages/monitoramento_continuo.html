@@ -104,10 +104,10 @@
 </header>
 
 <section class="grid kpis" aria-label="Indicadores principais">
-  <div class="card kpi"><div class="l">Servidores online</div><div class="v ok">3 / 3</div><div class="d">GRU-SPA, GRU-SDV e GRU-AIS respondendo</div></div>
-  <div class="card kpi"><div class="l">Servidor com mais componentes acima do limite</div><div class="v wa">GRU-SPA</div><div class="d">CPU 74% · RAM 88%</div></div>
-  <div class="card kpi"><div class="l">Servidor com mais componentes críticos</div><div class="v cr">GRU-SDV</div><div class="d">RAM 94%</div></div>
-  <div class="card kpi"><div class="l">Temperatura da CPU (maior entre os servidores)</div><div class="v ok">67 °C</div><div class="d">GRU-SPA</div></div>
+  <div class="card kpi"><div class="l">Servidores online</div><div class="v ok" id="kpiOnlineV">-- / --</div><div class="d" id="kpiOnlineD">Carregando...</div></div>
+  <div class="card kpi"><div class="l">Servidor com mais componentes acima do limite</div><div class="v wa" id="kpiAvisoV">--</div><div class="d" id="kpiAvisoD">Carregando...</div></div>
+  <div class="card kpi"><div class="l">Servidor com mais componentes críticos</div><div class="v cr" id="kpiCritV">--</div><div class="d" id="kpiCritD">Carregando...</div></div>
+  <div class="card kpi"><div class="l">Temperatura da CPU (maior entre os servidores)</div><div class="v ok" id="kpiTempV">-- °C</div><div class="d" id="kpiTempD">Carregando...</div></div>
 </section>
 
 <section class="grid srv" id="srv" aria-label="Estado por servidor"></section>
@@ -125,6 +125,7 @@
       </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <script src="../js/monitoramento_continuo.js"></script>
   </body>
 </html>

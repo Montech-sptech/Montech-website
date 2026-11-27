@@ -1,16 +1,25 @@
+/* ==========================================================
+   MonTech · Custos dos serviços
+   Estética alinhada à dashboard "Monitoramento Contínuo"
+   (fundo azul-índigo, cards com borda sutil e cantos grandes,
+   valores grandes coloridos por estado, pills e botões outline)
+   ========================================================== */
 :root {
-  --bg: #0a0f1a;
-  --surface: #101826;
-  --surface-2: #141e30;
-  --border: #1e2a40;
-  --text: #e6ebf4;
-  --muted: #8693a9;
-  --blue: #3b82f6;
-  --blue-soft: rgba(59, 130, 246, 0.14);
-  --green: #22c55e;
-  --amber: #f59e0b;
-  --red: #ef4444;
-  --radius: 12px;
+  --bg: #080c26;
+  --surface: rgba(7, 11, 37, 0.75);
+  --surface-2: rgba(139, 141, 255, 0.07);
+  --surface-solid: #0b1030;
+  --border: #1f2a63;
+  --text: #ffffff;
+  --muted: #c9ccf5;
+  --blue: #8b8dff;
+  --blue-soft: rgba(139, 141, 255, 0.18);
+  --green: #34d77a;
+  --amber: #ffcd71;
+  --red: #ff6b7a;
+  --violet: #b69cff;
+  --teal: #4fd1c5;
+  --radius: 22px;
   color-scheme: dark;
 }
 
@@ -33,19 +42,14 @@ body {
     Roboto,
     sans-serif;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.45;
   padding: 20px;
 }
 
 .mg {
-  --bg: #080c26; --panel: rgba(7, 11, 37, 0.75); --line: #1f2a63; --tx: #ffffff; --mu: #c9ccf5;
-  --ok: #34d77a; --wa: #ffcd71; --cr: #ff6b7a; --ac: #8b8dff;
-  --s1: #8b8dff; --s2: #b69cff; --s3: #4fd1c5;
   box-sizing: border-box;
   margin-left: var(--largura-sidebar);
-  /* min-height: 100vh; */
-  /* padding: clamp(20px, 3vw, 32px) clamp(16px, 3vw, 40px) 55px; */
-  color: var(--tx);
+  color: var(--text);
   font-size: 14px;
   line-height: 1.45;
   max-width: 1280px;
@@ -65,26 +69,30 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 22px 24px;
 }
 .label {
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--muted);
 }
 .title {
-  font-size: 22px;
-  font-weight: 650;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  color: var(--text);
 }
 .subtitle {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--muted);
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
 #topbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
   justify-content: space-between;
 }
@@ -95,7 +103,7 @@ body {
 #topbar-controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   align-items: stretch;
 }
 .field {
@@ -104,13 +112,17 @@ body {
   gap: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 14px;
-  min-width: 150px;
+  border-radius: 16px;
+  padding: 6px 14px;
+  min-width: 140px;
 }
 .field:focus-within {
   border-color: var(--blue);
   box-shadow: 0 0 0 3px var(--blue-soft);
+}
+.field .label {
+  font-size: 12px;
+  color: var(--text);
 }
 .field .value,
 .field input {
@@ -119,11 +131,11 @@ body {
   outline: 0;
   color: var(--text);
   font: inherit;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
 }
 #budget-input {
-  width: 110px;
+  width: 90px;
   -moz-appearance: textfield;
   appearance: textfield;
   cursor: default;
@@ -133,13 +145,16 @@ body {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* banner de erro — mesmo desenho da faixa "Atenção" */
 #error-banner {
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  color: var(--red);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  font-size: 13px;
+  background: rgba(255, 107, 122, 0.1);
+  border: 1px solid rgba(255, 107, 122, 0.5);
+  color: var(--text);
+  border-radius: 16px;
+  padding: 14px 20px;
+  font-size: 15px;
+  align-self: flex-end;
 }
 #error-banner[hidden] {
   display: none;
@@ -149,35 +164,40 @@ body {
   flex-wrap: wrap;
   gap: 10px;
 }
+
+/* botões outline */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 0 16px;
-  min-height: 52px;
+  padding: 0 14px;
+  min-height: 40px;
   border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--surface);
+  border: 1px solid rgba(201, 204, 245, 0.45);
+  background: var(--surface-solid);
   color: var(--text);
   font: inherit;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   transition:
     background 0.15s,
-    border-color 0.15s;
+    border-color 0.15s,
+    color 0.15s;
 }
 .btn:hover {
   border-color: var(--blue);
+  color: var(--blue);
   background: var(--surface-2);
 }
 .btn.primary {
-  background: var(--blue);
+  background: transparent;
   border-color: var(--blue);
-  color: #fff;
+  color: var(--blue);
 }
 .btn.primary:hover {
-  background: #2f6fe0;
+  background: var(--blue-soft);
 }
 .btn.small {
   min-height: 32px;
@@ -185,100 +205,102 @@ body {
   font-size: 12px;
 }
 
+/* indicadores */
 #kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 16px;
 }
 .kpi {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px 16px;
+  gap: 10px;
+  padding: 22px 24px;
+}
+.kpi > .label {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
 }
 .kpi-value {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--text);
+}
+/* o valor ganha a cor do estado (chip principal do card) */
+.kpi:has(> .kpi-foot .chip.good) .kpi-value {
+  color: var(--green);
+}
+.kpi:has(> .kpi-foot .chip.warn) .kpi-value {
+  color: var(--amber);
+}
+.kpi:has(> .kpi-foot .chip.bad) .kpi-value {
+  color: var(--red);
+}
+.kpi:has(> .kpi-foot .chip.neutral) .kpi-value {
+  color: var(--blue);
 }
 .kpi-foot {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 8px;
+  gap: 6px 10px;
   align-items: center;
-  font-size: 12px;
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
   color: var(--muted);
 }
+
+/* pills outline, como o "Aviso" / "Crítico" */
 .chip {
-  padding: 2px 8px;
+  padding: 2px 12px;
   border-radius: 999px;
+  border: 1px solid currentColor;
+  background: transparent;
   font-size: 12px;
   font-weight: 600;
 }
 .chip.bad {
-  background: rgba(239, 68, 68, 0.15);
   color: var(--red);
 }
 .chip.good {
-  background: rgba(34, 197, 94, 0.15);
   color: var(--green);
 }
 .chip.warn {
-  background: rgba(245, 158, 11, 0.15);
   color: var(--amber);
 }
 .chip.neutral {
-  background: var(--blue-soft);
   color: var(--blue);
 }
-.kpi-flights-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 8px;
-  align-items: center;
-}
-.kpi-flights-row[hidden] {
-  display: none;
-}
-.kpi-flights {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 6px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--muted);
-}
-.kpi-flights[hidden] {
-  display: none;
-}
-.kpi-flights-main {
-  color: var(--text);
-}
-.kpi-flights-main strong {
-  font-weight: 700;
+#kpi-daily-note {
+  flex-basis: 100%;
 }
 #kpi-projection {
-  background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), var(--surface));
-  border-color: rgba(245, 158, 11, 0.35);
+  border-color: rgba(255, 205, 113, 0.4);
 }
+
 .card-head {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .card-title {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text);
 }
 .legend {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--muted);
 }
 .legend i {
@@ -290,7 +312,7 @@ body {
   margin-right: 6px;
 }
 .legend .l-prev {
-  border-color: #64748b;
+  border-color: #8e93c9;
 }
 .legend .l-cur {
   border-color: var(--blue);
@@ -306,7 +328,7 @@ body {
 #charts-row {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 12px;
+  gap: 16px;
   align-items: stretch;
 }
 #charts-row:has(#pie-section[hidden]) {
@@ -337,11 +359,11 @@ body {
   height: 220px;
 }
 .info-btn {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
+  border: 1px solid rgba(201, 204, 245, 0.45);
+  background: transparent;
   color: var(--muted);
   font: inherit;
   font-size: 13px;
@@ -355,7 +377,7 @@ body {
 }
 .info-btn:hover,
 .info-btn:focus-visible {
-  color: var(--text);
+  color: var(--blue);
   border-color: var(--blue);
   outline: 0;
 }
@@ -368,7 +390,9 @@ body {
 #pie-legend {
   list-style: none;
   padding: 0;
-  margin-top: 14px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -389,13 +413,14 @@ body {
 }
 #pie-legend .pie-name {
   font-weight: 500;
+  color: var(--muted);
 }
 
 /* modal de detalhes da composição */
 #pie-modal {
   position: fixed;
   inset: 0;
-  background: rgba(3, 7, 14, 0.7);
+  background: rgba(3, 5, 22, 0.78);
   display: none;
   align-items: center;
   justify-content: center;
@@ -410,10 +435,10 @@ body {
   max-width: 540px;
   max-height: 85vh;
   overflow: auto;
-  background: var(--surface);
+  background: var(--surface-solid);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
+  border-radius: var(--radius);
+  padding: 22px 24px;
 }
 #pie-dialog .card-head {
   margin: 0;
@@ -422,14 +447,18 @@ body {
   background: none;
   border: 0;
   color: var(--muted);
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
   line-height: 1;
+}
+#pie-modal-close:hover,
+#history-close:hover {
+  color: var(--text);
 }
 #pie-detalhes {
   list-style: none;
   padding: 0;
-  margin-top: 12px;
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -437,8 +466,8 @@ body {
 #pie-detalhes .pie-item {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
+  border-radius: 14px;
+  padding: 12px 14px;
 }
 #pie-detalhes .pie-item.total {
   background: transparent;
@@ -464,6 +493,7 @@ body {
   font-size: 13px;
   font-weight: 600;
   line-height: 1.25;
+  color: var(--text);
 }
 .pie-aws {
   font-size: 11px;
@@ -473,8 +503,9 @@ body {
 .pie-valor {
   text-align: right;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
+  color: var(--text);
 }
 .pie-pct {
   display: block;
@@ -487,7 +518,7 @@ body {
 #history-modal {
   position: fixed;
   inset: 0;
-  background: rgba(3, 7, 14, 0.7);
+  background: rgba(3, 5, 22, 0.78);
   display: none;
   align-items: center;
   justify-content: center;
@@ -502,13 +533,16 @@ body {
   max-width: 560px;
   max-height: 85vh;
   overflow: auto;
-  background: var(--surface);
+  background: var(--surface-solid);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
+  border-radius: var(--radius);
+  padding: 22px 24px;
 }
 #history-dialog .card-head {
   margin: 0;
+}
+#history-dialog .subtitle {
+  font-size: 14px;
 }
 #history-list {
   list-style: none;
@@ -516,7 +550,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 .history-item {
   display: flex;
@@ -526,11 +560,11 @@ body {
   gap: 8px;
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
+  border-radius: 14px;
+  padding: 12px 14px;
 }
 .history-name {
-  font-weight: 600;
+  font-weight: 700;
   text-transform: capitalize;
 }
 .history-meta {
@@ -545,7 +579,7 @@ body {
   background: none;
   border: 0;
   color: var(--muted);
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
   line-height: 1;
 }
@@ -562,6 +596,9 @@ body {
   body {
     padding: 12px;
   }
+  .title {
+    font-size: 30px;
+  }
   #kpi-grid {
     grid-template-columns: 1fr;
   }
@@ -574,6 +611,6 @@ body {
     width: 100%;
   }
   .kpi-value {
-    font-size: 24px;
+    font-size: 26px;
   }
 }

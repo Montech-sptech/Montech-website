@@ -22,9 +22,6 @@
  *       voos_mes,                 // voos do início do mês até o dia
  *       voos_mes_anterior,        // voos no mesmo período do mês anterior
  *       variacao_voos_pct,        // variação já calculada
- *       custo_por_voo,            // gasto acumulado ÷ voos acumulados (US$)
- *       custo_por_voo_mes_anterior,
- *       variacao_custo_por_voo_pct, variacao_custo_por_voo_nivel,  // menor = "good"
  *       dias_restantes, mes_decorrido_pct, folga_projetada_usd,    // leitura do mês
  *       custo_por_servico: [ { nome, servico_aws, valor, pct } ]   // 5 maiores + "Outros"
  *     }
@@ -132,42 +129,17 @@ function renderizarKpiDiario(posicao) {
     formatarPorcentagem(posicao.variacao_media_diaria_pct),
     posicao.variacao_media_diaria_nivel,
   );
-  obterPorId("kpi-daily-note").textContent =
-    "vs. " + formatarUsd(posicao.media_diaria_mes_anterior) + " / dia no mês anterior";
+  // descrição: voos no mês + variação (dado externo opcional)
+  let nota = "";
+  if (posicao.voos_mes != null) {
+    const variacaoVoos =
+      posicao.variacao_voos_pct != null ? " (" + formatarPorcentagem(posicao.variacao_voos_pct) + ")" : "";
+    nota = "✈ " + formatarInteiro(posicao.voos_mes) + " voos no mês" + variacaoVoos;
+  }
+  obterPorId("kpi-daily-note").textContent = nota;
 }
 
 const formatarInteiro = (valor) => valor.toLocaleString("pt-BR");
-
-// Dado externo: se o JSON não trouxer os voos, o bloco simplesmente fica oculto
-function renderizarKpiVoos(posicao) {
-  const bloco = obterPorId("kpi-flights");
-  if (posicao.voos_mes == null || posicao.voos_mes_anterior == null) {
-    bloco.hidden = true;
-    return;
-  }
-  obterPorId("kpi-flights-value").textContent = formatarInteiro(posicao.voos_mes);
-  definirChip("kpi-flights-chip", formatarPorcentagem(posicao.variacao_voos_pct), "neutral");
-  obterPorId("kpi-flights-note").textContent =
-    "vs. " + formatarInteiro(posicao.voos_mes_anterior) + " no mesmo período do mês anterior";
-  bloco.hidden = false;
-}
-
-function renderizarCustoPorVoo(posicao) {
-  const linha = obterPorId("kpi-cpf");
-  if (posicao.custo_por_voo == null || posicao.custo_por_voo_mes_anterior == null) {
-    linha.hidden = true;
-    return;
-  }
-  obterPorId("kpi-cpf-value").textContent = formatarUsdCentavos(posicao.custo_por_voo);
-  definirChip(
-    "kpi-cpf-chip",
-    formatarPorcentagem(posicao.variacao_custo_por_voo_pct),
-    posicao.variacao_custo_por_voo_nivel,
-  );
-  obterPorId("kpi-cpf-note").textContent =
-    "vs. " + formatarUsdCentavos(posicao.custo_por_voo_mes_anterior) + " no mesmo período do mês anterior";
-  linha.hidden = false;
-}
 
 // Contexto dos cards 1 e 2: ritmo do mês, folga no orçamento e dias restantes
 function renderizarContextoOrcamento(mes, posicao) {
@@ -209,8 +181,6 @@ function renderizarKpis() {
   });
   renderizarKpiVariacao(posicao, obterMes(estado.mesesAtras + 1));
   renderizarKpiDiario(posicao);
-  renderizarKpiVoos(posicao);
-  renderizarCustoPorVoo(posicao);
   renderizarContextoOrcamento(mes, posicao);
 }
 
@@ -222,10 +192,10 @@ const completarSerie = (lista, tamanho, deslocamento = 0) =>
 function gradientePreenchimentoAtual(contexto) {
   const grafico = contexto.chart;
   const { chartArea: areaGrafico } = grafico;
-  if (!areaGrafico) return "rgba(59,130,246,.15)";
+  if (!areaGrafico) return "rgba(139,141,255,.15)";
   const gradiente = grafico.ctx.createLinearGradient(0, areaGrafico.top, 0, areaGrafico.bottom);
-  gradiente.addColorStop(0, "rgba(59,130,246,.3)");
-  gradiente.addColorStop(1, "rgba(59,130,246,0)");
+  gradiente.addColorStop(0, "rgba(139,141,255,.3)");
+  gradiente.addColorStop(1, "rgba(139,141,255,0)");
   return gradiente;
 }
 
@@ -244,7 +214,7 @@ function montarDadosGrafico() {
         ...linha,
         label: "Mês anterior",
         data: completarSerie(anterior ? anterior.acumulado_por_dia : [], quantidadeDias),
-        borderColor: "#64748b",
+        borderColor: "#8e93c9",
         borderWidth: 2,
         order: 3,
       },
@@ -252,7 +222,7 @@ function montarDadosGrafico() {
         ...linha,
         label: "Atual",
         data: completarSerie(atual.acumulado_por_dia.slice(0, estado.dia), quantidadeDias),
-        borderColor: "#3b82f6",
+        borderColor: "#8b8dff",
         borderWidth: 2.5,
         fill: "origin",
         backgroundColor: gradientePreenchimentoAtual,
@@ -262,7 +232,7 @@ function montarDadosGrafico() {
         ...linha,
         label: "Projeção",
         data: completarSerie(posicao.projecao_acumulada, quantidadeDias, estado.dia - 1),
-        borderColor: "#f59e0b",
+        borderColor: "#ffcd71",
         borderWidth: 2,
         borderDash: [6, 5],
         order: 2,
@@ -271,7 +241,7 @@ function montarDadosGrafico() {
         ...linha,
         label: "Orçamento",
         data: rotulos.map(() => atual.orcamento),
-        borderColor: "#ef4444",
+        borderColor: "#ff6b7a",
         borderWidth: 1.5,
         borderDash: [2, 4],
         pointHoverRadius: 0,
@@ -298,24 +268,24 @@ const marcacoesGrafico = {
     ctx.font = "600 12px Inter, system-ui, sans-serif";
 
     // linha vertical "Hoje"
-    ctx.strokeStyle = "rgba(230,235,244,.35)";
+    ctx.strokeStyle = "rgba(201,204,245,.4)";
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
     ctx.moveTo(xHoje, area.top);
     ctx.lineTo(xHoje, area.bottom);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = "#e6ebf4";
+    ctx.fillStyle = "#ffffff";
     ctx.textAlign = xHoje > area.right - 90 ? "right" : "left";
     ctx.fillText(`Hoje · dia ${estado.dia}`, xHoje + (ctx.textAlign === "left" ? 6 : -6), area.bottom - 8);
 
     // orçamento
-    ctx.fillStyle = "#ef4444";
+    ctx.fillStyle = "#ff6b7a";
     ctx.textAlign = "left";
     ctx.fillText(`Orçamento ${formatarUsd(atual.orcamento)}`, area.left + 6, yOrcamento + 16);
 
     // ponto no fim da projeção
-    ctx.fillStyle = "#f59e0b";
+    ctx.fillStyle = "#ffcd71";
     ctx.beginPath();
     ctx.arc(xFim, yProjetado, 4, 0, Math.PI * 2);
     ctx.fill();
@@ -324,7 +294,7 @@ const marcacoesGrafico = {
 };
 
 /* ========== Composição do custo (pizza) ========== */
-const CORES_PIZZA = ["#3b82f6", "#8b5cf6", "#06b6d4", "#ec4899", "#14b8a6", "#64748b"];
+const CORES_PIZZA = ["#8b8dff", "#b69cff", "#4fd1c5", "#ffcd71", "#34d77a", "#8e93c9"];
 
 function criarPonto(indice) {
   const ponto = document.createElement("span");
@@ -430,8 +400,6 @@ function renderizarPizza() {
     return;
   }
   secao.hidden = false;
-  obterPorId("pie-subtitle").textContent =
-    "Gasto acumulado no mês: " + formatarUsd(posicao.gasto) + " (dia " + estado.dia + ")";
   renderizarLegendaPizza(fatias);
   renderizarDetalhesPizza(fatias, posicao);
 
@@ -441,7 +409,7 @@ function renderizarPizza() {
       {
         data: fatias.map((fatia) => fatia.valor),
         backgroundColor: fatias.map((_fatia, indice) => CORES_PIZZA[indice % CORES_PIZZA.length]),
-        borderColor: "#101826",
+        borderColor: "#080c26",
         borderWidth: 2,
 
       },
@@ -459,11 +427,11 @@ function renderizarPizza() {
         plugins: {
           legend: { display: false }, // legenda customizada no HTML
           tooltip: {
-            backgroundColor: "#0b1424",
-            borderColor: "#1e2a40",
+            backgroundColor: "#0b1030",
+            borderColor: "#1f2a63",
             borderWidth: 1,
-            titleColor: "#e6ebf4",
-            bodyColor: "#e6ebf4",
+            titleColor: "#ffffff",
+            bodyColor: "#ffffff",
             titleFont: { size: 15, weight: "600" },
             bodyFont: { size: 13 },
             padding: 50,
@@ -494,15 +462,15 @@ function montarOpcoesGrafico() {
     scales: {
       x: {
         grid: { display: false },
-        border: { color: "#1e2a40" },
-        ticks: { color: "#8693a9", maxTicksLimit: 10, font: { size: 15 }, padding: 6 },
+        border: { color: "#1f2a63" },
+        ticks: { color: "#c9ccf5", maxTicksLimit: 10, font: { size: 15 }, padding: 6 },
       },
       y: {
         min: 0, // máximo é automático (Chart.js)
-        grid: { color: "#1e2a40" },
+        grid: { color: "#1f2a63" },
         border: { display: false },
         ticks: {
-          color: "#8693a9",
+          color: "#c9ccf5",
           maxTicksLimit: 6,
           font: { size: 15 },
           padding: 8,
@@ -513,11 +481,11 @@ function montarOpcoesGrafico() {
     plugins: {
       legend: { display: false }, // legenda customizada no HTML
       tooltip: {
-        backgroundColor: "#0b1424",
-        borderColor: "#1e2a40",
+        backgroundColor: "#0b1030",
+        borderColor: "#1f2a63",
         borderWidth: 1,
-        titleColor: "#e6ebf4",
-        bodyColor: "#e6ebf4",
+        titleColor: "#ffffff",
+        bodyColor: "#ffffff",
         titleFont: { size: 16, weight: "600" },
         bodyFont: { size: 15 },
         padding: 12,
